@@ -4,6 +4,7 @@ permissions:
   contents: read
 jobs:
   desktop:
+    name: Linux software Vulkan (MSAA disabled)
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -32,10 +33,10 @@ jobs:
           export VK_ICD_FILENAMES="$(find /usr/share/vulkan/icd.d -iname '*lvp*' | head -1)"
           test -n "$VK_ICD_FILENAMES"
           for suite in gpu_checks lifecycle_checks rendering_checks migration_recovery_checks spatial_checks; do
-            xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --gpu --timeout 300 --script "res://tests/$suite.gd"
+            xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --timeout 300 --script "res://tests/$suite.gd"
           done
           python tools/make_spatial_fixture.py /tmp/spatial-ci.ply --count 40000
-          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --gpu --script res://tests/spatial_async_checks.gd --test-arg /tmp/spatial-ci.ply --test-arg 40000
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --script res://tests/spatial_async_checks.gd --test-arg /tmp/spatial-ci.ply --test-arg 40000
       - name: Upload qualification logs
         if: always()
         uses: actions/upload-artifact@v4

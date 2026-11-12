@@ -1,5 +1,5 @@
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
-import threading,json,time,subprocess,argparse
+import threading,json,time,subprocess,argparse,shutil
 from pathlib import Path
 class Handler(BaseHTTPRequestHandler):
  def log_message(self,*args):pass
@@ -22,6 +22,7 @@ class Handler(BaseHTTPRequestHandler):
   except (BrokenPipeError,ConnectionResetError,ConnectionAbortedError):pass
 parser=argparse.ArgumentParser();parser.add_argument('--godot',required=True)
 parser.add_argument('--project',type=Path,default=Path(__file__).resolve().parents[1]);args=parser.parse_args()
+args.godot=shutil.which(args.godot) or args.godot
 server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
 threading.Thread(target=server.serve_forever,daemon=True).start()
 try:

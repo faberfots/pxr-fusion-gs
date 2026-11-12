@@ -6,12 +6,17 @@ ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--godot', default=os.environ.get('GODOT_BIN', r'C:\Users\User\Downloads\Godot_v4.6.2\Godot_v4.6.2-stable_win64_console.exe'))
 parser.add_argument('--gpu', action='store_true')
+parser.add_argument('--disable-msaa', action='store_true', help='Qualify software Vulkan without the unresolved MSAA depth path.')
 parser.add_argument('--candidate', type=Path)
 parser.add_argument('--skip-import', action='store_true')
 parser.add_argument('--script', default='res://tests/core_checks.gd')
 parser.add_argument('--timeout', type=int, default=180)
 parser.add_argument('--test-arg', action='append', default=[])
 args = parser.parse_args()
+resolved_godot = shutil.which(args.godot)
+if not resolved_godot and args.godot == 'godot':
+    resolved_godot = os.environ.get('GODOT')
+args.godot = str(Path(resolved_godot or args.godot).resolve())
 candidate = args.candidate or Path(tempfile.mkdtemp(prefix='gs-checks-'))
 for directory in ('modules', 'addons', 'assets', 'tests'):
     source = ROOT / directory
@@ -30,6 +35,9 @@ project = re.sub(r'config/name="[^"]*"', 'config/name="GS Qualification '+candid
 project = re.sub(r'run/main_scene=.*', 'run/main_scene=""', project)
 project = re.sub(r'enabled=PackedStringArray\([^\n]*\)', 'enabled=PackedStringArray()', project)
 project = re.sub(r'ImGuiRoot=.*', 'ImGuiRoot="*res://addons/imgui-godot/scripts/ImGuiRoot.gd"', project)
+if args.disable_msaa:
+    project = re.sub(r'anti_aliasing/quality/msaa_3d=\d+', 'anti_aliasing/quality/msaa_3d=0', project)
+    print('Qualification scope: software Vulkan with MSAA disabled.', flush=True)
 (candidate / 'project.godot').write_text(project, encoding='utf-8')
 print('Isolated project:', candidate, flush=True)
 startup = None
