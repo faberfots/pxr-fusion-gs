@@ -474,3 +474,6 @@ func get_stats() -> Dictionary:
 	snapshot["gpu_budget_bytes"] = int(_allocation_plan.get("budget", 0))
 	snapshot["pipeline_stats"] = snapshot.get("pipeline_stats", {})
 	return snapshot
+
+static func get_render_capabilities() -> Dictionary:
+	return {"opaque_depth":true,"orthographic_projection":true,"independent_model_transform3d":true,"transparent_mesh_interleaving":false,"gaussian_shadow_casting":false,"xr_multiview":false}

@@ -92,6 +92,13 @@ var _generation := 0
 var _ready_complete := false
 var _clearing := false
 var _applying_config := false
+var _queued_configuration: GaussianSplattingConfig
+var _atlas_migration: GSAtlasMigration
+var _deferred_registration: Array[WeakRef] = []
+var _clear_after_migration := false
+signal configuration_migration_changed(active: bool)
+signal configuration_migration_progress(fraction:float)
+
 var _applied_config: GaussianSplattingConfig
 var _compositor: GSCompositorEffect
 var _compositor_camera: Camera3D
@@ -191,7 +198,9 @@ func _queue_config_application() -> void:
 	call_deferred("_apply_config")
 
 func _apply_config() -> void:
-	if not _ready_complete or _applying_config:
+	if not _ready_complete: return
+	if _applying_config:
+		_queued_configuration = config.duplicate(true)
 		return
 	_applying_config = true
 	if not config.validate():
@@ -203,12 +212,26 @@ func _apply_config() -> void:
 		return
 	var gpu_changed := _applied_config == null or config.gpu_signature() != _applied_config.gpu_signature()
 	if gpu_changed and not _records.is_empty():
-		_report_error("GPU capacity changes require an empty scene. Existing models and GPU settings were preserved.", ERR_BUSY)
-		config = _applied_config.duplicate(true)
-		_applying_config = false
-		_connect_config()
-		configuration_applied.emit(config)
-		return
+		if is_loading():
+			_queued_configuration = config.duplicate(true)
+			config = _applied_config.duplicate(true)
+			_applying_config = false
+			_connect_config()
+			configuration_applied.emit(config)
+			return
+		var requested := config.duplicate(true)
+		var migrated: Error = await _migrate_atlas(requested)
+		if migrated != OK:
+			_report_error("GPU configuration preserved: " + error_string(migrated), migrated)
+			config = _applied_config.duplicate(true)
+			_applying_config = false
+			_connect_config()
+			configuration_applied.emit(config)
+			_apply_queued_configuration.call_deferred()
+			return
+		config = requested
+		gpu_changed = false
+
 	if gpu_changed:
 		if rasterizer:
 			_detach_compositor()
@@ -227,11 +250,7 @@ func _apply_config() -> void:
 			_report_error("Cannot initialize the GS renderer: " + error_string(result), result, true)
 			_applying_config = false
 			return
-		rasterizer.frame_failed.connect(func(message, code):
-			stop_rendering()
-			_report_error(message, code)
-		)
-		rasterizer.pick_completed.connect(_on_pick_completed)
+		_connect_renderer_signals()
 		_free_instance_ids.clear()
 		for i in range(config.memory_max_instances, 0, -1):
 			_free_instance_ids.append(i)
@@ -256,6 +275,7 @@ func _apply_config() -> void:
 	_applying_config = false
 	_connect_config()
 	configuration_applied.emit(config)
+	_apply_queued_configuration.call_deferred()
 	_force_redraw = true
 	_last_activity = 0.0
 	if current_state == ViewerState.UNINITIALIZED or current_state == ViewerState.ERROR:
@@ -270,6 +290,9 @@ func _discover_owned_splats(parent: Node) -> void:
 		_discover_owned_splats(child)
 
 func register_splat(node: GaussianSplat) -> void:
+	if _atlas_migration:
+		if is_instance_valid(node): _deferred_registration.append(weakref(node))
+		return
 	if _clearing or not _ready_complete or not is_instance_valid(node) or not node.is_inside_tree():
 		return
 	var id := node.get_instance_id()
@@ -310,6 +333,9 @@ func register_splat(node: GaussianSplat) -> void:
 		_start_next_job()
 
 func load_new_splat_from_path(path: String, mode: LoadMode = LoadMode.SMART, transform: Transform3D = Transform3D.IDENTITY) -> GaussianSplat:
+	if _atlas_migration:
+		_report_error("Atlas configuration is being applied; retry loading when it completes.", ERR_BUSY)
+		return null
 	if not _ready_complete or not rasterizer or not rasterizer.gpu_init_complete:
 		_report_error("Renderer is not ready", ERR_UNAVAILABLE)
 		return null
@@ -471,6 +497,7 @@ func _finish_batch() -> void:
 	if auto_start_rendering:
 		start_rendering()
 	_last_activity = 0.0
+	_apply_queued_configuration.call_deferred()
 
 func _cancel_job() -> void:
 	if _active_job:
@@ -480,6 +507,7 @@ func _cancel_job() -> void:
 	_active_node_id = 0
 
 func _release_record(record: Dictionary) -> void:
+	if _atlas_migration: return # Old ownership is released atomically with the old atlas.
 	if rasterizer and rasterizer.gpu_init_complete:
 		if int(record.instance_id) > 0:
 			rasterizer.update_instance_transform(record.instance_id, Transform3D.IDENTITY, false)
@@ -513,6 +541,9 @@ func unregister_splat(node: GaussianSplat) -> void:
 		call_deferred("_start_next_job")
 
 func _clear_scene_and_reset_atlas() -> void:
+	if _atlas_migration:
+		_clear_after_migration = true
+		return
 	_clearing = true
 	_generation += 1
 	_cancel_job()
@@ -550,7 +581,7 @@ func _ensure_scene_splats_loaded() -> void:
 	_discover_owned_splats(self)
 
 func _process(delta: float) -> void:
-	if not _ready_complete or not rasterizer or not rasterizer.gpu_init_complete:
+	if not _ready_complete or _atlas_migration or not rasterizer or not rasterizer.gpu_init_complete:
 		return
 	_pump_job()
 	var changed := rasterizer.update_camera_matrices()
@@ -820,6 +851,7 @@ func _create_default_camera_system() -> void:
 	camera_controller.set_camera(camera)
 
 func _exit_tree() -> void:
+	if _atlas_migration: _atlas_migration.cancelled = true
 	_ready_complete = false
 	_clearing = true
 	_cancel_job()
@@ -853,3 +885,110 @@ func select_model_id(model_id: String) -> bool:
 func _selected_instance_id() -> int:
 	var node := get_selected_model()
 	return int(_records[node.get_instance_id()].instance_id) if node else 0
+
+func _apply_queued_configuration() -> void:
+	if not _queued_configuration or _applying_config or is_loading() or not _ready_complete: return
+	var queued := _queued_configuration
+	_queued_configuration = null
+	config = queued
+	_apply_config()
+
+func _connect_renderer_signals() -> void:
+	rasterizer.frame_failed.connect(func(message, code):
+		stop_rendering()
+		_report_error(message, code)
+	)
+	rasterizer.pick_completed.connect(_on_pick_completed)
+
+func _migrate_atlas(requested: GaussianSplattingConfig) -> Error:
+	var plan := GaussianSplattingRasterizer.memory_plan(requested, (Vector2(get_viewport().size) * requested.default_render_scale).ceil())
+	var count := 0
+	var instances := 0
+	for record in _records.values():
+		if record.status == "loaded" and is_instance_valid(record.node.get_ref()):
+			count += int(record.count)
+			instances += 1
+	if plan.has("error") or int(plan.get("splats",0)) < count or requested.memory_max_instances < instances: return ERR_OUT_OF_MEMORY
+	var old := rasterizer
+	var previous := _applied_config.duplicate(true)
+	old.rendering_enabled = false
+	old.update_camera_matrices()
+	_atlas_migration = GSAtlasMigration.new()
+	_atlas_migration.progress_changed.connect(func(fraction):configuration_migration_progress.emit(fraction))
+	configuration_migration_changed.emit(true)
+	set_camera_blocker("atlas_migration", true)
+	# The frame remains visible while only the atlas owner changes. No model is re-read from disk.
+	var frozen := render_texture.get_image()
+	var result: Error = ERR_FILE_CANT_READ
+	if frozen:
+		rendered_material.set_shader_parameter("render_texture", ImageTexture.create_from_image(frozen))
+		result = await _atlas_migration.checkpoint(old, _records, get_tree())
+	var restored := {}
+	var replacement: GaussianSplattingRasterizer
+	if result == OK:
+		_detach_compositor()
+		old.cleanup()
+		replacement = _make_migration_renderer(requested)
+		replacement.compute_shader_path = compute_shader_directory
+		replacement.basis_override = old.basis_override
+		result = replacement.init_gpu()
+		if result == OK:
+			restored = await _atlas_migration.restore(replacement, _records, get_tree(), true)
+			result = restored.get("error", OK)
+		if result != OK:
+			replacement.cleanup()
+			replacement = _make_migration_renderer(previous)
+			replacement.compute_shader_path = compute_shader_directory
+			replacement.basis_override = old.basis_override
+			var rollback := replacement.init_gpu()
+			if rollback == OK:
+				restored = await _atlas_migration.restore(replacement, _records, get_tree(), false)
+				rollback = restored.get("error", OK)
+			if rollback != OK:
+				_report_error("Atlas recovery failed; checkpoint retained at " + ProjectSettings.globalize_path(_atlas_migration.path), rollback, true)
+				_atlas_migration.path = "" # Retain recovery evidence instead of deleting source data.
+				restored = {}
+	if replacement and not restored.is_empty() and not restored.has("error"):
+		rasterizer = replacement
+		render_texture = replacement.render_texture
+		_connect_renderer_signals()
+		_free_instance_ids.clear()
+		var used := {}
+		for record_id in _records.keys():
+			var record: Dictionary = _records[record_id]
+			var node = record.node.get_ref()
+			if not is_instance_valid(node):
+				_records.erase(record_id)
+				continue
+			if not restored.mapping.has(node.model_id): continue
+			var destination: Dictionary = restored.mapping[node.model_id]
+			record.offset = destination.offset
+			record.instance_id = destination.instance_id
+			node.buffer_offset = destination.offset
+			record.transform = node.global_transform
+			record.visible = node.is_visible_in_tree()
+			used[int(destination.instance_id)] = true
+			rasterizer.update_instance_transform(record.instance_id, record.transform, record.visible)
+		for id in range(rasterizer.config.memory_max_instances,0,-1):
+			if not used.has(id): _free_instance_ids.append(id)
+		_attach_compositor(get_camera())
+		rendered_material.set_shader_parameter("render_texture", render_texture)
+		_force_redraw = true
+	elif old.gpu_init_complete:
+		rendered_material.set_shader_parameter("render_texture", old.render_texture)
+	_atlas_migration.dispose()
+	_atlas_migration = null
+	set_camera_blocker("atlas_migration", false)
+	configuration_migration_changed.emit(false)
+	model_registry_changed.emit()
+	for reference in _deferred_registration:
+		var node = reference.get_ref()
+		if is_instance_valid(node): register_splat.call_deferred(node)
+	_deferred_registration.clear()
+	if _clear_after_migration:
+		_clear_after_migration = false
+		_clear_scene_and_reset_atlas.call_deferred()
+	return result
+
+func _make_migration_renderer(settings: GaussianSplattingConfig) -> GaussianSplattingRasterizer:
+	return GaussianSplattingRasterizer.new(get_viewport().size,Texture2DRD.new(),get_camera(),settings)

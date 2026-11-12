@@ -32,6 +32,8 @@ const Config = preload("res://modules/SpatialOS/core/spatial_config.gd")
 # INTERNAL STATE
 # ═══════════════════════════════════════════════════════════════════════════
 
+var cancellation_check:Callable
+var build_cancelled := false
 var _rd: RenderingDevice
 var _point_count: int = 0
 var _bounds_min: Vector3
@@ -110,6 +112,7 @@ func build_index_gpu(rd: RenderingDevice, points_buffer_rid: RID, count: int, bo
 	
 	# Cleanup any previous resources to prevent memory leaks
 	cleanup_gpu_resources()
+	build_cancelled=false
 	
 	_rd = rd
 	_point_count = count
@@ -149,6 +152,9 @@ func build_index_gpu(rd: RenderingDevice, points_buffer_rid: RID, count: int, bo
 	# For <1M cells, reading back and scanning on CPU is fast enough (~1ms)
 	# and safer than implementing robust parallel scan in GLSL for first iteration.
 	_calculate_prefix_sum_cpu(total_cells)
+	if build_cancelled:
+		cleanup_gpu_resources()
+		return
 	
 	# Step 3: Reorder (Bucket Sort)
 	_dispatch_stage(3, points_buffer_rid, count)
@@ -297,6 +303,9 @@ func _calculate_prefix_sum_cpu(total_cells: int) -> void:
 	
 	var current_offset = 0
 	for i in range(total_cells):
+		if i%4096==0 and cancellation_check.is_valid() and cancellation_check.call():
+			build_cancelled=true
+			return
 		var count = counts[i]
 		offsets[i] = current_offset # Store START index
 		current_offset += count
@@ -355,3 +364,17 @@ func _notification(what: int) -> void:
 		if _rd.uniform_set_is_valid(uniform_set): _rd.free_rid(uniform_set)
 	for rid in [_grid_table_buffer, _sorted_indices_buffer, _point_cell_ids_buffer, _write_counters_buffer, _pipeline_rid, _shader_rid]:
 		if rid.is_valid(): _rd.free_rid(rid)
+
+func detach_gpu_keep_cpu() -> void:
+	ensure_cpu_sync()
+	var points := _cpu_points
+	var table := _grid_table_cpu
+	var indices := _sorted_indices_cpu
+	var count := _point_count
+	cleanup_gpu_resources()
+	_rd = null
+	_cpu_points = points
+	_grid_table_cpu = table
+	_sorted_indices_cpu = indices
+	_point_count = count
+	_cpu_synced = true

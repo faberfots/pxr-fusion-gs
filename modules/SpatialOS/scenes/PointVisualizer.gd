@@ -36,6 +36,11 @@ const Config = preload("res://modules/SpatialOS/core/spatial_config.gd")
 
 ## Cached MultiMesh for reuse (performance optimization)
 var _visual_generation := 0
+var _color_generation := 0
+var _populating := false
+var _refresh_colors := false
+signal visualization_completed
+
 var cached_multimesh: MultiMesh = null
 
 ## Cached point count (for determining if reallocation is needed)
@@ -204,6 +209,7 @@ func visualize(resource: PointCloudResource) -> void:
 					 [resource.point_count, resource.colors.size()])
 	
 	# Batch update all instances
+	_populating = true
 	for i in range(resource.point_count):
 		if i > 0 and i % 2048 == 0:
 			await get_tree().process_frame
@@ -270,6 +276,11 @@ func visualize(resource: PointCloudResource) -> void:
 	# COMPLETION
 	# ─────────────────────────────────────────────────────────────────────
 	
+	_populating = false
+	visualization_completed.emit()
+	if _refresh_colors:
+		_refresh_colors = false
+		_update_colors_only.call_deferred()
 	print("Visualizer: Render complete (%d instances, %s mode)" % 
 		  [resource.point_count, "SEGMENT" if current_view_mode == ViewMode.SEGMENTS else "RGB"])
 
@@ -280,10 +291,14 @@ func set_view_mode(mode: ViewMode) -> void:
 		
 	current_view_mode = mode
 	if last_resource:
-		_update_colors_only()
+		if _populating: _refresh_colors = true
+		else: _update_colors_only()
 
 ## Optimized update of colors only (skips transforms)
 func _update_colors_only() -> void:
+	_color_generation += 1
+	var generation := _color_generation
+	var geometry_generation := _visual_generation
 	if not last_resource or not cached_multimesh:
 		return
 		
@@ -300,6 +315,9 @@ func _update_colors_only() -> void:
 		return
 	
 	for i in range(resource.point_count):
+		if i>0 and i%2048==0:
+			await get_tree().process_frame
+			if generation!=_color_generation or geometry_generation!=_visual_generation or not is_inside_tree(): return
 		var color = Color.WHITE
 		var point_position = positions[i]
 		
@@ -447,6 +465,9 @@ func get_cached_resource() -> PointCloudResource:
 ## Call this when switching point clouds or cleaning up
 func clear_visualization() -> void:
 	_visual_generation += 1
+	_color_generation += 1
+	_populating = false
+	_refresh_colors = false
 	print("Visualizer: Clearing visualization")
 	
 	# Clear MultiMesh reference

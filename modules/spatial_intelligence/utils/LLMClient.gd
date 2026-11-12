@@ -16,12 +16,20 @@ var _model := ""
 var _request_id := 0
 signal tool_calls_received(calls: Array)
 
+func _make_http_request() -> HTTPRequest:
+	var request := HTTPRequest.new()
+	request.timeout = 45.0
+	request.body_size_limit = 2097152
+	request.max_redirects = 0
+	return request
+
 func _ready() -> void:
-	_http_request = HTTPRequest.new()
-	_http_request.timeout = 45.0
-	_http_request.body_size_limit = 2097152
+	_http_request = _make_http_request()
 	add_child(_http_request)
-	# Each request connects a generation-bound callback in _begin_request.
+
+static func _decode_json(value: String) -> Variant:
+	var parser := JSON.new()
+	return parser.data if parser.parse(value) == OK else null
 
 ## Sends a vision request to the configured provider
 func send_request(prompt: String, context_json: Dictionary, base64_image: String = "") -> void:
@@ -177,9 +185,7 @@ func _begin_request(url: String, headers: PackedStringArray, body: Dictionary) -
 	if _http_request:
 		_http_request.cancel_request()
 		_http_request.queue_free()
-	_http_request = HTTPRequest.new()
-	_http_request.timeout = 45.0
-	_http_request.body_size_limit = 2097152
+	_http_request = _make_http_request()
 	add_child(_http_request)
 	_http_request.request_completed.connect(_on_request_completed.bind(_request_id))
 	if _provider == "google" and body.has("tools") and body.tools[0].function_declarations.is_empty(): body.erase("tools")
@@ -222,7 +228,7 @@ static func parse_response(provider: String, data: Variant) -> Dictionary:
 						output.error = "Malformed tool call."
 						return output
 					var function: Dictionary = tool.function
-					parts.append({"name": function.get("name"), "args": JSON.parse_string(function.get("arguments", "")) if function.get("arguments") is String else null})
+					parts.append({"name": function.get("name"), "args": _decode_json(function.get("arguments", "")) if function.get("arguments") is String else null})
 		"anthropic":
 			if not data.get("content") is Array:
 				output.error = "Missing content array."
@@ -264,7 +270,7 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 	if result != HTTPRequest.RESULT_SUCCESS or response_code < 200 or response_code >= 300:
 		error_occurred.emit("Provider request failed (transport %d, HTTP %d)." % [result, response_code])
 		return
-	var parsed := parse_response(_provider, JSON.parse_string(body.get_string_from_utf8()))
+	var parsed := parse_response(_provider, _decode_json(body.get_string_from_utf8()))
 	if not parsed.error.is_empty():
 		error_occurred.emit(parsed.error)
 	elif not parsed.calls.is_empty():

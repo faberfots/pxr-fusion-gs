@@ -28,6 +28,7 @@ const SEGMENTATION_SHADER_PATH = "res://modules/SpatialOS/shaders/graph_segmenta
 const GEOMETRIC_SHADER_PATH = "res://modules/SpatialOS/shaders/geometric_analysis.glsl"
 
 # GPU Resources
+var cancellation_check:Callable
 var _rd: RenderingDevice
 var _shader_rid: RID
 var _pipeline_rid: RID
@@ -303,6 +304,9 @@ func _run_label_propagation(resource: PointCloudResource, index: SpatialIndex, p
 	
 	# Iterative propagation
 	while iterations < max_iterations:
+		if cancellation_check.is_valid() and cancellation_check.call():
+			for uniform in sets:_rd.free_rid(uniform)
+			return -maxi(1,iterations)
 		iterations += 1
 		
 		# Clear changed flag

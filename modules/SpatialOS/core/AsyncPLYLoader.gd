@@ -6,10 +6,12 @@ signal loading_completed(data: Dictionary)
 signal loading_failed(error_message: String)
 signal loading_cancelled()
 signal loading_prepared(total_points: int)
+var correct_gaussian_coordinates := false
 var _job: SpatialPLYJob
 func load_ply_async(file_path: String) -> bool:
 	if _job: return false
 	_job = SpatialPLYJob.new()
+	_job.correct_gaussian_coordinates = correct_gaussian_coordinates
 	var result := _job.start(file_path)
 	if result != OK:
 		var message := _job.document.error_message

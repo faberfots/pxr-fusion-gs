@@ -48,17 +48,21 @@ fn preprocess(rgb: &[u8], width: usize, height: usize) -> Option<(Vec<f32>, usiz
 impl MobileSamSegmenter {
     #[func]
     fn load_model(&mut self, encoder_path: GString, decoder_path: GString) -> bool {
-        self.encoder=None; self.decoder=None; self.embeddings=None;
-        // Packaged models must first be extracted by NativeMLBridge.materialize_model.
-        let paths=[encoder_path.to_string(),decoder_path.to_string()];
-        if paths.iter().any(|p| p.starts_with("res://") || p.starts_with("user://") || !Path::new(p).is_file()) {
-            godot_error!("Supply materialized absolute model paths."); return false;
-        }
-        let runtime=match std::env::var("ORT_DYLIB_PATH") {
-            Ok(path) if Path::new(&path).is_file()=>path,
-            _=>{godot_error!("Set ORT_DYLIB_PATH to a compatible ONNX Runtime library.");return false;}
+        let runtime = match std::env::var("ORT_DYLIB_PATH") {
+            Ok(path) => path,
+            Err(_) => { godot_error!("Supply a verified ONNX Runtime through NativeMLBridge or ORT_DYLIB_PATH."); return false; }
         };
-        if ort::init_from(runtime).map(|builder| builder.commit()).is_err() {
+        self.load_model_with_runtime(encoder_path, decoder_path, GString::from(runtime.as_str()))
+    }
+    #[func]
+    fn load_model_with_runtime(&mut self, encoder_path: GString, decoder_path: GString, runtime_path: GString) -> bool {
+        self.encoder=None; self.decoder=None; self.embeddings=None;
+        let paths=[encoder_path.to_string(),decoder_path.to_string()];
+        let runtime=runtime_path.to_string();
+        if paths.iter().chain(std::iter::once(&runtime)).any(|p| !Path::new(p).is_absolute() || !Path::new(p).is_file()) {
+            godot_error!("Supply verified materialized absolute artifact paths."); return false;
+        }
+        if ort::init_from(runtime).map(|builder| builder.with_telemetry(false).commit()).is_err() {
             godot_error!("ONNX Runtime initialization failed.");return false;
         }
         let (encoder,decoder)=match (load_session(&paths[0]),load_session(&paths[1])) {

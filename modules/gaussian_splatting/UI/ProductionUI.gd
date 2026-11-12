@@ -2,6 +2,9 @@
 
 class_name ProductionUI
 extends CanvasLayer
+var _migration_load_disabled := false
+var _migration_quality_disabled := false
+
 
 ## Production-ready, clean UI for the GaussianSplattingViewer.
 ## Manages file loading, quality settings, and status feedback for the end-user.
@@ -42,6 +45,8 @@ func _ready() -> void:
 func _connect_signals() -> void:
 	# --- Connect to viewer signals ---
 	viewer.configuration_applied.connect(func(settings): quality_selector.select(settings.current_preset))
+	viewer.configuration_migration_changed.connect(_on_configuration_migration_changed)
+	viewer.configuration_migration_progress.connect(func(fraction):status_label.text="Applying quality settings... %d%%" % int(fraction*100))
 	viewer.all_splats_loading_started.connect(_on_all_splats_loading_started)
 	viewer.all_splats_loading_completed.connect(_on_all_splats_loading_completed)
 	viewer.splat_loading_progress.connect(_on_viewer_loading_progress) # Corrected signal for smooth progress
@@ -309,3 +314,19 @@ func _process(_delta: float) -> void:
 
 func _exit_tree() -> void:
 	if is_instance_valid(viewer): viewer.set_camera_blocker("godot_ui", false)
+
+func _on_configuration_migration_changed(active: bool) -> void:
+	if active:
+		_migration_load_disabled = load_file_button.disabled
+		_migration_quality_disabled = quality_selector.disabled
+		load_file_button.disabled = true
+		quality_selector.disabled = true
+		status_label.text = "Applying quality settings..."
+		status_label.show()
+		status_timer.stop()
+	else:
+		load_file_button.disabled = _migration_load_disabled
+		quality_selector.disabled = _migration_quality_disabled
+		status_label.text = "Quality settings ready."
+		status_label.show()
+		status_timer.start(2.0)

@@ -1,6 +1,7 @@
 class_name SpatialPLYJob
 extends RefCounted
 var thread := Thread.new()
+var correct_gaussian_coordinates := false
 var mutex := Mutex.new()
 var slots := Semaphore.new()
 var queue: Array[Dictionary] = []
@@ -39,6 +40,8 @@ func _run() -> void:
 	colors.resize(document.vertex_count)
 	var file := document.open_reader()
 	var offset := 0
+	var convert := correct_gaussian_coordinates and document.property_indices.has("f_dc_0") and SpatialConfig.AUTO_FLIP_GAUSSIAN_SPLATTING
+	var basis := GaussianSplattingConfig.new().source_basis()
 	while offset < document.vertex_count:
 		slots.wait()
 		mutex.lock()
@@ -51,6 +54,7 @@ func _run() -> void:
 			error = chunk.error
 			break
 		for i in range(count):
+			if convert:chunk.points[i] = basis * chunk.points[i]
 			points[offset + i] = chunk.points[i]
 			colors[offset + i] = chunk.colors[i]
 		offset += count
@@ -59,6 +63,8 @@ func _run() -> void:
 		queue.append(chunk)
 		mutex.unlock()
 	mutex.lock()
-	if not cancelled and error.is_empty(): data = PLYLoader.result(document, points, colors)
+	if not cancelled and error.is_empty():
+		data = PLYLoader.result(document, points, colors)
+		data["coordinates_corrected"] = convert
 	done = true
 	mutex.unlock()

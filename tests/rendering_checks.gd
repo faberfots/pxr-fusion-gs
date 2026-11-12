@@ -70,6 +70,20 @@ func run() -> void:
 	await RenderingServer.frame_post_draw
 	center = root.get_texture().get_image().get_pixelv(pixel)
 	check(center.r > 0.1, "orthographic Gaussian projection")
+	viewer.config.tile_size=8
+	var migration_started:=Time.get_ticks_msec()
+	for i in range(300):
+		await process_frame
+		if i>3 and not viewer._applying_config:break
+	await RenderingServer.frame_post_draw
+	center=root.get_texture().get_image().get_pixelv(pixel)
+	check(center.r>0.1,"Gaussian display remains visible after live atlas migration")
+	var model:GaussianSplat=viewer.managed_splats.keys()[0]
+	model.global_position.x=4.0
+	for i in range(15):await process_frame
+	await RenderingServer.frame_post_draw
+	center=root.get_texture().get_image().get_pixelv(pixel)
+	check(center.r<0.05,"migrated renderer presents live transform updates instead of a frozen frame")
 	viewer.free()
 	await process_frame
 	print("RENDERING COMPLETE: ", failures.size(), " failures")

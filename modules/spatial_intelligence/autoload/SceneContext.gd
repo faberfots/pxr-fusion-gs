@@ -9,6 +9,7 @@ static func get_context_payload(camera: Camera3D) -> Dictionary:
 	var tree := Engine.get_main_loop() as SceneTree
 	for viewer in tree.get_nodes_in_group("gaussian_splat_viewers"):
 		if viewer.get_camera() != camera: continue
+		payload.rendering_capabilities = GaussianSplattingRasterizer.get_render_capabilities()
 		for item in viewer.get_model_snapshot():
 			if item.status != "loaded" or not item.visible: continue
 			var transform: Transform3D = item.transform

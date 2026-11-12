@@ -85,6 +85,19 @@ func run() -> void:
 	for i in range(2): await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("user://bali-transform-controls.png")
+	if args.size()>2 and args[2]=="migrate":
+		var original_a:=first.global_transform
+		var original_b:=second.global_transform
+		viewer.config.tile_size=32
+		var migration_start:=Time.get_ticks_msec()
+		for i in range(5000):
+			await process_frame
+			if i>2 and not viewer._applying_config and not viewer._queued_configuration:break
+		check(viewer.config.tile_size==32 and first.is_loaded and second.is_loaded and viewer.total_splats_to_load==7959786,"full Bali atlas migrates without reloading or reducing either source population")
+		check(first.global_transform.is_equal_approx(original_a) and second.global_transform.is_equal_approx(original_b) and palette_matches(viewer,first) and palette_matches(viewer,second),"large migration preserves both independent Transform3D entries")
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png("user://bali-migrated-review.png")
+		print("BALI MIGRATION MS ",Time.get_ticks_msec()-migration_start)
 	if args.size() > 2 and args[2] == "object":
 		var framed := Time.get_ticks_msec()
 		viewer.set_scene_mode(GaussianSplattingViewer.SceneMode.OBJECT_MODE)

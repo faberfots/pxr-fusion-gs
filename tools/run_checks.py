@@ -9,6 +9,7 @@ parser.add_argument('--gpu', action='store_true')
 parser.add_argument('--candidate', type=Path)
 parser.add_argument('--skip-import', action='store_true')
 parser.add_argument('--script', default='res://tests/core_checks.gd')
+parser.add_argument('--timeout', type=int, default=180)
 args = parser.parse_args()
 candidate = args.candidate or Path(tempfile.mkdtemp(prefix='gs-checks-'))
 for directory in ('modules', 'addons', 'assets', 'tests'):
@@ -18,6 +19,7 @@ for directory in ('modules', 'addons', 'assets', 'tests'):
 native = ROOT / 'rust/spatial_ml'
 if (native / 'spatial_ml.gdextension').exists() and (native / 'bin').exists():
     shutil.copytree(native / 'bin', candidate / 'rust/spatial_ml/bin', dirs_exist_ok=True)
+    shutil.copytree(native / 'models', candidate / 'rust/spatial_ml/models', dirs_exist_ok=True)
     shutil.copy2(native / 'spatial_ml.gdextension', candidate / 'rust/spatial_ml/spatial_ml.gdextension')
 shutil.copy2(ROOT / 'main.tscn', candidate / 'main.tscn')
 shutil.copy2(ROOT / 'icon.svg', candidate / 'icon.svg')
@@ -48,4 +50,4 @@ code = run(['--headless', '--script', 'res://tests/script_checks.gd'], 60)
 if code:
     sys.exit(code)
 flags = ['--rendering-method', 'forward_plus', '--rendering-driver', 'vulkan', '--resolution', '64x64', '--position', '-32000,-32000'] if args.gpu else ['--headless']
-sys.exit(run(flags + ['--script', args.script], 90))
+sys.exit(run(flags + ['--script', args.script], args.timeout))

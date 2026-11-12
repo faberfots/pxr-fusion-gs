@@ -1,26 +1,75 @@
 name: Godot qualification
 on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+concurrency:
+  group: qualification-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
-  core:
+  desktop:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: chickensoft-games/setup-godot@v2
         with:
           version: 4.6.2
           use-dotnet: false
-          include-templates: true
+          include-templates: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python tools/run_checks.py --godot godot
-      - run: python tools/audit_status.py --check
+      - name: Source and report integrity
+        run: |
+          python tools/check_source.py
+          python tools/audit_status.py --check
+      - name: Headless source qualification
+        run: python tools/run_checks.py --godot godot --candidate /tmp/gs-ci
+      - name: Provider transport lifecycle (local synthetic server)
+        run: python tools/check_provider_network.py --godot godot
+      - name: Install software Vulkan and display
+        run: sudo apt-get update && sudo apt-get install -y mesa-vulkan-drivers xvfb
+      - name: Vulkan rendering and lifecycle
+        shell: bash
+        run: |
+          export VK_ICD_FILENAMES="$(find /usr/share/vulkan/icd.d -iname '*lvp*' | head -1)"
+          test -n "$VK_ICD_FILENAMES"
+          for suite in gpu_checks lifecycle_checks rendering_checks migration_recovery_checks spatial_checks; do
+            xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --gpu --timeout 300 --script "res://tests/$suite.gd"
+          done
+      - name: Upload qualification logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-godot-logs
+          path: /tmp/gs-ci/.godot
+          include-hidden-files: true
+          retention-days: 7
   native:
     runs-on: windows-latest
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.6.2
+          use-dotnet: false
+          include-templates: false
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: x86_64-pc-windows-gnu
-      - working-directory: rust/spatial_ml
-        run: cargo check --locked
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          install: mingw-w64-x86_64-gcc
+          update: true
+      - name: Configure native compiler
+        shell: pwsh
+        run: '"C:\msys64\mingw64\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append'
+      - name: Reproduce native runtime and build
+        run: python tools/setup_native_ml.py --build
+      - name: Real GDScript native inference
+        run: python tools/run_checks.py --godot godot --script res://tests/native_inference_checks.gd

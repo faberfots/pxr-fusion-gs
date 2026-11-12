@@ -9,25 +9,53 @@
         "LICENSE",
         "docs/archive/upstream-README.md"
       ],
-      "status": "upstream attribution retained; history unavailable"
+      "status": "upstream attribution retained; history unavailable",
+      "snapshot": {
+        "files": 83,
+        "sha256": "850fa1e90ea94faed06c0939792771cc684c43c32cd1712ccc001b33bcd0d118"
+      }
     },
     {
       "component": "advanced_control_camera3d",
       "path": "addons/advanced_control_camera3d",
-      "license_evidence": [],
-      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+      "license_evidence": [
+        "addons/advanced_control_camera3d/LICENSE.txt",
+        "docs/provenance/owner-confirmation.json"
+      ],
+      "status": "MIT confirmed by user; POLYGONICS attribution retained; historical upstream Git revision unavailable",
+      "declared_version": "1.0.0",
+      "snapshot": {
+        "files": 8,
+        "sha256": "3ade192a474811828b215cacff94872c3bd201b2a5d2c5c9d007333bca048114"
+      }
     },
     {
       "component": "AdvancedFreeFlyCamera",
       "path": "addons/AdvancedFreeFlyCamera",
-      "license_evidence": [],
-      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+      "license_evidence": [
+        "addons/AdvancedFreeFlyCamera/LICENSE.txt",
+        "docs/provenance/owner-confirmation.json"
+      ],
+      "status": "MIT confirmed by user; POLYGONICS attribution retained; historical upstream Git revision unavailable",
+      "declared_version": "1.0.0",
+      "snapshot": {
+        "files": 11,
+        "sha256": "2d0d9f81744d7be08d3ca82fd3e4cde849476c5a329de62e912c913d54dfd986"
+      }
     },
     {
       "component": "imgui-godot",
       "path": "addons/imgui-godot",
-      "license_evidence": [],
-      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+      "license_evidence": [
+        "addons/imgui-godot/LICENSE.txt"
+      ],
+      "status": "primary upstream MIT license recovered; local binary origin is not independently attested",
+      "upstream": "https://github.com/pkdawson/imgui-godot/tree/v6.3.2",
+      "declared_version": "6.3.2",
+      "snapshot": {
+        "files": 39,
+        "sha256": "f5bc58875aa6fad263fd4e39377fa833e6b6d6db403acd81174176d3b75df851"
+      }
     },
     {
       "component": "sky_3d",
@@ -38,7 +66,11 @@
         "addons/sky_3d/assets/thirdparty/textures/milkyway/LICENSE.md",
         "addons/sky_3d/assets/thirdparty/textures/moon/LICENSE.md"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 44,
+        "sha256": "ce50acb68cfe56556737319bc67a8f6f5988ec50baf72d4dc07fe263ef43cac9"
+      }
     },
     {
       "component": "smart_camera_switcher",
@@ -46,13 +78,24 @@
       "license_evidence": [
         "addons/smart_camera_switcher/LICENSE.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 22,
+        "sha256": "1dffc51529c806ac3436e8a3543e650ca275c2324cdba96701278aa12e7d09b0"
+      }
     },
     {
       "component": "virtual_joystick",
       "path": "addons/virtual_joystick",
-      "license_evidence": [],
-      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+      "license_evidence": [
+        "addons/virtual_joystick/LICENSE-upstream.md"
+      ],
+      "status": "author MIT license recovered; local 1.0.6 snapshot predates current upstream and exact history remains unverified",
+      "upstream": "https://github.com/Saulo-de-Souza/VirtualJoystick",
+      "snapshot": {
+        "files": 32,
+        "sha256": "022dbfd6d7d8b7aef6d78844e4caf18f134fc757806aa0d59a6bd55202980b5e"
+      }
     },
     {
       "component": "architect-s-daughter",
@@ -60,7 +103,11 @@
       "license_evidence": [
         "assets/fonts/architect-s-daughter/Architects Daughter SIL OFL Font License.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 3,
+        "sha256": "89b4d776b4bf11f48d12c055229f67c0080168446a9c539bb0f437d689ef205a"
+      }
     },
     {
       "component": "cmu-typewriter",
@@ -69,7 +116,11 @@
         "assets/fonts/cmu-typewriter/OFL-FAQ.txt",
         "assets/fonts/cmu-typewriter/OFL.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 11,
+        "sha256": "b0d66d4fe508465c4769913b172fdac172164402e31cf9136d721ddf15186135"
+      }
     },
     {
       "component": "connection",
@@ -77,7 +128,11 @@
       "license_evidence": [
         "assets/fonts/connection/SIL Open Font License.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 5,
+        "sha256": "35cedc77197b5b846df9540862831e381e7aaf8bbbcab4b854d01a85ea981c3f"
+      }
     },
     {
       "component": "connection_ii",
@@ -85,7 +140,11 @@
       "license_evidence": [
         "assets/fonts/connection_ii/SIL Open Font License.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 4,
+        "sha256": "8bedc5191203bca2028fce481dc1219f765e66e8c84d45fe5ff8c5c14019235e"
+      }
     },
     {
       "component": "droid-sans",
@@ -93,7 +152,11 @@
       "license_evidence": [
         "assets/fonts/droid-sans/Apache License.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 5,
+        "sha256": "d87f6d32fd65314dc4441b4f6cc45e926782542cd9bbbf803513d03e7d0e5081"
+      }
     },
     {
       "component": "kirifont",
@@ -101,7 +164,11 @@
       "license_evidence": [
         "assets/fonts/kirifont/OFL.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 5,
+        "sha256": "aa24fb523fc2fcf67ea5d969aef2a50d7b708426cd2b28d48d03920ca8f07a5d"
+      }
     },
     {
       "component": "linux-libertine",
@@ -109,7 +176,11 @@
       "license_evidence": [
         "assets/fonts/linux-libertine/OFL-1.1.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 27,
+        "sha256": "cea56d3d000d0fd6221414bcf824301b2d2f517863b7955ddf524bfc11538f0e"
+      }
     },
     {
       "component": "montreal",
@@ -117,7 +188,11 @@
       "license_evidence": [
         "assets/fonts/montreal/OFL.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 7,
+        "sha256": "df78cbaa479b7af49f33d945376e2e3ca9f862ab85b3c91360250be7fa1aeb13"
+      }
     },
     {
       "component": "Oswald",
@@ -125,13 +200,24 @@
       "license_evidence": [
         "assets/fonts/Oswald/OFL.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 16,
+        "sha256": "d442b7b5af6606d1a2bba33166d0044967d0fa827729d18fb7d314d9dcf09e53"
+      }
     },
     {
       "component": "poco",
       "path": "assets/fonts/poco",
-      "license_evidence": [],
-      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+      "license_evidence": [
+        "assets/fonts/poco/ATTRIBUTION.txt"
+      ],
+      "status": "author CC BY 4.0 statement and attribution recovered",
+      "upstream": "https://fontenddev.com/fonts/poco/",
+      "snapshot": {
+        "files": 4,
+        "sha256": "da2f5b396cbded29d6da1c2ff6091dc1ef0aa31d57f93c7b6c40b484d21cf056"
+      }
     },
     {
       "component": "Poppins",
@@ -139,13 +225,25 @@
       "license_evidence": [
         "assets/fonts/Poppins/OFL.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 37,
+        "sha256": "2145901502510bf25810cf4dd19933802238f5f3e63701dd3e33e565f3fa6452"
+      }
     },
     {
       "component": "source-code-pro",
       "path": "assets/fonts/source-code-pro",
-      "license_evidence": [],
-      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+      "license_evidence": [
+        "assets/fonts/source-code-pro/LICENSE.md"
+      ],
+      "status": "embedded local font license and upstream license recovered",
+      "upstream": "https://github.com/adobe-fonts/source-code-pro",
+      "embedded_license": "SIL OFL 1.1, name table IDs 13/14",
+      "snapshot": {
+        "files": 29,
+        "sha256": "4c5858942291240a2b2b817a4e9a39474112d7f71af139f23e30c23e1db4a386"
+      }
     },
     {
       "component": "xolonium",
@@ -153,7 +251,11 @@
       "license_evidence": [
         "assets/fonts/xolonium/LICENSE.txt"
       ],
-      "status": "license text present; upstream version and distribution scope require verification"
+      "status": "license text present; upstream version and distribution scope require verification",
+      "snapshot": {
+        "files": 6,
+        "sha256": "57f48538cc9c2c07f1867a7aaf808da76cb2fbe5e23c2dc837f44e53ad402050"
+      }
     },
     {
       "component": "native Rust dependencies",
@@ -167,14 +269,38 @@
     {
       "component": "MobileSAM model artifacts",
       "path": "rust/spatial_ml/models",
-      "evidence": [],
-      "status": "not supplied; user confirmed no approved model/runtime artifacts"
+      "evidence": [
+        "rust/spatial_ml/models/manifest.json",
+        "rust/spatial_ml/models/export-receipt.json",
+        "rust/spatial_ml/models/LICENSE-MobileSAM.txt"
+      ],
+      "status": "official weights pinned and verified; exported ONNX artifacts and Windows runtime hashes qualified",
+      "upstream": "https://github.com/ChaoningZhang/MobileSAM",
+      "revision": "f706ad9c4eb7f219c00d9050e46328518ffb65d2",
+      "snapshot": {
+        "files": 5,
+        "sha256": "738da7e7acb36e6346e3affbf9007e2fd2cc96bbbc63b8a7c86125a8dbc9b7f6"
+      }
     },
     {
       "component": "local sample datasets",
       "path": "resources",
       "evidence": [],
       "status": "not exported; dataset provenance requires owner evidence"
+    },
+    {
+      "component": "ONNX Runtime Windows CPU",
+      "path": "rust/spatial_ml/bin/windows/runtime",
+      "upstream": "https://github.com/microsoft/onnxruntime/releases/tag/v1.23.2",
+      "license_evidence": [
+        "rust/spatial_ml/bin/windows/runtime/LICENSE-ONNXRuntime.txt",
+        "rust/spatial_ml/bin/windows/runtime/ThirdPartyNotices.txt"
+      ],
+      "status": "official archive SHA-256 verified; native inference and local fixture quality pass",
+      "snapshot": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-12",
+  "basis": "User confirmed MIT as the applicable license in this chat.",
+  "components": [
+    "addons/advanced_control_camera3d",
+    "addons/AdvancedFreeFlyCamera"
+  ],
+  "license": "MIT",
+  "author_attribution_source": "plugin.cfg: POLYGONICS SAS"
+}

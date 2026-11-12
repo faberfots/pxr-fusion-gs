@@ -1,0 +1,20 @@
+[
+  {
+    "file": "docs\\provenance\\imgui-godot-LICENSE.txt",
+    "url": "https://raw.githubusercontent.com/pkdawson/imgui-godot/v6.3.2/LICENSE",
+    "retrieved": true,
+    "sha256": "c8a3d9a79bbedbddb215b19a98b6dde5cc17664529ed5ba02d8500f2b9561727"
+  },
+  {
+    "file": "docs\\provenance\\source-code-pro-LICENSE.md",
+    "url": "https://raw.githubusercontent.com/adobe-fonts/source-code-pro/release/LICENSE.md",
+    "retrieved": true,
+    "sha256": "7c940e28a5388e9bba866cf0e408edda45fe0899ba98665b8f6ab31dc5e4b8ff"
+  },
+  {
+    "file": "docs\\provenance\\virtual-joystick-LICENSE.md",
+    "url": "https://raw.githubusercontent.com/Saulo-de-Souza/VirtualJoystick/master/LICENSE.md",
+    "retrieved": true,
+    "sha256": "3c8ae6e5ced62db16460e80ecceebc933362f07cb6fd7e75c74ff5f52b290a4b"
+  }
+]

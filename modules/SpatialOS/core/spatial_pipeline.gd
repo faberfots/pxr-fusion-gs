@@ -20,6 +20,7 @@ signal chunk_loaded(points: PackedVector3Array, colors: PackedColorArray)
 const Config = preload("res://modules/SpatialOS/core/spatial_config.gd")
 
 var _resources: Array[WeakRef] = []
+var cancellation_check:Callable
 var rd: RenderingDevice
 var shader_rid: RID
 var pipeline_rid: RID
@@ -37,6 +38,11 @@ var _async_loader: AsyncPLYLoader = null
 ## Stores parameters for async processing continuation
 var _pending_voxel_size: float = -1.0
 var _pending_force_voxelization: bool = false
+var _processing_job: SpatialProcessingJob
+var _graph_target: WeakRef
+var _graph_revision := -1
+signal graph_completed(stats: Dictionary)
+
 
 func _ready():
 	# WOOOAOOW Factor: Initialize local RD for background processing
@@ -63,106 +69,31 @@ func _compile_shaders():
 ## @param mode: Segmentation mode (0=Connectivity, 1=ColorCluster, 2=DepthEdges)
 ## @param edge_threshold: Optional runtime override for edge threshold (-1 to use config default)
 func compute_graph(resource: PointCloudResource, mode: int = 0, edge_threshold: float = -1.0) -> Dictionary:
+	if not resource.metadata.has("spatial_index") or resource.metadata.spatial_index._rd==null:
+		_build_spatial_index(resource)
+		_track_resource(resource)
 	var graph = SpatialGraph.new()
 	graph.edge_threshold_override = edge_threshold
 	return graph.compute_segmentation(resource, mode)
 
 func ingest_and_process(file_path: String, voxel_size: float = -1.0, force_voxelization: bool = false):
-	emit_signal("processing_started")
-	
-	# ═══════════════════════════════════════════════════════════════
-	# ASYNC VS SYNC LOADING DECISION
-	# ═══════════════════════════════════════════════════════════════
-	
-	# Check file size to determine loading strategy
-	var file = FileAccess.open(file_path, FileAccess.READ)
-	if not file:
-		emit_signal("processing_failed", "Failed to open PLY file. Check path and permissions.")
+	if is_loading_async():
+		processing_failed.emit("Another spatial operation is in progress.")
 		return
-	
-	var file_size_mb = file.get_length() / (1024.0 * 1024.0)
-	file.close()
-	
-	# Use async loading for large files when enabled
-	var use_async = Config.USE_ASYNC_LOADING and file_size_mb >= Config.ASYNC_MIN_FILE_SIZE_MB
-	
-	if use_async:
-		print("SpatialOS: Using ASYNC loading for %.1f MB file" % file_size_mb)
-		
-		# Store parameters for continuation after async load
-		_pending_voxel_size = voxel_size
-		_pending_force_voxelization = force_voxelization
-		
-		# Create async loader if needed
-		if not _async_loader:
-			_async_loader = AsyncPLYLoader.new()
-			add_child(_async_loader)
-			
-			# Connect signals (one-time setup)
-			_async_loader.loading_prepared.connect(func(total): loading_prepared.emit(total))
-			_async_loader.progress_updated.connect(_on_async_progress)
-			_async_loader.chunk_ready.connect(_on_async_chunk)
-			_async_loader.loading_completed.connect(_on_async_completed)
-			_async_loader.loading_failed.connect(_on_async_failed)
-			_async_loader.loading_cancelled.connect(_on_async_cancelled)
-		
-		# Start async loading
-		_async_loader.load_ply_async(file_path)
-		return
-	
-	# ═══════════════════════════════════════════════════════════════
-	# SYNC LOADING (Original path - unchanged)
-	# ═══════════════════════════════════════════════════════════════
-	
-	print("SpatialOS: Using SYNC loading for %.1f MB file" % file_size_mb)
-	
-	# 1. Load (CPU)
-	var raw_data = PLYLoader.load_ply(file_path)
-	if raw_data.is_empty() or raw_data.has("error"):
-		emit_signal("processing_failed", "Failed to load PLY file. Check format and path.")
-		return
-	
-	var raw_points = raw_data["points"] as PackedVector3Array
-	var raw_colors = raw_data["colors"] as PackedColorArray
-	var count = raw_data["count"] as int
-	var has_colors = raw_data.get("has_colors", false)
-	
-	if count == 0:
-		emit_signal("processing_failed", "PLY file contains no vertex data.")
-		return
-	
-	print("SpatialOS: Processing ", count, " points (Colors: ", has_colors, ")")
-	
-	# SMART DECISION: Direct render vs Voxelization
-	var use_direct = Config.USE_DIRECT_RENDERING and not force_voxelization
-	var is_large_scan = count >= Config.AUTO_DIRECT_RENDER_THRESHOLD
-	var is_gaussian_splatting = raw_data.get("is_gaussian_splatting", false)
-	
-	if use_direct or is_large_scan:
-		print("SpatialOS: Using DIRECT RENDERING mode (", count, " points)")
-		
-		# Pass GS detection to direct rendering for coordinate transform
-		_process_direct_rendering(file_path, raw_points, raw_colors, has_colors, is_gaussian_splatting)
-		return
-	
-	print("SpatialOS: Using VOXELIZATION mode")
-	
-# 2. Calculate Bounds (CPU)
-	var min_b = Vector3(INF, INF, INF)
-	var max_b = Vector3(-INF, -INF, -INF)
-	for p in raw_points:
-		min_b = min_b.min(p)
-		max_b = max_b.max(p)
-	
-	print("SpatialOS: Bounds: ", min_b, " to ", max_b)
-	
-	# 2.5. Smart voxel size calculation (if not manually specified)
-	if voxel_size <= 0:
-		voxel_size = _calculate_optimal_voxel_size(min_b, max_b, count)
-	else:
-		print("SpatialOS: Using manual voxel size: %.2fcm" % (voxel_size * 100))
-	
-	_finish_voxelized(raw_data, voxel_size)
+	processing_started.emit()
+	_pending_voxel_size = voxel_size
+	_pending_force_voxelization = force_voxelization
+	if not _async_loader:
+		_async_loader = AsyncPLYLoader.new()
+		_async_loader.correct_gaussian_coordinates = true
+		add_child(_async_loader)
+		_async_loader.loading_prepared.connect(func(total):loading_prepared.emit(total))
+		_async_loader.progress_updated.connect(_on_async_progress)
+		_async_loader.chunk_ready.connect(_on_async_chunk)
+		_async_loader.loading_completed.connect(_on_async_completed)
+		_async_loader.loading_failed.connect(_on_async_failed)
+		_async_loader.loading_cancelled.connect(_on_async_cancelled)
+	_async_loader.load_ply_async(file_path)
 
 ## Direct rendering path - bypass voxelization for maximum detail
 ## Used for large scans or when detail preservation is critical
@@ -181,7 +112,12 @@ func _process_direct_rendering(file_path: String, points: PackedVector3Array, co
 	# Calculate bounds AFTER transformation
 	var min_b = Vector3(INF, INF, INF)
 	var max_b = Vector3(-INF, -INF, -INF)
+	var inspected:=0
 	for p in points:
+		if inspected%4096==0 and _cancel_requested():
+			processing_failed.emit("Processing cancelled.")
+			return
+		inspected+=1
 		min_b = min_b.min(p)
 		max_b = max_b.max(p)
 	
@@ -304,35 +240,13 @@ func _on_async_chunk(points: PackedVector3Array, colors: PackedColorArray) -> vo
 ## Called when async loading completes successfully
 ## Continues with the normal processing pipeline (direct render or voxelization)
 func _on_async_completed(raw_data: Dictionary) -> void:
-	var raw_points = raw_data["points"] as PackedVector3Array
-	var raw_colors = raw_data["colors"] as PackedColorArray
-	var count = raw_data["count"] as int
-	var has_colors = raw_data.get("has_colors", false)
-	var is_gaussian_splatting = raw_data.get("is_gaussian_splatting", false)
-	
-	if count == 0:
-		emit_signal("processing_failed", "PLY file contains no vertex data.")
-		return
-	
-	print("SpatialOS: Async load complete. Processing ", count, " points (Colors: ", has_colors, ")")
-	
-	# SMART DECISION: Direct render vs Voxelization
-	var use_direct = Config.USE_DIRECT_RENDERING and not _pending_force_voxelization
-	var is_large_scan = count >= Config.AUTO_DIRECT_RENDER_THRESHOLD
-	
-	if use_direct or is_large_scan:
-		print("SpatialOS: Using DIRECT RENDERING mode (", count, " points)")
-		
-		# Pass GS detection to direct rendering for coordinate transform
-		# Need the original file path - stored in metadata if available
-		var file_path = raw_data.get("source_file", "")
-		_process_direct_rendering(file_path, raw_points, raw_colors, has_colors, is_gaussian_splatting)
-		return
-	
-	# For voxelization, we need to continue with the GPU pipeline
-	# This is the more complex path that uses the existing voxelization code
-	print("SpatialOS: Using VOXELIZATION mode (from async data)")
-	_process_voxelization_from_data(raw_data, _pending_voxel_size)
+	_processing_job = SpatialProcessingJob.new()
+	_processing_job.input = raw_data
+	_processing_job.voxel_size = _pending_voxel_size
+	_processing_job.force_voxelization = _pending_force_voxelization
+	if _processing_job.start() != OK:
+		_processing_job = null
+		processing_failed.emit("Could not start spatial processing worker.")
 
 ## Called when async loading fails
 func _on_async_failed(error_message: String) -> void:
@@ -345,13 +259,14 @@ func _on_async_cancelled() -> void:
 ## Public method to cancel current async loading
 ## Call this from UI when user clicks Cancel button
 func cancel_loading() -> void:
+	if _processing_job: _processing_job.cancel()
 	if _async_loader and _async_loader.is_loading():
 		_async_loader.cancel()
 		print("SpatialOS: Cancel request sent to async loader")
 
 ## Check if currently loading asynchronously
 func is_loading_async() -> bool:
-	return _async_loader and _async_loader.is_loading()
+	return _processing_job != null or (_async_loader != null and _async_loader.is_loading())
 
 ## Process voxelization from already-loaded data (used by async path)
 ## This is a simplified version that skips the PLYLoader step
@@ -359,15 +274,14 @@ func _process_voxelization_from_data(raw_data: Dictionary, voxel_size: float) ->
 	_finish_voxelized(raw_data, voxel_size)
 
 func _finalize_processing(resource: PointCloudResource) -> void:
-	print("SpatialOS: Finalizing resource (Indexing)...")
-	
-	# ─────────────────────────────────────────────────────────────────
-	# BUILD SPATIAL INDEX (FOUNDATION 1 -> 2 BRIDGE)
-	# ─────────────────────────────────────────────────────────────────
-	# If we have GPU points available, we build the index now
-	# Note: Currently resource stores points on CPU memory.
-	# To build index on GPU, we upload them briefly.
-	
+	_build_spatial_index(resource)
+	if _cancel_requested():
+		processing_failed.emit("Processing cancelled.")
+		return
+	_track_resource(resource)
+	processing_completed.emit(resource)
+
+func _build_spatial_index(resource:PointCloudResource)->void:
 	var points = resource.points # Corrected: direct property access
 	var count = resource.point_count
 	
@@ -386,6 +300,9 @@ func _finalize_processing(resource: PointCloudResource) -> void:
 		input_bytes.resize(count * 16)
 		
 		for i in range(count):
+			if i%4096==0 and _cancel_requested():
+				processing_failed.emit("Processing cancelled.")
+				return
 			var p = points[i]
 			var offset = i * 16
 			input_bytes.encode_float(offset, p.x)
@@ -397,16 +314,19 @@ func _finalize_processing(resource: PointCloudResource) -> void:
 		
 		# Instantiate and Build Index
 		var spatial_index = SpatialIndex.new()
+		spatial_index.cancellation_check = cancellation_check
 		spatial_index.build_index_gpu(rd, points_buffer, count, min_b, max_b, points)
 		
 		# Store Index in Resource Metadata (Access for Foundation 2)
+		if _cancel_requested():
+			spatial_index.cleanup_gpu_resources()
+			rd.free_rid(points_buffer)
+			return
 		resource.metadata["spatial_index"] = spatial_index
 		
 		# Cleanup upload buffer
 		rd.free_rid(points_buffer)
 	
-	_resources.append(weakref(resource))
-	emit_signal("processing_completed", resource)
 
 func _finish_voxelized(data: Dictionary, size: float) -> void:
 	if not rd:
@@ -493,6 +413,10 @@ func _voxelize(points: PackedVector3Array, colors: PackedColorArray, minimum: Ve
 	return {"error": "Voxel hash capacity exceeded; no partial result was committed."} if overflow else {"points": result_points, "colors": result_colors}
 
 func _exit_tree() -> void:
+	if _processing_job:
+		_processing_job.cancel()
+		_processing_job.join()
+		_processing_job = null
 	if _async_loader: _async_loader.cancel()
 	for reference in _resources:
 		var resource = reference.get_ref()
@@ -502,3 +426,75 @@ func _exit_tree() -> void:
 			if shader.is_valid(): rd.free_rid(shader)
 		rd.free()
 		rd = null
+
+func compute_graph_async(resource: PointCloudResource, mode: int = 0, edge_threshold: float = -1.0) -> Dictionary:
+	if is_loading_async(): return {"status":"failed","error":"operation_in_progress","segment_count":resource.segment_count,"processing_time":0.0}
+	_graph_target = weakref(resource)
+	_graph_revision = resource.geometry_revision
+	_processing_job = SpatialProcessingJob.new()
+	_processing_job.input = {"points":resource.points,"colors":resource.colors.duplicate(),"voxel_size":resource.voxel_size,"normals":resource.normals.duplicate(),"curvature":resource.curvature.duplicate()}
+	_processing_job.graph_mode = mode
+	_processing_job.edge_threshold = edge_threshold
+	if _processing_job.start() != OK:
+		_processing_job = null
+		return {"status":"failed","error":"worker_start_failed","segment_count":resource.segment_count,"processing_time":0.0}
+	return await graph_completed
+
+func _process(_delta: float) -> void:
+	if not _processing_job or not _processing_job.snapshot().done:return
+	var job := _processing_job
+	job.join()
+	_processing_job = null
+	var outcome := job.result
+	if job.cancelled or outcome.has("error"):
+		if _graph_target:
+			_graph_target = null
+			graph_completed.emit({"status":"failed","error":"cancelled" if job.cancelled else outcome.error,"segment_count":0,"processing_time":0.0})
+		else:processing_failed.emit("Processing cancelled." if job.cancelled else str(outcome.error))
+		return
+	var resource: PointCloudResource = outcome.get("resource")
+	if not resource:
+		processing_failed.emit("Spatial worker returned no resource.")
+		return
+	if _graph_target:
+		var target: PointCloudResource = _graph_target.get_ref()
+		_graph_target = null
+		if not target or target.geometry_revision != _graph_revision:
+			graph_completed.emit({"status":"failed","error":"geometry_changed","segment_count":0,"processing_time":0.0})
+			return
+		target.normals = resource.normals
+		target.curvature = resource.curvature
+		if job.graph_mode>=0:
+			target.segments = resource.segments
+			target.segment_count = resource.segment_count
+			target.segments_metadata = resource.segments_metadata
+			target.relationships = resource.relationships
+			target.metadata["graph_built"] = true
+		graph_completed.emit(outcome.get("stats",{"segment_count":target.segment_count,"processing_time":0.0}))
+	else:
+		_track_resource(resource)
+		processing_completed.emit(resource)
+
+func compute_geometry_async(resource:PointCloudResource)->Dictionary:
+	return await compute_graph_async(resource,-2)
+
+func flip_scan_async(resource:PointCloudResource)->bool:
+	if is_loading_async():return false
+	var metadata:=resource.metadata.duplicate()
+	metadata.erase("spatial_index")
+	_processing_job=SpatialProcessingJob.new()
+	_processing_job.input={"points":resource.points,"colors":resource.colors.duplicate(),"voxel_size":resource.voxel_size,"metadata":metadata}
+	_processing_job.flip_geometry=true
+	if _processing_job.start()!=OK:
+		_processing_job=null
+		return false
+	processing_started.emit()
+	return true
+
+func _cancel_requested()->bool:
+	return cancellation_check.is_valid() and bool(cancellation_check.call())
+
+func _track_resource(resource:PointCloudResource)->void:
+	for reference in _resources:
+		if reference.get_ref()==resource:return
+	_resources.append(weakref(resource))

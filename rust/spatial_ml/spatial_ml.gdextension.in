@@ -5,8 +5,8 @@ reloadable = false
 
 [libraries]
 ; Windows x86_64
-windows.debug.x86_64 = "res://rust/spatial_ml/bin/windows/release/spatial_ml.dll"
-windows.release.x86_64 = "res://rust/spatial_ml/bin/windows/release/spatial_ml.dll"
+windows.debug.x86_64 = "res://rust/spatial_ml/bin/windows/release/spatial_ml_{NATIVE_VERSION_TAG}.dll"
+windows.release.x86_64 = "res://rust/spatial_ml/bin/windows/release/spatial_ml_{NATIVE_VERSION_TAG}.dll"
 
 ; Linux x86_64
 linux.debug.x86_64 = "res://rust/spatial_ml/target/debug/libspatial_ml.so"

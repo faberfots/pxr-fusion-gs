@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "native_version": "0.3.0",
+  "model": "MobileSAM vit_t",
+  "source_revision": "f706ad9c4eb7f219c00d9050e46328518ffb65d2",
+  "runtime_version": "1.23.2",
+  "artifacts": {
+    "encoder": {
+      "path": "res://rust/spatial_ml/models/mobile_sam_encoder.onnx",
+      "sha256": "c513d5a4d41288de43432f64292160f1831cde5ae7dd82249d28ffe5c1ba4ccf"
+    },
+    "decoder": {
+      "path": "res://rust/spatial_ml/models/mobile_sam_decoder.onnx",
+      "sha256": "43c7655a81b62c0f2b0e31d2bc91d3811b48d7f736ecf93b3a4a1254318241cf"
+    },
+    "windows_runtime": {
+      "path": "res://rust/spatial_ml/bin/windows/runtime/onnxruntime.dll",
+      "sha256": "dec964ab1ee36cc9b0ae247d13b376627992fc57dec0454354017ab8fd84f1ea"
+    }
+  },
+  "runtime_archive": {
+    "url": "https://github.com/microsoft/onnxruntime/releases/download/v1.23.2/onnxruntime-win-x64-1.23.2.zip",
+    "sha256": "0b38df9af21834e41e73d602d90db5cb06dbd1ca618948b8f1d66d607ac9f3cd"
+  }
+}

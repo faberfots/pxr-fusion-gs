@@ -125,32 +125,9 @@ func _toggle_camera_mode():
 ## Manual flip function for troubleshooting coordinate issues
 ## Press 'F' key to flip the currently displayed scan
 func _manual_flip_scan():
-	if not visualizer.last_resource:
-		print("No scan loaded to flip")
-		return
-	
-	print("Manual flip requested - reprocessing with inverted Y-axis...")
-	
-	# Flip all points
-	var flipped_points = PackedVector3Array()
-	for p in visualizer.last_resource.points:
-		flipped_points.append(Vector3(p.x, -p.y, p.z))
-	
-	# Create new resource with flipped points
-	var flipped_resource = PointCloudResource.new(flipped_points, visualizer.last_resource.colors)
-	flipped_resource.voxel_size = visualizer.last_resource.voxel_size
-	flipped_resource.metadata = visualizer.last_resource.metadata.duplicate()
-	flipped_resource.metadata.erase("spatial_index")
-	flipped_resource.invalidate_derived()
-	pipeline._finalize_processing(flipped_resource)
-	flipped_resource.metadata["manually_flipped"] = true
-	
-	# Re-visualize
-	visualizer.visualize(flipped_resource)
-	
-	# Update status
-	status_label.text = "🔄 Scan flipped manually | " + status_label.text
-	print("Manual flip complete - press F again to flip back")
+	if not visualizer.last_resource:return
+	if pipeline.flip_scan_async(visualizer.last_resource):
+		status_label.text="Flipping scan..."
 
 func _on_load_button_pressed():
 	file_dialog.popup_centered()
@@ -756,7 +733,11 @@ func _on_graph_button_pressed():
 	await get_tree().process_frame
 	
 	# Execute Segmentation via Pipeline (pass mode and edge threshold override)
-	var stats = pipeline.compute_graph(visualizer.last_resource, mode_index, _edge_threshold_override)
+	var stats = await pipeline.compute_graph_async(visualizer.last_resource, mode_index, _edge_threshold_override)
+	if stats.has("error"):
+		graph_button.disabled = false
+		status_label.text = "Analysis: " + str(stats.error)
+		return
 	
 	# Update Visualizer Mode
 	visualizer.set_view_mode(visualizer.ViewMode.SEGMENTS)
@@ -779,8 +760,11 @@ func _on_geometry_button_pressed():
 	await get_tree().process_frame
 	
 	# Execute Geometric Analysis (via SpatialGraph)
-	var graph = SpatialGraph.new()
-	graph.compute_geometric_features(visualizer.last_resource)
+	var stats:Dictionary=await pipeline.compute_geometry_async(visualizer.last_resource)
+	if stats.has("error"):
+		geometry_button.disabled=false
+		status_label.text="Analysis: "+str(stats.error)
+		return
 	
 	# Switch Mode: 0=RGB, 1=SEGMENTS, 2=NORMALS, 3=CURVATURE
 	# Initial view: Normals

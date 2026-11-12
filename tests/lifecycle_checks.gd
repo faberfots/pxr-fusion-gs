@@ -56,10 +56,22 @@ func run() -> void:
 	check(actions.execute_action("move_camera", {"position": [0, 1, 3], "look_at": [0, 0, 0]}).status == "success" and viewer.get_camera().global_position.is_equal_approx(Vector3(0, 1, 3)), "camera action reports completed transform")
 	actions.free()
 	var previous_signature := viewer.config.gpu_signature()
+	var identity := again.model_id
+	var pose := again.global_transform
+	var original_data: PackedByteArray = viewer.rasterizer._sync(func(): return viewer.rasterizer.context.device.buffer_get_data(viewer.rasterizer.descriptors.splats.rid,again.buffer_offset,again.splat_count*240))
 	viewer.config.tile_size = 8
-	await process_frame
-	await process_frame
-	check(viewer.config.gpu_signature() == previous_signature and again.is_loaded, "structural settings preserve a populated scene")
+	for i in range(60):
+		await process_frame
+		if not viewer._applying_config and not viewer._queued_configuration and i>2: break
+	check(viewer.config.gpu_signature() != previous_signature and again.is_loaded, "populated atlas migrates to new structural settings")
+	check(again.model_id == identity and again.global_transform.is_equal_approx(pose) and viewer.get_selected_model() == again, "atlas migration preserves stable model identity, transform and selection")
+	var migrated_data: PackedByteArray = viewer.rasterizer._sync(func(): return viewer.rasterizer.context.device.buffer_get_data(viewer.rasterizer.descriptors.splats.rid,again.buffer_offset,again.splat_count*240))
+	check(migrated_data == original_data, "atlas migration preserves complete Gaussian bytes")
+	var previous_instances := viewer.config.memory_max_instances
+	viewer.config.memory_max_instances = 0
+	for i in range(3): await process_frame
+	check(viewer.config.memory_max_instances == previous_instances and again.is_loaded, "invalid migration rolls back without unloading content")
+
 	var camera := viewer.get_camera()
 	viewer.set_camera_blocker("test_a", true)
 	viewer.set_camera_blocker("test_b", true)
