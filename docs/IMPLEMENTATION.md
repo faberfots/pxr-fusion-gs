@@ -80,3 +80,9 @@ A failed replacement initialization rolls back to the previous layout using the 
 ## Native artifact ownership
 
 `rust/spatial_ml/models/manifest.json` owns model/runtime paths and SHA-256 values. Source/export receipts and the official model license live beside the ONNX models. The setup tool verifies the official runtime archive and installs its notices. The GDScript bridge verifies and materializes packaged artifacts to a local cache before native loading; runtime telemetry is disabled. Windows x86_64 CPU is the qualified native target. Restart Godot to activate a newly installed nonreloadable native DLL.
+
+## Software Vulkan qualification
+
+Linux CI uses Mesa llvmpipe with MSAA explicitly disabled in the isolated qualification project. The same opaque-depth fixture fails with MSAA enabled: the sampled resolved depth is zero. This remains an unqualified backend combination and is retained in the evidence. Windows RTX Vulkan/MSAA output and its opaque-depth test pass; the application MSAA setting is preserved.
+
+The release preset keeps ImGui enabled because the viewer panel depends on its native class. The portable helper canonicalizes its scene-path autoload before a fresh import and rejects unexpected export errors. The known intermittent editor shutdown RID warning is retained in the package receipt, separately from passing runtime tests.

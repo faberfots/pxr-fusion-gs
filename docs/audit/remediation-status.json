@@ -411,7 +411,8 @@
         "Grid occlusion regression fails before and passes after; opaque-mesh and orthographic checks still pass."
       ],
       "remaining": [
-        "Correct interleaving with arbitrary transparent meshes, Gaussian shadow casting and XR multiview are not implemented. Mono opaque-depth rendering remains qualified; no headset is currently available (confirmed by user)."
+        "Correct interleaving with arbitrary transparent meshes, Gaussian shadow casting and XR multiview are not implemented. Mono opaque-depth rendering remains qualified; no headset is currently available (confirmed by user).",
+        "Linux software Vulkan resolves zero scene depth with MSAA enabled in the reproduced fixture; MSAA-disabled software Vulkan passes. Windows RTX MSAA depth remains qualified."
       ]
     },
     {
@@ -997,10 +998,12 @@
       "title": "Exported shader loading",
       "status": "fully implemented",
       "changes": [
-        "Load imported RDShaderFile/SPIR-V rather than raw GLSL; checked-in export preset"
+        "Load imported RDShaderFile/SPIR-V rather than raw GLSL; checked-in export preset",
+        "Release export explicitly retains ImGui, which the working viewer panel requires; portable packaging uses a canonical scene-path autoload and includes external native libraries."
       ],
       "verification": [
-        "GPU suite passes from source-free PCK with required native add-on libraries"
+        "GPU suite passes from source-free PCK with required native add-on libraries",
+        "Fresh production-config source-free package: native inference, GPU, depth rendering, wide-window migration recovery and main/AI panel checks all pass without runtime/script errors."
       ],
       "remaining": []
     },
@@ -1017,11 +1020,13 @@
       ],
       "verification": [
         "Local native, source-free GPU/native inference and Windows rendering checks pass; full Bali + Suzuki and 2-million-point SpatialOS performance observations recorded.",
-        "GitHub repository: https://github.com/faberfots/pxr-fusion-gs ; remote CI qualification in progress."
+        "GitHub repository: https://github.com/faberfots/pxr-fusion-gs ; remote CI qualification in progress.",
+        "Current Linux CI passes source/provider/GPU/lifecycle/rendering/migration/SpatialOS suites with MSAA explicitly disabled; Windows runtime build passes, inference launcher qualification ongoing."
       ],
       "remaining": [
         "Remote CI final result pending; optimized export-template release executables, Windows signing identity and other real GPU/OS combinations remain unqualified.",
-        "Headless editor export still reports two renderer RID/ObjectDB allocations at shutdown; exported source-free inference/GPU checks pass, but the editor teardown warning remains unresolved."
+        "Headless editor export still reports two renderer RID/ObjectDB allocations at shutdown; exported source-free inference/GPU checks pass, but the editor teardown warning remains unresolved.",
+        "Software-Vulkan MSAA depth is not qualified; the CI job explicitly tests the supported MSAA-disabled software configuration without changing the application setting."
       ]
     },
     {

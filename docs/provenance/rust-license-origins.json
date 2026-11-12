@@ -1,0 +1,56 @@
+{
+  "shared_notices": [
+    {
+      "package": "gdextension-api",
+      "source": "git+https://github.com/godot-rust/godot4-prebuilt?branch=release-v0.3#9ea85a8280daa59a93779359914b1673529a8945",
+      "notice": "top-level license from the same pinned Cargo Git workspace"
+    },
+    {
+      "package": "godot",
+      "source": "git+https://github.com/godot-rust/gdext?rev=07901620#079016200dd77cfac1eafacf10fe0fbc21f2483f",
+      "notice": "top-level license from the same pinned Cargo Git workspace"
+    },
+    {
+      "package": "godot-bindings",
+      "source": "git+https://github.com/godot-rust/gdext?rev=07901620#079016200dd77cfac1eafacf10fe0fbc21f2483f",
+      "notice": "top-level license from the same pinned Cargo Git workspace"
+    },
+    {
+      "package": "godot-cell",
+      "source": "git+https://github.com/godot-rust/gdext?rev=07901620#079016200dd77cfac1eafacf10fe0fbc21f2483f",
+      "notice": "top-level license from the same pinned Cargo Git workspace"
+    },
+    {
+      "package": "godot-codegen",
+      "source": "git+https://github.com/godot-rust/gdext?rev=07901620#079016200dd77cfac1eafacf10fe0fbc21f2483f",
+      "notice": "top-level license from the same pinned Cargo Git workspace"
+    },
+    {
+      "package": "godot-core",
+      "source": "git+https://github.com/godot-rust/gdext?rev=07901620#079016200dd77cfac1eafacf10fe0fbc21f2483f",
+      "notice": "top-level license from the same pinned Cargo Git workspace"
+    },
+    {
+      "package": "godot-ffi",
+      "source": "git+https://github.com/godot-rust/gdext?rev=07901620#079016200dd77cfac1eafacf10fe0fbc21f2483f",
+      "notice": "top-level license from the same pinned Cargo Git workspace"
+    },
+    {
+      "package": "godot-macros",
+      "source": "git+https://github.com/godot-rust/gdext?rev=07901620#079016200dd77cfac1eafacf10fe0fbc21f2483f",
+      "notice": "top-level license from the same pinned Cargo Git workspace"
+    },
+    {
+      "package": "nanoserde-derive",
+      "source": "https://github.com/not-fl3/nanoserde",
+      "revision": "85623c43b0876c23797c6046c8dea18dafa4e7ae",
+      "notice": "MIT license from nanoserde 0.2.1 with matching Cargo VCS revision; derive subdirectory is declared MIT"
+    },
+    {
+      "package": "gdextension-api",
+      "revision": "9ea85a8280daa59a93779359914b1673529a8945",
+      "notice": "Canonical MPL 2.0 text and pinned source URL; package itself declares MPL-2.0 but omits the license file."
+    }
+  ],
+  "missing_notice_files": []
+}

@@ -1,0 +1,3 @@
+gdextension-api 0.3.2 is declared MPL-2.0 in its pinned Cargo package.
+Unmodified upstream source: https://github.com/godot-rust/godot4-prebuilt/tree/9ea85a8280daa59a93779359914b1673529a8945
+Canonical MPL 2.0 text is retained from the matching gdext workspace.

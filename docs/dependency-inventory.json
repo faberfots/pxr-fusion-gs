@@ -12,7 +12,8 @@
       "status": "upstream attribution retained; history unavailable",
       "snapshot": {
         "files": 83,
-        "sha256": "850fa1e90ea94faed06c0939792771cc684c43c32cd1712ccc001b33bcd0d118"
+        "sha256": "d71b510ec971e9e43e657c21a2c8d54f8434e3153603db380a0530ee0476bb0e",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -26,7 +27,8 @@
       "declared_version": "1.0.0",
       "snapshot": {
         "files": 8,
-        "sha256": "3ade192a474811828b215cacff94872c3bd201b2a5d2c5c9d007333bca048114"
+        "sha256": "75e3f263d319b610ed5efdcfc622a634ff4cb41f36519efa535cf5de60d86614",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -40,7 +42,8 @@
       "declared_version": "1.0.0",
       "snapshot": {
         "files": 11,
-        "sha256": "2d0d9f81744d7be08d3ca82fd3e4cde849476c5a329de62e912c913d54dfd986"
+        "sha256": "440df4afde53356a56dc657875372428a22f539f6dbf66a3ee52269b3175f5d0",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -53,8 +56,9 @@
       "upstream": "https://github.com/pkdawson/imgui-godot/tree/v6.3.2",
       "declared_version": "6.3.2",
       "snapshot": {
-        "files": 39,
-        "sha256": "f5bc58875aa6fad263fd4e39377fa833e6b6d6db403acd81174176d3b75df851"
+        "files": 45,
+        "sha256": "c6b052fabb75825d41b54bbdbda9c7e85def93711b37c350c6a296c8009ef037",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -69,7 +73,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 44,
-        "sha256": "ce50acb68cfe56556737319bc67a8f6f5988ec50baf72d4dc07fe263ef43cac9"
+        "sha256": "491c07358edd413a7acc94fb82cb93f743185357b50c2e99cc19bbd439d0d028",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -81,7 +86,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 22,
-        "sha256": "1dffc51529c806ac3436e8a3543e650ca275c2324cdba96701278aa12e7d09b0"
+        "sha256": "82ed7da127e40fbcbd0fc10c6040e74c196efbd05139e614e0de3f99205e2bee",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -94,7 +100,8 @@
       "upstream": "https://github.com/Saulo-de-Souza/VirtualJoystick",
       "snapshot": {
         "files": 32,
-        "sha256": "022dbfd6d7d8b7aef6d78844e4caf18f134fc757806aa0d59a6bd55202980b5e"
+        "sha256": "96077ac04655a2a5998b418f699991ab25ff9ed52ca27191b067b2c4b3f9dc82",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -106,7 +113,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 3,
-        "sha256": "89b4d776b4bf11f48d12c055229f67c0080168446a9c539bb0f437d689ef205a"
+        "sha256": "084a00396382d41cde7121060abade844e538bd1d2fc9131e8d9578fb0c59556",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -119,7 +127,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 11,
-        "sha256": "b0d66d4fe508465c4769913b172fdac172164402e31cf9136d721ddf15186135"
+        "sha256": "809f596d1de6f7d1b2239bdc4d4c38d6515d73ad501f5988d219336857b91d8e",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -131,7 +140,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 5,
-        "sha256": "35cedc77197b5b846df9540862831e381e7aaf8bbbcab4b854d01a85ea981c3f"
+        "sha256": "7e78a34e6e841502bdfcded467f2a4048cc165d4e587813c684350d868aca27f",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -143,7 +153,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 4,
-        "sha256": "8bedc5191203bca2028fce481dc1219f765e66e8c84d45fe5ff8c5c14019235e"
+        "sha256": "3ebd9ce9419e9625ff8cf35f6cf2b213a9276aa6adb789a49903e3300bd5557a",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -155,7 +166,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 5,
-        "sha256": "d87f6d32fd65314dc4441b4f6cc45e926782542cd9bbbf803513d03e7d0e5081"
+        "sha256": "797f0616d13723216e1923d22aa5cc48354f9ee13e27535681eded3f9d3014b6",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -167,7 +179,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 5,
-        "sha256": "aa24fb523fc2fcf67ea5d969aef2a50d7b708426cd2b28d48d03920ca8f07a5d"
+        "sha256": "10a356a38db91ce59c638c5b3f5bf71f08d7310e35ebf24b5801c87f402df0a4",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -179,7 +192,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 27,
-        "sha256": "cea56d3d000d0fd6221414bcf824301b2d2f517863b7955ddf524bfc11538f0e"
+        "sha256": "c241e741e5c26247eb8362d064f0dfe02eefa88681914879bc5b1be08f6f3c23",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -191,7 +205,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 7,
-        "sha256": "df78cbaa479b7af49f33d945376e2e3ca9f862ab85b3c91360250be7fa1aeb13"
+        "sha256": "4b3adbbacbb3cb7bf6270673e756c84d528225ac65f9826b68c925cd67a906c9",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -203,7 +218,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 16,
-        "sha256": "d442b7b5af6606d1a2bba33166d0044967d0fa827729d18fb7d314d9dcf09e53"
+        "sha256": "7a17b13e10dac2ce004ae2dc23151455762c7c265e88b3b724a0a1a05a68ffc1",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -216,7 +232,8 @@
       "upstream": "https://fontenddev.com/fonts/poco/",
       "snapshot": {
         "files": 4,
-        "sha256": "da2f5b396cbded29d6da1c2ff6091dc1ef0aa31d57f93c7b6c40b484d21cf056"
+        "sha256": "933b5ff755c7da55824b2774280ca0591ef856e51bc214105c8dd31179577d28",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -228,7 +245,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 37,
-        "sha256": "2145901502510bf25810cf4dd19933802238f5f3e63701dd3e33e565f3fa6452"
+        "sha256": "d59fa4998a8b637faa32ddf9707798f144df7dffc200c5a57888767097632fc3",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -242,7 +260,8 @@
       "embedded_license": "SIL OFL 1.1, name table IDs 13/14",
       "snapshot": {
         "files": 29,
-        "sha256": "4c5858942291240a2b2b817a4e9a39474112d7f71af139f23e30c23e1db4a386"
+        "sha256": "e26ea69ec8224e2e9f84cea822af0af6a7bf8c6f0ca13b3ad483047f22a7880e",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -254,7 +273,8 @@
       "status": "license text present; upstream version and distribution scope require verification",
       "snapshot": {
         "files": 6,
-        "sha256": "57f48538cc9c2c07f1867a7aaf808da76cb2fbe5e23c2dc837f44e53ad402050"
+        "sha256": "e43d2f133633ee14c5a0a0051a09c0bd8a0accb1a976836e6eb8c0dae1b97103",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
@@ -262,9 +282,12 @@
       "path": "rust/spatial_ml/Cargo.lock",
       "evidence": [
         "rust/spatial_ml/Cargo.toml",
-        "rust/spatial_ml/Cargo.lock"
+        "rust/spatial_ml/Cargo.lock",
+        "docs/provenance/rust-dependencies.json",
+        "docs/provenance/rust-license-origins.json",
+        "docs/provenance/rust-licenses"
       ],
-      "status": "pinned versions; redistribution review remains required"
+      "status": "50 pinned package license declarations; dependency notice files and shared-license origins retained; redistribution evidence remains bounded by the wider asset inventory"
     },
     {
       "component": "MobileSAM model artifacts",
@@ -278,15 +301,21 @@
       "upstream": "https://github.com/ChaoningZhang/MobileSAM",
       "revision": "f706ad9c4eb7f219c00d9050e46328518ffb65d2",
       "snapshot": {
-        "files": 5,
-        "sha256": "738da7e7acb36e6346e3affbf9007e2fd2cc96bbbc63b8a7c86125a8dbc9b7f6"
+        "files": 6,
+        "sha256": "f2bbfabc116909d50624321ba994b98489c129bd8b298cb0e752eaa85d4f9e5f",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {
       "component": "local sample datasets",
       "path": "resources",
       "evidence": [],
-      "status": "not exported; dataset provenance requires owner evidence"
+      "status": "not exported or pushed; user does not remember source/license; rights evidence unresolved",
+      "snapshot": {
+        "files": 5,
+        "sha256": "a531820d89b110f36db3b4b86f37b5920c8fd5d73ae9a9c1c456ef5a5da97f2c",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
+      }
     },
     {
       "component": "ONNX Runtime Windows CPU",
@@ -298,8 +327,9 @@
       ],
       "status": "official archive SHA-256 verified; native inference and local fixture quality pass",
       "snapshot": {
-        "files": 0,
-        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        "files": 4,
+        "sha256": "17b04c892123c9d86479c51528002bdc4e0b15cb24ea6aedf3a127d8013c4d7f",
+        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
       }
     },
     {

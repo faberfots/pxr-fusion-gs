@@ -277,6 +277,55 @@
       "pass_labels": 0,
       "errors_logged": false,
       "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "delivered-export",
+      "evidence": "evidence/delivered-export.log",
+      "pass_labels": 0,
+      "errors_logged": true,
+      "scope": "final production-config source-free Windows package; warnings from editor export retained separately"
+    },
+    {
+      "suite": "delivered-gpu-checks",
+      "evidence": "evidence/delivered-gpu-checks.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "final production-config source-free Windows package; warnings from editor export retained separately"
+    },
+    {
+      "suite": "delivered-migration-recovery-checks",
+      "evidence": "evidence/delivered-migration-recovery-checks.log",
+      "pass_labels": 6,
+      "errors_logged": false,
+      "scope": "final production-config source-free Windows package; warnings from editor export retained separately"
+    },
+    {
+      "suite": "delivered-native-inference-checks",
+      "evidence": "evidence/delivered-native-inference-checks.log",
+      "pass_labels": 6,
+      "errors_logged": false,
+      "scope": "final production-config source-free Windows package; warnings from editor export retained separately"
+    },
+    {
+      "suite": "delivered-rendering-checks",
+      "evidence": "evidence/delivered-rendering-checks.log",
+      "pass_labels": 9,
+      "errors_logged": false,
+      "scope": "final production-config source-free Windows package; warnings from editor export retained separately"
+    },
+    {
+      "suite": "delivered-script-checks",
+      "evidence": "evidence/delivered-script-checks.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "final production-config source-free Windows package; warnings from editor export retained separately"
+    },
+    {
+      "suite": "delivered-visual-review",
+      "evidence": "evidence/delivered-visual-review.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "final production-config source-free Windows package; warnings from editor export retained separately"
     }
   ],
   "real_scene": {
@@ -385,5 +434,25 @@
     "issue": "Fixed 32 MiB recovery-test budget admitted fewer than 40,007 fixture splats at a larger output resolution; later test access stalled after admission failure.",
     "correction": "Budget now includes resolution-dependent output texture headroom and the test quits immediately on load failure.",
     "result": "current migration recovery suite passes at 1142x648; no renderer behavior change"
+  },
+  "software_vulkan": {
+    "device": "Mesa llvmpipe LLVM20.1.2 locally / LLVM21.1.8 GitHub runner",
+    "msaa_disabled": "all current Linux CI suites pass",
+    "msaa_enabled": "opaque-depth pixel fixture fails; diagnostic compute sampling observed resolved depth 0 and unbounded occluder limit",
+    "evidence": [
+      "evidence/linux-rendering-local.log",
+      "evidence/linux-rendering-no-msaa.log"
+    ],
+    "scope": "software renderer qualification only; no change to Windows MSAA configuration"
+  },
+  "development_package": {
+    "path": "build/unsigned-candidate",
+    "type": "unsigned ordinary-engine development candidate",
+    "receipt": "evidence/package-receipt.json",
+    "source_free": true,
+    "full_main_and_ai_panel_pass": true,
+    "release_imgui_retained": true,
+    "native_cpu_inference_pass": true,
+    "shader_gpu_depth_and_migration_pass": true
   }
 }

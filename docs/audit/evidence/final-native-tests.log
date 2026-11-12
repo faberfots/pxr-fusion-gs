@@ -1,0 +1,9 @@
+
+running 2 tests
+test mobile_sam::tests::malformed_image_rejected ... ok
+test mobile_sam::tests::pixels_change_tensor_and_padding_is_zero ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.13s
+     Running unittests src\lib.rs (C:\Users\User\Documents\pxr-fusion-gs-enhanced-ssot-fsm-vbs-godot-integration-new-plus\rust\spatial_ml\target\x86_64-pc-windows-gnu\debug\deps\spatial_ml-7c81e30dc7577001.exe)

@@ -25,6 +25,7 @@ for name in ('main.tscn', 'icon.svg', 'export_presets.cfg', 'rust/spatial_ml/spa
 project = (ROOT / 'project.godot').read_text(encoding='utf-8')
 project = re.sub(r'config/name="[^"]*"', 'config/name="GS Packaged Qualification"', project)
 project = re.sub(r'run/main_scene=.*', 'run/main_scene="res://main.tscn"', project)
+project = re.sub(r'ImGuiRoot=.*', 'ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"', project)
 (work / 'project.godot').write_text(project, encoding='utf-8')
 startup = None
 if __import__('os').name == 'nt':
@@ -38,7 +39,9 @@ for command in (['--headless', '--editor', '--import', '--single-threaded-scene'
                             text=True, encoding='utf-8', errors='replace', startupinfo=startup, timeout=180)
     log = result.stdout + result.stderr
     logs.append(log)
-    if result.returncode or 'SCRIPT ERROR:' in log:
+    fatal_errors = [line for line in log.splitlines() if 'ERROR:' in line
+                    and "2 RID allocations of type 'N17RendererSceneCull8InstanceE' were leaked at exit." not in line]
+    if result.returncode or fatal_errors:
         (output / 'export.log').write_text('\n'.join(logs), encoding='utf-8')
         raise SystemExit('Godot package creation failed; inspect export.log.')
 # --export-pack does not copy the libraries referenced by GDExtension descriptors.
@@ -58,6 +61,10 @@ for folder in ('addons', 'assets', 'rust/spatial_ml/models', 'rust/spatial_ml/bi
             shutil.copy2(source, destination)
 if (ROOT / 'LICENSE').exists():
     shutil.copy2(ROOT / 'LICENSE', output / 'LICENSE')
+if (ROOT / 'docs/provenance/rust-licenses').exists():
+    shutil.copytree(ROOT / 'docs/provenance/rust-licenses', output / 'licenses/rust', dirs_exist_ok=True)
+if (ROOT / 'docs/provenance/Godot-LICENSE.txt').exists():
+    shutil.copy2(ROOT / 'docs/provenance/Godot-LICENSE.txt', output / 'licenses/Godot-LICENSE.txt')
 if args.engine:
     shutil.copy2(args.engine.resolve(), output / 'GSViewer.exe')
 (output / 'export.log').write_text('\n'.join(logs), encoding='utf-8')

@@ -12,13 +12,13 @@
       "path": "README.md",
       "kind": "modified",
       "baseline_sha256": "52a2e99996c4f0dc114e07680e35e88bf2b0861aada416142a6774210f685e98",
-      "current_sha256": "db0bdfc52a26d5173bfbe14e81a346ec833033f7b98acfa7f3e144302942a885"
+      "current_sha256": "f5bd8d1bdba311a8550955d36bc5e1d4b41ceb725a1d6d68120cd52dda783bc2"
     },
     {
       "path": "export_presets.cfg",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "feb2261ec6af20339a77657b6d622179bc672b654542698ff2475b7cc06a2a51"
+      "current_sha256": "c0867f7ad1556511d3491107e1b396aed02548699f5906570f68b26757849fcb"
     },
     {
       "path": "modules/gaussian_splatting/cameras/camera_controller.gd",
@@ -120,7 +120,7 @@
       "path": "modules/gaussian_splatting/UI/ProductionUI.gd",
       "kind": "modified",
       "baseline_sha256": "4c01b52b7c52cf4572d7db83784cfd958674c5508ef065ca80f30c6cd47e5e2f",
-      "current_sha256": "765b1a5c18cde37d389894421c0c8a8058d9580c1bbadc79f14cb3423398101d"
+      "current_sha256": "035f0aa746b9a0f82da1f2cfc4d424df970e522e92c23db15797adda635ec056"
     },
     {
       "path": "modules/gaussian_splatting/UI/ProductionUI.tscn",
@@ -186,13 +186,13 @@
       "path": "modules/gaussian_splatting/utils/scripts/gaussian_splatting_rasterizer.gd",
       "kind": "modified",
       "baseline_sha256": "5112dc1cc313b8f2c5721df1fe15159fbe662d556a9e8e35225591c761bdff9b",
-      "current_sha256": "6ccd0c5b13f34208fd513c98e15946f9f0704ff0af61b8ae328464799dc207da"
+      "current_sha256": "8b7aac1f3607288e0eca312e47f036ebb978190357762d7b5402900496c95183"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd",
       "kind": "modified",
       "baseline_sha256": "6a77b33568d9a29d5028fa5c00d3dfc6a419ab16c00018fea4bb2506d8201512",
-      "current_sha256": "1b01eefd9d8b46181ffb511e834d9da23802e2693b7e842c9bbcc3073ddf218e"
+      "current_sha256": "f35a3806cff5630b797235c3f1f40e6afc8e645bf974b5a85c0d4e5b01c0396f"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/gpu_pipeline_manager.gd",
@@ -204,7 +204,7 @@
       "path": "modules/gaussian_splatting/utils/scripts/gs_compositor_effect.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "4b4d7aa87fa72550f9be24f61df9e0e2c5fc2bffee0b75e6c450b5c90d33a403"
+      "current_sha256": "e593c86fba4970106392156c6184f3363962d650c8f8bbbf06e2d16d0c51e7bc"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/render_context.gd",
@@ -222,7 +222,7 @@
       "path": "modules/SpatialOS/core/AsyncPLYLoader.gd",
       "kind": "modified",
       "baseline_sha256": "3c77dfcf8c1a57e2aeec9ab3cf006c62857561c6d6e52c13077670c29214fcf9",
-      "current_sha256": "2158019eebeda81054928b1e23dbb12e44e7b0c2b8881276e3d751db388517b7"
+      "current_sha256": "5e45d62221d1212d8eba2e6db8b32105a12ad7b63f22140dc3885e58acfbfa42"
     },
     {
       "path": "modules/SpatialOS/core/ply_loader.gd",
@@ -234,13 +234,13 @@
       "path": "modules/SpatialOS/core/SpatialGraph.gd",
       "kind": "modified",
       "baseline_sha256": "f0b2067b75baeb93378091cebf8a424db686caaa9e8358fb9d14ffffe2a35eb3",
-      "current_sha256": "6b222607e96a51567af633b018c0224eb0e4090250266128ce09d2f937af5601"
+      "current_sha256": "63fccb0d8e2ced144443babd62d020edfdadfa92af7c48cfe3d1d31700fd7391"
     },
     {
       "path": "modules/SpatialOS/core/SpatialIndex.gd",
       "kind": "modified",
       "baseline_sha256": "cb9535d1e2ed275a9f26b8d5bf098d928a41e618e3e412969335815baf0d7f88",
-      "current_sha256": "f208679b9066cff83749d92ef45a91ae8a3736fd5b8b530a97877d66fa6aee73"
+      "current_sha256": "ee1a511acd534244fac2167d50a61b3b5e2e595d30e80b21cccf2d48b1545805"
     },
     {
       "path": "modules/SpatialOS/core/spatial_config.gd",
@@ -252,25 +252,25 @@
       "path": "modules/SpatialOS/core/spatial_pipeline.gd",
       "kind": "modified",
       "baseline_sha256": "1c8075b52c88718da232bcff464fe68390b9bb33dd8e41c56443a34f711f50c3",
-      "current_sha256": "0f227972350c71a92589ce529c4fbf172658284718bc3162f4140feabc27b921"
+      "current_sha256": "f257b21d1560221debbdb7b4625d3145f53561685a77c307a92526e8194e5f10"
     },
     {
       "path": "modules/SpatialOS/core/spatial_ply_job.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "39304da115420fcd20db674526c4b9b2aea00b6001a722441adaca6351894190"
+      "current_sha256": "262bd9c60ac57e43827d14831b3d1755ed73c862c5a8c0d69f68aabcb7f84703"
     },
     {
       "path": "modules/SpatialOS/scenes/Foundation1Demo.gd",
       "kind": "modified",
       "baseline_sha256": "68b141d2781f5f78ff1e99cc33324c4a5f5455d2246fcd06959f87ff1091e419",
-      "current_sha256": "3349c7ef1fc8a54d193008006fa6be5abd7f1601973b2d8e03172ad38a50eba3"
+      "current_sha256": "72da03ba0b0884d87a527ba0747f53c274293958b4b94890555f800969e1420d"
     },
     {
       "path": "modules/SpatialOS/scenes/PointVisualizer.gd",
       "kind": "modified",
       "baseline_sha256": "07026522d5647d9dd05f4dae1f5aeb4bf4f6554810e9df0f52377c953666d528",
-      "current_sha256": "b09f41907abb9c4fa5356af883bcc9b4b92c8a614e9cb7c1a4c7931c9f79bd42"
+      "current_sha256": "1455fbe426d2d095fc9bbc80ad4613d94e454a5e8f5429840e3536d08729d1ea"
     },
     {
       "path": "modules/SpatialOS/shaders/geometric_analysis.glsl",
@@ -324,7 +324,7 @@
       "path": "modules/spatial_intelligence/autoload/SceneContext.gd",
       "kind": "modified",
       "baseline_sha256": "b7110a6e2e9361d910aa8e5f678d93d1e2846dc905055eca686a94dc88b9a6e9",
-      "current_sha256": "117ab97e69c963d440b82ec126fba070af40fd8a584ef697f9ec7d31be3bc9d1"
+      "current_sha256": "21a2eb161d6db9a1a2d1e744ddb894eed60e25a258055bf161c1aecdd0a77061"
     },
     {
       "path": "modules/spatial_intelligence/autoload/SpatialIntelligence.gd",
@@ -360,13 +360,13 @@
       "path": "modules/spatial_intelligence/utils/LLMClient.gd",
       "kind": "modified",
       "baseline_sha256": "065b73071d11a9dc78379f64b334870f46487400f893b248b9e5efc0543e615e",
-      "current_sha256": "42f080d3d4ecc7ef5e14582c6e73b1f49367f4f8aeb1cf84114c433fcb5bd9d4"
+      "current_sha256": "68cfd92f12a516dd677de6336ca2d71fcfe1f6b56dfa887e60cb3135b0e15bc6"
     },
     {
       "path": "modules/spatial_intelligence/utils/NativeMLBridge.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "43d5f6db244585579d9a57036e588f494a5e574efecb977fc74556a461dc3225"
+      "current_sha256": "05700d4cdf31cbe898c1dc634ec1bf1553af226100ee95a985c114133a660d6e"
     },
     {
       "path": "tools/audit_status.py",
@@ -378,7 +378,7 @@
       "path": "tools/run_checks.py",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "8edb080c520792f3849d795de43d2a11c8265257d91bd98120a535e398cc62c6"
+      "current_sha256": "9df7db655def1b6eff646c47e24eb1b914b963d92526593c7a4ae6a6106820e3"
     },
     {
       "path": "tests/core_checks.gd",
@@ -396,7 +396,7 @@
       "path": "tests/lifecycle_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "d8d10f05080a966aff27dc9255b08a085e914071a68eb2f5f6e4ef1fd6fc03e0"
+      "current_sha256": "364a68228b5c5bcd868c39c2d4257ae55cd634ef42fa1011fedb5c943c96b8e0"
     },
     {
       "path": "tests/real_scene_review.gd",
@@ -408,7 +408,7 @@
       "path": "tests/rendering_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "b5230f76ff2071cbc6e1e3e73f5615ab09e00471a3b9385da2c1d4430afa9156"
+      "current_sha256": "702c4fbbbb24b8247f7b2a31ee2714b4a1ce91796c8a9ba23495daeda4607215"
     },
     {
       "path": "tests/spatial_checks.gd",
@@ -432,37 +432,983 @@
       "path": "rust/spatial_ml/src/mobile_sam.rs",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "1f367348a5251c86c8e76455c417eca0f63659b035a25b18d02bbc7001520f43"
+      "current_sha256": "6a6aea3ff7b07ad16e427b11df97748ffbe69f89893d5888f7a8689c4453b628"
     },
     {
       "path": "rust/spatial_ml/Cargo.toml",
       "kind": "modified",
       "baseline_sha256": "6c18355051be0288eccc0d11c91818292354d9e7adb7200acffb729b1686c79d",
-      "current_sha256": "675d761cab869ac4557d786675b8e63ec85135060119ebceed25e7ce51bb2317"
+      "current_sha256": "d7cc6195f458ec651a8899d4bce9ebad68b4e54b03237aaf2db85d63aef77a7e"
     },
     {
       "path": "rust/spatial_ml/Cargo.lock",
       "kind": "modified",
       "baseline_sha256": "f8d7029db1710e669fc1cb723189978b60941f56ea38e0ffdc76e57c63b44cb4",
-      "current_sha256": "f6a7a2a5373e086507a8aeb2e24ca1fd9364c58d6aa40cd0671828d82b523bd3"
+      "current_sha256": "0f32dbec0c4aa4b1b64c3e5b143112b3d1d48b631e1682bd2aff36811fc77505"
     },
     {
       "path": "rust/spatial_ml/spatial_ml.gdextension.in",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "f7ec90d6228fedcf16c0ce5cf89ffe8ad589d5871a59bb5ae5f202c91aa5bf02"
+      "current_sha256": "d7cc36c19a40033a9379234b94098c3d9fd25fdeae01b375682b7994fdea20c1"
     },
     {
       "path": "tests/script_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "76994c444a03047ee388e541ca9744834d956a1965379b1d15c8521e5765bdbb"
+      "current_sha256": "e007ea6800f3eb6ebb0928493a3a808ef9c75e1443bf88ab039bfd3bc3e92310"
     },
     {
       "path": "tests/large_scene_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "ac05d252cfcd83dde695f32ca7dc00584c6d119b9381a127f44b0afe1fc33bf7"
+      "current_sha256": "c4a5ed19d892b0823fdbbc07a0883d8441a264f2763b5bb21436f107976616af"
+    },
+    {
+      "path": ".github/workflows/validate.yml",
+      "kind": "modified",
+      "baseline_sha256": "8c8c92f8b82f0d3c1e26dbc734015cedc45ab474b65af15c3dacc1f1a2d8dd64",
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "ff488f17523c7a007244cb4946250b8b222868abb91aa839d9eeb0237cae1bc2"
+    },
+    {
+      "path": "addons/AdvancedFreeFlyCamera/LICENSE.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0558bd09e66f14f6cac1c75acfa0eb3acc7eb7a4eb2b4322d4d3b2304175f3f1"
+    },
+    {
+      "path": "addons/advanced_control_camera3d/LICENSE.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0558bd09e66f14f6cac1c75acfa0eb3acc7eb7a4eb2b4322d4d3b2304175f3f1"
+    },
+    {
+      "path": "addons/imgui-godot/LICENSE.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "c8a3d9a79bbedbddb215b19a98b6dde5cc17664529ed5ba02d8500f2b9561727"
+    },
+    {
+      "path": "addons/virtual_joystick/LICENSE-upstream.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "3c8ae6e5ced62db16460e80ecceebc933362f07cb6fd7e75c74ff5f52b290a4b"
+    },
+    {
+      "path": "assets/fonts/poco/ATTRIBUTION.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "71830ebe956a4ae9d6c52409c6c48d658c66a1a66bf56e3cd431659c76e42701"
+    },
+    {
+      "path": "assets/fonts/source-code-pro/LICENSE.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "7c940e28a5388e9bba866cf0e408edda45fe0899ba98665b8f6ab31dc5e4b8ff"
+    },
+    {
+      "path": "docs/IMPLEMENTATION.md",
+      "kind": "modified",
+      "baseline_sha256": "4068dafc7166b88ebdefadba21727a8573be2f59a257e1420eb3c4cc7a84b5d9",
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "d593065ba5222eda6c6046454756081bb4a72b0cb146faef7eb0212c9b288333"
+    },
+    {
+      "path": "docs/audit/REMEDIATION_STATUS.md",
+      "kind": "modified",
+      "baseline_sha256": "03d0431deb40a987ad59b8a4882677489bbf9de63803707e258d982f49577ba2",
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "01ed0e56732cec213b771e4346e797ed6b3a41935a5442cffee48779a1b44cc5"
+    },
+    {
+      "path": "docs/audit/remediation-status.json",
+      "kind": "modified",
+      "baseline_sha256": "f7f67c0a833c230a98536bd61ccb0b0be1d30736dcfba21d26b22a4f20e4bd96",
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0c0db07b6f850d32a20a4b99adce996a71aa853706435afc08fb1e0d4259479c"
+    },
+    {
+      "path": "docs/audit/verification.json",
+      "kind": "modified",
+      "baseline_sha256": "efa8f698e019da45ef757f51f6d29b088740ab54f9b4256f1d013e81b53bb4ba",
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "574579a6690ef43031f80d9b4edc109060080ac70e5cfd43210cacf38ab3cc8b"
+    },
+    {
+      "path": "docs/dependency-inventory.json",
+      "kind": "modified",
+      "baseline_sha256": "334a1b3717d22d169b460af0b767fe5f6687af04b29060425664a54c7d9bd72d",
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "983313f8c92fa2c77f397dba363a93f9fbccf4f12db43c756ad894105f68047b"
+    },
+    {
+      "path": "docs/provenance/Godot-LICENSE.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+    },
+    {
+      "path": "docs/provenance/imgui-godot-LICENSE.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "c8a3d9a79bbedbddb215b19a98b6dde5cc17664529ed5ba02d8500f2b9561727"
+    },
+    {
+      "path": "docs/provenance/native-build.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "bdc57b3982483ff67405ed7ebfedec91a63a82df86485ba85658cf8b0cf75e71"
+    },
+    {
+      "path": "docs/provenance/owner-confirmation.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "2f37901e2445b8e20a6d6dc4bb2c1f95e6062be7b0ad85f8702eab48c6407049"
+    },
+    {
+      "path": "docs/provenance/retrievals.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "8e446be061793732641756043a01a1e04f4c0d1282234f32fde71e142f29c3cf"
+    },
+    {
+      "path": "docs/provenance/rust-dependencies.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "54fb8e7f82bc2c3c3a3dacba23182b2a73e6b22371a331e654c3c71e79daf093"
+    },
+    {
+      "path": "docs/provenance/rust-license-origins.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "d47fb3cadaf9b77e05427db5ee4dbffb47d38752b4d21ab28e703f0a2f223af6"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/aho-corasick-1.1.4/COPYING",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "01c266bced4a434da0051174d6bee16a4c82cf634e2679b6155d40d75012390f"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/aho-corasick-1.1.4/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/autocfg-1.5.0/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/autocfg-1.5.0/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "27995d58ad5c1145c1a8cd86244ce844886958a35eb2b78c6b772748669999ac"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/bytemuck-1.24.0/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "e3ba223bb1423f0aad8c3dfce0fe3148db48926d41e6fbc3afbbf5ff9e1c89cb"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/bytemuck-1.24.0/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "9df9ba60a11af705f2e451b53762686e615d86f76b169cf075c3237730dbd7e2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/bytemuck-1.24.0/LICENSE-ZLIB",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "84b34dd7608f7fb9b17bd588a6bf392bf7de504e2716f024a77d89f1b145a151"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/byteorder-lite-0.1.0/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/cfg-if-1.0.4/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/cfg-if-1.0.4/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "378f5840b258e2779c39418f3f2d7b2ba96f1c7917dd6be0713f88305dbda397"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/gdextension-api-0.3.2/MPL-2.0.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/gdextension-api-0.3.2/SOURCE.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "bbc0714dc52c64e73fd2601de1ed3dc76ddd6f0d345ae50e9240f358757b4bec"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/glam-0.30.10/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "be33ddb87a30fd321ab100e2d922cba512e50ec7a63d8e62e5bfc0798dd4b585"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/glam-0.30.10/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/godot-0.4.4/License.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/godot-bindings-0.4.4/License.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/godot-cell-0.4.4/License.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/godot-codegen-0.4.4/License.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/godot-core-0.4.4/License.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/godot-ffi-0.4.4/License.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/godot-macros-0.4.4/License.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/heck-0.5.0/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/heck-0.5.0/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "7b63ecd5f1902af1b63729947373683c32745c16a10e8e6292e2e2dcd7e90ae0"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/image-0.25.9/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/image-0.25.9/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "c77a4cf9da729987d0fe7ccd811e3bd27393914ddf3d23467c18cc22954513b3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/libc-0.2.180/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/libc-0.2.180/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a8d47ff51ca256f56a8932dba07660672dbfe3004257ca8de708aac1415937a1"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/libloading-0.9.0/LICENSE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "b29f8b01452350c20dd1af16ef83b598fea3053578ccc1c7a0ef40e57be2620f"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/matrixmultiply-0.3.10/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/matrixmultiply-0.3.10/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "792d075c7bad6dac258a44e799eb64cbf465e24d9932d27669be08c5ec957e27"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/memchr-2.7.6/COPYING",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "01c266bced4a434da0051174d6bee16a4c82cf634e2679b6155d40d75012390f"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/memchr-2.7.6/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/moxcms-0.7.11/LICENSE-APACHE.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "90bf2d659c43045111b65c733ab2a6d4cbcb422a098368c8c58a9ba3db4ed0c5"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/moxcms-0.7.11/LICENSE.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "2aa92cada6431e75615e3fe6cb1a9082c98f777d48ae1c087c0da0e37f7b8bff"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/nanoserde-0.2.1/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/nanoserde-0.2.1/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "7ba57659687d080189c3f520bc032919d62f45270cbb84977560fa7ab6b24eee"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/nanoserde-derive-0.2.1/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "7ba57659687d080189c3f520bc032919d62f45270cbb84977560fa7ab6b24eee"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/ndarray-0.17.2/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/ndarray-0.17.2/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "1fd6747d2c8e80f9fa766f57c5888864774621deb85cc2838ccaed727db32d45"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/num-complex-0.4.6/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/num-complex-0.4.6/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/num-integer-0.1.46/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/num-integer-0.1.46/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/num-traits-0.2.19/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/num-traits-0.2.19/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/once_cell-1.21.3/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/once_cell-1.21.3/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/ort-2.0.0-rc.11/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/ort-2.0.0-rc.11/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "6bba08de46289c40986a2e6b310e2da61fcea33b3c112c8320f6093f8f9cb71b"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/ort-sys-2.0.0-rc.11/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/ort-sys-2.0.0-rc.11/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "6bba08de46289c40986a2e6b310e2da61fcea33b3c112c8320f6093f8f9cb71b"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/pin-project-lite-0.2.16/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/pin-project-lite-0.2.16/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/portable-atomic-1.13.0/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/portable-atomic-1.13.0/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/portable-atomic-util-0.2.4/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/portable-atomic-util-0.2.4/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/proc-macro2-1.0.106/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/proc-macro2-1.0.106/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/pxfm-0.1.27/LICENSE-APACHE.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "90bf2d659c43045111b65c733ab2a6d4cbcb422a098368c8c58a9ba3db4ed0c5"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/pxfm-0.1.27/LICENSE.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "2aa92cada6431e75615e3fe6cb1a9082c98f777d48ae1c087c0da0e37f7b8bff"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/quote-1.0.44/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/quote-1.0.44/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/rawpointer-0.2.1/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/rawpointer-0.2.1/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "7576269ea71f767b99297934c0b2367532690f8c4badc695edf8e04ab6a1e545"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/regex-1.12.2/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/regex-1.12.2/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/regex-automata-0.4.13/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/regex-automata-0.4.13/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/regex-syntax-0.8.8/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/regex-syntax-0.8.8/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "6485b8ed310d3f0340bf1ad1f47645069ce4069dcc6bb46c7d5c6faf41de1fdb"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/smallvec-1.15.1/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/smallvec-1.15.1/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0b28172679e0009b655da42797c03fd163a3379d5cfa67ba1f1655e974a2a1a9"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/syn-2.0.114/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/syn-2.0.114/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/thiserror-2.0.18/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/thiserror-2.0.18/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/thiserror-impl-2.0.18/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/thiserror-impl-2.0.18/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/tracing-0.1.44/LICENSE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "898b1ae9821e98daf8964c8d6c7f61641f5f5aa78ad500020771c0939ee0dea1"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/tracing-core-0.1.36/LICENSE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "898b1ae9821e98daf8964c8d6c7f61641f5f5aa78ad500020771c0939ee0dea1"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/unicode-ident-1.0.22/LICENSE-APACHE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/unicode-ident-1.0.22/LICENSE-MIT",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/unicode-ident-1.0.22/LICENSE-UNICODE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "f7db81051789b729fea528a63ec4c938fdcb93d9d61d97dc8cc2e9df6d47f2a1"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/venial-0.6.1/LICENSE",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "c307673606c3635bcbc4e03a52a06eb9e04c7fd8ffa1649d715388da6ce5512a"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/windows-link-0.2.1/license-apache-2.0",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "c16f8dcf1a368b83be78d826ea23de4079fe1b4469a0ab9ee20563f37ff3d44b"
+    },
+    {
+      "path": "docs/provenance/rust-licenses/windows-link-0.2.1/license-mit",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+    },
+    {
+      "path": "docs/provenance/source-code-pro-LICENSE.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "7c940e28a5388e9bba866cf0e408edda45fe0899ba98665b8f6ab31dc5e4b8ff"
+    },
+    {
+      "path": "docs/provenance/virtual-joystick-LICENSE.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "3c8ae6e5ced62db16460e80ecceebc933362f07cb6fd7e75c74ff5f52b290a4b"
+    },
+    {
+      "path": "modules/SpatialOS/core/spatial_processing_job.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "e476da31e4af427f260dde9bfc60c9dbbbf6ed49a916c2dcf3a25480d4c48202"
+    },
+    {
+      "path": "modules/SpatialOS/core/spatial_processing_job.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "804ad944c81d571dd361ca5fc5eb11084dcb80f24b69251ba4575b7cfd617523"
+    },
+    {
+      "path": "modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "d9ef4dfc0633ca563010ac2ddc08055df11ac20a7c1df4d198bf8df62ae6b050"
+    },
+    {
+      "path": "modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "3d08146de000429c91f7168407896b9f423fbce92f32b0b5a23fba4e817fc2c6"
+    },
+    {
+      "path": "rust/spatial_ml/README.md",
+      "kind": "modified",
+      "baseline_sha256": "3ec2a5e0281e481866f56c59fb7308113b3b2550abb4e31ba0c5f2bc28031966",
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "e5529ff7876ce57ed4302a6aab2a575e222c2368e488bce2ebb9b2921ef0606b"
+    },
+    {
+      "path": "rust/spatial_ml/build.ps1",
+      "kind": "modified",
+      "baseline_sha256": "ee240a57be4b4645d929fd65b888bd0bc403890edf7f70ff61f56d576531859c",
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "3cb60a25fb1c8e18e4c295fb052ae86e44755e7b662994ded8b79b6c3449e671"
+    },
+    {
+      "path": "rust/spatial_ml/models/LICENSE-MobileSAM.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "rust/spatial_ml/models/README.md",
+      "kind": "modified",
+      "baseline_sha256": "68c7ceed9fad526dd9acc1eb540ca8f9f19b1396e8332e717608752bbeeba61f",
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "960d5389df3ae81e6df4507249c3a6a9aba9a78169e5d44b3dfbc2a2aed17c02"
+    },
+    {
+      "path": "rust/spatial_ml/models/export-receipt.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "376de173a1b6e2afc7bdb75136b449e4eb72b0d8c68cfb54890286ef61b85aa0"
+    },
+    {
+      "path": "rust/spatial_ml/models/manifest.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "4617ed49ca7925301c45969949b3c7d4e4194d1232b2de144fbcf687274f0e4e"
+    },
+    {
+      "path": "rust/spatial_ml/models/mobile_sam_decoder.onnx",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "43c7655a81b62c0f2b0e31d2bc91d3811b48d7f736ecf93b3a4a1254318241cf"
+    },
+    {
+      "path": "rust/spatial_ml/models/mobile_sam_encoder.onnx",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "c513d5a4d41288de43432f64292160f1831cde5ae7dd82249d28ffe5c1ba4ccf"
+    },
+    {
+      "path": "tests/migration_recovery_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "1a9e8c7d41b55aa4818d6eecd41a051732e8f78c8df86795bde21a06a5bc548c"
+    },
+    {
+      "path": "tests/migration_recovery_checks.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "b3d45a4c6e1a35b5634be448f7df35478b0eaa2fbb8917b76d1f17c8bf196c0b"
+    },
+    {
+      "path": "tests/native_inference_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "bbf9773fcf8a18e2fbfd5cabe96dd3f360b8596b157dd78c10518a9e1bb98046"
+    },
+    {
+      "path": "tests/native_inference_checks.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "0774c645b1a318b650fccc303962de6d30923f4398da178c4d2fde1db2c33ea1"
+    },
+    {
+      "path": "tests/provider_network_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "1e0bf5e8637ee00e5b354b5eea392b976052cbfcdfd4a617ffce67e7f2372389"
+    },
+    {
+      "path": "tests/provider_network_checks.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "925999a5c038b07c007b87f03248eb82d39be7007d1ee47e162748d14d0a73bb"
+    },
+    {
+      "path": "tests/spatial_async_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "3ca919ec3f654e992191edb30c7f04bdc4e7757a9603881b54fcb6454853e50e"
+    },
+    {
+      "path": "tests/spatial_async_checks.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "a963145dec9744f96bca6d7799e039e88cc99d6b5731c6299b07dcfa98e77c60"
+    },
+    {
+      "path": "tools/check_provider_network.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "b546722779f7d1e16f7e902ba57fd48b11a2f90f0d155ca75f284dd0be7e8e7a"
+    },
+    {
+      "path": "tools/check_source.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "83f760d4d385c3dd0a2bfb8ac107c641c088fe47aba49d71efd93de01ca520d5"
+    },
+    {
+      "path": "tools/export_native_ml.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "fe3c798ba09c2b7825c7947497baea36aea92847bc1692530a753bb05f45c62b"
+    },
+    {
+      "path": "tools/make_spatial_fixture.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "015547a0587875400b4ba9629c0c0c372c712d315ca9c3f844fdf589b0a7ffdc"
+    },
+    {
+      "path": "tools/native_ml_requirements.txt",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "75e12ec17b9dbb723f3e9018e9ab4a9d7f9d881153cc8c353637c8c12ecbc16f"
+    },
+    {
+      "path": "tools/package_candidate.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "bf1eab0860494a9482fea0129352910cc734ffe2267b404a6eb1c687fc1d580f"
+    },
+    {
+      "path": "tools/setup_native_ml.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
+      "current_sha256": "2fbf3f0d70607d232cdb6ab9fe9530415b67846b4384d4da9df4218234222982"
     }
-  ]
+  ],
+  "current_reference": "Final remediation source and delivery configuration; see Git history for the exact commits."
 }
