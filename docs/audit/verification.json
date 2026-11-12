@@ -326,6 +326,15 @@
       "pass_labels": 0,
       "errors_logged": false,
       "scope": "final production-config source-free Windows package; warnings from editor export retained separately"
+    },
+    {
+      "suite": "github-actions-final",
+      "evidence": [
+        "evidence/github-qualified.log",
+        "evidence/github-qualified.json"
+      ],
+      "conclusion": "success",
+      "scope": "Windows x86_64 native CPU build/inference and Linux software Vulkan without MSAA; no general GPU/platform claim"
     }
   ],
   "real_scene": {
@@ -428,7 +437,10 @@
     "url": "https://github.com/faberfots/pxr-fusion-gs",
     "visibility": "private",
     "baseline_commit": "bffa1a1",
-    "qualification": "remote CI in progress"
+    "qualification": "Both jobs passed for the final source commit.",
+    "qualified_run_url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43280842832",
+    "qualified_commit": "64ce36c52a5766e633b32798283f5dc7dbb5ae23",
+    "remote_conclusion": "success"
   },
   "test_harness_correction": {
     "issue": "Fixed 32 MiB recovery-test budget admitted fewer than 40,007 fixture splats at a larger output resolution; later test access stalled after admission failure.",
@@ -453,6 +465,10 @@
     "full_main_and_ai_panel_pass": true,
     "release_imgui_retained": true,
     "native_cpu_inference_pass": true,
-    "shader_gpu_depth_and_migration_pass": true
+    "shader_gpu_depth_and_migration_pass": true,
+    "receipt_hashes_verified": {
+      "files": 119,
+      "mismatches": 0
+    }
   }
 }

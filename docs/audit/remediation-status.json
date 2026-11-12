@@ -1020,11 +1020,10 @@
       ],
       "verification": [
         "Local native, source-free GPU/native inference and Windows rendering checks pass; full Bali + Suzuki and 2-million-point SpatialOS performance observations recorded.",
-        "GitHub repository: https://github.com/faberfots/pxr-fusion-gs ; remote CI qualification in progress.",
-        "Current Linux CI passes source/provider/GPU/lifecycle/rendering/migration/SpatialOS suites with MSAA explicitly disabled; Windows runtime build passes, inference launcher qualification ongoing."
+        "GitHub Actions run 43280842832 (source commit 64ce36c) passed both jobs: Windows release build and real GDScript native inference; Linux source/provider/GPU/lifecycle/rendering/migration/SpatialOS checks with MSAA explicitly disabled."
       ],
       "remaining": [
-        "Remote CI final result pending; optimized export-template release executables, Windows signing identity and other real GPU/OS combinations remain unqualified.",
+        "optimized export-template release executables, Windows signing identity and other real GPU/OS combinations remain unqualified.",
         "Headless editor export still reports two renderer RID/ObjectDB allocations at shutdown; exported source-free inference/GPU checks pass, but the editor teardown warning remains unresolved.",
         "Software-Vulkan MSAA depth is not qualified; the CI job explicitly tests the supported MSAA-disabled software configuration without changing the application setting."
       ]

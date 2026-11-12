@@ -6,7 +6,7 @@
       "path": "project.godot",
       "kind": "modified",
       "baseline_sha256": "ef71d1b36285605220930e014de99e48d89984f2b145ee03d390a7d33b352017",
-      "current_sha256": "ee57c84959d3532497bf805775e17e92a31585829c8cb0420549f358a1ce818d"
+      "current_sha256": "2801aa2b14113518e21a5082fe1131aa4c1ab49be29b1520e055b068c3082598"
     },
     {
       "path": "README.md",
@@ -525,21 +525,21 @@
       "kind": "modified",
       "baseline_sha256": "03d0431deb40a987ad59b8a4882677489bbf9de63803707e258d982f49577ba2",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "01ed0e56732cec213b771e4346e797ed6b3a41935a5442cffee48779a1b44cc5"
+      "current_sha256": "41f74a4108e9dbe5d619987459839ed9b8928574df782548637b1c8a094491f9"
     },
     {
       "path": "docs/audit/remediation-status.json",
       "kind": "modified",
       "baseline_sha256": "f7f67c0a833c230a98536bd61ccb0b0be1d30736dcfba21d26b22a4f20e4bd96",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "0c0db07b6f850d32a20a4b99adce996a71aa853706435afc08fb1e0d4259479c"
+      "current_sha256": "209f632b0d953dbbe9c300033a12efd41d17a07a3414f2002ded7075036bdcae"
     },
     {
       "path": "docs/audit/verification.json",
       "kind": "modified",
       "baseline_sha256": "efa8f698e019da45ef757f51f6d29b088740ab54f9b4256f1d013e81b53bb4ba",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "574579a6690ef43031f80d9b4edc109060080ac70e5cfd43210cacf38ab3cc8b"
+      "current_sha256": "383dbdf689550d236b9e1bdffcd80bd87e04092ff4bfd28c88059f334d054cfa"
     },
     {
       "path": "docs/dependency-inventory.json",
@@ -1408,6 +1408,13 @@
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
       "current_sha256": "2fbf3f0d70607d232cdb6ab9fe9530415b67846b4384d4da9df4218234222982"
+    },
+    {
+      "path": ".gitattributes",
+      "kind": "added to Git; original Godot policy retained",
+      "baseline_sha256": null,
+      "current_sha256": "21b01a606c9f85f18bb9230245f00ab104df7409cbb2fe9423f6751ca72ba754",
+      "baseline_reference": "original untracked workspace file dated 2025-11-25"
     }
   ],
   "current_reference": "Final remediation source and delivery configuration; see Git history for the exact commits."
