@@ -6,6 +6,17 @@ func check(value: bool, label: String) -> void:
 	print("PASS " if value else "FAIL ", label)
 	if not value: failures.append(label)
 func _initialize() -> void: call_deferred("run")
+func wait_for_occlusion(pixel:Vector2i)->Color:
+	# Mesh changes do not move the GS camera. Respect the configured idle cadence
+	# instead of assuming fifteen process frames include a fresh compositor frame.
+	var started:=Time.get_ticks_msec()
+	var color:=Color.BLACK
+	while Time.get_ticks_msec()-started<2000:
+		await RenderingServer.frame_post_draw
+		color=root.get_texture().get_image().get_pixelv(pixel)
+		if color.g>0.8 and color.r<0.05:return color
+		await process_frame
+	return color
 func run() -> void:
 	var viewer := GaussianSplattingViewer.new()
 	viewer.config = GaussianSplattingConfig.create_default()
@@ -52,7 +63,7 @@ func run() -> void:
 	root.add_child(blocker)
 	for i in range(15): await process_frame
 	await RenderingServer.frame_post_draw
-	center = root.get_texture().get_image().get_pixelv(pixel)
+	center = await wait_for_occlusion(pixel)
 	print("OCCLUDED PIXEL ", center)
 	check(center.g > 0.8 and center.r < 0.05, "opaque Godot geometry occludes Gaussian")
 	var demo: Node = load("res://main.tscn").instantiate()
