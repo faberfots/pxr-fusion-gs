@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://clcsr4snvqwnt"]
+
+[ext_resource type="Script" uid="uid://7ndq2iqt17xj" path="res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd" id="1_vn4j4"]
+[ext_resource type="Script" uid="uid://cn1wfmh0q3cmi" path="res://modules/gaussian_splatting/configs/gaussian_splatting_config.gd" id="2_kaoyc"]
+[ext_resource type="Shader" uid="uid://b2cl08kksibaf" path="res://modules/gaussian_splatting/shaders/spatial/main.gdshader" id="6_742x0"]
+
+[sub_resource type="Resource" id="Resource_kaoyc"]
+script = ExtResource("2_kaoyc")
+metadata/_custom_type_script = "uid://cn1wfmh0q3cmi"
+
+[sub_resource type="QuadMesh" id="QuadMesh_rendered"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="Texture2DRD" id="Texture2DRD_render"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rendered"]
+render_priority = 0
+shader = ExtResource("6_742x0")
+shader_parameter/render_texture = SubResource("Texture2DRD_render")
+shader_parameter/exposure = 1.0
+shader_parameter/contrast = 1.0
+shader_parameter/saturation = 1.0
+shader_parameter/temperature = 0.0
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[node name="GaussianSplattingViewerPlus" type="Node3D"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+script = ExtResource("1_vn4j4")
+config = SubResource("Resource_kaoyc")
+spatial_shader_directory = "res://modules/gaussian_splatting/shaders/spatial"
+compute_shader_directory = "res://modules/gaussian_splatting/shaders/compute"
+
+[node name="RenderedSplats" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+extra_cull_margin = 16384.0
+gi_mode = 0
+mesh = SubResource("QuadMesh_rendered")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_rendered")
+metadata/_edit_lock_ = true
+
+[node name="StatsTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="LoadingUI" type="CanvasLayer" parent="."]
+
+[node name="LoadingBar" type="ColorRect" parent="LoadingUI"]
+offset_right = 1920.0
+offset_bottom = 5.0
+color = Color(1, 1, 1, 0)

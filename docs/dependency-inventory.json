@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "purpose": "Evidence inventory, not legal clearance or verified upstream provenance",
+  "components": [
+    {
+      "component": "viewer source",
+      "path": "modules/gaussian_splatting",
+      "evidence": [
+        "LICENSE",
+        "docs/archive/upstream-README.md"
+      ],
+      "status": "upstream attribution retained; history unavailable"
+    },
+    {
+      "component": "advanced_control_camera3d",
+      "path": "addons/advanced_control_camera3d",
+      "license_evidence": [],
+      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+    },
+    {
+      "component": "AdvancedFreeFlyCamera",
+      "path": "addons/AdvancedFreeFlyCamera",
+      "license_evidence": [],
+      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+    },
+    {
+      "component": "imgui-godot",
+      "path": "addons/imgui-godot",
+      "license_evidence": [],
+      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+    },
+    {
+      "component": "sky_3d",
+      "path": "addons/sky_3d",
+      "license_evidence": [
+        "addons/sky_3d/LICENSE.txt",
+        "addons/sky_3d/shaders/LICENSE",
+        "addons/sky_3d/assets/thirdparty/textures/milkyway/LICENSE.md",
+        "addons/sky_3d/assets/thirdparty/textures/moon/LICENSE.md"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "smart_camera_switcher",
+      "path": "addons/smart_camera_switcher",
+      "license_evidence": [
+        "addons/smart_camera_switcher/LICENSE.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "virtual_joystick",
+      "path": "addons/virtual_joystick",
+      "license_evidence": [],
+      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+    },
+    {
+      "component": "architect-s-daughter",
+      "path": "assets/fonts/architect-s-daughter",
+      "license_evidence": [
+        "assets/fonts/architect-s-daughter/Architects Daughter SIL OFL Font License.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "cmu-typewriter",
+      "path": "assets/fonts/cmu-typewriter",
+      "license_evidence": [
+        "assets/fonts/cmu-typewriter/OFL-FAQ.txt",
+        "assets/fonts/cmu-typewriter/OFL.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "connection",
+      "path": "assets/fonts/connection",
+      "license_evidence": [
+        "assets/fonts/connection/SIL Open Font License.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "connection_ii",
+      "path": "assets/fonts/connection_ii",
+      "license_evidence": [
+        "assets/fonts/connection_ii/SIL Open Font License.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "droid-sans",
+      "path": "assets/fonts/droid-sans",
+      "license_evidence": [
+        "assets/fonts/droid-sans/Apache License.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "kirifont",
+      "path": "assets/fonts/kirifont",
+      "license_evidence": [
+        "assets/fonts/kirifont/OFL.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "linux-libertine",
+      "path": "assets/fonts/linux-libertine",
+      "license_evidence": [
+        "assets/fonts/linux-libertine/OFL-1.1.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "montreal",
+      "path": "assets/fonts/montreal",
+      "license_evidence": [
+        "assets/fonts/montreal/OFL.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "Oswald",
+      "path": "assets/fonts/Oswald",
+      "license_evidence": [
+        "assets/fonts/Oswald/OFL.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "poco",
+      "path": "assets/fonts/poco",
+      "license_evidence": [],
+      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+    },
+    {
+      "component": "Poppins",
+      "path": "assets/fonts/Poppins",
+      "license_evidence": [
+        "assets/fonts/Poppins/OFL.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "source-code-pro",
+      "path": "assets/fonts/source-code-pro",
+      "license_evidence": [],
+      "status": "license/provenance evidence missing from snapshot; verify before redistribution"
+    },
+    {
+      "component": "xolonium",
+      "path": "assets/fonts/xolonium",
+      "license_evidence": [
+        "assets/fonts/xolonium/LICENSE.txt"
+      ],
+      "status": "license text present; upstream version and distribution scope require verification"
+    },
+    {
+      "component": "native Rust dependencies",
+      "path": "rust/spatial_ml/Cargo.lock",
+      "evidence": [
+        "rust/spatial_ml/Cargo.toml",
+        "rust/spatial_ml/Cargo.lock"
+      ],
+      "status": "pinned versions; redistribution review remains required"
+    },
+    {
+      "component": "MobileSAM model artifacts",
+      "path": "rust/spatial_ml/models",
+      "evidence": [],
+      "status": "not supplied; user confirmed no approved model/runtime artifacts"
+    },
+    {
+      "component": "local sample datasets",
+      "path": "resources",
+      "evidence": [],
+      "status": "not exported; dataset provenance requires owner evidence"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GaussianSplattingConfig" load_steps=2 format=3 uid="uid://1oviakqjr75v"]
+
+[ext_resource type="Script" uid="uid://cn1wfmh0q3cmi" path="res://modules/gaussian_splatting/configs/gaussian_splatting_config.gd" id="1_fwfse"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_fwfse")
+max_duplication_factor = 4.0
+memory_max_vram_budget_mb = 4096
+loading_batch_size = 2000
+metadata/_custom_type_script = "uid://cn1wfmh0q3cmi"

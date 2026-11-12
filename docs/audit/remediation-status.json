@@ -1,0 +1,1042 @@
+{
+  "schema_version": 1,
+  "status_values": [
+    "fully implemented",
+    "partially implemented",
+    "not yet implemented"
+  ],
+  "qualification": "Fully implemented means the finding is addressed in the defined desktop contract and its relevant local checks pass. It does not claim universal platform support or zero regressions. Partially implemented findings list the exact remaining capability, external dependency or qualification gap. No live cloud requests were made. RBAC is a local session capability policy; multi-user authentication is outside this desktop application.",
+  "findings": [
+    {
+      "id": "P.1.1",
+      "audit_finding": 1,
+      "section": "Security, lifecycle and loading",
+      "priority": "P1",
+      "title": "Embedded provider credential",
+      "status": "partially implemented",
+      "changes": [
+        "Removed embedded key; process environment credentials; startup never saves project settings"
+      ],
+      "verification": [
+        "Default-denied policy and credential-source inspection"
+      ],
+      "remaining": [
+        "The previously exposed key still requires provider-account revocation."
+      ]
+    },
+    {
+      "id": "P.1.2",
+      "audit_finding": 2,
+      "section": "Security, lifecycle and loading",
+      "priority": "P1",
+      "title": "GPU initialization lock",
+      "status": "fully implemented",
+      "changes": [
+        "Guarded initialization and deterministic lock release on every return path"
+      ],
+      "verification": [
+        "core_checks: repeated failed initialization; gpu_checks: initialize/cleanup/reinitialize"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.1.3",
+      "audit_finding": 3,
+      "section": "Security, lifecycle and loading",
+      "priority": "P1",
+      "title": "Reset invariants",
+      "status": "fully implemented",
+      "changes": [
+        "Reset cancels/joins jobs, resets allocator high water and cancellation/pick/overflow state, clears output"
+      ],
+      "verification": [
+        "lifecycle_checks: clear then reload; gpu_checks: reinitialization"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.1.4",
+      "audit_finding": 4,
+      "section": "Security, lifecycle and loading",
+      "priority": "P1",
+      "title": "Worker lifecycle",
+      "status": "fully implemented",
+      "changes": [
+        "Dedicated CPU jobs with bounded queues, cancellation wakeup and join before destruction"
+      ],
+      "verification": [
+        "core_checks: joined GS and SpatialOS cancellation; lifecycle checks"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.1.5",
+      "audit_finding": 5,
+      "section": "Security, lifecycle and loading",
+      "priority": "P1",
+      "title": "Deletion and residency",
+      "status": "fully implemented",
+      "changes": [
+        "Deactivate palette entry, clear owned atlas slots, release allocation and reusable identity"
+      ],
+      "verification": [
+        "lifecycle_checks: delete model and read back zeroed GPU slots"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.1.6",
+      "audit_finding": 6,
+      "section": "Security, lifecycle and loading",
+      "priority": "P1",
+      "title": "Queued and duplicate loads",
+      "status": "fully implemented",
+      "changes": [
+        "Pending queue remains drainable while loading; ProductionUI alone owns file drop"
+      ],
+      "verification": [
+        "lifecycle_checks: authored startup plus queued append and mixed-success queue"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.1.7",
+      "audit_finding": 7,
+      "section": "Security, lifecycle and loading",
+      "priority": "P1",
+      "title": "Transactional completion",
+      "status": "fully implemented",
+      "changes": [
+        "Commit loaded state only after full decoding/checksum and upload fence; explicit success/failure batch result"
+      ],
+      "verification": [
+        "lifecycle_checks: invalid body plus valid queued model reports 1 success/1 failure and no false all-completed"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.1.8",
+      "audit_finding": 8,
+      "section": "Security, lifecycle and loading",
+      "priority": "P1",
+      "title": "Reset ownership and authored scenes",
+      "status": "fully implemented",
+      "changes": [
+        "Clear is scoped to owned registry; startup discovers authored children; no global tween/group purge"
+      ],
+      "verification": [
+        "lifecycle_checks: authored startup survives initialization"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.1.9",
+      "audit_finding": 9,
+      "section": "Security, lifecycle and loading",
+      "priority": "P2",
+      "title": "Authoritative state machine",
+      "status": "fully implemented",
+      "changes": [
+        "Viewer state delegates to GSStateMachine; legal load/render/reset/recovery transitions"
+      ],
+      "verification": [
+        "Lifecycle load/reset/reload and failure recovery suites"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.1.10",
+      "audit_finding": 10,
+      "section": "Security, lifecycle and loading",
+      "priority": "P1",
+      "title": "Rendering thread ownership",
+      "status": "fully implemented",
+      "changes": [
+        "RD creation, upload, dispatch, resize, readback and teardown use rendering-thread owner"
+      ],
+      "verification": [
+        "GPU lifecycle, rendering, resize and source-free PCK suites"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.2.1",
+      "audit_finding": 11,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P1",
+      "title": "Shader constants",
+      "status": "fully implemented",
+      "changes": [
+        "Imported SPIR-V pipelines use typed specialization constants"
+      ],
+      "verification": [
+        "gpu_checks: tile 8/16/32 and sort workgroups 64/128/256"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.2.2",
+      "audit_finding": 12,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P1",
+      "title": "Configuration transactions",
+      "status": "partially implemented",
+      "changes": [
+        "Configuration snapshots isolate GPU layout; invalid settings roll back; populated-scene structural changes are rejected safely"
+      ],
+      "verification": [
+        "lifecycle_checks: attempted tile change preserves settings and loaded model"
+      ],
+      "remaining": [
+        "Seamless migration of a populated atlas to a new GPU layout is not implemented; empty the scene before structural changes."
+      ]
+    },
+    {
+      "id": "P.2.3",
+      "audit_finding": 13,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P1",
+      "title": "Complete VRAM budgeting",
+      "status": "fully implemented",
+      "changes": [
+        "Budget includes atlas, projected records, keys/values, dynamic histograms, palette and targets, plus resize headroom and buffer/dispatch limits",
+        "Rebalanced High/Ultra atlas-versus-sort reservation to preserve large-scene capacity without changing SH fidelity or downsampling"
+      ],
+      "verification": [
+        "core_checks: complete budget; GPU admission, resize and overflow suites"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.2.4",
+      "audit_finding": 14,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P1",
+      "title": "Projection overflow",
+      "status": "fully implemented",
+      "changes": [
+        "CAS reserves entire tile footprints within pair capacity; overflow reports failure and preserves prior frame",
+        "One bounded tile-pair reservation per projection workgroup avoids per-Gaussian compare/exchange contention and never admits a partial footprint."
+      ],
+      "verification": [
+        "gpu_checks: footprint exceeds one-pair capacity, count stays zero and overflow is set",
+        "GPU projection reservations with culled lanes, partial tail groups and 64/128/256 workgroups; forced overflow remains bounded."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.2.5",
+      "audit_finding": 15,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P1",
+      "title": "Dynamic sort histograms",
+      "status": "fully implemented",
+      "changes": [
+        "Histogram size derives from capacity and actual partition size"
+      ],
+      "verification": [
+        "gpu_checks: 262145 pairs with 64-element partitions, exceeding the former 4096-partition limit"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.2.6",
+      "audit_finding": 16,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P1",
+      "title": "Sort tail safety",
+      "status": "fully implemented",
+      "changes": [
+        "Sort loads/scatters guard live count and buffer capacity"
+      ],
+      "verification": [
+        "gpu_checks: 1/255/256/1023/1024/1025/4099/262145 items and stable CPU reference"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.2.7",
+      "audit_finding": 17,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P1",
+      "title": "Tile range endpoints",
+      "status": "fully implemented",
+      "changes": [
+        "Each tile gets exact first and exclusive-last sorted indices"
+      ],
+      "verification": [
+        "Rendering integration and sorted tile traversal checks"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.2.8",
+      "audit_finding": 18,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P1",
+      "title": "Uniform shader barriers",
+      "status": "fully implemented",
+      "changes": [
+        "All workgroup lanes execute shared-memory barriers uniformly; active-pixel reduction is synchronized"
+      ],
+      "verification": [
+        "GPU compositing checks across two shared-memory chunks and rendering suites"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.2.9",
+      "audit_finding": 19,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P2",
+      "title": "Portable subgroup operations",
+      "status": "fully implemented",
+      "changes": [
+        "Portable stable scan/partition sort removes subgroup-width and shift-mask assumptions"
+      ],
+      "verification": [
+        "gpu_checks: varied workgroup sizes and partition boundaries on local Vulkan device"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.2.10",
+      "audit_finding": 20,
+      "section": "GPU configuration, capacity and sorting",
+      "priority": "P2",
+      "title": "Wide sort keys",
+      "status": "fully implemented",
+      "changes": [
+        "Sort key uses a full 32-bit tile ID and full positive float depth bits"
+      ],
+      "verification": [
+        "gpu_checks: stable ordering includes tile IDs 65536 and 99999"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.3.1",
+      "audit_finding": 21,
+      "section": "Rendering fidelity and Godot integration",
+      "priority": "P2",
+      "title": "Linear premultiplied color",
+      "status": "fully implemented",
+      "changes": [
+        "Linear premultiplied float compute output, single unpremultiply and engine-owned tone mapping"
+      ],
+      "verification": [
+        "GPU known-color compositing plus actual display pixel checks"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.3.2",
+      "audit_finding": 22,
+      "section": "Rendering fidelity and Godot integration",
+      "priority": "P2",
+      "title": "Pixel termination",
+      "status": "fully implemented",
+      "changes": [
+        "Per-pixel termination; tile exits only when every participating pixel is finished"
+      ],
+      "verification": [
+        "gpu_checks: opaque first pixel does not suppress a later blue contribution at another pixel"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.3.3",
+      "audit_finding": 23,
+      "section": "Rendering fidelity and Godot integration",
+      "priority": "P2",
+      "title": "Local radiance basis",
+      "status": "fully implemented",
+      "changes": [
+        "SH direction uses inverse model linear transform; covariance uses full model transform"
+      ],
+      "verification": [
+        "gpu_checks: degree-one radiance agrees with CPU reference before/after 180-degree model rotation"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.3.4",
+      "audit_finding": 24,
+      "section": "Rendering fidelity and Godot integration",
+      "priority": "P2",
+      "title": "Coordinate and bounds contract",
+      "status": "fully implemented",
+      "changes": [
+        "Explicit source basis shared with SpatialOS; bounds apply source basis and world transform once",
+        "Preserved independent source-basis conversion and per-model GPU palettes through the full Bali load."
+      ],
+      "verification": [
+        "lifecycle_checks: translated raw bounds match expected world interval",
+        "Bali plus Suzuki: both complete source populations, independent Transform3D palette entries, and Scene Manager XYZ/rotation/scale controls pass."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.3.5",
+      "audit_finding": 25,
+      "section": "Rendering fidelity and Godot integration",
+      "priority": "P2",
+      "title": "Gaussian footprint culling",
+      "status": "fully implemented",
+      "changes": [
+        "Screen culling uses Gaussian footprint; depth-plane culling is separate; positive small covariances retain low-pass footprint",
+        "Restored bounded off-axis perspective covariance linearization while keeping true means and footprint culling."
+      ],
+      "verification": [
+        "GPU checks retain a tiny positive covariance and an off-screen mean whose footprint intersects the image; perspective/orthographic checks pass",
+        "New near-plane/off-axis regression fails before and passes after; real Bali renders correctly in the actual application UI."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.3.6",
+      "audit_finding": 26,
+      "section": "Rendering fidelity and Godot integration",
+      "priority": "P2",
+      "title": "Scene depth integration",
+      "status": "partially implemented",
+      "changes": [
+        "PRE_TRANSPARENT compositor uses resolved opaque depth with inverse camera projection",
+        "The demo reference grid draws before Gaussian presentation without writing opaque depth; ordinary opaque geometry retains depth occlusion."
+      ],
+      "verification": [
+        "rendering_checks: opaque green mesh hides Gaussian; perspective and orthographic projection pass",
+        "Grid occlusion regression fails before and passes after; opaque-mesh and orthographic checks still pass."
+      ],
+      "remaining": [
+        "Arbitrary transparent-mesh interleaving, Gaussian shadow casting and XR multiview are not implemented."
+      ]
+    },
+    {
+      "id": "P.3.7",
+      "audit_finding": 27,
+      "section": "Rendering fidelity and Godot integration",
+      "priority": "P2",
+      "title": "Deterministic picking",
+      "status": "fully implemented",
+      "changes": [
+        "Per-pixel strongest visible contributor, explicit request identity, generation guards and 16-byte async readback"
+      ],
+      "verification": [
+        "rendering_checks: pick returns the actual Gaussian world point"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.3.8",
+      "audit_finding": 28,
+      "section": "Rendering fidelity and Godot integration",
+      "priority": "P2",
+      "title": "Live workload dispatch",
+      "status": "fully implemented",
+      "changes": [
+        "Dispatch uses allocator live high water, frame counters reset, idle rate applied locally; content edits request one frame",
+        "Per-workgroup projection reservations avoid millions of contending compare/exchange loops on large visible populations."
+      ],
+      "verification": [
+        "lifecycle_checks: delete/reset high water; rendering integration",
+        "Full Bali plus Suzuki (7,959,786 splats): Environment and manual Object mode complete without pair overflow; Object-mode capture completes after the earlier stalled path."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.3.9",
+      "audit_finding": 29,
+      "section": "Rendering fidelity and Godot integration",
+      "priority": "P2",
+      "title": "Nonblocking accurate metrics",
+      "status": "fully implemented",
+      "changes": [
+        "Async metadata readback, distinct projected-splat/pair counts, scoped tracked memory and engine-FPS labeling",
+        "The existing fps field uses Godot Engine.get_frames_per_second rather than averaging viewer process iterations across loading and rendering."
+      ],
+      "verification": [
+        "GPU statistics path and memory-plan/lifecycle checks",
+        "API source review; large-scene logs from earlier candidates are not used as frame-rate performance claims."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.4.1",
+      "audit_finding": 30,
+      "section": "Formats and configuration",
+      "priority": "P1",
+      "title": "Bounded header parsing",
+      "status": "fully implemented",
+      "changes": [
+        "Shared header and row reader checks EOF, file limits and bounded line/header bytes before allocation"
+      ],
+      "verification": [
+        "core_checks: unterminated header rejects promptly; bounded-reader inspection"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.4.2",
+      "audit_finding": 31,
+      "section": "Formats and configuration",
+      "priority": "P1",
+      "title": "Typed validated PLY decoding",
+      "status": "fully implemented",
+      "changes": [
+        "Typed ASCII/LE/BE scalars, payload/schema checks, complete SH degrees and RGB normalization; valid thin Gaussian axes are accepted without arbitrary negative log-scale limits",
+        "Removed file-byte rejection; accepted valid very thin finite log-scales, including all Bali Gaussians."
+      ],
+      "verification": [
+        "core_checks: ASCII Gaussian conversion and mixed float/short/double/uchar big-endian PLY; GPU SH check",
+        "Bali numeric regression fixture preserves valid log-scales below -30",
+        "Full 1,919,480,116-byte Bali source loads all 7,739,833 splats; legacy byte-limit argument 1 is ignored and valid thin scales pass."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.4.3",
+      "audit_finding": 32,
+      "section": "Formats and configuration",
+      "priority": "P2",
+      "title": "Binary splat resources",
+      "status": "fully implemented",
+      "changes": [
+        "GSRES magic/version/stride/count/AABB/SHA-256 contract, actual converter and binary loader; importer saves valid Godot .res"
+      ],
+      "verification": [
+        "core_checks: conversion, round trip and deliberate checksum corruption"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.4.4",
+      "audit_finding": 33,
+      "section": "Formats and configuration",
+      "priority": "P2",
+      "title": "Configuration admission",
+      "status": "fully implemented",
+      "changes": [
+        "Atlas-based admission across loaded and queued models; no source-file-size rejection; validate shader shapes, atlas/instance capacity and finite visual settings",
+        "The atlas admits queued and loaded populations together; High retains enough full-resolution atlas space for Bali plus another model."
+      ],
+      "verification": [
+        "Core checks: a legacy one-byte file limit is ignored; High memory plan fits 7739833 Bali splats plus 219953 motorcycle splats within its declared budget",
+        "Exactly two models load 7,959,786 splats with no downsampling or pair overflow under the declared total GPU budget."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.4.5",
+      "audit_finding": 34,
+      "section": "Formats and configuration",
+      "priority": "P2",
+      "title": "Applied visual settings",
+      "status": "fully implemented",
+      "changes": [
+        "Apply render scale, model scale, heatmap and post-process settings through their runtime owners"
+      ],
+      "verification": [
+        "Shader/UI inspection, render-target resize and known-color display checks"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.4.6",
+      "audit_finding": 35,
+      "section": "Formats and configuration",
+      "priority": "P2",
+      "title": "Viewport resizing",
+      "status": "fully implemented",
+      "changes": [
+        "Viewport size signal connected; transactional texture/range replacement and headroom admission"
+      ],
+      "verification": [
+        "lifecycle_checks: live resize preserves loaded data; visual main-scene review"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.4.7",
+      "audit_finding": 36,
+      "section": "Formats and configuration",
+      "priority": "P1",
+      "title": "Instance identity allocation",
+      "status": "fully implemented",
+      "changes": [
+        "Reusable bounded instance-ID pool; duplicate stable model IDs are regenerated, no live wraparound"
+      ],
+      "verification": [
+        "Allocator/identity lifecycle checks and registry selection tests"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.4.8",
+      "audit_finding": 37,
+      "section": "Formats and configuration",
+      "priority": "P2",
+      "title": "Path and visibility invalidation",
+      "status": "fully implemented",
+      "changes": [
+        "Path revisions unregister/reload; effective ancestor visibility controls palette activation"
+      ],
+      "verification": [
+        "lifecycle_checks: loaded node path change reloads new count"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.4.9",
+      "audit_finding": 38,
+      "section": "Formats and configuration",
+      "priority": "P2",
+      "title": "Stable floor analytics",
+      "status": "fully implemented",
+      "changes": [
+        "Retain bounded deterministic world samples and recompute floor percentile from final loaded registry",
+        "Weighted bounded world-space floor samples are qualified against the complete real Bali scene."
+      ],
+      "verification": [
+        "Core check: bounded samples span all 16000 source points; final world samples use population-weighted quotas, independent of loading batches",
+        "Actual UI renders the resort from the automatic environment camera; no camera-height change is required for the footprint regression."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.5.1",
+      "audit_finding": 39,
+      "section": "Interaction and AI",
+      "priority": "P1",
+      "title": "Exclusive active camera",
+      "status": "fully implemented",
+      "changes": [
+        "Controller activates one camera; inactive cameras ignore input and movement"
+      ],
+      "verification": [
+        "Camera-controller review, fallback startup and composed-blocker checks"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.5.2",
+      "audit_finding": 40,
+      "section": "Interaction and AI",
+      "priority": "P1",
+      "title": "Disabled movement",
+      "status": "fully implemented",
+      "changes": [
+        "Disabled movement clears held keys, velocity and rotation mode; movement path exits early"
+      ],
+      "verification": [
+        "Camera blocker and authorized camera action checks"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.5.3",
+      "audit_finding": 41,
+      "section": "Interaction and AI",
+      "priority": "P2",
+      "title": "Camera interaction ownership",
+      "status": "fully implemented",
+      "changes": [
+        "Named independent blockers compose UI ownership; active-camera switches update compositor/rasterizer"
+      ],
+      "verification": [
+        "lifecycle_checks: independent blockers and coordinated camera action; rendered UI review"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.5.4",
+      "audit_finding": 42,
+      "section": "Interaction and AI",
+      "priority": "P2",
+      "title": "Fallback camera resources",
+      "status": "fully implemented",
+      "changes": [
+        "Correct child resource paths, top-level world targets and initialized cursor material for fallback/authored cameras"
+      ],
+      "verification": [
+        "Fallback startup, rendered main scene and asynchronous picking checks"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.5.5",
+      "audit_finding": 43,
+      "section": "Interaction and AI",
+      "priority": "P2",
+      "title": "Transform editor coordinates",
+      "status": "fully implemented",
+      "changes": [
+        "Transform controls read/write world coordinates consistently and query viewer-owned selection",
+        "Scaled model rotation controls read global_rotation_degrees, preserving XYZ angles after scale edits."
+      ],
+      "verification": [
+        "World-transform bounds and selection lifecycle checks; UI source/render review",
+        "Scene Manager moves XYZ, rotates XYZ and scales the second full model; Bali remains unchanged and both GPU palette entries match."
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.5.6",
+      "audit_finding": 44,
+      "section": "Interaction and AI",
+      "priority": "P1",
+      "title": "AI action capabilities",
+      "status": "fully implemented",
+      "changes": [
+        "Default analyst/read-only session policy; explicit cloud/actions toggles; tool allowlist and finite/type/size argument validation"
+      ],
+      "verification": [
+        "core_checks: denied policy/malformed vectors; lifecycle_checks: authorized valid/invalid actions"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.5.7",
+      "audit_finding": 45,
+      "section": "Interaction and AI",
+      "priority": "P2",
+      "title": "Provider request lifecycle",
+      "status": "partially implemented",
+      "changes": [
+        "Request timeout/body limits, immediate-error handling, immutable provider/model snapshot, cancellation generations and validated multi-tool parsing"
+      ],
+      "verification": [
+        "Provider response fixtures and script qualification"
+      ],
+      "remaining": [
+        "Live provider/network behavior is not qualified: no requests were sent and no provider credentials were used."
+      ]
+    },
+    {
+      "id": "P.5.8",
+      "audit_finding": 46,
+      "section": "Interaction and AI",
+      "priority": "P2",
+      "title": "Truthful tool outcomes",
+      "status": "fully implemented",
+      "changes": [
+        "Stable viewer-owned selection and renderer highlight; missing models fail; camera actions return only after coordinated transform"
+      ],
+      "verification": [
+        "lifecycle_checks: missing/real selection, malformed vectors and actual camera position"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.5.9",
+      "audit_finding": 47,
+      "section": "Interaction and AI",
+      "priority": "P2",
+      "title": "Authoritative scene context",
+      "status": "fully implemented",
+      "changes": [
+        "Frame-stamped schema-versioned context from viewer snapshots, stable IDs, effective visibility/frustum and spatial provider snapshots"
+      ],
+      "verification": [
+        "rendering_checks: visible model uses the same stable identity as registry"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.5.10",
+      "audit_finding": 48,
+      "section": "Interaction and AI",
+      "priority": "P2",
+      "title": "Cloud capture boundary",
+      "status": "fully implemented",
+      "changes": [
+        "Explicit cloud destination/consent; one scene-only capture shared with preview/provider; overlays restored; BBCode escaped"
+      ],
+      "verification": [
+        "rendering_checks: excludes/restores UI overlay; rendered consent panel review"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.1",
+      "audit_finding": 49,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Spatial grid bounds",
+      "status": "fully implemented",
+      "changes": [
+        "Positive dimensions include maximum-boundary points; cell size adapts before grid limits"
+      ],
+      "verification": [
+        "spatial_checks: planar grid and exact maximum boundary"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.2",
+      "audit_finding": 50,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Exact radius queries",
+      "status": "fully implemented",
+      "changes": [
+        "Radius query filters actual positions and supports centers outside bounds"
+      ],
+      "verification": [
+        "spatial_checks: exact exclusion and outside-centered sphere intersection"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.3",
+      "audit_finding": 51,
+      "section": "SpatialOS and native ML",
+      "priority": "P1",
+      "title": "Voxel push constants",
+      "status": "fully implemented",
+      "changes": [
+        "Voxel push constants use typed uint counts, voxel size at byte 12 and padded 32-byte block"
+      ],
+      "verification": [
+        "spatial_checks: actual GPU voxelization produces correct occupancy"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.4",
+      "audit_finding": 52,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Collision-safe voxelization",
+      "status": "fully implemented",
+      "changes": [
+        "Collision-safe owner/coordinate probing, bounded overflow flag and local fractional floating accumulation"
+      ],
+      "verification": [
+        "spatial_checks: distinct voxels and large-coordinate averaged positions/colors"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.5",
+      "audit_finding": 53,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Compaction ABI",
+      "status": "fully implemented",
+      "changes": [
+        "Grid cell layout is 48 bytes; compact header 16 bytes and point stride 32 bytes on CPU/GPU"
+      ],
+      "verification": [
+        "spatial_checks: compacted position/color round trip"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.6",
+      "audit_finding": 54,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "GPU resource teardown",
+      "status": "fully implemented",
+      "changes": [
+        "RefCounted context; single palette; tracked RID queue; spatial uniform/buffer cleanup; local device released after index invalidation"
+      ],
+      "verification": [
+        "Repeated GPU init/cleanup, deletion/resize, spatial teardown and native startup checks"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.7",
+      "audit_finding": 55,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Deterministic connectivity",
+      "status": "fully implemented",
+      "changes": [
+        "Ping-pong labels, pointer shortcut, convergence detection and explicit failure before committing incomplete graph"
+      ],
+      "verification": [
+        "spatial_checks: deterministic separated components converge and count matches resource"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.8",
+      "audit_finding": 56,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Connected segment merging",
+      "status": "fully implemented",
+      "changes": [
+        "Small segments merge only across actual nearby points to larger segments; committed count reported"
+      ],
+      "verification": [
+        "spatial_checks: remote small component remains separate; reported count equals graph"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.9",
+      "audit_finding": 57,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Evidence-based semantics",
+      "status": "fully implemented",
+      "changes": [
+        "Unknown normals remain zero, degenerate fits rejected, geometry labels explicitly uncalibrated hypotheses; support direction uses lower/upper contact with inverse relation"
+      ],
+      "verification": [
+        "Missing-normal and graph fixtures; semantic/relationship contract inspection"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.10",
+      "audit_finding": 58,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Async loading lifecycle",
+      "status": "fully implemented",
+      "changes": [
+        "Shared bounded PLY reader; chunk-streaming Thread owner with backpressure and explicit joined cancellation"
+      ],
+      "verification": [
+        "core_checks: SpatialOS worker start/cancel; shared mixed-type reader tests"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.11",
+      "audit_finding": 59,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Progressive visualization",
+      "status": "partially implemented",
+      "changes": [
+        "Prepare progressive MultiMesh before chunks; bound chunks, yield during final instance population and clear retained progressive arrays"
+      ],
+      "verification": [
+        "Core async tests and visualization source review"
+      ],
+      "remaining": [
+        "Some geometry preparation, dense-grid prefix scanning and analysis still run on the main thread; multi-million-point responsiveness is not qualified."
+      ]
+    },
+    {
+      "id": "P.6.12",
+      "audit_finding": 60,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Derived data invalidation",
+      "status": "fully implemented",
+      "changes": [
+        "Owned geometry snapshots, derived count/bounds/revision, indexed-edit invalidation, cleanup that preserves borrowed source arrays, and rebuilt manual-flip index"
+      ],
+      "verification": [
+        "Core checks: assignment/indexed edit update bounds, retained snapshots cannot mutate source; spatial checks: index cleanup and graph invalidation preserve all authoritative points"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.13",
+      "audit_finding": 61,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Bounded downsampling",
+      "status": "fully implemented",
+      "changes": [
+        "Choose exactly floor(N*ratio) evenly spaced indices for both geometry and color"
+      ],
+      "verification": [
+        "spatial_checks: 10001 inputs downsample to exactly 1000"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.6.14",
+      "audit_finding": 62,
+      "section": "SpatialOS and native ML",
+      "priority": "P2",
+      "title": "Optional native ML delivery",
+      "status": "partially implemented",
+      "changes": [
+        "Pinned Rust build, optimized Windows DLL, safe opt-in installer/descriptor, nonreloadable native registration and verified model extraction helper"
+      ],
+      "verification": [
+        "cargo check/build/test; Godot registers class and reports not ready without models; fresh import passes"
+      ],
+      "remaining": [
+        "User confirmed no approved MobileSAM model files or ONNX Runtime artifacts; full native delivery and other platforms remain unqualified."
+      ]
+    },
+    {
+      "id": "P.6.15",
+      "audit_finding": 63,
+      "section": "SpatialOS and native ML",
+      "priority": "P1",
+      "title": "Actual image inference",
+      "status": "partially implemented",
+      "changes": [
+        "Actual RGB resize/normalization/padding, complete decoder inputs, prompt/shape validation and best-mask selection; missing runtime fails explicitly"
+      ],
+      "verification": [
+        "Two native preprocessing tests pass; optimized crate builds and Godot class registration passes"
+      ],
+      "remaining": [
+        "No approved models/runtime are available, so end-to-end inference and mask quality cannot be validated."
+      ]
+    },
+    {
+      "id": "P.7.1",
+      "audit_finding": 64,
+      "section": "Delivery and maintainability",
+      "priority": "P1",
+      "title": "Exported shader loading",
+      "status": "fully implemented",
+      "changes": [
+        "Load imported RDShaderFile/SPIR-V rather than raw GLSL; checked-in export preset"
+      ],
+      "verification": [
+        "GPU suite passes from source-free PCK with required native add-on libraries"
+      ],
+      "remaining": []
+    },
+    {
+      "id": "P.7.2",
+      "audit_finding": 65,
+      "section": "Delivery and maintainability",
+      "priority": "P2",
+      "title": "Regression and release qualification",
+      "status": "partially implemented",
+      "changes": [
+        "Isolated CPU/GPU/lifecycle/rendering/spatial suites, serial-import workaround, status consistency check, export preset and CI workflow"
+      ],
+      "verification": [
+        "Local suites pass; fresh imported candidate and PCK checks pass"
+      ],
+      "remaining": [
+        "Remote CI has not run; no existing Git history/remote or export templates were provided; release signing, other platforms and large-scene performance remain unqualified.",
+        "Headless export intermittently reports two renderer RID/ObjectDB allocations at editor shutdown; this was absent in the later verbose run and remains an unresolved release-qualification warning."
+      ]
+    },
+    {
+      "id": "P.7.3",
+      "audit_finding": 66,
+      "section": "Delivery and maintainability",
+      "priority": "P3",
+      "title": "Implementation and provenance inventory",
+      "status": "partially implemented",
+      "changes": [
+        "Current implementation guide and README, archived stale source/README, explicit capability boundaries and dependency evidence inventory"
+      ],
+      "verification": [
+        "Status generator verifies all 66 unique IDs; source inventory and local evidence retained"
+      ],
+      "remaining": [
+        "Third-party upstream versions, missing license/provenance evidence and dataset/model redistribution rights require owner/source confirmation."
+      ]
+    }
+  ]
+}

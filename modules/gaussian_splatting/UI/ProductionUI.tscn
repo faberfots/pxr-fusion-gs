@@ -1,0 +1,222 @@
+[gd_scene load_steps=6 format=3 uid="uid://b45dy08yr1b04"]
+
+[ext_resource type="Script" uid="uid://kvwwkuvehxyj" path="res://modules/gaussian_splatting/UI/ProductionUI.gd" id="1_n7e5t"]
+[ext_resource type="FontFile" uid="uid://b06alat7f14g1" path="res://assets/fonts/Oswald/Oswald-VariableFont_wght.ttf" id="2_yclw4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6rdp4"]
+bg_color = Color(0, 0, 0, 0.352941)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.129412)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yclw4"]
+bg_color = Color(0.6, 0.6, 0.6, 0.22745098)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="Theme" id="Theme_yclw4"]
+default_font = ExtResource("2_yclw4")
+Label/font_sizes/font_size = 9
+Label/fonts/font = ExtResource("2_yclw4")
+
+[node name="ProductionUI" type="CanvasLayer"]
+script = ExtResource("1_n7e5t")
+
+[node name="MainControls" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 777.0
+offset_top = 99.0
+offset_right = -22.0
+offset_bottom = 147.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 9
+theme_override_constants/margin_bottom = 9
+
+[node name="Layout" type="VBoxContainer" parent="MainControls"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="TopBar" type="HBoxContainer" parent="MainControls/Layout"]
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+alignment = 2
+
+[node name="LoadFileButton" type="Button" parent="MainControls/Layout/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 14
+text = "Load Splat File..."
+
+[node name="QualitySelector" type="OptionButton" parent="MainControls/Layout/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 14
+fit_to_longest_item = false
+
+[node name="ClearSceneButton" type="Button" parent="MainControls/Layout/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 14
+text = "Clear Scene"
+
+[node name="SceneManagerButton" type="Button" parent="MainControls/Layout/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Open Scene Manager to control object transforms"
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 14
+text = "Scene Manager"
+
+[node name="CognitiveButton" type="Button" parent="MainControls/Layout/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Vision Bridge // Open Neural HUD"
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 14
+text = " 🧠 "
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+
+[node name="StatusLabel" type="Label" parent="PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 14
+text = "Status Message"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="LoadZonePanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
+theme_override_styles/panel = SubResource("StyleBoxFlat_6rdp4")
+
+[node name="Layout" type="VBoxContainer" parent="LoadZonePanel"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="SpacerTop" type="Control" parent="LoadZonePanel/Layout"]
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+
+[node name="TitleBar" type="HBoxContainer" parent="LoadZonePanel/Layout"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="LoadZonePanel/Layout/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 18
+text = "Load Splat File"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="LoadZonePanel/Layout/TitleBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(27, 27)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_yclw4")
+text = " X "
+
+[node name="SpacerR" type="Control" parent="LoadZonePanel/Layout/TitleBar"]
+custom_minimum_size = Vector2(9, 0)
+layout_mode = 2
+
+[node name="Separator" type="HSeparator" parent="LoadZonePanel/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="LoadZonePanel/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_right = 9
+
+[node name="RecentFilesList" type="VBoxContainer" parent="LoadZonePanel/Layout/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_yclw4")
+theme_override_constants/separation = 3
+
+[node name="Separator2" type="HSeparator" parent="LoadZonePanel/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ButtonLayout" type="HBoxContainer" parent="LoadZonePanel/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="BrowseButton" type="Button" parent="LoadZonePanel/Layout/ButtonLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 13
+text = "Browse for New Files..."
+
+[node name="ClearHistoryButton" type="Button" parent="LoadZonePanel/Layout/ButtonLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yclw4")
+theme_override_font_sizes/font_size = 14
+text = "Clear History"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 1
+size = Vector2i(600, 400)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.ply,*.gsres ; Gaussian Splat File")
+use_native_dialog = true

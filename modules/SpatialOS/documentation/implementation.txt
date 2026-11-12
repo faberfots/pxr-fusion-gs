@@ -1,0 +1,87 @@
+The Spatial OS Architecture
+The complete blueprint for autonomous spatial intelligence—every component, every connection, every data flow demystified
+	 INTERMEDIATE	 60 MIN	 PYTHON / OPEN3D / LLM APIS
+Before You Start: This lesson is your architectural map. We cover the complete SpatialOS blueprint—five foundations, dozens of modules, and the data flows that connect them. Bookmark this page; you'll reference it throughout the course.
+1. What is SpatialOS?
+SpatialOS is a production-ready framework for spatial intelligence—the ability to understand, reason about, and manipulate 3D environments through AI. Unlike traditional point cloud libraries that stop at geometry,
+SpatialOS integrates LLM-powered agents , graph-based scene understanding , and natural language interfaces into a unified system.
+The framework processes raw .ply , .las , .pcd , and .e57 files through a pipeline that extracts not just coordinates, but meaning. A chair isn't just 50,000 points—it's a semantic node with relationships: supports the desk, adjacent to the window, belongs to the conference room. This relational understanding enables commands like "Move all chairs 2
+
+
+nothing else. This single-responsibility principle makes the codebase navigable and testable. When something breaks, you know exactly where to look.
+? Common Mistake: Don't skip Foundation 1. Many developers rush to the "AI parts" (F3/F4) without solid data processing. A scene graph built on noisy, unindexed points will produce garbage relationships. Garbage in, garbage out—even with GPT-4.
+Each foundation communicates through well-defined interfaces. Foundation
+1 outputs NumPy arrays with shape (N, 3+) . Foundation 2 outputs
+NetworkX graphs with typed nodes and edges. Foundation 3 outputs JSON decision objects. This standardization means you can swap implementations
+—use Open3D or PyVista for visualization, OpenAI or Anthropic for LLMs—without breaking the pipeline. But how does data actually flow through these foundations?
+3. Data Flow Architecture
+Understanding data flow is understanding SpatialOS. Every operation—from loading a .ply file to answering "How many desks are near windows?"— follows predictable paths through the system. Let's trace a complete journey.
+The flow begins with ingestion. Raw files enter through spatialos/core/loader.py , which detects format, parses headers, and
+extracts point data into a standardized PointCloud object. This object carries coordinates ( xyz ), optional colors ( rgb ), intensities, and metadata.
+From here, data branches based on the requested operation.
+
+
+        xyz = xyz.astype(np.float32)         return PointCloud(xyz=xyz, attributes=attrs)
+The preprocessing.py module chains three operations: downsampling, noise removal, and normal estimation. Voxel grid downsampling reduces a
+ 15M point scan to ~500K representative points—a 30x reduction that makes graph construction tractable. Statistical outlier removal (SOR) eliminates points with fewer than k neighbors within radius r .
+? Parameter Sensitivity: Voxel size dramatically affects downstream results. Too large ( >0.1m ) loses detail; too small ( <0.01m ) preserves noise. The algorithm_supervisor auto-tunes this based on scene density, but manual override is available via -voxel-size flag.
+The spatial_index.py builds a k-d tree for fast neighbor queries. This index is essential for Foundation 2—graph construction requires radius searches that would be O(n²) without spatial indexing. With a k-d tree , they're O(n log n) . For 15M points, that's the difference between 5 hours and 30 seconds . How does the graph foundation leverage this indexed data?
+5. Foundation 2: Graph Intelligence
+Foundation 2 transforms point arrays into scene graphs. This is where raw geometry becomes structured knowledge. A scene graph represents objects as nodes and relationships as edges—a representation that LLMs can reason about directly.
+
+Each relationship has geometric criteria—supports requires vertical contact and mass distribution analysis.
+Semantic Boost: Foundation 2 can optionally invoke CLIP or SAM models to label segments. A cluster of 12,000 points becomes not just "Segment_42" but "office_chair (confidence: 0.94)". This semantic layer is what enables natural language queries.
+The output is a NetworkX graph where each node has attributes:
+ centroid , bbox , point_count , semantic_label , confidence . Edges carry relationship type and strength. This graph is the lingua franca of SpatialOS—every downstream operation reads and writes to it. But who decides how to build this graph optimally?
+6. Foundation 3: Agent Architecture
+Foundation 3 introduces intelligence. The agent architecture wraps LLM capabilities around the processing pipeline, enabling autonomous decisionmaking and natural language understanding. This is where SpatialOS stops being a library and becomes a system.
+The llm_interface.py module provides a unified API for multiple LLM providers. It supports OpenAI (GPT-4, GPT-3.5), Anthropic (Claude), and local models via Ollama (Llama 3, Mistral). The interface handles authentication, rate limiting, cost tracking, and structured output parsing. A single function call— llm.complete(prompt, schema=OutputSchema) — works identically across providers.
+
+The spatial_reasoner.py translates natural language queries into graph operations. "Find all chairs near windows" becomes a graph traversal: find nodes with semantic_label='chair' , filter by near relationship to nodes with semantic_label='window' . The LLM handles linguistic variation —"close to", "adjacent to", "next to" all map to the same operation.
+The orchestrator.py coordinates multiple agents for complex tasks. A command like "Reorganize the office for social distancing" triggers a multistep workflow: (1) identify current desk positions, (2) calculate required spacing, (3) propose new layout, (4) validate constraints, (5) execute modifications. Each step may involve different agents, and the orchestrator manages state and error recovery. But how do users actually issue these commands?
+7. Foundation 4: Interaction Layer
+Foundation 4 is the human interface. It translates natural language into scene operations and provides feedback. The goal: a facility manager with zero coding experience should be able to query and modify 3D spaces through conversation.
+The nlu.py (Natural Language Understanding) module is the entry point. It classifies user intent into categories: QUERY (asking about the scene),
+MODIFY (changing objects), NAVIGATE (moving viewpoint), EXPORT
+(generating outputs). Entity extraction identifies objects ("the red chair"), locations ("near the entrance"), and parameters ("2 meters").
+	Query Examples	Modification Examples
+
+history. Real-time updates show modifications as they happen. But once you've designed the perfect layout, how do you export it for use in other systems?
+8. Foundation 5: Production & Export
+Foundation 5 bridges SpatialOS to the outside world. It handles performance optimization for production workloads, exports to industrystandard formats, and exposes functionality via REST APIs. This is where prototypes become deployable systems.
+The usd_exporter.py module converts NetworkX scene graphs to OpenUSD (Universal Scene Description). USD is the Pixar-developed format now standard in digital twins, BIM, and metaverse applications. Each graph node becomes a USD prim with typed schemas. Relationships become USD relationships. The export preserves all semantic metadata.
+	spatialos/export/usd_exporter.py	Copy
+from pxr import Usd, UsdGeom, Sdf
+class USDExporter:
+    """Export scene graph to OpenUSD format."""
+    def export(self, graph: nx.Graph, path: str):
+        stage = Usd.Stage.CreateNew(path)         root = UsdGeom.Xform.Define(stage, "/SpatialOS")
+        for node_id, attrs in graph.nodes(data=True):             prim_path = f"/SpatialOS/{attrs['label']}_{node_id}"             prim = UsdGeom.Mesh.Define(stage, prim_path)
+            # Set semantic metadata             prim.GetPrim().SetMetadata(
+
+
+
+
+
+
+distributes work across multiple SpatialOS instances.
+The event-driven pattern uses message queues. A producer publishes
+"new scan available" events to Redis or Kafka . SpatialOS workers consume events, process scans, and publish "scene graph ready" events. Downstream services (visualization, BIM sync, analytics) react to these events. This pattern scales horizontally and decouples components.
+Hybrid Approach: Production deployments often combine patterns. Use the embedded library for real-time queries (low latency), the API for user-facing features (authentication, rate limiting), and event-driven for batch processing (throughput).
+Integration with BIM platforms (Autodesk, Bentley) uses the OpenUSD export path. Integration with digital twin platforms (NVIDIA Omniverse, Unity) uses the same path plus real-time event streams for live updates. Integration with IoT systems uses the event-driven pattern with MQTT bridges. The architecture is intentionally flexible. Now that we understand how to integrate, what should you build first?
+12. Architecture Recap
+You've now seen the complete SpatialOS architecture—from raw bytes to intelligent actions. Let's crystallize the key concepts before you dive into implementation.
+	Concept	Key Takeaway
+Data ? Graph ? Agent ? Interaction ? Production.
+
+
+
+https://learngeodata.eu/vip/spatial-os-architecture	24/12/2025 09:39
+Page 1 sur 23
+
+https://learngeodata.eu/vip/spatial-os-architecture	24/12/2025 09:39
+Page 1 sur 23
+
+https://learngeodata.eu/vip/spatial-os-architecture	24/12/2025 09:39
+Page 1 sur 23
+

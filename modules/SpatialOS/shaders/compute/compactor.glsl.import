@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://cg3bd2kfc7lnh"
+path="res://.godot/imported/compactor.glsl-6a7602cfc26fb88fe76a1806434159b2.res"
+
+[deps]
+
+source_file="res://modules/SpatialOS/shaders/compute/compactor.glsl"
+dest_files=["res://.godot/imported/compactor.glsl-6a7602cfc26fb88fe76a1806434159b2.res"]
+
+[params]
+

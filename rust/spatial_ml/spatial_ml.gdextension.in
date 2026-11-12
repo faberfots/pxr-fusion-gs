@@ -1,0 +1,17 @@
+[configuration]
+entry_symbol = "gdext_rust_init"
+compatibility_minimum = 4.6
+reloadable = false
+
+[libraries]
+; Windows x86_64
+windows.debug.x86_64 = "res://rust/spatial_ml/bin/windows/release/spatial_ml.dll"
+windows.release.x86_64 = "res://rust/spatial_ml/bin/windows/release/spatial_ml.dll"
+
+; Linux x86_64
+linux.debug.x86_64 = "res://rust/spatial_ml/target/debug/libspatial_ml.so"
+linux.release.x86_64 = "res://rust/spatial_ml/target/release/libspatial_ml.so"
+
+; macOS (universal)
+macos.debug = "res://rust/spatial_ml/target/debug/libspatial_ml.dylib"
+macos.release = "res://rust/spatial_ml/target/release/libspatial_ml.dylib"

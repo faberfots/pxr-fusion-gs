@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://cboik1o1yqo4e"]
+
+[ext_resource type="Script" uid="uid://dcwjr2duc2awa" path="res://modules/SpatialOS/scenes/Foundation1Demo.gd" id="1_main_script"]
+[ext_resource type="Script" uid="uid://bk0fmkmbtbp2x" path="res://addons/advanced_control_camera3d/nodes/advanced_control_camera_3d.gd" id="2_boavl"]
+[ext_resource type="Script" uid="uid://brhcv2ssuw0op" path="res://modules/SpatialOS/core/spatial_pipeline.gd" id="2_pipeline_script"]
+[ext_resource type="PackedScene" uid="uid://b6x8q2y51ak1" path="res://modules/SpatialOS/scenes/PointVisualizer.tscn" id="3_visualizer"]
+[ext_resource type="PackedScene" uid="uid://b8y4q4q4q4q4" path="res://modules/SpatialOS/scenes/debug/SpatialIndexDebug.tscn" id="4_debug_grid"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tech"]
+sky_top_color = Color(0.02, 0.02, 0.04, 1)
+sky_horizon_color = Color(0.05, 0.05, 0.08, 1)
+ground_bottom_color = Color(0.01, 0.01, 0.02, 1)
+ground_horizon_color = Color(0.05, 0.05, 0.08, 1)
+
+[sub_resource type="Sky" id="Sky_tech"]
+sky_material = SubResource("ProceduralSkyMaterial_tech")
+
+[sub_resource type="Environment" id="Environment_glow"]
+background_mode = 2
+sky = SubResource("Sky_tech")
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 1.5
+glow_strength = 1.1
+glow_bloom = 0.2
+
+[node name="Foundation1Demo" type="Node3D" unique_id=1650286654]
+script = ExtResource("1_main_script")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=333425340]
+environment = SubResource("Environment_glow")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1797577941]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="ControlCamera3D" type="Camera3D" parent="." unique_id=214326548]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.8944271, 0.44721356, 0, -0.44721356, 0.8944271, 0, 5, 10)
+script = ExtResource("2_boavl")
+metadata/_custom_type_script = "uid://bk0fmkmbtbp2x"
+
+[node name="SpatialPipeline" type="Node" parent="." unique_id=406012132]
+unique_name_in_owner = true
+script = ExtResource("2_pipeline_script")
+
+[node name="PointVisualizer" parent="." unique_id=1500336431 instance=ExtResource("3_visualizer")]
+unique_name_in_owner = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1108490036]
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1177384784]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -438.0
+offset_right = 363.0
+offset_bottom = -39.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=219450811]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1705011116]
+layout_mode = 2
+text = "SpatialOS - Foundation 1"
+horizontal_alignment = 1
+
+[node name="LoadButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1844629330]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "LOAD RAW SCAN (.PLY)"
+
+[node name="PointSizeLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=422762674]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Point Size: 5cm"
+
+[node name="PointSizeSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1515064989]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.01
+max_value = 0.5
+step = 0.01
+value = 0.05
+
+[node name="EdgeThresholdLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=279086203]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Edge Threshold: 0.20"
+
+[node name="EdgeThresholdSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=618898669]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.05
+max_value = 0.5
+step = 0.01
+value = 0.2
+
+[node name="SegmentModeOption" type="OptionButton" parent="CanvasLayer/Panel/VBoxContainer" unique_id=125372345]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Connectivity (Spatial)"
+popup/item_0/id = 0
+popup/item_1/text = "Color Clustering"
+popup/item_1/id = 1
+popup/item_2/text = "Depth Edges"
+popup/item_2/id = 2
+
+[node name="GraphButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer" unique_id=254973852]
+unique_name_in_owner = true
+layout_mode = 2
+text = "HYPOTHESIZE (SEGMENT)"
+
+[node name="GeometryButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1622784083]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ANALYZE GEOMETRY (NORMALS)"
+
+[node name="CancelButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1141700416]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+text = "⏹ CANCEL LOADING"
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1996947397]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=828172730]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+text = "System Ready. Waiting for Input."
+horizontal_alignment = 1
+
+[node name="FileDialog" type="FileDialog" parent="CanvasLayer" unique_id=559475456]
+unique_name_in_owner = true
+title = "Open a File"
+initial_position = 2
+size = Vector2i(800, 600)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.ply ; Stanford Triangle Format")
+use_native_dialog = true
+
+[node name="SpatialIndexDebug" parent="." unique_id=1543977234 instance=ExtResource("4_debug_grid")]
+unique_name_in_owner = true
+visible = false

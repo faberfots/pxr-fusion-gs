@@ -1,0 +1,650 @@
+extends CharacterBody3D
+
+# Movement Settings
+@export_subgroup("Movement settings")
+@export var movement_speed : float = 10.0 # Default movement speed
+@export var sprint_multiplier: float = 2.0 # Sprint speed multiplier
+
+# Key Bindings
+@export_subgroup("Movement keybinds")
+@export var KEY_FORWARD: String = "move_forward"
+@export var KEY_BACKWARD: String = "move_backward"
+@export var KEY_LEFT: String = "move_left"
+@export var KEY_RIGHT: String = "move_right"
+@export var KEY_UP: String = "move_up"
+@export var KEY_DOWN: String = "move_down"
+@export var KEY_SPRINT: String = "sprint"
+
+# Mouse Settings
+@export_subgroup("Mouse")
+@export var MOUSE_ACCEL_STATE := true # Enable mouse acceleration
+@export var MOUSE_SENS := 0.005 # Mouse sensitivity
+@export var MOUSE_ACCEL := 50 # Mouse acceleration factor
+
+# Head Rotation Clamping
+@export_subgroup("Clamp Head Rotation")
+@export var CLAMP_HEAD_ROTATION := true # Enable head rotation clamping
+@export var CLAMP_HEAD_ROTATION_MIN := -90.0 # Min head rotation
+@export var CLAMP_HEAD_ROTATION_MAX := 90.0 # Max head rotation
+
+# Camera Node
+@export_subgroup("Camera node")
+@export var camera: Camera3D # Camera attached to the character
+## Camera offset from character origin (for drone view adjustment)
+@export var camera_offset: Vector3 = Vector3.ZERO
+## Lock camera to maintain relative position to attached models
+@export var camera_lock_to_body: bool = true
+
+# Collision Settings (Original)
+@export_subgroup("Collision (Original)")
+@export var collision_state := true # Enable or disable collision
+@export var collision: CollisionShape3D # Collision shape for the character
+
+# Enhanced Floor Collision System
+@export_group("Enhanced Floor Detection")
+## Enable advanced floor collision prevention
+@export var floor_detection_enabled: bool = true
+## Detection method
+@export_enum("Raycast", "Hybrid", "Predictive") var detection_mode: String = "Hybrid"
+## Minimum distance to maintain from floor
+@export var floor_offset: float = 0.5
+## Physics layers for floor detection
+@export_flags_3d_physics var floor_collision_mask: int = 1
+## Maximum ray length for detection
+@export var ray_max_length: float = 100.0
+## Number of rays for predictive mode
+@export_range(1, 8) var predictive_ray_count: int = 4
+## Smoothing factor for collision response
+@export_range(0.1, 1.0) var collision_smoothing: float = 0.3
+## Enable visual debugging
+@export var debug_visualization: bool = false
+## Auto-adjust height when spawning below floor
+@export var auto_adjust_on_start: bool = true
+# Input Control
+@export_subgroup("Input Control")
+## Only process input when camera is active
+@export var require_camera_current: bool = true
+## Additional check with camera manager
+@export var check_camera_manager: bool = true  # ADD THIS
+
+
+# Advanced Settings
+@export_category("Advanced")
+@export var UPDATE_ON_PHYSICS := true # Should the update happen on physics ticks?
+@export var KEY_ESCAPE: String = "KEY_ESCAPE" # Escape key for toggling mouse capture
+## Prevent tunneling through thin floors
+@export var anti_tunneling: bool = true
+## Maximum velocity before clamping (prevents fast penetration)
+@export var max_velocity_magnitude: float = 50.0
+## Sync rotations on scene load to prevent detachment
+@export var sync_rotations_on_load: bool = true
+
+# Persistence Settings
+@export_category("Persistence")
+## Save and restore rotation state
+@export var persist_rotation_state: bool = true
+## Save and restore camera relative position
+@export var persist_camera_position: bool = true
+
+# Internal variables for rotation and mouse capture
+var rotation_target_player : float
+var rotation_target_head : float
+var mouse_captured: bool = true
+var _is_active_camera: bool = false  # ADD THIS - Track if this is the active camera
+
+# SSOT: Collision detection state
+var _collision_state := {
+	"is_near_floor": false,
+	"floor_distance": INF,
+	"floor_point": Vector3.ZERO,
+	"floor_normal": Vector3.UP,
+	"last_safe_position": Vector3.ZERO,
+	"velocity_before_collision": Vector3.ZERO,
+	"correction_applied": false
+}
+
+# Camera synchronization state
+var _camera_sync_state := {
+	"initial_offset": Vector3.ZERO,
+	"initial_rotation": Quaternion.IDENTITY,
+	"is_initialized": false
+}
+
+# Debug visualization nodes
+var _debug_mesh: ImmediateMesh
+var _debug_mesh_instance: MeshInstance3D
+var _debug_material: StandardMaterial3D
+
+# Ray origins for predictive mode
+var _ray_offsets := [
+	Vector3.FORWARD * 0.3,
+	Vector3.BACK * 0.3,
+	Vector3.LEFT * 0.3,
+	Vector3.RIGHT * 0.3,
+	Vector3(0.3, 0, 0.3),
+	Vector3(-0.3, 0, 0.3),
+	Vector3(0.3, 0, -0.3),
+	Vector3(-0.3, 0, -0.3)
+]
+
+# Called when the node enters the scene tree for the first time
+func _ready():
+	# Toggle collision state if set
+	if collision != null:
+		collision.disabled = !collision_state
+	
+	# If no camera is assigned, create a new one and add it to the node
+	if camera == null:
+		camera = Camera3D.new()
+		add_child(camera)
+	
+	# CRITICAL FIX: Synchronize rotation targets with current rotations
+	_sync_rotation_targets()
+	
+	# Store camera initial state
+	_initialize_camera_state()
+	
+	# Initialize debug visualization
+	_setup_debug_visualization()
+	
+	# Store initial safe position
+	_collision_state.last_safe_position = global_position
+	
+	# Connect to camera manager for state tracking
+	_connect_to_camera_manager()
+	
+	# Auto-adjust height if below floor on start
+	if auto_adjust_on_start and floor_detection_enabled:
+		await get_tree().process_frame
+		_auto_adjust_initial_height()
+	
+	# Capture the mouse at the start only if this is the active camera
+	if camera and camera.current:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+# Connect to camera manager for proper state tracking
+func _connect_to_camera_manager() -> void:
+	if not check_camera_manager:
+		return
+	
+	var cam_manager = get_node_or_null("/root/CameraManager")
+	if cam_manager:
+		# Connect to camera switch signals
+		if cam_manager.has_signal("active_camera_changed"):
+			cam_manager.active_camera_changed.connect(_on_active_camera_changed)
+			print("[FreeFly] Connected to CameraManager")
+		
+		# Check if we're the active camera
+		_is_active_camera = (cam_manager.target_camera == camera)
+
+func _on_active_camera_changed(new_camera: Camera3D) -> void:
+	"""Handle camera activation/deactivation"""
+	_is_active_camera = (new_camera == camera)
+	
+	if _is_active_camera:
+		print("[FreeFly] Camera activated")
+		# Sync rotations when becoming active
+		if sync_rotations_on_load:
+			_sync_rotation_targets()
+		# Capture mouse for this camera
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		mouse_captured = true
+	else:
+		print("[FreeFly] Camera deactivated")
+		# Don't change mouse mode when deactivating - let the new camera handle it
+
+# Initialize camera state for proper synchronization
+func _initialize_camera_state() -> void:
+	if camera:
+		_camera_sync_state.initial_offset = camera.position
+		_camera_sync_state.initial_rotation = camera.quaternion
+		_camera_sync_state.is_initialized = true
+		
+		# Apply camera offset if specified
+		if camera_offset != Vector3.ZERO:
+			camera.position = camera_offset
+
+# CRITICAL: Sync rotation targets with current scene state
+func _sync_rotation_targets() -> void:
+	if not sync_rotations_on_load:
+		return
+	
+	# Extract player Y rotation from current quaternion
+	var player_euler = quaternion.get_euler()
+	rotation_target_player = player_euler.y
+	
+	# Extract camera X rotation (pitch) from current camera quaternion
+	if camera:
+		var camera_euler = camera.quaternion.get_euler()
+		rotation_target_head = camera_euler.x
+		
+		# Ensure head rotation is within clamped bounds
+		if CLAMP_HEAD_ROTATION:
+			rotation_target_head = clamp(
+				rotation_target_head, 
+				deg_to_rad(CLAMP_HEAD_ROTATION_MIN), 
+				deg_to_rad(CLAMP_HEAD_ROTATION_MAX)
+			)
+	
+	print("[FreeFly] Synchronized rotations - Player: %.2f, Head: %.2f" % [
+		rad_to_deg(rotation_target_player), 
+		rad_to_deg(rotation_target_head)
+	])
+
+# Setup debug visualization components
+func _setup_debug_visualization() -> void:
+	if not debug_visualization:
+		return
+	
+	_debug_mesh = ImmediateMesh.new()
+	_debug_mesh_instance = MeshInstance3D.new()
+	_debug_material = StandardMaterial3D.new()
+	
+	_debug_material.vertex_color_use_as_albedo = true
+	_debug_material.no_depth_test = true
+	_debug_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	_debug_mesh_instance.mesh = _debug_mesh
+	_debug_mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	add_child(_debug_mesh_instance)
+
+# Auto-adjust height if spawned below floor
+func _auto_adjust_initial_height() -> void:
+	var adjustment_needed := false
+	var target_position := global_position
+	
+	match detection_mode:
+		"Raycast", "Hybrid":
+			var ray_data := _perform_single_raycast(global_position)
+			if ray_data.hit and ray_data.hit_point.y > global_position.y - floor_offset:
+				target_position.y = ray_data.hit_point.y + floor_offset
+				adjustment_needed = true
+		"Predictive":
+			var lowest_floor := _get_lowest_floor_predictive()
+			if lowest_floor < INF and lowest_floor > global_position.y - floor_offset:
+				target_position.y = lowest_floor + floor_offset
+				adjustment_needed = true
+	
+	if adjustment_needed:
+		global_position = target_position
+		_collision_state.last_safe_position = target_position
+		print("[FreeFly] Auto-adjusted spawn height to avoid floor clipping")
+
+# Process the input every frame if not using physics
+func _process(delta: float) -> void:
+	if !UPDATE_ON_PHYSICS:
+		handle_input() # Handle player input
+		rotate_player(delta) # Apply player and camera rotation
+		_process_floor_collision(delta) # Enhanced floor collision
+		_maintain_camera_lock() # Ensure camera stays attached
+	
+	if debug_visualization and _debug_mesh:
+		_draw_debug_rays()
+
+# Process input and rotation on physics ticks
+func _physics_process(delta: float) -> void:
+	if UPDATE_ON_PHYSICS:
+		handle_input()
+		rotate_player(delta)
+		_process_floor_collision(delta)
+		_maintain_camera_lock()
+
+# Maintain camera lock to body
+func _maintain_camera_lock() -> void:
+	if not camera_lock_to_body or not camera:
+		return
+	
+	# Ensure camera maintains its relative offset
+	if camera.position.distance_to(camera_offset) > 0.01:
+		camera.position = camera.position.lerp(camera_offset, 0.1)
+
+# Main floor collision processing
+func _process_floor_collision(delta: float) -> void:
+	if not floor_detection_enabled:
+		return
+	
+	# Apply velocity clamping if anti-tunneling is enabled
+	if anti_tunneling and velocity.length() > max_velocity_magnitude:
+		velocity = velocity.normalized() * max_velocity_magnitude
+	
+	# Store velocity before any corrections
+	_collision_state.velocity_before_collision = velocity
+	
+	# Process based on detection mode
+	match detection_mode:
+		"Raycast":
+			_process_raycast_collision()
+		"Hybrid":
+			_process_hybrid_collision()
+		"Predictive":
+			_process_predictive_collision()
+	
+	# Apply smooth correction if needed
+	if _collision_state.correction_applied:
+		_apply_smooth_correction(delta)
+
+# Simple raycast collision detection
+func _process_raycast_collision() -> void:
+	var ray_data := _perform_single_raycast(global_position)
+	
+	if ray_data.hit:
+		_collision_state.is_near_floor = true
+		_collision_state.floor_distance = global_position.y - ray_data.hit_point.y
+		_collision_state.floor_point = ray_data.hit_point
+		_collision_state.floor_normal = ray_data.normal
+		
+		# Check if we're too close to floor
+		if _collision_state.floor_distance < floor_offset:
+			var corrected_pos := global_position
+			corrected_pos.y = ray_data.hit_point.y + floor_offset
+			_collision_state.correction_applied = true
+			global_position = corrected_pos
+			
+			# Cancel downward velocity if moving into floor
+			if velocity.y < 0:
+				velocity.y = 0
+	else:
+		_collision_state.is_near_floor = false
+		_collision_state.floor_distance = INF
+
+# Hybrid collision detection (CharacterBody + Raycast)
+func _process_hybrid_collision() -> void:
+	# First, use standard CharacterBody collision
+	var was_on_floor := is_on_floor()
+	
+	# Then enhance with raycast
+	_process_raycast_collision()
+	
+	# Additional correction for edge cases
+	if was_on_floor and not _collision_state.is_near_floor:
+		# Character thinks it's on floor but raycast doesn't detect it
+		# This might be an edge case - do additional checks
+		var extended_ray := _perform_single_raycast(global_position, ray_max_length * 2)
+		if extended_ray.hit:
+			_collision_state.floor_point = extended_ray.hit_point
+			_collision_state.floor_normal = extended_ray.normal
+
+# Predictive collision with multiple rays
+func _process_predictive_collision() -> void:
+	var closest_hit_distance := INF
+	var closest_hit_point := Vector3.ZERO
+	var closest_hit_normal := Vector3.UP
+	var any_hit := false
+	
+	# Cast multiple rays from different positions
+	for i in range(min(predictive_ray_count, _ray_offsets.size())):
+		var offset = _ray_offsets[i]
+		var ray_origin = global_position + offset
+		var ray_data := _perform_single_raycast(ray_origin)
+		
+		if ray_data.hit:
+			any_hit = true
+			var distance = ray_origin.y - ray_data.hit_point.y
+			if distance < closest_hit_distance:
+				closest_hit_distance = distance
+				closest_hit_point = ray_data.hit_point
+				closest_hit_normal = ray_data.normal
+	
+	# Also check center ray
+	var center_ray := _perform_single_raycast(global_position)
+	if center_ray.hit:
+		any_hit = true
+		var distance = global_position.y - center_ray.hit_point.y
+		if distance < closest_hit_distance:
+			closest_hit_distance = distance
+			closest_hit_point = center_ray.hit_point
+			closest_hit_normal = center_ray.normal
+	
+	# Update collision state
+	if any_hit:
+		_collision_state.is_near_floor = true
+		_collision_state.floor_distance = closest_hit_distance
+		_collision_state.floor_point = closest_hit_point
+		_collision_state.floor_normal = closest_hit_normal
+		
+		# Apply correction if too close
+		if closest_hit_distance < floor_offset:
+			var corrected_pos := global_position
+			corrected_pos.y = closest_hit_point.y + floor_offset
+			_collision_state.correction_applied = true
+			global_position = corrected_pos
+			
+			if velocity.y < 0:
+				velocity.y = 0
+	else:
+		_collision_state.is_near_floor = false
+		_collision_state.floor_distance = INF
+
+# Get lowest floor point in predictive mode
+func _get_lowest_floor_predictive() -> float:
+	var lowest_y := -INF
+	
+	for i in range(min(predictive_ray_count, _ray_offsets.size())):
+		var offset = _ray_offsets[i]
+		var ray_data := _perform_single_raycast(global_position + offset)
+		if ray_data.hit and ray_data.hit_point.y > lowest_y:
+			lowest_y = ray_data.hit_point.y
+	
+	var center_ray := _perform_single_raycast(global_position)
+	if center_ray.hit and center_ray.hit_point.y > lowest_y:
+		lowest_y = center_ray.hit_point.y
+	
+	return lowest_y if lowest_y > -INF else INF
+
+# Perform a single raycast
+func _perform_single_raycast(origin: Vector3, custom_length: float = -1) -> Dictionary:
+	var space_state := get_world_3d().direct_space_state
+	if not space_state:
+		return {"hit": false}
+	
+	var length := custom_length if custom_length > 0 else ray_max_length
+	var ray_start := origin + Vector3.UP * length
+	var ray_end := origin - Vector3.UP * length
+	
+	var query := PhysicsRayQueryParameters3D.new()
+	query.from = ray_start
+	query.to = ray_end
+	query.collision_mask = floor_collision_mask
+	query.exclude = [self]
+	query.collide_with_bodies = true
+	query.collide_with_areas = false
+	query.hit_from_inside = true
+	query.hit_back_faces = true
+	
+	var result := space_state.intersect_ray(query)
+	
+	if result.is_empty():
+		return {"hit": false}
+	
+	return {
+		"hit": true,
+		"hit_point": result.position,
+		"normal": result.normal,
+		"collider": result.collider
+	}
+
+# Apply smooth height correction
+func _apply_smooth_correction(delta: float) -> void:
+	if not _collision_state.correction_applied:
+		return
+	
+	var target_y = _collision_state.floor_point.y + floor_offset
+	var current_y := global_position.y
+	
+	if abs(target_y - current_y) > 0.001:
+		var new_y := lerp(current_y, target_y, collision_smoothing)
+		var corrected_pos := global_position
+		corrected_pos.y = new_y
+		global_position = corrected_pos
+	else:
+		_collision_state.correction_applied = false
+
+# Draw debug visualization
+func _draw_debug_rays() -> void:
+	if not _debug_mesh:
+		return
+	
+	_debug_mesh.clear_surfaces()
+	
+	# Draw main ray
+	if _collision_state.is_near_floor:
+		_debug_mesh.surface_begin(Mesh.PRIMITIVE_LINES, _debug_material)
+		_debug_mesh.surface_set_color(Color.CYAN)
+		_debug_mesh.surface_add_vertex(Vector3.ZERO)
+		_debug_mesh.surface_add_vertex(to_local(_collision_state.floor_point))
+		_debug_mesh.surface_end()
+		
+		# Draw hit point
+		_debug_mesh.surface_begin(Mesh.PRIMITIVE_POINTS, _debug_material)
+		_debug_mesh.surface_set_color(Color.RED)
+		_debug_mesh.surface_add_vertex(to_local(_collision_state.floor_point))
+		_debug_mesh.surface_end()
+	
+	# Draw predictive rays in predictive mode
+	if detection_mode == "Predictive":
+		_debug_mesh.surface_begin(Mesh.PRIMITIVE_LINES, _debug_material)
+		for i in range(min(predictive_ray_count, _ray_offsets.size())):
+			var offset = _ray_offsets[i]
+			var ray_data := _perform_single_raycast(global_position + offset)
+			if ray_data.hit:
+				_debug_mesh.surface_set_color(Color.GREEN)
+				_debug_mesh.surface_add_vertex(to_local(global_position + offset))
+				_debug_mesh.surface_add_vertex(to_local(ray_data.hit_point))
+		_debug_mesh.surface_end()
+
+# Handle player movement input and apply to the character
+func handle_input():
+	# CRITICAL: Only process input if this camera is active
+	if require_camera_current and camera and not camera.current:
+		return
+	
+	# Additional check with camera manager
+	if check_camera_manager:
+		var cam_manager = get_node_or_null("/root/CameraManager")
+		if cam_manager and cam_manager.target_camera != camera:
+			return
+	
+	var move_direction = Vector3.ZERO # Initial movement direction is zero
+
+	# Toggle mouse capture when the escape key is pressed
+	if Input.is_action_just_pressed(KEY_ESCAPE):
+		mouse_captured = not mouse_captured
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if mouse_captured else Input.MOUSE_MODE_VISIBLE
+
+	if mouse_captured:
+		# Movement input for each direction
+		if Input.is_action_pressed(KEY_FORWARD):
+			move_direction.z += 1
+		if Input.is_action_pressed(KEY_BACKWARD):
+			move_direction.z -= 1
+		if Input.is_action_pressed(KEY_LEFT):
+			move_direction.x -= 1
+		if Input.is_action_pressed(KEY_RIGHT):
+			move_direction.x += 1
+		if Input.is_action_pressed(KEY_UP):
+			move_direction.y += 1
+		if Input.is_action_pressed(KEY_DOWN):
+			move_direction.y -= 1
+
+		# Normalize the movement vector to ensure consistent speed
+		move_direction = move_direction.normalized()
+
+		# Get the direction relative to the camera orientation
+		var forward = -camera.global_transform.basis.z
+		var right = camera.global_transform.basis.x
+		var up = camera.global_transform.basis.y
+
+		# Sprinting multiplier if sprint key is pressed
+		var speed_mod = sprint_multiplier if Input.is_action_pressed(KEY_SPRINT) else 1.0
+		velocity = (forward * move_direction.z + right * move_direction.x + up * move_direction.y) * movement_speed * speed_mod
+
+		# Store position before movement (for recovery)
+		if floor_detection_enabled and anti_tunneling:
+			if not _collision_state.is_near_floor or _collision_state.floor_distance > floor_offset:
+				_collision_state.last_safe_position = global_position
+
+		# Move the character
+		move_and_slide()
+
+# Capture mouse motion input and update rotations
+func _input(event):
+	if Engine.is_editor_hint():
+		return
+	
+	# CRITICAL: Only process input if this camera is active
+	if require_camera_current and camera and not camera.current:
+		return
+	
+	# Additional check with camera manager
+	if check_camera_manager:
+		var cam_manager = get_node_or_null("/root/CameraManager")
+		if cam_manager and cam_manager.target_camera != camera:
+			return
+
+	# Process mouse motion when the mouse is captured
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		set_rotation_target(event.relative)
+
+# Update the target rotations for the player and camera based on mouse motion
+func set_rotation_target(mouse_motion: Vector2):
+	# Update player rotation based on mouse X movement
+	rotation_target_player += -mouse_motion.x * MOUSE_SENS
+	# Update head rotation based on mouse Y movement
+	rotation_target_head += -mouse_motion.y * MOUSE_SENS
+
+	# Clamp the head rotation if enabled
+	if CLAMP_HEAD_ROTATION:
+		rotation_target_head = clamp(rotation_target_head, deg_to_rad(CLAMP_HEAD_ROTATION_MIN), deg_to_rad(CLAMP_HEAD_ROTATION_MAX))
+
+# Rotate the player and camera smoothly based on target rotation
+func rotate_player(delta):
+	if MOUSE_ACCEL_STATE:
+		# Apply spherical interpolation (slerp) for smooth rotation
+		quaternion = quaternion.slerp(Quaternion(Vector3.UP, rotation_target_player), MOUSE_ACCEL * delta)
+		camera.quaternion = camera.quaternion.slerp(Quaternion(Vector3.RIGHT, rotation_target_head), MOUSE_ACCEL * delta)
+	else:
+		# If mouse acceleration is off, directly set to target rotation
+		quaternion = Quaternion(Vector3.UP, rotation_target_player)
+		camera.quaternion = Quaternion(Vector3.RIGHT, rotation_target_head)
+
+# Public API Methods
+func get_floor_distance() -> float:
+	return _collision_state.floor_distance
+
+func is_near_floor(threshold: float = 1.0) -> bool:
+	return _collision_state.floor_distance < threshold
+
+func get_floor_normal() -> Vector3:
+	return _collision_state.floor_normal
+
+func reset_to_safe_position() -> void:
+	global_position = _collision_state.last_safe_position
+	velocity = Vector3.ZERO
+
+func resync_camera() -> void:
+	"""Force resynchronize camera with current rotation state"""
+	_sync_rotation_targets()
+	if camera and camera_offset != Vector3.ZERO:
+		camera.position = camera_offset
+
+# Persistence methods for saving/loading state
+func save_state() -> Dictionary:
+	return {
+		"rotation_target_player": rotation_target_player,
+		"rotation_target_head": rotation_target_head,
+		"camera_offset": camera_offset,
+		"last_safe_position": _collision_state.last_safe_position
+	}
+
+func load_state(state: Dictionary) -> void:
+	if state.has("rotation_target_player"):
+		rotation_target_player = state.rotation_target_player
+	if state.has("rotation_target_head"):
+		rotation_target_head = state.rotation_target_head
+	if state.has("camera_offset"):
+		camera_offset = state.camera_offset
+	if state.has("last_safe_position"):
+		_collision_state.last_safe_position = state.last_safe_position
+	
+	# Re-sync after loading
+	if sync_rotations_on_load:
+		_sync_rotation_targets()

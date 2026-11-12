@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://tvj67k0040sk"
+path="res://.godot/imported/voxelizer.glsl-4cc1e0097d76442de116f93764a9669e.res"
+
+[deps]
+
+source_file="res://modules/SpatialOS/shaders/compute/voxelizer.glsl"
+dest_files=["res://.godot/imported/voxelizer.glsl-4cc1e0097d76442de116f93764a9669e.res"]
+
+[params]
+

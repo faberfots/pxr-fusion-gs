@@ -1,0 +1,468 @@
+{
+  "schema_version": 1,
+  "baseline": "sanitized source snapshot before remediation",
+  "files": [
+    {
+      "path": "project.godot",
+      "kind": "modified",
+      "baseline_sha256": "ef71d1b36285605220930e014de99e48d89984f2b145ee03d390a7d33b352017",
+      "current_sha256": "ee57c84959d3532497bf805775e17e92a31585829c8cb0420549f358a1ce818d"
+    },
+    {
+      "path": "README.md",
+      "kind": "modified",
+      "baseline_sha256": "52a2e99996c4f0dc114e07680e35e88bf2b0861aada416142a6774210f685e98",
+      "current_sha256": "db0bdfc52a26d5173bfbe14e81a346ec833033f7b98acfa7f3e144302942a885"
+    },
+    {
+      "path": "export_presets.cfg",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "feb2261ec6af20339a77657b6d622179bc672b654542698ff2475b7cc06a2a51"
+    },
+    {
+      "path": "modules/gaussian_splatting/cameras/camera_controller.gd",
+      "kind": "modified",
+      "baseline_sha256": "bbe5b792529bd8bb55d88c7a846f286ea4f4daeb24bb58116dc18a7c315a05c5",
+      "current_sha256": "089972d5f1e00e758191ad5c3bc493711624af8c369677292dd4511a5a9be92f"
+    },
+    {
+      "path": "modules/gaussian_splatting/cameras/cursor.gd",
+      "kind": "modified",
+      "baseline_sha256": "b2a15864a39829b2fa606d8a5e68cda3594f60d753dc86d4079b9aa16af666a1",
+      "current_sha256": "8d2706ba970cc488f0a808143e1b0f75bee59241dc8015b3cb89048aed59fb4b"
+    },
+    {
+      "path": "modules/gaussian_splatting/cameras/freelook_camera.gd",
+      "kind": "modified",
+      "baseline_sha256": "1f67ff920b75293e27110cff93107ff26e11b1f16aa57fcaf980115fdafb9321",
+      "current_sha256": "cffc74431fbeeac3ad6be338e4aa5734f1116cf8444d7dd8ae5c3da899d23ea4"
+    },
+    {
+      "path": "modules/gaussian_splatting/cameras/orbit_camera.gd",
+      "kind": "modified",
+      "baseline_sha256": "a9c456ea823480b94a945118d5fd2ff928c2327c03bfe8954fec3bd61a0ea740",
+      "current_sha256": "9c0e7b5aa94cd437feff6569ecf920f41125a5aa882fa7b5240012a12162a003"
+    },
+    {
+      "path": "modules/gaussian_splatting/configs/gaussian_splatting_config.gd",
+      "kind": "modified",
+      "baseline_sha256": "04feaa87c97fbc99e629cc49eb12457047853cab431c9bc274439ff80af23adb",
+      "current_sha256": "a321db896b90867b437ebe9354c6c3fede9440a2c01414a9b77d5bf9a1a19410"
+    },
+    {
+      "path": "modules/gaussian_splatting/core/gs_memory_monitor.gd",
+      "kind": "modified",
+      "baseline_sha256": "22f9eaadf5c3a52f922f05473af6917489590ca26b283929dedb0b6b4df19559",
+      "current_sha256": "78cba580ed04b5f53a1f76aa366f8f1900364eb195bc1531d19f7fbdde4bd3a1"
+    },
+    {
+      "path": "modules/gaussian_splatting/core/gs_preloader.gd",
+      "kind": "modified",
+      "baseline_sha256": "f7357febd06fcf14da848c0005a0c363e16d1106e1c26ea313cba4d2e38edfe3",
+      "current_sha256": "9488cee8af61627765789d9dbd067b3e846d2887f4799d8cc9aac638bbdd1f21"
+    },
+    {
+      "path": "modules/gaussian_splatting/core/gs_state_machine.gd",
+      "kind": "modified",
+      "baseline_sha256": "048d8c52a1db36edb8e6eb7d7bd044006e6f08cfa87c0aed0915d638f43f5270",
+      "current_sha256": "f1567d3f31479df1b77efcdbc6af8dd19d6d3976a3b144ee3303e5af06534653"
+    },
+    {
+      "path": "modules/gaussian_splatting/loaders/gaussian_splat_import_plugin.gd",
+      "kind": "modified",
+      "baseline_sha256": "8591e7fd0ea29829ecc0f86309b0d941ca617f7d33a83404d622aa910133b50e",
+      "current_sha256": "88823e451d8e50e9a37f0d1da5d4e44b8f25ee3bd3d48f9ef71cd0a815c31adf"
+    },
+    {
+      "path": "modules/gaussian_splatting/loaders/gaussian_splat_resource.gd",
+      "kind": "modified",
+      "baseline_sha256": "3685a153e5544b18e2ee1c47ce3eb18fafcac6e04c67f56aa547315794845a3b",
+      "current_sha256": "0adc7df2619ee552b0f8729ca4c86bf1255ee5a950e98137166beee9742928bc"
+    },
+    {
+      "path": "modules/gaussian_splatting/loaders/gs_load_job.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "70cb1fe1c5492198b41aa96fd7982484f866b2329270511e6b8eadb2109e5d5b"
+    },
+    {
+      "path": "modules/gaussian_splatting/loaders/ply_converter.gd",
+      "kind": "modified",
+      "baseline_sha256": "897d2d5ae9751ad1f06a86f5a39eca6893796f86574ffe16a270664a2b2f9748",
+      "current_sha256": "0ba152545a3f857428bf6752c3534c98d471026a09a6809c8829e2ab1632e5a0"
+    },
+    {
+      "path": "modules/gaussian_splatting/loaders/ply_document.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "5ea396d3c880cb4f5ab241b2d988387140f7548a2f08f8c4b3e5200811e92d3b"
+    },
+    {
+      "path": "modules/gaussian_splatting/loaders/ply_file.gd",
+      "kind": "modified",
+      "baseline_sha256": "d7efaa15726fe8c96fe3b1b771ca2a6b7833456229b9aa5498880fabd4fad384",
+      "current_sha256": "035ab8cb160e42c777a8afd3ac9ee111e2c6c2cb769e3f98fe3395cb93b3f166"
+    },
+    {
+      "path": "modules/gaussian_splatting/UI/demo_ui_controller.gd",
+      "kind": "modified",
+      "baseline_sha256": "d1d171375f84c4f86cc615163e9d1196afa66de6064f2417a4576281f91ad720",
+      "current_sha256": "eaf00ca44fc24a0872c0978508aed2c9b4975c50b8562c3bdb4779927e34cf92"
+    },
+    {
+      "path": "modules/gaussian_splatting/UI/DraggableContainer.gd",
+      "kind": "modified",
+      "baseline_sha256": "2a598eba69eae21267d87d97aedacb9bd1a4d151c7bba98135b16e7a7fa00fe8",
+      "current_sha256": "f3732d500a36b49d1e97a90f4308a946aad2276d174ee70cfc691086ec55ed8c"
+    },
+    {
+      "path": "modules/gaussian_splatting/UI/ProductionUI.gd",
+      "kind": "modified",
+      "baseline_sha256": "4c01b52b7c52cf4572d7db83784cfd958674c5508ef065ca80f30c6cd47e5e2f",
+      "current_sha256": "765b1a5c18cde37d389894421c0c8a8058d9580c1bbadc79f14cb3423398101d"
+    },
+    {
+      "path": "modules/gaussian_splatting/UI/ProductionUI.tscn",
+      "kind": "modified",
+      "baseline_sha256": "58d600cf3b7141ccd48a84b2b3e2e3850372e3dc74963f023ff68ae349d07a49",
+      "current_sha256": "f6eb2dc16b42994c057e152abaeefa04f23891b83c536d8c439c2a86d567f344"
+    },
+    {
+      "path": "modules/gaussian_splatting/UI/SceneManagerPanel.gd",
+      "kind": "modified",
+      "baseline_sha256": "51cc919d3e12cfa3242146c81aca9bb0a38f89f52f46b5f08f21a7721309e866",
+      "current_sha256": "90ed7cdf01916ec5c2c57ca642280a10299f232e27fe1f729f398654d7207fdb"
+    },
+    {
+      "path": "modules/gaussian_splatting/shaders/compute/gsplat_boundaries.glsl",
+      "kind": "modified",
+      "baseline_sha256": "b27efbacc1639a4dad5e415d59c65fcc7f20093e2cb4c13ab585716d5fcae805",
+      "current_sha256": "399849631027228e742634207d060367c2e25207950bce0a45c37400249bb38d"
+    },
+    {
+      "path": "modules/gaussian_splatting/shaders/compute/gsplat_projection.glsl",
+      "kind": "modified",
+      "baseline_sha256": "460401b74192e8d5673d45ef064925df5dac49a072d20ad287e95afb5d534b82",
+      "current_sha256": "d565bf4e14fa7df5f4cf0f27b88b6acf2ea6fe0754e241a7a84b2b65fb00e8e0"
+    },
+    {
+      "path": "modules/gaussian_splatting/shaders/compute/gsplat_render.glsl",
+      "kind": "modified",
+      "baseline_sha256": "fd1ecd666f2f59c8bc6305750148720908c35bd7364dd0849077bdde421eeb9a",
+      "current_sha256": "d3f85bb888c34b7ed9586ee478c04892a9e8e18e17576582e76481f75dd046e7"
+    },
+    {
+      "path": "modules/gaussian_splatting/shaders/compute/radix_sort_downsweep.glsl",
+      "kind": "modified",
+      "baseline_sha256": "a69c60ae790d0f37a6bce14bbfd2b10b30711355f9533ad98c20589c1c8273a2",
+      "current_sha256": "2ff5a72fdfa87b3f6fdec11ea8e58b565acceb4a15ce8008308ab29c19e49cb8"
+    },
+    {
+      "path": "modules/gaussian_splatting/shaders/compute/radix_sort_spine.glsl",
+      "kind": "modified",
+      "baseline_sha256": "b3e2e0dbf1e18854ab9da836dcb82c03004ff76ac17ed26cf3dfd154ceab7129",
+      "current_sha256": "ffb9e12c0a29a156a4b9e9574d8bc4b6568847c75ec34cf7cc45626c047c4acb"
+    },
+    {
+      "path": "modules/gaussian_splatting/shaders/compute/radix_sort_upsweep.glsl",
+      "kind": "modified",
+      "baseline_sha256": "b2571d89e58f764b7be671ae259763c06a6e5886228bd26cd8c4a028e7dcf60d",
+      "current_sha256": "78c4a821418e699931f1f82189173f308e5459fbc14f4e2de4b5c307a065bf65"
+    },
+    {
+      "path": "modules/gaussian_splatting/shaders/spatial/main.gdshader",
+      "kind": "modified",
+      "baseline_sha256": "ff20ca16d848ec75814c96b610ca6ac2a5966d0224f460f478eef5df88f704d5",
+      "current_sha256": "8f83ee751e1d4cd056e16bcf26e8362dbef3f50a532420c2031a4e4e0db795dc"
+    },
+    {
+      "path": "modules/gaussian_splatting/utils/scripts/gaussian_splat.gd",
+      "kind": "modified",
+      "baseline_sha256": "2dbfbd9f6021533ebb637c1e5d06e1097af706a6a9da45e109e1f86fbc019e54",
+      "current_sha256": "9aedb71682d940fcff8f3199d3e8483a9b9c2271bd19470b9d40ff1a5ac4ebb0"
+    },
+    {
+      "path": "modules/gaussian_splatting/utils/scripts/gaussian_splatting_rasterizer.gd",
+      "kind": "modified",
+      "baseline_sha256": "5112dc1cc313b8f2c5721df1fe15159fbe662d556a9e8e35225591c761bdff9b",
+      "current_sha256": "6ccd0c5b13f34208fd513c98e15946f9f0704ff0af61b8ae328464799dc207da"
+    },
+    {
+      "path": "modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd",
+      "kind": "modified",
+      "baseline_sha256": "6a77b33568d9a29d5028fa5c00d3dfc6a419ab16c00018fea4bb2506d8201512",
+      "current_sha256": "1b01eefd9d8b46181ffb511e834d9da23802e2693b7e842c9bbcc3073ddf218e"
+    },
+    {
+      "path": "modules/gaussian_splatting/utils/scripts/gpu_pipeline_manager.gd",
+      "kind": "modified",
+      "baseline_sha256": "66894aef965e30e046adac02a78ad5766fc631971cd6fc3b3510f7aeb1c08f50",
+      "current_sha256": "e7361b8ccf119c262145b5ecdabeb9bcecfabf29e20e9b3f6c509ff276e63484"
+    },
+    {
+      "path": "modules/gaussian_splatting/utils/scripts/gs_compositor_effect.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "4b4d7aa87fa72550f9be24f61df9e0e2c5fc2bffee0b75e6c450b5c90d33a403"
+    },
+    {
+      "path": "modules/gaussian_splatting/utils/scripts/render_context.gd",
+      "kind": "modified",
+      "baseline_sha256": "504d2b72fb7c513867209dd6dcaea735257ef1bdb37366fb52bacbb9237edc00",
+      "current_sha256": "81110ea0904763bdabdf2b6bde18659039f1fe20cad5cce5347df1f5f469dc6b"
+    },
+    {
+      "path": "modules/gaussian_splatting/utils/scripts/splat_block_allocator.gd",
+      "kind": "modified",
+      "baseline_sha256": "0d21722d7791d6f251a57eb751558d193565061f28f08eb891cb5f1b0584ce26",
+      "current_sha256": "c6c5b5e1d7431a7237ae19942da21cf109a72aa916322ae91c79f6e19195fa48"
+    },
+    {
+      "path": "modules/SpatialOS/core/AsyncPLYLoader.gd",
+      "kind": "modified",
+      "baseline_sha256": "3c77dfcf8c1a57e2aeec9ab3cf006c62857561c6d6e52c13077670c29214fcf9",
+      "current_sha256": "2158019eebeda81054928b1e23dbb12e44e7b0c2b8881276e3d751db388517b7"
+    },
+    {
+      "path": "modules/SpatialOS/core/ply_loader.gd",
+      "kind": "modified",
+      "baseline_sha256": "57d7b3523c1385d9eaa0047f011ecc8c4f81a628291775a4c029cc3175105ec7",
+      "current_sha256": "33ca0fc789ec57af18cec9f74c388bdda3d4b6807d2a97a70319bb8de0cd15bc"
+    },
+    {
+      "path": "modules/SpatialOS/core/SpatialGraph.gd",
+      "kind": "modified",
+      "baseline_sha256": "f0b2067b75baeb93378091cebf8a424db686caaa9e8358fb9d14ffffe2a35eb3",
+      "current_sha256": "6b222607e96a51567af633b018c0224eb0e4090250266128ce09d2f937af5601"
+    },
+    {
+      "path": "modules/SpatialOS/core/SpatialIndex.gd",
+      "kind": "modified",
+      "baseline_sha256": "cb9535d1e2ed275a9f26b8d5bf098d928a41e618e3e412969335815baf0d7f88",
+      "current_sha256": "f208679b9066cff83749d92ef45a91ae8a3736fd5b8b530a97877d66fa6aee73"
+    },
+    {
+      "path": "modules/SpatialOS/core/spatial_config.gd",
+      "kind": "modified",
+      "baseline_sha256": "7009c9517fb99349d2e65573f4c1d9a29e27a114bd3e00bb8769d24faa8354f6",
+      "current_sha256": "ed26129773cc9f81d766172ef974a9ca8c224f220a125eab4ccbaa00b5ca8472"
+    },
+    {
+      "path": "modules/SpatialOS/core/spatial_pipeline.gd",
+      "kind": "modified",
+      "baseline_sha256": "1c8075b52c88718da232bcff464fe68390b9bb33dd8e41c56443a34f711f50c3",
+      "current_sha256": "0f227972350c71a92589ce529c4fbf172658284718bc3162f4140feabc27b921"
+    },
+    {
+      "path": "modules/SpatialOS/core/spatial_ply_job.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "39304da115420fcd20db674526c4b9b2aea00b6001a722441adaca6351894190"
+    },
+    {
+      "path": "modules/SpatialOS/scenes/Foundation1Demo.gd",
+      "kind": "modified",
+      "baseline_sha256": "68b141d2781f5f78ff1e99cc33324c4a5f5455d2246fcd06959f87ff1091e419",
+      "current_sha256": "3349c7ef1fc8a54d193008006fa6be5abd7f1601973b2d8e03172ad38a50eba3"
+    },
+    {
+      "path": "modules/SpatialOS/scenes/PointVisualizer.gd",
+      "kind": "modified",
+      "baseline_sha256": "07026522d5647d9dd05f4dae1f5aeb4bf4f6554810e9df0f52377c953666d528",
+      "current_sha256": "b09f41907abb9c4fa5356af883bcc9b4b92c8a614e9cb7c1a4c7931c9f79bd42"
+    },
+    {
+      "path": "modules/SpatialOS/shaders/geometric_analysis.glsl",
+      "kind": "modified",
+      "baseline_sha256": "2dd759b487186ffc0198845d9a9a7ca5feff243b3ff8014dff0fcc82e1352e8b",
+      "current_sha256": "520c34f553a9a3557e70d8aeb4761d4230bb96dae41474779d43c8aac6e4b070"
+    },
+    {
+      "path": "modules/SpatialOS/shaders/graph_segmentation.glsl",
+      "kind": "modified",
+      "baseline_sha256": "f3ea7484a5fe593c611810ab334023c6adccfc81e9d2e702a1a6c8234dceb17a",
+      "current_sha256": "e1b8ee2af54d146bd7b721b8d61f653021a68fe09306e7c553a2f28bd079bbf1"
+    },
+    {
+      "path": "modules/SpatialOS/core/types/point_cloud_resource.gd",
+      "kind": "modified",
+      "baseline_sha256": "f5ac142eb580440f3e552b858a5eec83fdfe47a8df08a35d554bd88a4f4093b6",
+      "current_sha256": "49be4927cafc670015f108a37e8c05729e1c6781d367e64fb22f1a0debba71e3"
+    },
+    {
+      "path": "modules/SpatialOS/core/types/segment_data.gd",
+      "kind": "modified",
+      "baseline_sha256": "5146cbaf19aa3892ca10e2fe9112ca9ccb38f027a4efccc451fe57c5dd75109a",
+      "current_sha256": "b77d7cc7a73d9845d548dadcf6578ff0813c52a8082742b18c6085ef47620c53"
+    },
+    {
+      "path": "modules/SpatialOS/core/types/spatial_relationship.gd",
+      "kind": "modified",
+      "baseline_sha256": "657e5fa868041ab16f81d067ce12505f6a3f885508186b8b18149077740b4e4d",
+      "current_sha256": "f1f62f517cfb746addea3aac435ccdd37fce4dc988a3314e7b9e325ed4533105"
+    },
+    {
+      "path": "modules/SpatialOS/shaders/compute/compactor.glsl",
+      "kind": "modified",
+      "baseline_sha256": "87801147356a6ed65c2b33ffc04d319a3b1f461688e239133942b1316beb1ae0",
+      "current_sha256": "d1cc7a7fe27171e8f072ee609288bdbf6628f651768af4ea344f5889fcd9a90f"
+    },
+    {
+      "path": "modules/SpatialOS/shaders/compute/voxelizer.glsl",
+      "kind": "modified",
+      "baseline_sha256": "228c53c04f9197beac9b865fef6007edefa99456177d939198eb947c2344d6e5",
+      "current_sha256": "c86b93ac8f0138e901e7647e84d0d9c7d515d25601cbfd14389c8cc6f7a79fb8"
+    },
+    {
+      "path": "modules/spatial_intelligence/autoload/ActionController.gd",
+      "kind": "modified",
+      "baseline_sha256": "29ef9b588eb5e1090cc2afd95b33336a0a5ba5fb54fe9f4afc6c7aca64326ffa",
+      "current_sha256": "09b650d0231ba30116f97a8679870188c43e0a59273d2d17e74bf5fa4b134221"
+    },
+    {
+      "path": "modules/spatial_intelligence/autoload/SceneContext.gd",
+      "kind": "modified",
+      "baseline_sha256": "b7110a6e2e9361d910aa8e5f678d93d1e2846dc905055eca686a94dc88b9a6e9",
+      "current_sha256": "117ab97e69c963d440b82ec126fba070af40fd8a584ef697f9ec7d31be3bc9d1"
+    },
+    {
+      "path": "modules/spatial_intelligence/autoload/SpatialIntelligence.gd",
+      "kind": "modified",
+      "baseline_sha256": "08fa1d7c79eb939710bc3197a8f9163a7fc0421e9e0755326d5a9527f3cd0e58",
+      "current_sha256": "8975c0e12fa9c11105acef7954bbb6d98294ed9288ac5fa8668f2ef76d0c3769"
+    },
+    {
+      "path": "modules/spatial_intelligence/autoload/ViewportCapture.gd",
+      "kind": "modified",
+      "baseline_sha256": "997fc76efad7a681c9561c78026d432329be31bb762c099073f817e6c989cf34",
+      "current_sha256": "4320f45042b00bbbf3b4a9d92aa64c291ed3d60bee316d38f5ccb48123d15de6"
+    },
+    {
+      "path": "modules/spatial_intelligence/configs/ai_access_policy.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "b2dd8588db04070ce4eb01c51fa1580dcad6cff5846b8306a7ed04a598f40699"
+    },
+    {
+      "path": "modules/spatial_intelligence/configs/SIConfig.gd",
+      "kind": "modified",
+      "baseline_sha256": "52e8795f127398cf13e6f02635ccccd559d696f671e6239fc2d8245f462f868c",
+      "current_sha256": "6bcd32c80bad3a2d0595764ef2d1d73f36ea3b5e3a00bdc3daa49c5b8231cc62"
+    },
+    {
+      "path": "modules/spatial_intelligence/ui/CognitivePanel.gd",
+      "kind": "modified",
+      "baseline_sha256": "28ee34632b6020c254414ff2c2c8ca7601948fa41f667fb01fe0118dc43c87ee",
+      "current_sha256": "750a6973efc16d4ed81df034cd6af83ae356b346cbfee6c65b8b1df5971c269b"
+    },
+    {
+      "path": "modules/spatial_intelligence/utils/LLMClient.gd",
+      "kind": "modified",
+      "baseline_sha256": "065b73071d11a9dc78379f64b334870f46487400f893b248b9e5efc0543e615e",
+      "current_sha256": "42f080d3d4ecc7ef5e14582c6e73b1f49367f4f8aeb1cf84114c433fcb5bd9d4"
+    },
+    {
+      "path": "modules/spatial_intelligence/utils/NativeMLBridge.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "43d5f6db244585579d9a57036e588f494a5e574efecb977fc74556a461dc3225"
+    },
+    {
+      "path": "tools/audit_status.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "e63baa25a8a8fd3d74c17f38d7701ba69c160102ead0b04b0d8d1663d1203d59"
+    },
+    {
+      "path": "tools/run_checks.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "8edb080c520792f3849d795de43d2a11c8265257d91bd98120a535e398cc62c6"
+    },
+    {
+      "path": "tests/core_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "2be0050ea8d17b5640b94069baac31401fac49f74f6f1fe190c56dc57d7a21bb"
+    },
+    {
+      "path": "tests/gpu_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "770d2741b56132b464bf0ed8af6e641a618d28c0a4c84dccaa1158f13076895e"
+    },
+    {
+      "path": "tests/lifecycle_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "d8d10f05080a966aff27dc9255b08a085e914071a68eb2f5f6e4ef1fd6fc03e0"
+    },
+    {
+      "path": "tests/real_scene_review.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "63eea06d9b7cb683c376b4faddf87e0e1c2eb49831b6645083bbee3608d42cd6"
+    },
+    {
+      "path": "tests/rendering_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "b5230f76ff2071cbc6e1e3e73f5615ab09e00471a3b9385da2c1d4430afa9156"
+    },
+    {
+      "path": "tests/spatial_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "eb7d0ee0f9787bb2236d028701803c297484b91c2ccb93392c787305765e8db1"
+    },
+    {
+      "path": "tests/visual_review.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "1e227d6acf9e7d602a82c55dfb1549ca0893204922808df0e1e8f52c7e7d9234"
+    },
+    {
+      "path": "rust/spatial_ml/src/lib.rs",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "2f4f2fae73118656681d7207c961cb504f45de0476bc5798a4142ba049065291"
+    },
+    {
+      "path": "rust/spatial_ml/src/mobile_sam.rs",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "1f367348a5251c86c8e76455c417eca0f63659b035a25b18d02bbc7001520f43"
+    },
+    {
+      "path": "rust/spatial_ml/Cargo.toml",
+      "kind": "modified",
+      "baseline_sha256": "6c18355051be0288eccc0d11c91818292354d9e7adb7200acffb729b1686c79d",
+      "current_sha256": "675d761cab869ac4557d786675b8e63ec85135060119ebceed25e7ce51bb2317"
+    },
+    {
+      "path": "rust/spatial_ml/Cargo.lock",
+      "kind": "modified",
+      "baseline_sha256": "f8d7029db1710e669fc1cb723189978b60941f56ea38e0ffdc76e57c63b44cb4",
+      "current_sha256": "f6a7a2a5373e086507a8aeb2e24ca1fd9364c58d6aa40cd0671828d82b523bd3"
+    },
+    {
+      "path": "rust/spatial_ml/spatial_ml.gdextension.in",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "f7ec90d6228fedcf16c0ce5cf89ffe8ad589d5871a59bb5ae5f202c91aa5bf02"
+    },
+    {
+      "path": "tests/script_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "76994c444a03047ee388e541ca9744834d956a1965379b1d15c8521e5765bdbb"
+    },
+    {
+      "path": "tests/large_scene_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "current_sha256": "ac05d252cfcd83dde695f32ca7dc00584c6d119b9381a127f44b0afe1fc33bf7"
+    }
+  ]
+}

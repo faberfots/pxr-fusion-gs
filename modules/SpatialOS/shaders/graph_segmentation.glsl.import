@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://tgya66dm75fg"
+path="res://.godot/imported/graph_segmentation.glsl-e0122d16fb1915a0dc0dcfc7b51e5c81.res"
+
+[deps]
+
+source_file="res://modules/SpatialOS/shaders/graph_segmentation.glsl"
+dest_files=["res://.godot/imported/graph_segmentation.glsl-e0122d16fb1915a0dc0dcfc7b51e5c81.res"]
+
+[params]
+

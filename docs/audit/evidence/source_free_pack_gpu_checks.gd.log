@@ -1,0 +1,83 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+
+
+GPU INITIALIZATION: 0
+
+SORT 1: true
+
+SORT 255: true
+
+SORT 256: true
+
+SORT 1023: true
+
+SORT 1024: true
+
+SORT 1025: true
+
+SORT 4099: true
+
+LINEAR COMPOSITING / PIXEL TERMINATION: true
+
+PROJECTION OVERFLOW BOUND: true
+
+LOCAL SH RADIANCE: true
+
+GPU REINITIALIZATION: 0
+
+SPECIALIZED SORT [8, 64, 1, 262145]: true
+
+SPECIALIZED SORT [32, 128, 2, 1025]: true
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+
+OpSpecConstantComposite is not supported yet.
+

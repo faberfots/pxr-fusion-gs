@@ -1,0 +1,34 @@
+[package]
+name = "spatial_ml"
+version = "0.2.0"
+edition = "2021"
+authors = ["SpatialOS Team"]
+description = "MobileSAM segmentation via ONNX Runtime for SpatialOS"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# Godot bindings (gdext)
+godot = { git = "https://github.com/godot-rust/gdext", rev = "07901620" }
+
+# ONNX Runtime for ML inference
+ort = { version = "=2.0.0-rc.11", default-features = false, features = ["std", "ndarray", "load-dynamic"] }
+
+# Tensor/array operations
+ndarray = "0.17"
+
+# Image processing
+image = { version = "0.25", default-features = false }
+
+# Error handling
+thiserror = "2.0"
+
+[build-dependencies]
+# None needed for now
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

@@ -1,0 +1,47 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS fallback camera and GPU startup
+[FreeLookCamera] Movement state reset. Position: (0.267039, 2.178026, 4.356052)
+[CameraController] Camera transform set to: (0.267039, 2.178026, 4.356052)
+PASS authored model and queued append both load
+PASS deletion removes residency
+PASS deleted GPU slots zeroed
+PASS transactional viewport resize
+PASS clear resets live high water
+[FreeLookCamera] Movement state reset. Position: (0.089013, 0.726009, 1.452017)
+[CameraController] Camera transform set to: (0.089013, 0.726009, 1.452017)
+PASS reload after reset
+PASS path revision reload
+PASS source basis and node bounds applied once
+PASS selection uses stable loaded identity
+PASS unknown AI model selection fails truthfully
+PASS AI selects actual loaded model
+PASS malformed authorized camera action rejected
+[FreeLookCamera] Movement state reset. Position: (0.0, 1.0, 3.0)
+[CameraController] Camera transform set to: (0.0, 1.0, 3.0)
+PASS camera action reports completed transform
+PASS structural settings preserve a populated scene
+PASS independent camera blockers compose
+PASS camera resumes after final blocker
+PASS failed batch reports truthful outcomes and continues queue
+LIFECYCLE COMPLETE: 0 failures
+WARNING: [GSViewer] GPU capacity changes require an empty scene. Existing models and GPU settings were preserved.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:784)
+       [1] _apply_config (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:206)
+WARNING: [GSViewer] Invalid ASCII scalar
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:784)
+       [1] _fail_record (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:458)
+       [2] _pump_job (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:428)
+       [3] _process (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:555)
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

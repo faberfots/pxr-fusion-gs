@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8y4q4q4q4q4"]
+
+[ext_resource type="Script" path="res://modules/SpatialOS/scenes/debug/SpatialIndexDebug.gd" id="1_debug"]
+
+[node name="SpatialIndexDebug" type="Node3D"]
+script = ExtResource("1_debug")

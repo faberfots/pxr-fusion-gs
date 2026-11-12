@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://bvaiq6gnahpy3"
+path="res://.godot/imported/geometric_analysis.glsl-f2a7568ab4a6ef7406a87dc5ab8c9f76.res"
+
+[deps]
+
+source_file="res://modules/SpatialOS/shaders/geometric_analysis.glsl"
+dest_files=["res://.godot/imported/geometric_analysis.glsl-f2a7568ab4a6ef7406a87dc5ab8c9f76.res"]
+
+[params]
+

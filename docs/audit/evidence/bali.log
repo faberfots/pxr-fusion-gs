@@ -1,0 +1,58 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS High atlas initializes
+PASS Bali and second model admitted by shared atlas
+LARGE LOAD PROGRESS 306000 splats; 3391 ms
+LARGE LOAD PROGRESS 564000 splats; 8393 ms
+LARGE LOAD PROGRESS 1022000 splats; 13399 ms
+LARGE LOAD PROGRESS 1356000 splats; 18400 ms
+LARGE LOAD PROGRESS 1642000 splats; 23402 ms
+LARGE LOAD PROGRESS 1942000 splats; 28403 ms
+LARGE LOAD PROGRESS 2208000 splats; 33405 ms
+LARGE LOAD PROGRESS 2472000 splats; 38406 ms
+LARGE LOAD PROGRESS 2760000 splats; 43407 ms
+LARGE LOAD PROGRESS 3030000 splats; 48408 ms
+LARGE LOAD PROGRESS 3304000 splats; 53410 ms
+LARGE LOAD PROGRESS 3552000 splats; 58411 ms
+LARGE LOAD PROGRESS 3818000 splats; 63413 ms
+LARGE LOAD PROGRESS 4074000 splats; 68414 ms
+LARGE LOAD PROGRESS 4350000 splats; 73415 ms
+LARGE LOAD PROGRESS 4602000 splats; 78416 ms
+LARGE LOAD PROGRESS 4872000 splats; 83418 ms
+LARGE LOAD PROGRESS 5130000 splats; 88419 ms
+LARGE LOAD PROGRESS 5398000 splats; 93420 ms
+LARGE LOAD PROGRESS 5642000 splats; 98421 ms
+LARGE LOAD PROGRESS 5910000 splats; 103422 ms
+LARGE LOAD PROGRESS 6158000 splats; 108424 ms
+LARGE LOAD PROGRESS 6422000 splats; 113425 ms
+LARGE LOAD PROGRESS 6666000 splats; 118426 ms
+LARGE LOAD PROGRESS 6930000 splats; 123427 ms
+LARGE LOAD PROGRESS 7170000 splats; 128429 ms
+LARGE LOAD PROGRESS 7440000 splats; 133431 ms
+LARGE LOAD PROGRESS 7684000 splats; 138432 ms
+LARGE LOAD PROGRESS 7957833 splats; 143434 ms
+[FreeLookCamera] Movement state reset. Position: (-2.41283, 0.128358, 1.386286)
+[CameraController] Camera transform set to: (-2.41283, 0.128358, 1.386286)
+PASS both complete files loaded without downsampling
+LARGE LOAD COMPLETE 7959786 splats in 143506 ms
+PASS exactly the two requested models own the full atlas population
+PASS second model XYZ rotation/scale/position leaves Bali unchanged
+PASS second model Transform3D reaches its own GPU palette entry
+PASS Bali XYZ rotation/scale/position leaves second model unchanged
+PASS Bali Transform3D reaches its own GPU palette entry
+PASS Scene Manager moves the selected model on all XYZ axes
+PASS Scene Manager rotates XYZ after scaling without corrupting angles
+PASS Scene Manager scales the selected model
+PASS Scene Manager edits preserve the other model transform
+PASS Scene Manager edits reach the selected GPU palette entry
+LARGE SCENE STATS { "viewer_state": "RENDERING", "is_loading": false, "is_rendering": true, "loaded_file": "2 models", "fps": 644.114052953737, "frame_count": 94878, "total_splats": 7959786, "splats_loaded": 7959786, "scene_mode": "ENVIRONMENT_MODE", "total": 3435972892, "tracked": 3435972892, "peak": 3435972892, "resource_count": 31, "pipeline_stats": { "total": 6, "valid": 6, "dirty": 0, "uninitialized": 0, "error": 0 }, "tile_splat_pairs": 7473225, "sort_overflow": false, "splats_rendered_frame": 2167389, "texture_size": (1142, 648), "tile_dims": (72, 41), "atlas_capacity": 8475198, "pair_capacity": 33900792, "gpu_budget_bytes": 4294967296, "camera": { "has_camera": true, "is_moving": false, "mode": "Idle", "position": (-2.41283, 0.128358, 1.386286), "rotation_degrees": (0.0, 0.0, 0.0), "velocity": (0.0, 0.0, 0.0), "fov": 75.0 } }
+PASS large multi-model frame stays within pair capacity
+LARGE SCENE COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

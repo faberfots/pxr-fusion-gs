@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-12",
+  "engine": "Godot 4.6.2 stable",
+  "device": "NVIDIA RTX 4070 Laptop GPU; Vulkan; Windows",
+  "native_version": "0.2.0",
+  "results": [
+    {
+      "suite": "core",
+      "evidence": "evidence/core.log",
+      "pass_labels": 30,
+      "errors_logged": false,
+      "scope": "current source; local Windows/Vulkan qualification"
+    },
+    {
+      "suite": "gpu",
+      "evidence": "evidence/gpu.log",
+      "pass_labels": 15,
+      "errors_logged": false,
+      "scope": "current source; local Windows/Vulkan qualification"
+    },
+    {
+      "suite": "lifecycle",
+      "evidence": "evidence/lifecycle.log",
+      "pass_labels": 18,
+      "errors_logged": false,
+      "scope": "current source; local Windows/Vulkan qualification"
+    },
+    {
+      "suite": "rendering",
+      "evidence": "evidence/rendering.log",
+      "pass_labels": 7,
+      "errors_logged": false,
+      "scope": "current source; local Windows/Vulkan qualification"
+    },
+    {
+      "suite": "spatial",
+      "evidence": "evidence/spatial.log",
+      "pass_labels": 14,
+      "errors_logged": false,
+      "scope": "local qualification only"
+    },
+    {
+      "suite": "real_scene",
+      "evidence": "evidence/real_scene.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "local qualification only"
+    },
+    {
+      "suite": "export",
+      "evidence": "evidence/export.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "editor export warning retained"
+    },
+    {
+      "suite": "export_verbose",
+      "evidence": "evidence/export_verbose.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "local qualification only"
+    },
+    {
+      "suite": "native_check",
+      "evidence": "evidence/native_check.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "local qualification only"
+    },
+    {
+      "suite": "native_tests",
+      "evidence": "evidence/native_tests.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "local qualification only"
+    },
+    {
+      "suite": "native_release",
+      "evidence": "evidence/native_release.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "local qualification only"
+    },
+    {
+      "suite": "native_registration",
+      "evidence": "evidence/native_registration.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "0.2.0 class registers; no models loaded"
+    },
+    {
+      "suite": "scripts",
+      "evidence": "evidence/scripts.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "local qualification"
+    },
+    {
+      "suite": "ui",
+      "evidence": "evidence/ui.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "local qualification"
+    },
+    {
+      "suite": "source_free_pack_gpu",
+      "evidence": "evidence/source_free_pack_gpu_checks.gd.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "local qualification"
+    },
+    {
+      "suite": "source_free_pack_spatial",
+      "evidence": "evidence/source_free_pack_spatial_checks.gd.log",
+      "pass_labels": 14,
+      "errors_logged": false,
+      "scope": "local qualification"
+    },
+    {
+      "suite": "bali_source_free_pack_script",
+      "evidence": "evidence/bali-pack-script.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "current source-free PCK, local Windows/Vulkan qualification"
+    },
+    {
+      "suite": "bali_source_free_pack_core",
+      "evidence": "evidence/bali-pack-core.log",
+      "pass_labels": 30,
+      "errors_logged": false,
+      "scope": "current source-free PCK, local Windows/Vulkan qualification"
+    },
+    {
+      "suite": "bali_source_free_pack_gpu",
+      "evidence": "evidence/bali-pack-gpu.log",
+      "pass_labels": 15,
+      "errors_logged": false,
+      "scope": "current source-free PCK, local Windows/Vulkan qualification"
+    },
+    {
+      "suite": "bali_source_free_pack_lifecycle",
+      "evidence": "evidence/bali-pack-lifecycle.log",
+      "pass_labels": 18,
+      "errors_logged": false,
+      "scope": "current source-free PCK, local Windows/Vulkan qualification"
+    },
+    {
+      "suite": "bali_source_free_pack_rendering",
+      "evidence": "evidence/bali-pack-rendering.log",
+      "pass_labels": 7,
+      "errors_logged": false,
+      "scope": "current source-free PCK, local Windows/Vulkan qualification"
+    }
+  ],
+  "real_scene": {
+    "splats": 219953,
+    "load_ms": 2032,
+    "resolution": [
+      1142,
+      810
+    ],
+    "tracked_gpu_bytes": 429495564,
+    "budget_bytes": 536870912,
+    "tile_splat_pairs": 691243,
+    "sort_overflow": false
+  },
+  "external_boundaries": [
+    "Provider credential revocation",
+    "No approved ONNX models/runtime supplied (confirmed by user)",
+    "No live cloud requests",
+    "No remote CI execution",
+    "Unqualified transparent interleaving, XR and other platforms",
+    "Intermittent headless editor-export teardown warning"
+  ],
+  "large_scene": {
+    "source_file_bytes": 1919480116,
+    "bali_splats": 7739833,
+    "second_model_splats": 219953,
+    "total_splats": 7959786,
+    "load_ms": 143506,
+    "downsampling": false,
+    "resolution": [
+      1142,
+      648
+    ],
+    "tracked_gpu_bytes": 3435972892,
+    "budget_bytes": 4294967296,
+    "tile_splat_pairs": 7473225,
+    "sort_overflow": false,
+    "per_model_transform3d": "independent XYZ position, XYZ rotation and scale; GPU palette and Scene Manager controls verified",
+    "evidence": [
+      "evidence/bali.log",
+      "evidence/bali-main.png",
+      "evidence/bali-multiple.png",
+      "evidence/bali-transforms.png"
+    ],
+    "qualification": "actual main scene, full source load and displayed frames visually inspected; no claim about universal frame rates",
+    "object_mode": {
+      "tile_splat_pairs": 14131970,
+      "projected_splats": 7956764,
+      "sort_overflow": false,
+      "capture_ms": 440,
+      "scope": "mode change, two process frames and screenshot; not a frame-rate benchmark",
+      "evidence": [
+        "evidence/bali-object.log",
+        "evidence/bali-object.png"
+      ]
+    },
+    "pack_sha256": "0650cec7193a1eeb780b68e0b8dbe25d85c9f6a0f8ce842af32b1fa460e48293"
+  }
+}

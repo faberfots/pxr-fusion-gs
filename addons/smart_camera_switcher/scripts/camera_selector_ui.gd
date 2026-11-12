@@ -1,0 +1,428 @@
+extends Control
+
+## Smart Camera Switcher - Fixed Camera Selector UI
+## FIXED: Uses _unhandled_input() to work properly after login screen transition
+## This ensures the camera selector gets input AFTER Control Camera processes it
+
+# Scene references
+@onready var button_panel: PanelContainer = $ButtonPanel
+@onready var auto_hide_timer: Timer = $AutoHideTimer
+@onready var camera_buttons_container: HBoxContainer = $ButtonPanel/ButtonMarginContainer/ButtonContainer/CameraButtons
+
+# Button scene
+const CameraButtonScene = preload("res://addons/smart_camera_switcher/scenes/camera_button.tscn")
+
+# State
+var is_ui_visible: bool = false
+var camera_buttons: Array = []
+var camera_manager: Node = null
+
+func _ready():
+	"""Fixed initialization with proper input handling"""
+	print("[CameraSelectorUI] Starting (FIXED VERSION)...")
+
+	# Hide initially
+	visible = false
+
+	# Setup input map actions if they don't exist
+	_setup_input_actions()
+
+	# Get camera manager with retry logic for scene transitions
+	# This call will now succeed because we will delay this script's execution.
+	call_deferred("_init_camera_manager_with_retry")
+
+	print("[CameraSelectorUI] Initialization complete")
+
+func _setup_input_actions():
+	"""Setup input map actions for camera switching"""
+	print("[CameraSelectorUI] Setting up input actions...")
+	
+	# Camera cycle next action
+	if not InputMap.has_action("camera_cycle_next"):
+		InputMap.add_action("camera_cycle_next")
+		var event_tab = InputEventKey.new()
+		event_tab.keycode = KEY_TAB
+		InputMap.action_add_event("camera_cycle_next", event_tab)
+		print("[CameraSelectorUI] Added camera_cycle_next action (Tab key)")
+	
+	# Camera cycle previous action
+	if not InputMap.has_action("camera_cycle_previous"):
+		InputMap.add_action("camera_cycle_previous")
+		var event_shift_tab = InputEventKey.new()
+		event_shift_tab.keycode = KEY_TAB
+		event_shift_tab.shift_pressed = true
+		InputMap.action_add_event("camera_cycle_previous", event_shift_tab)
+		print("[CameraSelectorUI] Added camera_cycle_previous action (Shift+Tab)")
+	
+	# Camera selector toggle action
+	if not InputMap.has_action("camera_selector_toggle"):
+		InputMap.add_action("camera_selector_toggle")
+		var event_right_click = InputEventMouseButton.new()
+		event_right_click.button_index = MOUSE_BUTTON_RIGHT
+		InputMap.action_add_event("camera_selector_toggle", event_right_click)
+		print("[CameraSelectorUI] Added camera_selector_toggle action (Right Click)")
+	
+	print("[CameraSelectorUI] Input actions setup complete")
+
+func _init_camera_manager_with_retry():
+	"""Initialize camera manager connection with retry logic for scene transitions"""
+	print("[CameraSelectorUI] Looking for CameraManager...")
+	
+	var max_attempts = 10
+	var attempt = 0
+	
+	# Retry finding CameraManager - important after scene transitions
+	while attempt < max_attempts:
+		camera_manager = get_node_or_null("/root/CameraManager")
+		if camera_manager:
+			print("[CameraSelectorUI] Found CameraManager on attempt ", attempt + 1)
+			break
+		
+		print("[CameraSelectorUI] CameraManager not found, attempt ", attempt + 1, "/", max_attempts)
+		await get_tree().create_timer(0.1).timeout
+		attempt += 1
+	
+	if not camera_manager:
+		print("[CameraSelectorUI] ERROR: No CameraManager found after ", max_attempts, " attempts!")
+		print("[CameraSelectorUI] Make sure Smart Camera Switcher plugin is enabled")
+		return
+	
+	# Connect signals
+	if camera_manager.has_signal("camera_list_changed"):
+		if not camera_manager.camera_list_changed.is_connected(_refresh_buttons):
+			camera_manager.camera_list_changed.connect(_refresh_buttons)
+			print("[CameraSelectorUI] Connected camera_list_changed signal")
+	
+	if camera_manager.has_signal("active_camera_changed"):
+		if not camera_manager.active_camera_changed.is_connected(_update_active_visual):
+			camera_manager.active_camera_changed.connect(_update_active_visual)
+			print("[CameraSelectorUI] Connected active_camera_changed signal")
+	
+	# Build initial buttons
+	_refresh_buttons()
+	
+	# Setup initial mouse capture for the active camera
+	_setup_camera_mouse_capture()
+	
+	print("[CameraSelectorUI] Ready and connected to CameraManager!")
+
+# CRITICAL FIX: Use _unhandled_input instead of _input
+# This ensures Control Camera gets input first, then camera selector gets leftovers
+# This fixes the issue where camera selector doesn't work after login screen
+#
+# ENHANCED: Excludes Ctrl+Right-Click and Shift+Right-Click for zone editor compatibility
+func _unhandled_input(event: InputEvent):
+	# This function will only process input if the UI is NOT visible,
+	# or for the specific action of toggling the UI itself.
+	# Input while the UI is visible is handled by _gui_input.
+
+	# --- 1. Handle UI Toggle Action (Right-Click) ---
+	# We check this first, regardless of visibility.
+	if event.is_action_pressed("camera_selector_toggle"):
+		# Check for modifier keys (Ctrl/Shift) to avoid conflict with other tools.
+		if event.is_pressed() and (event.ctrl_pressed or event.shift_pressed):
+			print("[CameraSelectorUI] Ignoring toggle action due to modifier keys (Ctrl/Shift).")
+			return # Do nothing, let another tool (like Zone Editor) handle this input.
+
+		# If it's a clean right-click, toggle the UI.
+		print("[CameraSelectorUI] Camera selector toggle action detected!")
+		_toggle_ui()
+		# IMPORTANT: Mark the input as handled so nothing else processes this specific right-click.
+		get_viewport().set_input_as_handled()
+		return
+
+	# --- 2. Handle Camera Cycling (Tab / Shift+Tab) ---
+	# This should only work when the UI is hidden for quick camera switching.
+	if not is_ui_visible:
+		if event.is_action_pressed("camera_cycle_next"):
+			print("[CameraSelectorUI] Camera cycle next detected!")
+			_cycle_camera(1)
+			get_viewport().set_input_as_handled()
+			return
+		elif event.is_action_pressed("camera_cycle_previous"):
+			print("[CameraSelectorUI] Camera cycle previous detected!")
+			_cycle_camera(-1)
+			get_viewport().set_input_as_handled()
+			return
+
+	# --- 3. Handle ESC to Close ---
+	# This should only work when the UI is visible.
+	if is_ui_visible and event.is_action_pressed("ui_cancel"): # ui_cancel is the default for Esc key
+		print("[CameraSelectorUI] ESC detected - hiding UI")
+		_hide_ui()
+		get_viewport().set_input_as_handled()
+
+func _refresh_buttons():
+	"""Refresh camera buttons from CameraManager"""
+	print("[CameraSelectorUI] Refreshing buttons...")
+	
+	# Clear existing buttons
+	for button in camera_buttons:
+		if is_instance_valid(button):
+			button.queue_free()
+	camera_buttons.clear()
+	
+	if not camera_manager:
+		print("[CameraSelectorUI] No camera manager available for refresh")
+		return
+	
+	# Get cameras from manager
+	var cameras = camera_manager.get_camera_list()
+	print("[CameraSelectorUI] Found cameras: ", cameras.keys())
+	
+	if cameras.is_empty():
+		print("[CameraSelectorUI] No cameras found to create buttons for")
+		return
+	
+	# Create buttons for each camera
+	for camera_id in cameras:
+		# --- FIX START ---
+		# 'camera_data' is a dictionary like {"node": ..., "metadata": ...}
+		var camera_data = cameras[camera_id]
+		# 'camera_node' is the actual Camera3D object we need.
+		var camera_node = camera_data.node
+		# --- FIX END ---
+		
+		# Defensive check to ensure the node is valid before proceeding
+		if not is_instance_valid(camera_node):
+			printerr("[CameraSelectorUI] Found an invalid camera node for ID: %s. Skipping." % camera_id)
+			continue
+
+		print("[CameraSelectorUI] Creating button for camera: ", camera_id)
+		
+		# Instantiate button scene
+		var button = CameraButtonScene.instantiate()
+		camera_buttons_container.add_child(button)
+		camera_buttons.append(button)
+		
+		# Setup button with camera data
+		# --- FIX START ---
+		# It's more direct to use the metadata from the data packet.
+		var metadata = camera_data.get("metadata", {})
+		# The fallback name should come from the camera_node, not the dictionary.
+		var camera_name = metadata.get("name", camera_node.name)
+		# --- FIX END ---
+		
+		button.setup_camera(camera_id, camera_name, metadata)
+		
+		# Connect button signal
+		if not button.camera_selected.is_connected(_on_camera_selected):
+			button.camera_selected.connect(_on_camera_selected)
+			print("[CameraSelectorUI] Connected button signal for: ", camera_name)
+	
+	print("[CameraSelectorUI] Created ", camera_buttons.size(), " camera buttons")
+	_update_active_visual()
+
+func _update_active_visual(camera = null):
+	"""Update visual indication of which camera is active"""
+	if not camera_manager:
+		return
+	
+	var active_id = camera_manager.get_active_camera_id()
+	print("[CameraSelectorUI] Updating active visual for camera: ", active_id)
+	
+	# Update all buttons to show which one is active
+	for button in camera_buttons:
+		if is_instance_valid(button):
+			var is_active = (button.camera_id == active_id)
+			button.set_active(is_active)
+
+func _on_camera_selected(camera_id: String):
+	"""Handle camera button selection"""
+	print("[CameraSelectorUI] Camera button pressed: ", camera_id)
+	
+	if not camera_manager:
+		print("[CameraSelectorUI] No camera manager available for selection")
+		return
+	
+	# Switch to selected camera
+	var success = camera_manager.set_active_camera(camera_id)
+	if success:
+		print("[CameraSelectorUI] Successfully switched to camera: ", camera_id)
+		_hide_ui()
+		# Setup proper mouse handling for the new camera
+		_setup_camera_mouse_capture()
+	else:
+		print("[CameraSelectorUI] Failed to switch to camera: ", camera_id)
+
+func _cycle_camera(direction: int):
+	"""Cycle through cameras (1 = next, -1 = previous)"""
+	print("[CameraSelectorUI] Cycling camera, direction: ", direction)
+	
+	if not camera_manager:
+		print("[CameraSelectorUI] No camera manager available for cycling")
+		return
+	
+	var success = camera_manager.cycle_cameras(direction)
+	if success:
+		print("[CameraSelectorUI] Camera cycled successfully")
+		# Setup proper mouse handling after cycling
+		_setup_camera_mouse_capture()
+	else:
+		print("[CameraSelectorUI] Camera cycling failed")
+
+func _setup_camera_mouse_capture():
+	"""Setup proper mouse handling for the active camera"""
+	if not camera_manager:
+		return
+	
+	var active_camera = camera_manager.get_active_camera()
+	if not active_camera:
+		print("[CameraSelectorUI] No active camera for mouse setup")
+		return
+	
+	# Wait a frame for the camera switch to complete
+	await get_tree().process_frame
+	
+	# Set mouse mode to captured for camera navigation
+	# This allows the camera to receive mouse movement for look around
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	print("[CameraSelectorUI] Mouse setup for camera: ", active_camera.name)
+	print("[CameraSelectorUI] Mouse mode set to: CAPTURED (for camera navigation)")
+
+func _toggle_ui():
+	"""Toggle UI visibility"""
+	print("[CameraSelectorUI] Toggling UI, current state: ", is_ui_visible)
+	
+	if is_ui_visible:
+		_hide_ui()
+	else:
+		_show_ui()
+
+func _show_ui():
+	"""
+	ENHANCED: Shows the camera selector UI and correctly sets the mouse mode for UI interaction.
+	Prevents the show animation from running if already visible.
+	"""
+	# Don't do anything if the UI is already visible.
+	if is_ui_visible:
+		return
+
+	if camera_buttons.is_empty():
+		print("[CameraSelectorUI] No camera buttons available, cannot show UI")
+		return
+
+	print("[CameraSelectorUI] Showing UI")
+	is_ui_visible = true
+	visible = true
+
+	# CRITICAL: Release the mouse cursor so the user can see it and click on buttons.
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	print("[CameraSelectorUI] Mouse mode set to: VISIBLE (for UI interaction)")
+
+	# Start the timer that will automatically hide the UI after a few seconds.
+	auto_hide_timer.start()
+
+	# Update which camera button is visually highlighted as active.
+	_update_active_visual()
+
+func _hide_ui():
+	"""
+	ENHANCED: Hides the camera selector UI and correctly captures the mouse for 3D camera control.
+	Prevents the hide animation from running if already hidden.
+	"""
+	# Don't do anything if the UI is already hidden.
+	if not is_ui_visible:
+		return
+
+	print("[CameraSelectorUI] Hiding UI")
+	is_ui_visible = false
+	visible = false
+	auto_hide_timer.stop()
+
+	# CRITICAL: Capture the mouse again. This gives control back to the 3D camera
+	# for looking around, panning, etc.
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	print("[CameraSelectorUI] Mouse mode set to: CAPTURED (for 3D navigation)")
+
+func _on_auto_hide_timer_timeout():
+	"""Auto-hide timeout - hide UI automatically after delay"""
+	print("[CameraSelectorUI] Auto-hide timer expired")
+	_hide_ui()
+
+# In file: camera_selector_ui.gd
+
+func _gui_input(event: InputEvent):
+	"""
+	CRITICAL FIX: This function now properly handles clicks when the UI is visible.
+	It immediately consumes the click to prevent it from reaching the 3D camera,
+	then checks if the click was outside the panel to close the UI.
+	"""
+	if not is_ui_visible:
+		return
+
+	if event is InputEventMouseButton and event.pressed:
+		# STEP 1: Immediately mark the input as handled.
+		# This is the KEY to the fix. It stops the click from going any further.
+		get_viewport().set_input_as_handled()
+
+		# STEP 2: Check if the click was outside the main panel.
+		if not button_panel.get_global_rect().has_point(event.position):
+			print("[CameraSelectorUI] Clicked outside panel - hiding UI")
+			_hide_ui()
+
+# ============================================================================
+# DEBUGGING AND DIAGNOSTICS
+# ============================================================================
+
+func _notification(what):
+	"""Handle notifications for debugging"""
+	match what:
+		NOTIFICATION_READY:
+			print("[CameraSelectorUI] NOTIFICATION_READY received")
+		NOTIFICATION_ENTER_TREE:
+			print("[CameraSelectorUI] NOTIFICATION_ENTER_TREE received")
+		NOTIFICATION_EXIT_TREE:
+			print("[CameraSelectorUI] NOTIFICATION_EXIT_TREE received")
+
+func get_debug_info() -> Dictionary:
+	"""Get debug information about current state"""
+	return {
+		"is_ui_visible": is_ui_visible,
+		"camera_manager_available": camera_manager != null,
+		"button_count": camera_buttons.size(),
+		"input_actions_available": {
+			"camera_selector_toggle": InputMap.has_action("camera_selector_toggle"),
+			"camera_cycle_next": InputMap.has_action("camera_cycle_next"),
+			"camera_cycle_previous": InputMap.has_action("camera_cycle_previous")
+		},
+		"mouse_mode": Input.mouse_mode,
+		"auto_hide_timer_active": auto_hide_timer.time_left > 0
+	}
+
+func print_debug_info():
+	"""Print debug information to console"""
+	var debug_info = get_debug_info()
+	print("[CameraSelectorUI] === DEBUG INFO ===")
+	for key in debug_info:
+		print("[CameraSelectorUI] ", key, ": ", debug_info[key])
+	print("[CameraSelectorUI] ==================")
+
+# ============================================================================
+# PUBLIC API FOR EXTERNAL ACCESS
+# ============================================================================
+
+func is_ready() -> bool:
+	"""Check if camera selector is ready to use"""
+	return camera_manager != null and not camera_buttons.is_empty()
+
+func get_camera_count() -> int:
+	"""Get number of available cameras"""
+	return camera_buttons.size()
+
+# Manual trigger functions for testing
+func manual_toggle():
+	"""Manually toggle UI (for testing)"""
+	print("[CameraSelectorUI] Manual toggle called")
+	_toggle_ui()
+
+func manual_cycle_next():
+	"""Manually cycle to next camera (for testing)"""
+	print("[CameraSelectorUI] Manual cycle next called")
+	_cycle_camera(1)
+
+func manual_cycle_previous():
+	"""Manually cycle to previous camera (for testing)"""
+	print("[CameraSelectorUI] Manual cycle previous called")
+	_cycle_camera(-1)

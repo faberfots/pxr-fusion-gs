@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://cogp4ne1hu11"]
+
+[ext_resource type="Script" uid="uid://bt2s25c7cctqg" path="res://modules/spatial_intelligence/ui/CognitivePanel.gd" id="1_logic"]
+[ext_resource type="Script" uid="uid://b6xm6wra537ns" path="res://modules/gaussian_splatting/UI/DraggableContainer.gd" id="2_drag"]
+[ext_resource type="FontFile" uid="uid://b06alat7f14g1" path="res://assets/fonts/Oswald/Oswald-VariableFont_wght.ttf" id="3_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glass"]
+bg_color = Color(0.05, 0.05, 0.08, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 12
+
+[node name="CognitivePanel" type="CanvasLayer" unique_id=1003815754]
+layer = 20
+script = ExtResource("1_logic")
+
+[node name="DraggableContainer" type="Control" parent="." unique_id=1925712803 node_paths=PackedStringArray("drag_handle")]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 500.0
+offset_bottom = 500.0
+mouse_filter = 1
+script = ExtResource("2_drag")
+drag_handle = NodePath("Panel/MainLayout/HeaderBar")
+
+[node name="Panel" type="PanelContainer" parent="DraggableContainer" unique_id=984596188]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_glass")
+
+[node name="MainLayout" type="VBoxContainer" parent="DraggableContainer/Panel" unique_id=1154754334]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HeaderBar" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout" unique_id=682255199]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
+theme_override_constants/separation = 8
+
+[node name="GrabHandle" type="Label" parent="DraggableContainer/Panel/MainLayout/HeaderBar" unique_id=32187861]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+text = "::"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusLight" type="ColorRect" parent="DraggableContainer/Panel/MainLayout/HeaderBar" unique_id=1961749490]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="Title" type="Label" parent="DraggableContainer/Panel/MainLayout/HeaderBar" unique_id=1086605564]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 14
+text = "CORTEX // VISUAL INTELLIGENCE"
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="DraggableContainer/Panel/MainLayout/HeaderBar" unique_id=1862465115]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_fonts/font = ExtResource("3_font")
+text = "✕"
+flat = true
+
+[node name="HSeparator" type="HSeparator" parent="DraggableContainer/Panel/MainLayout" unique_id=1283421326]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ContentArea" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout" unique_id=2074097167]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="VisionSection" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/ContentArea" unique_id=1750411395]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
+theme_override_constants/separation = 8
+
+[node name="VisionPreview" type="TextureRect" parent="DraggableContainer/Panel/MainLayout/ContentArea/VisionSection" unique_id=103053904]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 75)
+layout_mode = 2
+size_flags_horizontal = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VisionLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/ContentArea/VisionSection" unique_id=760643965]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 11
+text = "Last captured view"
+vertical_alignment = 1
+
+[node name="ChatScroll" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/ContentArea" unique_id=1166718249]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ChatFeed" type="RichTextLabel" parent="DraggableContainer/Panel/MainLayout/ContentArea/ChatScroll" unique_id=892402469]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_force_pass_scroll_events = false
+theme_override_fonts/normal_font = ExtResource("3_font")
+theme_override_font_sizes/normal_font_size = 13
+bbcode_enabled = true
+text = "System Initialized..."
+fit_content = true
+scroll_following = true
+
+[node name="InputArea" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/ContentArea" unique_id=1224308705]
+layout_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
+theme_override_constants/separation = 4
+
+[node name="InputField" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/ContentArea/InputArea" unique_id=139681187]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 13
+placeholder_text = "Ask Cortex about the scene..."
+flat = true
+
+[node name="AnalyzeButton" type="Button" parent="DraggableContainer/Panel/MainLayout/ContentArea/InputArea" unique_id=1824495709]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 13
+text = " ANALYZE "
