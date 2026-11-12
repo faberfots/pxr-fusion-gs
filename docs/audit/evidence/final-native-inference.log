@@ -1,0 +1,11 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS verified native delivery reports available
+PASS packaged MobileSAM models and verified CPU runtime initialize through GDScript
+PASS actual RGB image encodes through Godot native bridge
+PASS native decoder restores the original non-square image dimensions
+NATIVE CIRCLE IOU 0.99029946188557
+PASS native image segmentation matches the deterministic fixture mask
+PASS native prompts select different actual image objects
+NATIVE INFERENCE COMPLETE: 0 failures

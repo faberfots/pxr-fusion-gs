@@ -3,7 +3,7 @@
   "date": "2026-11-12",
   "engine": "Godot 4.6.2 stable",
   "device": "NVIDIA RTX 4070 Laptop GPU; Vulkan; Windows",
-  "native_version": "0.2.0",
+  "native_version": "0.3.0",
   "results": [
     {
       "suite": "core",
@@ -151,6 +151,132 @@
       "pass_labels": 7,
       "errors_logged": false,
       "scope": "current source-free PCK, local Windows/Vulkan qualification"
+    },
+    {
+      "suite": "final-script",
+      "evidence": "evidence/final-script.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-core",
+      "evidence": "evidence/final-core.log",
+      "pass_labels": 30,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-gpu",
+      "evidence": "evidence/final-gpu.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-lifecycle",
+      "evidence": "evidence/final-lifecycle.log",
+      "pass_labels": 21,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-rendering",
+      "evidence": "evidence/final-rendering.log",
+      "pass_labels": 9,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-spatial",
+      "evidence": "evidence/final-spatial.log",
+      "pass_labels": 14,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-spatial-async",
+      "evidence": "evidence/final-spatial-async.log",
+      "pass_labels": 14,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-migration-recovery",
+      "evidence": "evidence/final-migration-recovery.log",
+      "pass_labels": 6,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-bali-migration",
+      "evidence": "evidence/final-bali-migration.log",
+      "pass_labels": 16,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-provider-network",
+      "evidence": "evidence/final-provider-network.log",
+      "pass_labels": 10,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-native-inference",
+      "evidence": "evidence/final-native-inference.log",
+      "pass_labels": 6,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-native-build",
+      "evidence": "evidence/final-native-build.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "portable-native-inference",
+      "evidence": "evidence/portable-native-inference.log",
+      "pass_labels": 6,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "portable-rendering",
+      "evidence": "evidence/portable-rendering.log",
+      "pass_labels": 9,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "portable-migration-recovery",
+      "evidence": "evidence/portable-migration-recovery.log",
+      "pass_labels": 6,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "portable-visual-review",
+      "evidence": "evidence/portable-visual-review.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-export",
+      "evidence": "evidence/final-export.log",
+      "pass_labels": 0,
+      "errors_logged": true,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
+    },
+    {
+      "suite": "final-export-verbose",
+      "evidence": "evidence/final-export-verbose.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "current isolated candidate; local Windows RTX 4070 Vulkan or native CPU as applicable"
     }
   ],
   "real_scene": {
@@ -166,12 +292,12 @@
     "sort_overflow": false
   },
   "external_boundaries": [
-    "Provider credential revocation",
-    "No approved ONNX models/runtime supplied (confirmed by user)",
-    "No live cloud requests",
-    "No remote CI execution",
-    "Unqualified transparent interleaving, XR and other platforms",
-    "Intermittent headless editor-export teardown warning"
+    "Previously exposed provider credential not yet revoked (user confirmed)",
+    "No authenticated vendor request qualification; localhost synthetic transport tests pass",
+    "Arbitrary transparent interleaving, Gaussian shadows and XR multiview unimplemented; no headset available",
+    "Unsigned ordinary-engine development candidate; optimized templates/signing and other real GPU/platform combinations unqualified",
+    "Intermittent headless editor-export shutdown RID/ObjectDB warning remains",
+    "Unknown project artwork/video/dataset origins; historical bundled binary provenance gaps remain"
   ],
   "large_scene": {
     "source_file_bytes": 1919480116,
@@ -207,6 +333,57 @@
         "evidence/bali-object.png"
       ]
     },
-    "pack_sha256": "0650cec7193a1eeb780b68e0b8dbe25d85c9f6a0f8ce842af32b1fa460e48293"
+    "pack_sha256": "0650cec7193a1eeb780b68e0b8dbe25d85c9f6a0f8ce842af32b1fa460e48293",
+    "migration": {
+      "total_splats": 7959786,
+      "migration_ms": 16809,
+      "tracked_gpu_bytes": 3435972924,
+      "tile_size": 32,
+      "capacity": 8475242,
+      "sort_overflow": false,
+      "preserved": "all source splats, stable model IDs, per-model Transform3D and GPU palette",
+      "evidence": [
+        "evidence/final-bali-migration.log",
+        "evidence/bali-migrated.png"
+      ]
+    }
+  },
+  "spatial_responsiveness": {
+    "source_points": 2000000,
+    "ingest_and_visualization_ms": 43577,
+    "progressive_chunks": 489,
+    "ui_frames": 3490,
+    "max_observed_ui_gap_ms": 98,
+    "evidence": "evidence/final-spatial-async.log",
+    "scope": "local device; not a universal performance guarantee"
+  },
+  "native_inference": {
+    "upstream": "https://github.com/ChaoningZhang/MobileSAM",
+    "revision": "f706ad9c4eb7f219c00d9050e46328518ffb65d2",
+    "runtime": "ONNX Runtime 1.23.2 Windows x86_64 CPU",
+    "manifest": "rust/spatial_ml/models/manifest.json",
+    "fixture_dimensions": [
+      640,
+      384
+    ],
+    "circle_iou": 0.99029946188557,
+    "source_free_package_pass": true,
+    "evidence": [
+      "evidence/final-native-inference.log",
+      "evidence/portable-native-inference.log",
+      "evidence/native-test-input.png",
+      "evidence/native-circle-mask.png"
+    ]
+  },
+  "git_repository": {
+    "url": "https://github.com/faberfots/pxr-fusion-gs",
+    "visibility": "private",
+    "baseline_commit": "bffa1a1",
+    "qualification": "remote CI in progress"
+  },
+  "test_harness_correction": {
+    "issue": "Fixed 32 MiB recovery-test budget admitted fewer than 40,007 fixture splats at a larger output resolution; later test access stalled after admission failure.",
+    "correction": "Budget now includes resolution-dependent output texture headroom and the test quits immediately on load failure.",
+    "result": "current migration recovery suite passes at 1142x648; no renderer behavior change"
   }
 }

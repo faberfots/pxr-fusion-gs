@@ -1,0 +1,55 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS High atlas initializes
+PASS Bali and second model admitted by shared atlas
+LARGE LOAD PROGRESS 188000 splats; 2631 ms
+LARGE LOAD PROGRESS 556000 splats; 7632 ms
+LARGE LOAD PROGRESS 918000 splats; 12633 ms
+LARGE LOAD PROGRESS 1290000 splats; 17639 ms
+LARGE LOAD PROGRESS 1666000 splats; 22646 ms
+LARGE LOAD PROGRESS 2046000 splats; 27653 ms
+LARGE LOAD PROGRESS 2486000 splats; 32660 ms
+LARGE LOAD PROGRESS 3006000 splats; 37666 ms
+LARGE LOAD PROGRESS 3538000 splats; 42673 ms
+LARGE LOAD PROGRESS 4092000 splats; 47680 ms
+LARGE LOAD PROGRESS 4628000 splats; 52687 ms
+LARGE LOAD PROGRESS 5176000 splats; 57693 ms
+LARGE LOAD PROGRESS 5720000 splats; 62700 ms
+LARGE LOAD PROGRESS 6284000 splats; 67707 ms
+LARGE LOAD PROGRESS 6838000 splats; 72714 ms
+LARGE LOAD PROGRESS 7400000 splats; 77715 ms
+LARGE LOAD PROGRESS 7943833 splats; 82720 ms
+[FreeLookCamera] Movement state reset. Position: (-2.41283, 0.128358, 1.386286)
+[CameraController] Camera transform set to: (-2.41283, 0.128358, 1.386286)
+PASS both complete files loaded without downsampling
+LARGE LOAD COMPLETE 7959786 splats in 82892 ms
+PASS exactly the two requested models own the full atlas population
+PASS second model XYZ rotation/scale/position leaves Bali unchanged
+PASS second model Transform3D reaches its own GPU palette entry
+PASS Bali XYZ rotation/scale/position leaves second model unchanged
+PASS Bali Transform3D reaches its own GPU palette entry
+PASS Scene Manager moves the selected model on all XYZ axes
+PASS Scene Manager rotates XYZ after scaling without corrupting angles
+PASS Scene Manager scales the selected model
+PASS Scene Manager edits preserve the other model transform
+PASS Scene Manager edits reach the selected GPU palette entry
+PASS full Bali atlas migrates without reloading or reducing either source population
+PASS large migration preserves both independent Transform3D entries
+BALI MIGRATION MS 16809
+LARGE SCENE STATS { "viewer_state": "RENDERING", "is_loading": false, "is_rendering": true, "loaded_file": "2 models", "fps": 130.0, "frame_count": 12883, "total_splats": 7959786, "splats_loaded": 7959786, "scene_mode": "ENVIRONMENT_MODE", "total": 3435972924, "tracked": 3435972924, "peak": 3435972924, "resource_count": 31, "pipeline_stats": { "total": 6, "valid": 6, "dirty": 0, "uninitialized": 0, "error": 0 }, "tile_splat_pairs": 4261933, "sort_overflow": false, "splats_rendered_frame": 2171993, "texture_size": (1142, 648), "tile_dims": (36, 21), "atlas_capacity": 8475242, "pair_capacity": 33900968, "gpu_budget_bytes": 4294967296, "camera": { "has_camera": true, "is_moving": false, "mode": "Idle", "position": (-2.41283, 0.128358, 1.386286), "rotation_degrees": (0.0, 0.0, 0.0), "velocity": (0.0, 0.0, 0.0), "fov": 75.0 } }
+PASS large multi-model frame stays within pair capacity
+LARGE SCENE COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

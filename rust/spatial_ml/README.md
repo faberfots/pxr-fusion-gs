@@ -1,23 +1,20 @@
 # Optional SpatialML extension
 
-The Rust source implements the MobileSAM image encoder / prompt decoder contract with actual RGB preprocessing. It uses pinned gdext and ort dependencies and a dynamically supplied ONNX Runtime. Native inference is optional and does not run at application startup.
+The Rust extension implements the MobileSAM encoder/prompt decoder contract with actual RGB preprocessing. It uses pinned gdext/ort dependencies, verified MobileSAM ONNX artifacts and ONNX Runtime 1.23.2 CPU. Inference runs only when requested; runtime telemetry is disabled.
 
-On this Windows checkout, `.cargo/config.toml` selects the GNU toolchain. From this directory:
+On Windows x86_64 with Python, Rust GNU and MinGW installed, run from the repository root:
 
 ```powershell
-cargo check --locked
-cargo test --locked
-./build.ps1 -Configuration release
+python tools/setup_native_ml.py --build
+python tools/run_checks.py --godot PATH_TO_GODOT --script res://tests/native_inference_checks.gd
 ```
 
-The installer activates the descriptor only after a DLL exists. Required runtime libraries and approved model files are not fetched implicitly. Set `ORT_DYLIB_PATH` to a compatible ONNX Runtime library. Initialization reports failure when the runtime is absent.
+`models/manifest.json` is the single source of truth for artifact paths, upstream revision and trusted SHA-256 values. `models/export-receipt.json` records the official source files, checkpoint, export settings and pinned Python environment. The setup tool verifies existing model files, reproduces them if needed, verifies the official runtime archive and then optionally builds the extension. Model export requires the pinned Windows Python 3.12 environment. The official model license is retained alongside the artifacts; runtime notices are downloaded from its verified official archive.
 
-Use `NativeMLBridge.materialize_model(source, trusted_sha256)` to copy and verify packaged or local ONNX files into the user cache. Pass the returned absolute OS paths to `load_model`. Raw `res://` paths inside a PCK cannot be opened by ONNX Runtime.
+The installer generates the descriptor only after a successful DLL build. It installs a versioned 0.3.0 DLL so an editor using the previous version can continue running. Restart Godot after installing this version; the extension is deliberately nonreloadable.
 
-Encoder inputs: `image` float NCHW [1,3,1024,1024], RGB normalized with SAM mean/std after an aspect-preserving resize and zero padding. Encoder output: `image_embeddings` [1,256,64,64].
+Call `NativeMLBridge.load_default_segmenter()` from GDScript. It verifies the encoder, decoder and runtime, materializes PCK resources to the user cache and supplies absolute paths to `load_model_with_runtime`. It does not mutate the process environment. The legacy `load_model` API still accepts `ORT_DYLIB_PATH`.
 
-Decoder inputs: `image_embeddings`, `point_coords`, `point_labels`, `mask_input`, `has_mask_input`, `orig_im_size`. Point coordinates use original-image pixels; the extension rescales them and appends the no-point sentinel. Labels must be 0 or 1. Outputs must include original-size `masks`; multiple channels require `iou_predictions`. The best mask uses a zero logit threshold. `get_mask_size()` supplies output dimensions.
+Encoder input: RGB NCHW [1,3,1024,1024], SAM normalization, aspect-preserving resize and zero padding. Output: `image_embeddings` [1,256,64,64]. Decoder inputs: `image_embeddings`, `point_coords`, `point_labels`, `mask_input`, `has_mask_input`, `orig_im_size`. Point coordinates use original-image pixels. Labels are 0/1. Output includes original-size `masks`; multiple mask channels require `iou_predictions`. The best mask uses a zero logit threshold. `get_mask_size()` reports output dimensions.
 
-Only RGB8/RGBA8 uncompressed images are accepted. Invalid counts, labels, coordinates, shapes and non-finite values fail explicitly. There are no placeholder image tensors.
-
-The source and preprocessing tests are locally qualified. End-to-end inference, model artifact integrity/rights, platform deployment and performance require approved models and ONNX Runtime. Linux/macOS descriptor entries remain unqualified templates.
+Only uncompressed RGB8/RGBA8 images are accepted. Invalid counts, labels, coordinates, shapes and non-finite values fail explicitly. Tests run the actual encoder and decoder through GDScript, check original 640x384 dimensions, >95% fixture-mask IoU and prompt selection of separate objects. The same checks pass without a source tree using the exported PCK and external GDExtension DLLs. This is functional inference qualification, not a general segmentation quality benchmark. Native delivery remains qualified only for Windows x86_64 CPU.

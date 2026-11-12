@@ -1,0 +1,616 @@
+WorkerThreadPool: 16 threads, 12 max low-priority.
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Unrecognized output string "misc2" in mapping:
+030000008a2e0000dd10000000000000,Hand Held Legend GC Ultimate,a:b0,b:b2,back:b17,dpdown:b5,dpleft:b6,dpright:b7,dpup:b4,guide:b18,leftshoulder:b10,leftstick:b8,lefttrigger:a3,leftx:a0,lefty:a1,misc1:b19,misc2:b24,paddle1:b13,paddle2:b12,rightshoulder:b11,rightstick:b9,righttrigger:a4,rightx:a2,righty:a5,start:b16,x:b1,y:b3,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000000d0f00000202000000000000,Horipad O Nintendo Switch 2 Controller,a:b1,b:b0,back:b8,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b4,leftstick:b10,lefttrigger:b6,leftx:a0,lefty:a1,misc1:b13,misc2:b14,rightshoulder:b5,rightstick:b11,righttrigger:b7,rightx:a2,righty:a3,start:b9,x:b3,y:b2,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000000d0f00009601000000000000,Horipad Steam,a:b0,b:b1,back:b10,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b6,leftstick:b13,lefttrigger:b8,leftx:a0,lefty:a1,misc2:b2,paddle1:b5,paddle2:b15,paddle3:b18,paddle4:b19,rightshoulder:b7,rightstick:b14,righttrigger:b9,rightx:a3,righty:a4,start:b11,x:b3,y:b4,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000007e0500006920000000000000,Nintendo Switch 2 Pro Controller,a:b0,b:b1,back:b14,dpdown:b8,dpleft:b10,dpright:b9,dpup:b11,guide:b16,leftshoulder:b12,leftstick:b15,lefttrigger:b13,leftx:a0,lefty:a1~,misc1:b17,misc2:b20,paddle1:b18,paddle2:b19,rightshoulder:b4,rightstick:b7,righttrigger:b5,rightx:a2,righty:a3~,start:b6,x:b2,y:b3,platform:Windows,
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 4039755037
+EDITOR API HASH: 223528947
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: C:/Users/User/AppData/Roaming/Godot/editor_settings-4.6.tres
+EditorSettings: Load OK!
+EditorTheme: Generating new theme for the config '3810048042'.
+EditorTheme: Generating new icons.
+EditorTheme: Generating new fonts.
+EditorTheme: Generating new styles.
+Loading resource: C:/Users/User/AppData/Local/Godot/editor_doc_cache-4.6.res
+Loaded system CA certificates
+Failed to bind socket. Error: 3.
+Class 'ImGuiControllerHelper' is not exposed, skipping.
+Class 'ImGuiLayer' is not exposed, skipping.
+Class 'ImGuiSync' is not exposed, skipping.
+Class 'ImGuiWindow' is not exposed, skipping.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+Loading resource: res://addons/imgui-godot/scripts/ImGuiRoot.gd
+Loading resource: res://modules/gaussian_splatting/UI/HistoryManager.gd
+Loading resource: res://modules/spatial_intelligence/autoload/SpatialIntelligence.gd
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (2 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (3 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | 132130_off_emergency_dismay_siren_anxiety_icon.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-calendar.48.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-user.48 (1).png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1msavepack[22m | Started Packing (102 steps)[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/icon.png-23138dea5eb193a97a0a6c8ec2139105.ctex[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://addons/AdvancedFreeFlyCamera/Assets/icon.png.import[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://addons/AdvancedFreeFlyCamera/Src/advanced_free_fly_startup.gdc[39m[0m
+[   1% ] [90m[1msavepack[22m | Storing File: res://addons/AdvancedFreeFlyCamera/advanced_free_fly_camera.gdc[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://addons/advanced_control_camera3d/nodes/advanced_control_camera_3d.gdc[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/advanced_control_camera3d.svg-c13979450fbc140c9c86271f398059e6.ctex[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://addons/advanced_control_camera3d/advanced_control_camera3d.svg.import[39m[0m
+[   2% ] [90m[1msavepack[22m | Storing File: res://addons/advanced_control_camera3d/advanced_control_camera3d_plugin.gdc[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7cf5604219c1875b1ba212623b35fd2c-ImGuiRoot.scn[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/ImGuiShader.glsl-2f8c9595e5031ef8022ed7e6f565729e.res[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/data/ImGuiShader.glsl.import[39m[0m
+[   3% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/scripts/ImGuiConfig.gdc[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/scripts/ImGuiFont.gdc[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/scripts/ImGuiPlugin.gdc[39m[0m
+[   4% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/scripts/ImGuiRoot.gdc[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/imgui-godot-native.gdextension[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7022783e1a9e21717329ce64527443f7-MoonRender.scn[39m[0m
+[   5% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-45b8f9ce13823187b17d6afe560649e0-SNoise.res[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-e184a938d773687c6fc99866e2f3256f-SunMoonLightFade.res[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/noise2.png-37a5cbd5451b4b9c2c18ab32099e6965.s3tc.ctex[39m[0m
+[   6% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/textures/noise2.png.import[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/noise.jpg-b47d5d36d9abfdaec2a09c140a78ba24.s3tc.ctex[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/textures/noise.jpg.import[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/noiseClouds.png-07511094ef8b72a49cc860b35c60d0fd.s3tc.ctex[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/textures/noiseClouds.png.import[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SkyIcon.png-7b3cbfa68354965cdbfdba8b95dacf67.ctex[39m[0m
+[   7% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/textures/SkyIcon.png.import[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Milkyway.jpg-a06044e407cf6953ab6e46a2f0f17f3a.s3tc.ctex[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/thirdparty/textures/milkyway/Milkyway.jpg.import[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/StarField.jpg-9d224e20fcbe8fdc7ff5028dae269839.s3tc.ctex[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/thirdparty/textures/milkyway/StarField.jpg.import[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/MoonMap.png-81d542c3fafff4e5b235a177af6f3221.s3tc.ctex[39m[0m
+[   8% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/thirdparty/textures/moon/MoonMap.png.import[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/shaders/AtmFog.gdshader[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/shaders/SkyMaterial.gdshader[39m[0m
+[   9% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/DateTimeUtil.gdc[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/OrbitalElements.gdc[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/Plugin.gdc[39m[0m
+[  10% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/ScatterLib.gdc[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/Sky3D.gdc[39m[0m
+[  11% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/Skydome.gdc[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/TimeOfDay.gdc[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/TOD_Math.gdc[39m[0m
+[  12% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/autoload/camera_manager.gdc[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/resources/camera_profile.gdc[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-7a4097828b0cb752be0cbd6e5f4c4ecc-camera_button.scn[39m[0m
+[  13% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-b1a00b51c8649924fdb4482e20c00368-camera_selector_ui.scn[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scripts/camera_button.gdc[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scripts/camera_registrar.gdc[39m[0m
+[  14% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scripts/camera_registration_helper.gdc[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scripts/camera_selector_ui.gdc[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/plugin.gdc[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/joystick_texture_1.png-9fe11098e467f8f7500bf2529275c515.ctex[39m[0m
+[  15% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/joystick_texture_1.png.import[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/joystick_texture_2.png-bd8e129c570c51a41d34619540e549b1.ctex[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/joystick_texture_2.png.import[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/joystick_texture_3.png-d28d8fdffe3dd01bcd800f8da8ffad5c.ctex[39m[0m
+[  16% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/joystick_texture_3.png.import[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/joystick_texture_4.png-288403f1a78edebf82b0917d63d71545.ctex[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/joystick_texture_4.png.import[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/joystick_texture_5.png-b4d7bb661b1dfa9d44580770afad2948.ctex[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/joystick_texture_5.png.import[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/joystick_texture_6.png-2b34481992ebc7f5529547a31713f9e4.ctex[39m[0m
+[  17% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/joystick_texture_6.png.import[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/stick_texture_1.png-b7322c6c9fa9ceca47042e9525a31e3d.ctex[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/stick_texture_1.png.import[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/stick_texture_2.png-56a0dc5972515a4c813acb0018d59897.ctex[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/stick_texture_2.png.import[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/stick_texture_3.png-ac8c0e09219e9294012c766efb28a6dd.ctex[39m[0m
+[  18% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/stick_texture_3.png.import[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/stick_texture_4.png-ea228bad22a241c375a4eb387cc66da7.ctex[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/stick_texture_4.png.import[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/stick_texture_5.png-f76da9fbec9ae506d29c25a5b2e273b4.ctex[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/stick_texture_5.png.import[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/stick_texture_6.png-0fdb4087c1eca258d05fa6e2a535cbbe.ctex[39m[0m
+[  19% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/resources/textures/stick_texture_6.png.import[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/icon-16x16.png-249a4b1ab77ef1942d3ca2645c1dd2fe.ctex[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/icon-16x16.png.import[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/plugin.gdc[39m[0m
+[  20% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/virtual_joystick.gdc[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/ArchitectsDaughter.ttf-8c2f7b13493aafe7c4a5994a4d425022.fontdata[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/architect-s-daughter/ArchitectsDaughter.ttf.import[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/cmunit.ttf-b67e7dd6b8d39911cc091b6e124ae9a3.fontdata[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/cmu-typewriter/cmunit.ttf.import[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/cmuntb.ttf-04e528f7c51b2124ef926420aeb56a43.fontdata[39m[0m
+[  21% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/cmu-typewriter/cmuntb.ttf.import[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/cmuntt.ttf-ff03377296bb0c74371b0c8ffa70ed1b.fontdata[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/cmu-typewriter/cmuntt.ttf.import[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/cmuntx.ttf-2dfee13be7f26ad3a3e51957d5bfa707.fontdata[39m[0m
+[  22% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/cmu-typewriter/cmuntx.ttf.import[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Connection.otf-305d2a70c2c630380467f60a996a012b.fontdata[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/connection/Connection.otf.import[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/ConnectionBold.otf-1d9aa6d3b05226cb9489ff7005441835.fontdata[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/connection/ConnectionBold.otf.import[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/ConnectionII.otf-5bed6ede9556d6466fa383eb9aed0d10.fontdata[39m[0m
+[  23% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/connection_ii/ConnectionII.otf.import[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/DroidSans-Bold.ttf-d95e64a30b2a1b7db1a6fe9a2b6bd07b.fontdata[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/droid-sans/DroidSans-Bold.ttf.import[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/DroidSans.ttf-f550e46f2e610aeb2c7fee9401d1ddef.fontdata[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/droid-sans/DroidSans.ttf.import[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/KiriFont.otf-78216fbe9b4795698bdc35704befb54a.fontdata[39m[0m
+[  24% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/kirifont/KiriFont.otf.import[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/KiriFont.ttf-0c43c170a2bae41153a282a6fa024aae.fontdata[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/kirifont/KiriFont.ttf.import[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/LinLibertine_DR.otf-8d6d5f3d37d915241d195593abc5033b.fontdata[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/linux-libertine/LinLibertine_DR.otf.import[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/LinLibertine_I.otf-2dcf478e24e5510d841fbbfac0a2b187.fontdata[39m[0m
+[  25% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/linux-libertine/LinLibertine_I.otf.import[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/LinLibertine_M.otf-e4d2c6ac7d8c5ae5dc44cbc88ae07866.fontdata[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/linux-libertine/LinLibertine_M.otf.import[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/LinLibertine_R.otf-49fbf53c66fbf34e10cf0692335a9c50.fontdata[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/linux-libertine/LinLibertine_R.otf.import[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/LinLibertine_RB.otf-7a7526660d8566a7678d0bb4700b2e88.fontdata[39m[0m
+[  26% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/linux-libertine/LinLibertine_RB.otf.import[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/LinLibertine_RBI.otf-b8624e4aeeed3a4c48c3a800a1eae255.fontdata[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/linux-libertine/LinLibertine_RBI.otf.import[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/LinLibertine_RI.otf-e0d76a4c5e5061f33ffd4714fe493c72.fontdata[39m[0m
+[  27% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/linux-libertine/LinLibertine_RI.otf.import[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/LinLibertine_RZ.otf-8ed0535e33ca45739d6448bd9de727c7.fontdata[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/linux-libertine/LinLibertine_RZ.otf.import[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/LinLibertine_RZI.otf-8f73f4212b67b91ed3aeab1688c37471.fontdata[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/linux-libertine/LinLibertine_RZI.otf.import[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Montreal-Bold.ttf-d6cae7f8df467685ecb7f85e40eeaf1d.fontdata[39m[0m
+[  28% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/montreal/Montreal-Bold.ttf.import[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Montreal-Regular.ttf-860b27b427b42fd5738c7aa040413e48.fontdata[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/montreal/Montreal-Regular.ttf.import[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oswald-Bold.ttf-26c1462ed53a7a029b4c166a00b1156f.fontdata[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Oswald/static/Oswald-Bold.ttf.import[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oswald-ExtraLight.ttf-2b8084990b9e881c67e360bf4b477f1d.fontdata[39m[0m
+[  29% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Oswald/static/Oswald-ExtraLight.ttf.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oswald-Light.ttf-71ddd77329df158c2d57cce06714d87b.fontdata[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Oswald/static/Oswald-Light.ttf.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oswald-Medium.ttf-bec84b85d542832f11101fee7887cb0e.fontdata[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Oswald/static/Oswald-Medium.ttf.import[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oswald-Regular.ttf-238b0c59f004f7453ccf9f6f65bdb793.fontdata[39m[0m
+[  30% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Oswald/static/Oswald-Regular.ttf.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oswald-SemiBold.ttf-ee152043e3c3c4fd2427b0f1eb3f2d4b.fontdata[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Oswald/static/Oswald-SemiBold.ttf.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oswald-VariableFont_wght.ttf-d7dfcd409cdd0ac56859dc4db92dfbc0.fontdata[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Oswald/Oswald-VariableFont_wght.ttf.import[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poco.ttf-ce60b36cc35b89a84fc30622c539b756.fontdata[39m[0m
+[  31% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/poco/Poco.ttf.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-Black.ttf-5fe125df97c6f890e4e36cd0f38416f2.fontdata[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-Black.ttf.import[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-BlackItalic.ttf-ca6dab4c70d1607daf736b93483aa367.fontdata[39m[0m
+[  32% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-BlackItalic.ttf.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-Bold.ttf-d384215be4393b3a8cf2c75d37b257e4.fontdata[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-Bold.ttf.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-BoldItalic.ttf-360031beaa7b1bfa6a4442bc1eb1d0db.fontdata[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-BoldItalic.ttf.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-ExtraBold.ttf-9c08dea36c6c8032fb807a38bcb66dce.fontdata[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-ExtraBold.ttf.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-ExtraBoldItalic.ttf-1c13c3ddbecaf9c99023e700212391cb.fontdata[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-ExtraLight.ttf-2937b6851ad77b09238c1cb0b9c26659.fontdata[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-ExtraLight.ttf.import[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-ExtraLightItalic.ttf-397d3fb3bbf83eed06758988118e0f6f.fontdata[39m[0m
+[  33% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-ExtraLightItalic.ttf.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-Italic.ttf-5f35cf779f2ff9d24246e1110023821a.fontdata[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-Italic.ttf.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-Light.ttf-217deb4492e1dbd14a60ac62f0015428.fontdata[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-Light.ttf.import[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-LightItalic.ttf-43c4c2ffecb2ab8fb655a5e9ab4e23c8.fontdata[39m[0m
+[  34% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-LightItalic.ttf.import[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-Medium.ttf-0185620ddb020cd964e43f4b2f0e5113.fontdata[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-Medium.ttf.import[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-MediumItalic.ttf-ceba309c3511c6a24a80e3375dbc0f6e.fontdata[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-MediumItalic.ttf.import[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-Regular.ttf-bbff5fc7f483a103cb7c708a61d2e8e3.fontdata[39m[0m
+[  35% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-Regular.ttf.import[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-SemiBold.ttf-f07cf1ebf2299472c57d3f944514d2db.fontdata[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-SemiBold.ttf.import[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-SemiBoldItalic.ttf-e13489e0f9f4efb2333f32012f7edc80.fontdata[39m[0m
+[  36% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-Thin.ttf-ffb05e5f0f2956e46908311a7e582aab.fontdata[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-Thin.ttf.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Poppins-ThinItalic.ttf-5d6d5323e3ee038c3c2b9e27e334919f.fontdata[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/Poppins/Poppins-ThinItalic.ttf.import[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-Black.ttf-a01d4c2b83525a8bb3f939bd4fa6dbf0.fontdata[39m[0m
+[  37% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-Black.ttf.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-BlackIt.ttf-f7582d2f709dbc28eb5dbf5d3e887073.fontdata[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-BlackIt.ttf.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-Bold.ttf-f5b15ea5b3a7df843c02e87ef4ddf77f.fontdata[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-Bold.ttf.import[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-BoldIt.ttf-573491d0dc50b4de324c0a39d9e286a8.fontdata[39m[0m
+[  38% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-BoldIt.ttf.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-ExtraLight.ttf-ed2544e600d560741521099772e7c94f.fontdata[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-ExtraLight.ttf.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-ExtraLightIt.ttf-7e0437865b7941a0faf70d1dd78548d2.fontdata[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-ExtraLightIt.ttf.import[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-It.ttf-4ca9523948aded74bc9300d23b2947b2.fontdata[39m[0m
+[  39% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-It.ttf.import[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-Light.ttf-f1acc3784ad46b70d0812370ac3c804e.fontdata[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-Light.ttf.import[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-LightIt.ttf-aea04569a8a3c1711889d5c1a2e0739d.fontdata[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-LightIt.ttf.import[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-Medium.ttf-4ec93f97abd921e4c3a480ef57dbdc38.fontdata[39m[0m
+[  40% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-Medium.ttf.import[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-MediumIt.ttf-1b625624dd191f9bca8941b14afbd0e5.fontdata[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-MediumIt.ttf.import[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-Regular.ttf-eca08101582020de66586d4bbaa123b3.fontdata[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-Regular.ttf.import[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-Semibold.ttf-06d691db5099f4b40e4253adc611712a.fontdata[39m[0m
+[  41% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-Semibold.ttf.import[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/SourceCodePro-SemiboldIt.ttf-4ab9ec8039a66bc0892c341db9df9cbf.fontdata[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/source-code-pro/SourceCodePro-SemiboldIt.ttf.import[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Xolonium-Bold.ttf-5325d1429ed86ad5a9268085fe7d4a58.fontdata[39m[0m
+[  42% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/xolonium/Xolonium-Bold.ttf.import[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Xolonium-Regular.ttf-2eec1674fe39fe09a792b5f4a1d0c236.fontdata[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/xolonium/Xolonium-Regular.ttf.import[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/overview.PNG-8611b4e0bffc418bc7b152e4d3eb9425.ctex[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://assets/fonts/overview.PNG.import[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/3DPlace.png-d9e70aa58e2fb9f6f1e81fbf5dcd7ed7.ctex[39m[0m
+[  43% ] [90m[1msavepack[22m | Storing File: res://assets/icons/latest/3DPlace.png.import[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/3D_Place_Blue.png-987cabe320017f25aa17208b4cd5666b.ctex[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://assets/icons/latest/3D_Place_Blue.png.import[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/3D_Place_Grey.png-1bd8a941b7e63b3d501baa775eb49a68.ctex[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://assets/icons/latest/3D_Place_Grey.png.import[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/dashboards.png-19ed2e3995b226bc82a55b76ddcb9b00.ctex[39m[0m
+[  44% ] [90m[1msavepack[22m | Storing File: res://assets/icons/latest/dashboards.png.import[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/events.png-bd16c459979f86db546bd6ddb687305a.ctex[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://assets/icons/latest/events.png.import[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/place_map.png-a404a7b29cb31bae3c96e0e4bb06aebf.ctex[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://assets/icons/latest/place_map.png.import[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/settings.png-c851f52a4393ddd15d3621b4fc46564d.ctex[39m[0m
+[  45% ] [90m[1msavepack[22m | Storing File: res://assets/icons/latest/settings.png.import[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/users.png-7d1659a016b051ff9f18fd4cd9768596.ctex[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://assets/icons/latest/users.png.import[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/wall_screen.png-14698dd21eedb48a54b26904cf22de42.ctex[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://assets/icons/latest/wall_screen.png.import[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/132129_globe_planet_browser_global_internet_icon.png-e6fb287705afa00ae609a191cd58c328.ctex[39m[0m
+[  46% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/132129_globe_planet_browser_global_internet_icon.png.import[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/132130_off_emergency_dismay_siren_anxiety_icon.png.import[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Everaldo-Crystal-Clear-Action-view-icon.48 (1).png-b7fd0c032373623d9d966eb39194766e.ctex[39m[0m
+[  47% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Everaldo-Crystal-Clear-Action-view-icon.48 (1).png.import[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Everaldo-Crystal-Clear-Action-view-icon.48.png-17ae3ee4660e80125fd170db52973573.ctex[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Everaldo-Crystal-Clear-Action-view-icon.48.png.import[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Hopstarter-Puck-Windows-Close-Program.48.png-f5edff812c7714f6329af981a2d47795.ctex[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Hopstarter-Puck-Windows-Close-Program.48.png.import[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Hopstarter-Puck-Windows-Log-Off.48.png-30c9e870599782574e1f7506a3ef94d8.ctex[39m[0m
+[  48% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Hopstarter-Puck-Windows-Log-Off.48.png.import[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Hopstarter-Puck-Windows-Restart.48.png-2973ac2620b05555ddd11b030d18b4de.ctex[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Hopstarter-Puck-Windows-Restart.48.png.import[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Hopstarter-Puck-Windows-Stand-By.48.png-a094fd88e51fdb94299a22490eab8b01.ctex[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Hopstarter-Puck-Windows-Stand-By.48.png.import[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Hopstarter-Puck-Windows-Turn-Off.48.png-e3c8ff493e4cced6769083608dd5086b.ctex[39m[0m
+[  49% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Hopstarter-Puck-Windows-Turn-Off.48.png.import[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Icondesigner.net-Hyperion-3D-Icons.48.png-5fabb0603430d8285a15ae334f91cedb.ctex[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Icondesigner.net-Hyperion-3D-Icons.48.png.import[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows-actions.48.png-0e8fb28769f829a43572992569bd1200.ctex[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows-actions.48.png.import[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows-move.48.png-f730e71cbe4ade90cc17cfcf367a0a1f.ctex[39m[0m
+[  50% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows-move.48.png.import[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows.48 (1).png-7efe2836545130645d6362c7d6603328.ctex[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows.48 (1).png.import[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows.48.png-ff32240e2efb7791f862e13d3060d1c5.ctex[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows.48.png.import[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Saki-NuoveXT-2-Apps-preferences-system-windows.48.png-81b7784605c49be69502537564e158e2.ctex[39m[0m
+[  51% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Saki-NuoveXT-2-Apps-preferences-system-windows.48.png.import[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Saki-NuoveXT-Actions-windows-fullscreen.48.png-676a7af89b5fe8a7a3a2ff35be3c4887.ctex[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Saki-NuoveXT-Actions-windows-fullscreen.48.png.import[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Saki-NuoveXT-Actions-windows-nofullscreen.48.png-76c4c595dc6c7c40cd0ae6df77adf272.ctex[39m[0m
+[  52% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Saki-NuoveXT-Actions-windows-nofullscreen.48.png.import[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Thvg-Slick-Drives-Windows-HD-Drive.48.png-87b521f09a5c314adc0fbfe4860f417a.ctex[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Thvg-Slick-Drives-Windows-HD-Drive.48.png.import[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Tonev-Windows-7-Windows-7-calendar.48.png.import[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Tonev-Windows-7-Windows-7-games.48.png-2421632926fb373cdd3f08fe635c9702.ctex[39m[0m
+[  53% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Tonev-Windows-7-Windows-7-games.48.png.import[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Tonev-Windows-7-Windows-7-user.48 (1).png.import[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Tonev-Windows-7-Windows-7-user.48.png-885ef2bce46602f63fde320915326ada.ctex[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Tonev-Windows-7-Windows-7-user.48.png.import[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Windows_Close_Program_22531.png-976e7252b238f8d0a47696fe4912b4cf.ctex[39m[0m
+[  54% ] [90m[1msavepack[22m | Storing File: res://assets/icons/windows_icons/Windows_Close_Program_22531.png.import[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/effect.png-77506d3bc12e2e928d8cbb9aa84bf6f0.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://assets/icons/effect.png.import[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/eye_closed.png-68c163e3e3096981b083a2042572d9c5.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://assets/icons/eye_closed.png.import[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/eye_open.png-3a4fe7ef713573e27652cc3acbefd98a.ctex[39m[0m
+[  55% ] [90m[1msavepack[22m | Storing File: res://assets/icons/eye_open.png.import[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/render_icon.png-8579f3f9c851de2b15968ab0bcf3c18a.ctex[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://assets/icons/render_icon.png.import[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/for_parallax_image_2.png-128ba5668a866e2c5d067e36380e79ae.ctex[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://assets/images/for_parallax_image_2.png.import[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/infinite_square.png-f5e899c5680dfd67bd6e177fae67628f.s3tc.ctex[39m[0m
+[  56% ] [90m[1msavepack[22m | Storing File: res://assets/images/infinite_square.png.import[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/logo v3.png-acc75efe567cc1aa043ceb77e0cb3725.ctex[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://assets/images/logo v3.png.import[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/Logo.png-3624cd3a88cf371267e94dbc02eae8e9.ctex[39m[0m
+[  57% ] [90m[1msavepack[22m | Storing File: res://assets/images/Logo.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/penrose-square.png-6989c87b2a5d20d425a4db33547e3ecc.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://assets/images/penrose-square.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/PNG_Logo_black_300.png-cffafef19b748651aa37f1434fdc566b.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://assets/images/PNG_Logo_black_300.png.import[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/company.png-2ac801b9f1460dfee6adcc1d9a19dc35.ctex[39m[0m
+[  58% ] [90m[1msavepack[22m | Storing File: res://assets/logo/company.png.import[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/PNG_Logo_white.png-a0f0f06504655296228646f32784b400.ctex[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://assets/logo/PNG_Logo_white.png.import[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/promesse3D.png-fac6019b1c0812df32832130570ad4f6.ctex[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://assets/logo/promesse3D.png.import[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/dark.png-4496bf596b835e3cdc17eb848b025f12.s3tc.ctex[39m[0m
+[  59% ] [90m[1msavepack[22m | Storing File: res://assets/materials/textures/dark.png.import[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/green.png-a826306a7b04a161a691a18046e8d913.s3tc.ctex[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://assets/materials/textures/green.png.import[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/orange.png-75398bc3283645452c84c6e29454edf5.s3tc.ctex[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://assets/materials/textures/orange.png.import[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/prototype-texture-with-size.png-85c2ad31ce31c0cf51371b9e04035069.s3tc.ctex[39m[0m
+[  60% ] [90m[1msavepack[22m | Storing File: res://assets/materials/textures/prototype-texture-with-size.png.import[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/prototype-texture.png-ea0593bd0c2736af50c54b0a779383e6.s3tc.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://assets/materials/textures/prototype-texture.png.import[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/purple.png-62644003d8a88f2cb01a671e468df233.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://assets/materials/textures/purple.png.import[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/red.png-ec668381332f7f6db2bca179fa1fb6e4.ctex[39m[0m
+[  61% ] [90m[1msavepack[22m | Storing File: res://assets/materials/textures/red.png.import[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-0ac52339dd663e9712bee3ec62b0e302-material_basic_blue.res[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-8746b23e76caeba7e0a96e30bb3e2df7-material_basic_orange.res[39m[0m
+[  62% ] [90m[1msavepack[22m | Storing File: res://assets/video/intro_video.ogv[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/bin/windows/runtime/onnxruntime_providers_shared.dll[39m[0m
+[  63% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/bin/windows/runtime/onnxruntime.dll[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/bin/windows/runtime/LICENSE-ONNXRuntime.txt[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex[39m[0m
+[  64% ] [90m[1msavepack[22m | Storing File: res://icon.svg.import[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://tests/visual_review.gdc[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://tests/spatial_checks.gdc[39m[0m
+[  65% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/models/mobile_sam_decoder.onnx[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/models/LICENSE-MobileSAM.txt[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/bin/windows/runtime/ThirdPartyNotices.txt[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://tests/spatial_async_checks.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://tests/script_checks.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://tests/rendering_checks.gdc[39m[0m
+[  66% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/models/mobile_sam_encoder.onnx[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/gaussian_splat_icon.svg-fb6ccab7a92fcdad0e9599683cb079ef.ctex[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/assets/gaussian_splat_icon.svg.import[39m[0m
+[  67% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/camera_controller.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/camera_interface.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/cursor.gdc[39m[0m
+[  68% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/freelook_camera.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/orbit_camera.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/configs/gaussian_splatting_config.gdc[39m[0m
+[  69% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-a45ec5a2ce751e23e20e81dc3b7f48fa-high.res[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_constants.gdc[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_event_bus.gdc[39m[0m
+[  70% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_memory_monitor.gdc[39m[0m
+[  71% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_preloader.gdc[39m[0m
+[  71% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_state_machine.gdc[39m[0m
+[  71% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/gaussian_splat_import_plugin.gdc[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/gaussian_splat_resource.gdc[39m[0m
+[  72% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/gs_load_job.gdc[39m[0m
+[  73% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/ply_converter.gdc[39m[0m
+[  73% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/ply_document.gdc[39m[0m
+[  73% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/ply_file.gdc[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-f3aef18dc66670e3e51fe771bbf5ee42-gaussian_splatting_viewer.scn[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/gsplat_boundaries.glsl-cf1ae1fb39320cd9e6fb6676d9daeac9.res[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/shaders/compute/gsplat_boundaries.glsl.import[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/gsplat_projection.glsl-84e7178c208bbcc772913e6db2f3138e.res[39m[0m
+[  74% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/shaders/compute/gsplat_projection.glsl.import[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/gsplat_render.glsl-22da45813fe8e1c1d179751a7b4d7e14.res[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/shaders/compute/gsplat_render.glsl.import[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/radix_sort_downsweep.glsl-0938bbc7122b1d67ff4b8456c017418f.res[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/shaders/compute/radix_sort_downsweep.glsl.import[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/radix_sort_spine.glsl-027db5fa951c53d5cc88f8642fac673e.res[39m[0m
+[  75% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/shaders/compute/radix_sort_spine.glsl.import[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/radix_sort_upsweep.glsl-c42b2635e6760baba92fe05907253541.res[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/shaders/compute/radix_sort_upsweep.glsl.import[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/shaders/spatial/main.gdshader[39m[0m
+[  76% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/demo_ui_controller.gdc[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/DraggableContainer.gdc[39m[0m
+[  77% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/HistoryManager.gdc[39m[0m
+[  78% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/loading_bar.gdc[39m[0m
+[  78% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-a563aa2c6592de5e450737401f3c59b1-ObjectListItem.scn[39m[0m
+[  78% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/ProductionUI.gdc[39m[0m
+[  79% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-30157ab3624c6790cd8bad0adb78eb84-ProductionUI.scn[39m[0m
+[  79% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/SceneManagerPanel.gdc[39m[0m
+[  79% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-112d7ee2890a130632989ca6fe8d628e-SceneManagerPanel.scn[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gaussian_splat.gdc[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_rasterizer.gdc[39m[0m
+[  80% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gdc[39m[0m
+[  81% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gpu_pipeline_manager.gdc[39m[0m
+[  81% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gdc[39m[0m
+[  81% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gs_compositor_effect.gdc[39m[0m
+[  82% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/render_context.gdc[39m[0m
+[  82% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/splat_block_allocator.gdc[39m[0m
+[  82% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/types/point_cloud_resource.gdc[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/types/segment_data.gdc[39m[0m
+[  83% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/types/spatial_relationship.gdc[39m[0m
+[  84% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/AsyncPLYLoader.gdc[39m[0m
+[  84% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/ply_loader.gdc[39m[0m
+[  84% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/SpatialGraph.gdc[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/SpatialIndex.gdc[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/spatial_config.gdc[39m[0m
+[  85% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/spatial_pipeline.gdc[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/spatial_ply_job.gdc[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/spatial_processing_job.gdc[39m[0m
+[  86% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/scenes/debug/SpatialIndexDebug.gdc[39m[0m
+[  87% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-2c15e3895dd4118a8b905c801c74169c-SpatialIndexDebug.scn[39m[0m
+[  87% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/scenes/Foundation1Demo.gdc[39m[0m
+[  87% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-8312b64fb1f00cdaca0e9d92447ace0b-Foundation1Demo.scn[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/scenes/PointVisualizer.gdc[39m[0m
+[  88% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c3a5042f1e77838a04875d5bb7b2e26f-PointVisualizer.scn[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/compactor.glsl-6a7602cfc26fb88fe76a1806434159b2.res[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/shaders/compute/compactor.glsl.import[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/voxelizer.glsl-4cc1e0097d76442de116f93764a9669e.res[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/shaders/compute/voxelizer.glsl.import[39m[0m
+[  89% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-b0dc7dc313199c31c1ebfe325273a3c6-point_material.res[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/geometric_analysis.glsl-f2a7568ab4a6ef7406a87dc5ab8c9f76.res[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/shaders/geometric_analysis.glsl.import[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/graph_segmentation.glsl-e0122d16fb1915a0dc0dcfc7b51e5c81.res[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/shaders/graph_segmentation.glsl.import[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://.godot/imported/spatial_index.glsl-a5632b1443b4bf230147b467f0436874.res[39m[0m
+[  90% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/shaders/spatial_index.glsl.import[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/autoload/ActionController.gdc[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/autoload/SceneContext.gdc[39m[0m
+[  91% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/autoload/SpatialIntelligence.gdc[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/autoload/ViewportCapture.gdc[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/configs/ai_access_policy.gdc[39m[0m
+[  92% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/configs/SIConfig.gdc[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/ui/CognitivePanel.gdc[39m[0m
+[  93% ] [90m[1msavepack[22m | Storing File: res://.godot/exported/133200997/export-c9df661abff88aa76773971598c491ad-CognitivePanel.scn[39m[0m
+[  94% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/utils/LLMClient.gdc[39m[0m
+[  94% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/utils/NativeMLBridge.gdc[39m[0m
+[  94% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/bin/windows/release/build-receipt.json[39m[0m
+[  95% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/models/export-receipt.json[39m[0m
+[  95% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/models/manifest.json[39m[0m
+[  95% ] [90m[1msavepack[22m | Storing File: res://rust/spatial_ml/spatial_ml.gdextension[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://tests/core_checks.gdc[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://tests/gpu_checks.gdc[39m[0m
+[  96% ] [90m[1msavepack[22m | Storing File: res://tests/large_scene_checks.gdc[39m[0m
+[  97% ] [90m[1msavepack[22m | Storing File: res://tests/lifecycle_checks.gdc[39m[0m
+[  97% ] [90m[1msavepack[22m | Storing File: res://tests/migration_recovery_checks.gdc[39m[0m
+[  97% ] [90m[1msavepack[22m | Storing File: res://tests/native_inference_checks.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/provider_network_checks.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/real_scene_review.gdc[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/AdvancedFreeFlyCamera/Src/advanced_free_fly_startup.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/AdvancedFreeFlyCamera/advanced_free_fly_camera.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/advanced_control_camera3d/nodes/advanced_control_camera_3d.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/advanced_control_camera3d/advanced_control_camera3d_plugin.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/data/ImGuiRoot.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/scripts/ImGuiConfig.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/scripts/ImGuiFont.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/scripts/ImGuiPlugin.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/imgui-godot/scripts/ImGuiRoot.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/resources/MoonRender.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/resources/SNoise.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/assets/resources/SunMoonLightFade.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/DateTimeUtil.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/OrbitalElements.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/Plugin.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/ScatterLib.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/Sky3D.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/Skydome.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/TimeOfDay.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/sky_3d/src/TOD_Math.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/autoload/camera_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/resources/camera_profile.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scenes/camera_button.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scenes/camera_selector_ui.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scripts/camera_button.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scripts/camera_registrar.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scripts/camera_registration_helper.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/scripts/camera_selector_ui.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/smart_camera_switcher/plugin.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/plugin.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://addons/virtual_joystick/virtual_joystick.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://assets/materials/material_basic_blue.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://assets/materials/material_basic_orange.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://main.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/visual_review.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/spatial_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/spatial_async_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/script_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/rendering_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/camera_controller.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/camera_interface.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/cursor.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/freelook_camera.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/cameras/orbit_camera.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/configs/gaussian_splatting_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/configs/high.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_constants.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_event_bus.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_memory_monitor.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_preloader.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/core/gs_state_machine.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/gaussian_splat_import_plugin.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/gaussian_splat_resource.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/gs_load_job.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/ply_converter.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/ply_document.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/loaders/ply_file.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/scenes/gaussian_splatting_viewer.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/demo_ui_controller.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/DraggableContainer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/HistoryManager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/loading_bar.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/ObjectListItem.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/ProductionUI.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/ProductionUI.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/SceneManagerPanel.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/UI/SceneManagerPanel.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gaussian_splat.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_rasterizer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gpu_pipeline_manager.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/gs_compositor_effect.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/render_context.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/gaussian_splatting/utils/scripts/splat_block_allocator.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/types/point_cloud_resource.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/types/segment_data.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/types/spatial_relationship.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/AsyncPLYLoader.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/ply_loader.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/SpatialGraph.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/SpatialIndex.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/spatial_config.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/spatial_pipeline.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/spatial_ply_job.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/core/spatial_processing_job.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/scenes/debug/SpatialIndexDebug.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/scenes/debug/SpatialIndexDebug.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/scenes/Foundation1Demo.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/scenes/Foundation1Demo.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/scenes/PointVisualizer.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/scenes/PointVisualizer.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/SpatialOS/shaders/visual/point_material.tres.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/autoload/ActionController.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/autoload/SceneContext.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/autoload/SpatialIntelligence.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/autoload/ViewportCapture.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/configs/ai_access_policy.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/configs/SIConfig.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/ui/CognitivePanel.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/ui/CognitivePanel.tscn.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/utils/LLMClient.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://modules/spatial_intelligence/utils/NativeMLBridge.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/core_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/gpu_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/large_scene_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/lifecycle_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/migration_recovery_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/native_inference_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/provider_network_checks.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://tests/real_scene_review.gd.remap[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/global_script_class_cache.cfg[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://icon.svg[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/uid_cache.bin[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://.godot/extension_list.cfg[39m[0m
+[  98% ] [90m[1msavepack[22m | Storing File: res://project.binary[39m[0m
+[92m[ DONE ][39m [1msavepack[22m
+[0m
+Failed to bind socket. Error: 3.
+Script docs haven't been properly loaded or regenerated, so don't save them to disk.
+EditorSettings: Save OK!
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Orphan StringName: Node (static: 8, total: 9)
+StringName: 1 unclaimed string names at exit.
+WARNING: PDB file 'C:/Users/User/AppData/Local/Temp/gs-checks-tgk1htm4/addons/imgui-godot/bin/libimgui-godot-native.windows.debug.x86_64.pdb' for library 'C:/Users/User/AppData/Local/Temp/gs-checks-tgk1htm4/addons/imgui-godot/bin/~libimgui-godot-native.windows.debug.x86_64.dll' was not found, skipping copy/rename.
+   at: copy_and_rename_pdb (platform/windows/windows_utils.cpp:160)

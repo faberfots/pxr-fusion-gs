@@ -1,7 +1,5 @@
-# Approved model artifacts
+# Verified MobileSAM artifacts
 
-This directory has no model weights. Supply an approved encoder and decoder with trusted SHA-256 values and record their origin, export settings and redistribution terms.
+`manifest.json` owns artifact paths and trusted SHA-256 values. The encoder and decoder were exported from official MobileSAM revision `f706ad9c4eb7f219c00d9050e46328518ffb65d2`, using its official checkpoint. `export-receipt.json` records source hashes, export options and environment. Apache 2.0 license text is included.
 
-The supported decoder contract follows the [official MobileSAM ONNX exporter](https://github.com/ChaoningZhang/MobileSAM/blob/master/scripts/export_onnx_model.py). A compatible encoder must be exported separately from the matching checkpoint. Arbitrary third-party conversions may use different preprocessing or input/output names.
-
-Use the verified extraction helper described in [the native setup guide](../README.md). A successful preprocessing unit test is not proof of model inference quality.
+Reproduce or repair the artifacts with `python tools/setup_native_ml.py` from the repository root. Add `--build` to install the native extension after verification. Runtime DLLs and generated native builds are ignored by Git. See the [native setup guide](../README.md) for the contract and qualified boundaries.

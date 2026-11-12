@@ -1,0 +1,66 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+Visualizer: Ready and awaiting point cloud data
+Visualizer: Preparing for progressive rendering (2000000 estimated points)
+Visualizer: Clearing visualization
+Visualizer: Progressive rendering ready (pre-allocated 2000000 instances)
+SpatialOS: Bounds: (0.0, 0.0, 0.0) to (19.99, 9.99, 0.0)
+SpatialOS: Direct rendering complete - 2000000 points preserved
+SpatialIndex: Building GPU index for 2000000 points...
+SpatialIndex: Build complete in 32.05 ms
+PASS multi-million-point async ingest completes
+PASS full spatial source population and colors preserved
+PASS published spatial index is queryable without worker GPU ownership
+Visualizer: Received 2000000 points (direct mode)
+Visualizer: Reusing existing MultiMesh (same point count)
+Visualizer: Building scene with transforms and colors...
+Visualizer: Render complete (2000000 instances, RGB mode)
+PASS full final visualization completes
+PASS UI heartbeat remains responsive through loading, processing and visualization
+SPATIAL ASYNC TIMING ms 43577 frames 3490 max_gap_ms 98 chunks 489
+PASS large worker operation can start after visualization
+PASS cancelling worker processing preserves the previously completed geometry
+Visualizer: Preparing for progressive rendering (1 estimated points)
+Visualizer: Clearing visualization
+Visualizer: Progressive rendering ready (pre-allocated 1 instances)
+SpatialOS: Bounds: (-1.0, -2.0, 3.0) to (-1.0, -2.0, 3.0)
+SpatialOS: Direct rendering complete - 1 points preserved
+SpatialIndex: Building GPU index for 1 points...
+SpatialIndex: Build complete in 6.20 ms
+PASS progressive Gaussian coordinates match the final resource exactly once
+SpatialIndex: Building GPU index for 100 points...
+SpatialIndex: Build complete in 6.70 ms
+SpatialGraph: Starting GPU connectivity analysis...
+SpatialGraph: Auto-calculated radius = 0.026m
+SpatialGraph: Converged after 1 iterations
+SpatialGraph: GPU segmentation complete. Found 0 objects in 0.02 s (1 iterations)
+SpatialGraph: Computing segment metadata...
+SpatialGraph: Computed metadata for 0 segments
+SpatialGraph: No segments to infer relationships from
+PASS worker graph analysis commits derived labels
+SpatialIndex: Building GPU index for 100 points...
+SpatialIndex: Build complete in 6.24 ms
+SpatialGraph: Starting Geometric Analysis (Normals + Curvature)...
+SpatialGraph: Geometric Analysis Complete. Processed 100 points in 0.11 s
+PASS worker geometry analysis preserves existing segment labels
+PASS manual flip starts through the spatial worker
+SpatialIndex: Building GPU index for 100 points...
+SpatialIndex: Build complete in 7.28 ms
+PASS manual flip preserves points and rebuilds a queryable index
+PASS worker flip cannot mutate the original authoritative geometry
+SpatialIndex: Building GPU index for 100 points...
+SpatialIndex: Build complete in 6.90 ms
+SpatialGraph: Starting GPU connectivity analysis...
+SpatialGraph: Auto-calculated radius = 0.026m
+SpatialGraph: Multi-modal edge segmentation enabled (normals + colors + curvature)
+SpatialGraph: Converged after 1 iterations
+SpatialGraph: GPU segmentation complete. Found 0 objects in 0.00 s (1 iterations)
+SpatialGraph: Computing segment metadata...
+SpatialGraph: Computed metadata for 0 segments
+SpatialGraph: No segments to infer relationships from
+PASS stale worker graph result cannot overwrite newer geometry
+Visualizer: Clearing visualization
+Visualizer: Cleaned up resources
+SPATIAL ASYNC COMPLETE: 0 failures

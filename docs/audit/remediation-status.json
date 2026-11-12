@@ -5,7 +5,7 @@
     "partially implemented",
     "not yet implemented"
   ],
-  "qualification": "Fully implemented means the finding is addressed in the defined desktop contract and its relevant local checks pass. It does not claim universal platform support or zero regressions. Partially implemented findings list the exact remaining capability, external dependency or qualification gap. No live cloud requests were made. RBAC is a local session capability policy; multi-user authentication is outside this desktop application.",
+  "qualification": "Fully implemented means the finding is addressed and its relevant checks pass in the qualified desktop contract. Native ML is qualified for Windows x86_64 CPU. This does not claim universal platform support, calibrated ML accuracy or zero regressions. Partially implemented findings identify exact missing capabilities, external dependencies or qualification gaps. Provider HTTP transport is tested using a localhost synthetic server; no authenticated vendor requests were made. RBAC is a local session capability policy, with no multi-user authentication.",
   "findings": [
     {
       "id": "P.1.1",
@@ -21,7 +21,7 @@
         "Default-denied policy and credential-source inspection"
       ],
       "remaining": [
-        "The previously exposed key still requires provider-account revocation."
+        "User confirmed that the previously exposed provider key has not yet been revoked. Provider-account revocation is still required."
       ]
     },
     {
@@ -180,16 +180,17 @@
       "section": "GPU configuration, capacity and sorting",
       "priority": "P1",
       "title": "Configuration transactions",
-      "status": "partially implemented",
+      "status": "fully implemented",
       "changes": [
-        "Configuration snapshots isolate GPU layout; invalid settings roll back; populated-scene structural changes are rejected safely"
+        "Populated GPU layout changes queue behind loading, preflight all residency, checkpoint with async chunked readback and per-model SHA-256, verify before release, then restore within the memory budget.",
+        "Stable model IDs, independent Transform3D, visibility and selection survive migration; deletions, queued registrations and clear are handled. Progress is visible; initialization failures roll back to the previous layout."
       ],
       "verification": [
-        "lifecycle_checks: attempted tile change preserves settings and loaded model"
+        "lifecycle_checks and rendering_checks: populated migration preserves identity/pose/selection/pixel output; subsequent model movement remains live.",
+        "migration_recovery_checks: queued changes, 40,000-splat multi-chunk restore, injected replacement failure/rollback, insufficient capacity rejection and deletion/ID compaction pass.",
+        "Actual Bali + Suzuki: all 7,959,786 splats retained, no downsampling, 16.809-second migration, preserved transforms/palette and visually inspected output."
       ],
-      "remaining": [
-        "Seamless migration of a populated atlas to a new GPU layout is not implemented; empty the scene before structural changes."
-      ]
+      "remaining": []
     },
     {
       "id": "P.2.3",
@@ -402,14 +403,15 @@
       "status": "partially implemented",
       "changes": [
         "PRE_TRANSPARENT compositor uses resolved opaque depth with inverse camera projection",
-        "The demo reference grid draws before Gaussian presentation without writing opaque depth; ordinary opaque geometry retains depth occlusion."
+        "The demo reference grid draws before Gaussian presentation without writing opaque depth; ordinary opaque geometry retains depth occlusion.",
+        "Renderer capability metadata is the SSOT used by scene/LLM context; unsupported multiview fails explicitly instead of silently returning a blank frame."
       ],
       "verification": [
         "rendering_checks: opaque green mesh hides Gaussian; perspective and orthographic projection pass",
         "Grid occlusion regression fails before and passes after; opaque-mesh and orthographic checks still pass."
       ],
       "remaining": [
-        "Arbitrary transparent-mesh interleaving, Gaussian shadow casting and XR multiview are not implemented."
+        "Correct interleaving with arbitrary transparent meshes, Gaussian shadow casting and XR multiview are not implemented. Mono opaque-depth rendering remains qualified; no headset is currently available (confirmed by user)."
       ]
     },
     {
@@ -703,13 +705,13 @@
       "title": "Provider request lifecycle",
       "status": "partially implemented",
       "changes": [
-        "Request timeout/body limits, immediate-error handling, immutable provider/model snapshot, cancellation generations and validated multi-tool parsing"
+        "One HTTP factory owns timeout/body/redirect policy; immutable request snapshots, generation-based cancellation, role/consent enforcement and quiet malformed-JSON handling preserve the provider lifecycle."
       ],
       "verification": [
-        "Provider response fixtures and script qualification"
+        "Provider fixtures and ten actual Godot HTTPRequest checks against a localhost synthetic server: all three formats, HTTP 401, malformed/oversized bodies, redirects, timeout, cancellation and withdrawn consent. No scene data or vendor credentials transmitted."
       ],
       "remaining": [
-        "Live provider/network behavior is not qualified: no requests were sent and no provider credentials were used."
+        "Authenticated requests to the real provider endpoints remain unqualified: no usable provider credentials are available."
       ]
     },
     {
@@ -913,16 +915,16 @@
       "section": "SpatialOS and native ML",
       "priority": "P2",
       "title": "Progressive visualization",
-      "status": "partially implemented",
+      "status": "fully implemented",
       "changes": [
-        "Prepare progressive MultiMesh before chunks; bound chunks, yield during final instance population and clear retained progressive arrays"
+        "Spatial preparation, voxelization, prefix/index and graph/geometry analysis use a private cancellable worker-owned RenderingDevice; no device/RID crosses into published resources.",
+        "CPU spatial queries survive worker teardown; progressive/final coordinates use the same source basis exactly once; final population and color refresh yield and cancel safely. Geometry revisions prevent stale analysis commits."
       ],
       "verification": [
-        "Core async tests and visualization source review"
+        "spatial_async_checks: full 2,000,000-point ingest/visualization, 489 progressive chunks, 43.577 seconds locally, 3,490 UI frames, maximum observed frame gap 98 ms; no missing points/colors.",
+        "Worker cancellation, detached CPU queries, Gaussian source-basis consistency, graph labels, geometry-label preservation, manual flip without original mutation and stale-result rejection pass. Existing spatial suite also passes."
       ],
-      "remaining": [
-        "Some geometry preparation, dense-grid prefix scanning and analysis still run on the main thread; multi-million-point responsiveness is not qualified."
-      ]
+      "remaining": []
     },
     {
       "id": "P.6.12",
@@ -960,16 +962,16 @@
       "section": "SpatialOS and native ML",
       "priority": "P2",
       "title": "Optional native ML delivery",
-      "status": "partially implemented",
+      "status": "fully implemented",
       "changes": [
-        "Pinned Rust build, optimized Windows DLL, safe opt-in installer/descriptor, nonreloadable native registration and verified model extraction helper"
+        "Reproducible Windows x86_64 CPU delivery: pinned official MobileSAM source/checkpoint, matching encoder/decoder ONNX exports, SHA-256 manifest, export receipt and retained Apache 2.0 license.",
+        "Verified official ONNX Runtime archive; versioned native 0.3.0 build/descriptor; GDScript bridge verifies/materializes artifacts and passes explicit runtime paths. Runtime telemetry disabled; no startup inference or environment mutation."
       ],
       "verification": [
-        "cargo check/build/test; Godot registers class and reports not ready without models; fresh import passes"
+        "Actual release build and Rust tests pass; setup tool verifies existing artifacts/runtime archive.",
+        "Native GDScript and source-free PCK tests initialize the real models/runtime and execute image-dependent inference."
       ],
-      "remaining": [
-        "User confirmed no approved MobileSAM model files or ONNX Runtime artifacts; full native delivery and other platforms remain unqualified."
-      ]
+      "remaining": []
     },
     {
       "id": "P.6.15",
@@ -977,16 +979,15 @@
       "section": "SpatialOS and native ML",
       "priority": "P1",
       "title": "Actual image inference",
-      "status": "partially implemented",
+      "status": "fully implemented",
       "changes": [
-        "Actual RGB resize/normalization/padding, complete decoder inputs, prompt/shape validation and best-mask selection; missing runtime fails explicitly"
+        "Actual RGB resize/normalization/padding, complete prompt-decoder inputs, validation, original-size output and best-mask selection operate with real official model exports."
       ],
       "verification": [
-        "Two native preprocessing tests pass; optimized crate builds and Godot class registration passes"
+        "Two Rust preprocessing tests pass. Actual GDScript encoder/decoder on the deterministic 640x384 two-object RGB fixture: mask IoU 0.99029946188557 (>0.95), original dimensions restored, different prompts select distinct objects.",
+        "The same inference checks pass using the source-free PCK and external versioned native DLL. This is functional fixture qualification, not a universal quality benchmark."
       ],
-      "remaining": [
-        "No approved models/runtime are available, so end-to-end inference and mask quality cannot be validated."
-      ]
+      "remaining": []
     },
     {
       "id": "P.7.1",
@@ -1011,14 +1012,16 @@
       "title": "Regression and release qualification",
       "status": "partially implemented",
       "changes": [
-        "Isolated CPU/GPU/lifecycle/rendering/spatial suites, serial-import workaround, status consistency check, export preset and CI workflow"
+        "Created a private GitHub repository with a sanitized qualified Bali baseline and remediation commits; source secret/size scan passes.",
+        "Isolated Godot CPU/GPU/lifecycle/rendering/migration/SpatialOS/native/network suites; CI for Linux software Vulkan and Windows native build/inference; unsigned source-free development packaging helper includes external DLLs, notices and a hash receipt."
       ],
       "verification": [
-        "Local suites pass; fresh imported candidate and PCK checks pass"
+        "Local native, source-free GPU/native inference and Windows rendering checks pass; full Bali + Suzuki and 2-million-point SpatialOS performance observations recorded.",
+        "GitHub repository: https://github.com/faberfots/pxr-fusion-gs ; remote CI qualification in progress."
       ],
       "remaining": [
-        "Remote CI has not run; no existing Git history/remote or export templates were provided; release signing, other platforms and large-scene performance remain unqualified.",
-        "Headless export intermittently reports two renderer RID/ObjectDB allocations at editor shutdown; this was absent in the later verbose run and remains an unresolved release-qualification warning."
+        "Remote CI final result pending; optimized export-template release executables, Windows signing identity and other real GPU/OS combinations remain unqualified.",
+        "Headless editor export still reports two renderer RID/ObjectDB allocations at shutdown; exported source-free inference/GPU checks pass, but the editor teardown warning remains unresolved."
       ]
     },
     {
@@ -1029,13 +1032,14 @@
       "title": "Implementation and provenance inventory",
       "status": "partially implemented",
       "changes": [
-        "Current implementation guide and README, archived stale source/README, explicit capability boundaries and dependency evidence inventory"
+        "Implementation/status/evidence inventory updated; MIT licenses for both POLYGONICS camera add-ons recorded from user confirmation.",
+        "Recovered primary licenses for imgui-godot, VirtualJoystick and Source Code Pro; Poco author attribution retained. Pinned MobileSAM/runtime provenance and a 50-package Rust dependency license inventory added. Local datasets excluded from source publication/export."
       ],
       "verification": [
-        "Status generator verifies all 66 unique IDs; source inventory and local evidence retained"
+        "All 66 unique finding IDs generated from one JSON source. Artifact/source hashes and owner confirmation preserved; every Cargo metadata package has a declared license."
       ],
       "remaining": [
-        "Third-party upstream versions, missing license/provenance evidence and dataset/model redistribution rights require owner/source confirmation."
+        "User does not remember the original source/license for remaining logos/icons/images/video and Bali/Suzuki datasets. Exact historical provenance for some bundled add-ons/binaries is unavailable. These rights/provenance gaps cannot be asserted closed."
       ]
     }
   ]

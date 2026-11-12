@@ -301,6 +301,14 @@
         "files": 0,
         "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
+    },
+    {
+      "component": "Project artwork and intro video",
+      "path": "assets/{icons,images,logo,video}",
+      "status": "Original source/license not remembered by user; ownership and redistribution evidence unresolved",
+      "evidence": [
+        "docs/provenance/owner-confirmation.json"
+      ]
     }
   ]
 }

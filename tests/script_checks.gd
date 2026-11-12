@@ -2,6 +2,7 @@ extends SceneTree
 var invalid: Array[String] = []
 func _initialize() -> void:
 	scan("res://modules")
+	scan("res://tests")
 	print("SCRIPT CHECKS COMPLETE: ", invalid.size(), " invalid scripts")
 	quit(0 if invalid.is_empty() else 1)
 func scan(folder: String) -> void:

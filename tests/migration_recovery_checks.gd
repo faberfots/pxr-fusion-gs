@@ -25,13 +25,17 @@ func bytes_for(viewer:GaussianSplattingViewer,node:GaussianSplat)->PackedByteArr
 	return viewer.rasterizer._sync(func():return viewer.rasterizer.context.device.buffer_get_data(viewer.rasterizer.descriptors.splats.rid,node.buffer_offset,node.splat_count*240))
 func run()->void:
 	var viewer:=RecoveringViewer.new()
-	viewer.config=GaussianSplattingConfig.create_default();viewer.config.memory_max_vram_budget_mb=32
+	viewer.config=GaussianSplattingConfig.create_default()
+	# Keep the same fixture capacity when the test window is larger than 64x64.
+	viewer.config.memory_max_vram_budget_mb=32+ceili(root.size.x*root.size.y*16.0/0.8/1048576.0)
 	root.add_child(viewer)
 	var a:=viewer.load_new_splat_from_path(Checks.fixture("user://migration-a.ply",7))
 	var b:=viewer.load_new_splat_from_path(Checks.fixture("user://migration-b.ply",40000))
 	viewer.config.tile_size=8
 	await settle(viewer)
 	check(a.is_loaded and b.is_loaded and viewer.config.tile_size==8,"configuration requested during loading applies after the full batch")
+	if not a.is_loaded or not b.is_loaded:
+		viewer.free();quit(1);return
 	viewer.select_model_id(b.model_id)
 	var original:=bytes_for(viewer,b)
 	var signature:=viewer.config.gpu_signature()

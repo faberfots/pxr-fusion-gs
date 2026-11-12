@@ -2,9 +2,6 @@ name: Godot qualification
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
-concurrency:
-  group: qualification-${{ github.ref }}
-  cancel-in-progress: true
 jobs:
   desktop:
     runs-on: ubuntu-latest
@@ -37,6 +34,8 @@ jobs:
           for suite in gpu_checks lifecycle_checks rendering_checks migration_recovery_checks spatial_checks; do
             xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --gpu --timeout 300 --script "res://tests/$suite.gd"
           done
+          python tools/make_spatial_fixture.py /tmp/spatial-ci.ply --count 40000
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --gpu --script res://tests/spatial_async_checks.gd --test-arg /tmp/spatial-ci.ply --test-arg 40000
       - name: Upload qualification logs
         if: always()
         uses: actions/upload-artifact@v4

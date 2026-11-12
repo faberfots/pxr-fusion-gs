@@ -1,0 +1,15 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS openai response through actual HTTPRequest transport
+PASS anthropic response through actual HTTPRequest transport
+PASS google response through actual HTTPRequest transport
+PASS unauthorized fails truthfully and releases busy state
+PASS malformed fails truthfully and releases busy state
+PASS oversized fails truthfully and releases busy state
+PASS redirect fails truthfully and releases busy state
+PASS network timeout releases request lifecycle
+PASS cancelled response cannot overwrite the next request
+PASS withdrawn consent prevents response delivery
+PROVIDER NETWORK COMPLETE: 0 failures
+ 

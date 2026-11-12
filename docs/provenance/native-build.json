@@ -1,0 +1,11 @@
+{
+  "native_version": "0.3.0",
+  "platform": "windows.x86_64",
+  "configuration": "release",
+  "sha256": "d54d9b23940fa736e3ed267184d5058d2a0dc90ff89099a0059cc558c9f3c54f",
+  "cargo_lock_sha256": "0f32dbec0c4aa4b1b64c3e5b143112b3d1d48b631e1682bd2aff36811fc77505",
+  "source_sha256": {
+    "rust/spatial_ml/src/lib.rs": "2f4f2fae73118656681d7207c961cb504f45de0476bc5798a4142ba049065291",
+    "rust/spatial_ml/src/mobile_sam.rs": "6a6aea3ff7b07ad16e427b11df97748ffbe69f89893d5888f7a8689c4453b628"
+  }
+}

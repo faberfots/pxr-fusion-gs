@@ -6,5 +6,16 @@
     "addons/AdvancedFreeFlyCamera"
   ],
   "license": "MIT",
-  "author_attribution_source": "plugin.cfg: POLYGONICS SAS"
+  "author_attribution_source": "plugin.cfg: POLYGONICS SAS",
+  "unresolved_assets": {
+    "paths": [
+      "assets/icons",
+      "assets/images",
+      "assets/logo",
+      "assets/video",
+      "resources"
+    ],
+    "owner_response": "User does not remember the original sources/licenses.",
+    "distribution": "Local datasets excluded from source publication and export; existing application assets retained to preserve working UI. No assertion of third-party rights clearance."
+  }
 }

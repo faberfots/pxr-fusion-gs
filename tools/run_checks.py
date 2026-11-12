@@ -10,6 +10,7 @@ parser.add_argument('--candidate', type=Path)
 parser.add_argument('--skip-import', action='store_true')
 parser.add_argument('--script', default='res://tests/core_checks.gd')
 parser.add_argument('--timeout', type=int, default=180)
+parser.add_argument('--test-arg', action='append', default=[])
 args = parser.parse_args()
 candidate = args.candidate or Path(tempfile.mkdtemp(prefix='gs-checks-'))
 for directory in ('modules', 'addons', 'assets', 'tests'):
@@ -50,4 +51,4 @@ code = run(['--headless', '--script', 'res://tests/script_checks.gd'], 60)
 if code:
     sys.exit(code)
 flags = ['--rendering-method', 'forward_plus', '--rendering-driver', 'vulkan', '--resolution', '64x64', '--position', '-32000,-32000'] if args.gpu else ['--headless']
-sys.exit(run(flags + ['--script', args.script], args.timeout))
+sys.exit(run(flags + ['--script', args.script] + (['--'] + args.test_arg if args.test_arg else []), args.timeout))
