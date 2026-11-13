@@ -17,6 +17,8 @@ enum QualityPreset {
 #endregion
 
 #region Post-Processing (Visuals)
+const COLOR_FIELDS := ["post_exposure","post_contrast","post_saturation","post_temperature","post_black_point","post_white_point","post_sharpness","post_tint"]
+@export_storage var color_settings_edited := false
 @export_group("Post-Processing", "post_")
 
 ## Adjusts the overall brightness of the scene.
@@ -285,7 +287,7 @@ var max_file_size_mb: float = 0.0
 ## Current quality preset being used
 var _applying_preset := false
 
-var current_preset : QualityPreset = QualityPreset.CUSTOM
+@export_storage var current_preset : QualityPreset = QualityPreset.CUSTOM
 
 ## Whether config has been modified since last save
 var is_dirty : bool = false
@@ -297,6 +299,9 @@ signal config_changed
 #region Preset Management
 ## Apply a quality preset to all parameters
 func apply_preset(preset : QualityPreset) -> void:
+	var colors:Dictionary={}
+	if color_settings_edited:
+		for field in COLOR_FIELDS:colors[field]=get(field)
 	_applying_preset = true
 	match preset:
 		QualityPreset.LOW:
@@ -310,6 +315,7 @@ func apply_preset(preset : QualityPreset) -> void:
 		QualityPreset.CUSTOM:
 			pass # Keep current values
 	
+	for field in colors:set(field,colors[field])
 	_applying_preset = false
 	current_preset = preset
 	is_dirty = true

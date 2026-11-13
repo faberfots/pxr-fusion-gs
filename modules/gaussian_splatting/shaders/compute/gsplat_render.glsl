@@ -37,6 +37,7 @@ void main() {
 	vec3 color=vec3(0);
 	vec3 hit=vec3(0);
 	float best_weight=0.0;
+	float best_instance=0.0;
 	for(uint offset=range.x;offset<range.y;offset+=CHUNK) {
 		uint length=min(CHUNK,range.y-offset);
 		for(uint i=lane;i<length;i+=gl_WorkGroupSize.x*gl_WorkGroupSize.y) shared_splats[i]=splats[values[offset+i]];
@@ -51,8 +52,8 @@ void main() {
 				float alpha=min(0.999,splat.color.a*exp(power));
 				if(alpha<1.0/255.0) continue;
 				float weight=alpha*transmittance;
-				color+=mix(splat.color.rgb,vec3(0.1,0.6,1.0),splat.extra.y*0.25)*weight;
-				if(weight>best_weight) { best_weight=weight; hit=splat.world_depth.xyz; }
+				color+=splat.color.rgb*weight;
+				if(weight>best_weight) { best_weight=weight; hit=splat.world_depth.xyz; best_instance=splat.extra.z; }
 				transmittance*=1.0-alpha;
 			}
 		}
@@ -67,6 +68,6 @@ void main() {
 		float alpha=1.0-transmittance;
 		if(time_options.y>0.0) color+=mix(vec3(0,0,1),vec3(1,0.2,0.2),clamp(float(range.y-range.x)*0.0005,0.0,1.0))*alpha*time_options.y;
 		imageStore(output_image,ivec2(pixel),vec4(color,alpha));
-		if(all(equal(pixel,target.xy))) picked=vec4(hit,best_weight>0.0?1.0:0.0);
+		if(all(equal(pixel,target.xy))) picked=vec4(hit,best_weight>0.0?best_instance:0.0);
 	}
 }

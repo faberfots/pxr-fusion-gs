@@ -32,7 +32,7 @@ jobs:
         run: |
           export VK_ICD_FILENAMES="$(find /usr/share/vulkan/icd.d -iname '*lvp*' | head -1)"
           test -n "$VK_ICD_FILENAMES"
-          for suite in gpu_checks lifecycle_checks rendering_checks migration_recovery_checks spatial_checks; do
+          for suite in gpu_checks lifecycle_checks rendering_checks migration_recovery_checks spatial_checks selection_color_checks color_transform_checks; do
             xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --timeout 300 --script "res://tests/$suite.gd"
           done
           python tools/make_spatial_fixture.py /tmp/spatial-ci.ply --count 40000

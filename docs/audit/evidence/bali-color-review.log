@@ -1,0 +1,16 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (-2.41283, 0.128358, 1.386286)
+[CameraController] Camera transform set to: (-2.41283, 0.128358, 1.386286)
+FULL BALI AND SUZUKI true count 7959786 load_ms 73078
+SELECTED BALI COLOR DRIFT 0.00000004856326 acceptable true
+BALI COLOR STATS { "viewer_state": "RENDERING", "is_loading": false, "is_rendering": true, "loaded_file": "2 models", "fps": 8.0, "frame_count": 38202, "total_splats": 7959786, "splats_loaded": 7959786, "scene_mode": "ENVIRONMENT_MODE", "total": 3435973244, "tracked": 3435973244, "peak": 3435973244, "resource_count": 31, "pipeline_stats": { "total": 6, "valid": 6, "dirty": 0, "uninitialized": 0, "error": 0 }, "tile_splat_pairs": 12807049, "sort_overflow": false, "splats_rendered_frame": 2155146, "texture_size": (1908, 960), "tile_dims": (120, 60), "atlas_capacity": 8431880, "pair_capacity": 33727520, "gpu_budget_bytes": 4294967296, "camera": { "has_camera": true, "is_moving": false, "mode": "Idle", "position": (-2.41283, 0.128358, 1.386286), "rotation_degrees": (0.0, 0.0, 0.0), "velocity": (0.0, 0.0, 0.0), "fov": 75.0 } }
+BALI COLOR COMPLETE true
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

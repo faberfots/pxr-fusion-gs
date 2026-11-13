@@ -5,6 +5,7 @@ extends Resource
 signal loaded
 signal frame_failed(message: String, code: int)
 signal pick_completed(request_id: int, world_position: Vector3)
+signal model_pick_completed(request_id:int,instance_id:int,world_position:Vector3)
 var config: GaussianSplattingConfig
 var compute_shader_path := "res://modules/gaussian_splatting/shaders/compute"
 var context: RenderingContext
@@ -46,6 +47,7 @@ var _last_readback_ms := 0
 var _generation := 0
 var _pick_request := Vector3i(-1, -1, 0)
 var _pick_inflight := false
+var _pick_epoch := 0
 var _depth_rid := RID()
 var _sampler := RID()
 var _reported_overflow := false
@@ -312,6 +314,7 @@ func render_on_render_thread(depth: RID = RID(), scene_depth_enabled: bool = fal
 	_mutex.lock()
 	var snapshot := _snapshot.duplicate()
 	var pick := _pick_request
+	var pick_epoch:=_pick_epoch
 	_mutex.unlock()
 	if snapshot.is_empty() or (not snapshot.get("enabled", false) and pick.z <= 0):
 		return
@@ -369,7 +372,7 @@ func render_on_render_thread(depth: RID = RID(), scene_depth_enabled: bool = fal
 	if pick.z > 0 and not _pick_inflight:
 		_pick_inflight = true
 		var generation := _generation
-		var result := rd.buffer_get_data_async(descriptors.tile_splat_pos.rid, _receive_pick.bind(generation, pick.z), 0, 16)
+		var result := rd.buffer_get_data_async(descriptors.tile_splat_pos.rid, _receive_pick.bind(generation, pick.z,pick_epoch), 0, 16)
 		if result != OK:
 			_pick_inflight = false
 
@@ -390,18 +393,27 @@ func _receive_stats(bytes: PackedByteArray, generation: int) -> void:
 		_reported_overflow = true
 		call_deferred("emit_signal", "frame_failed", "Gaussian footprints exceeded the reserved tile-pair capacity. The last complete frame was preserved.", ERR_OUT_OF_MEMORY)
 
-func _receive_pick(bytes: PackedByteArray, generation: int, request_id: int) -> void:
+func _receive_pick(bytes: PackedByteArray, generation: int, request_id: int,epoch:int) -> void:
 	if generation != _generation:
 		return
 	_pick_inflight = false
 	_mutex.lock()
-	if _pick_request.z == request_id:
-		_pick_request = Vector3i(-1, -1, 0)
+	if _pick_request.z != request_id or epoch!=_pick_epoch:
+		_mutex.unlock()
+		return
+	_pick_request = Vector3i(-1, -1, 0)
 	_mutex.unlock()
 	var position := Vector3.INF
+	var instance_id:=0
 	if bytes.size() >= 16 and bytes.decode_float(12) > 0.5:
 		position = Vector3(bytes.decode_float(0), bytes.decode_float(4), bytes.decode_float(8))
-	call_deferred("emit_signal", "pick_completed", request_id, position)
+		instance_id=int(round(bytes.decode_float(12)))
+	call_deferred("_deliver_pick",generation,epoch,request_id,instance_id,position)
+
+func _deliver_pick(generation:int,epoch:int,request_id:int,instance_id:int,position:Vector3)->void:
+	if generation!=_generation or epoch!=_pick_epoch:return
+	model_pick_completed.emit(request_id,instance_id,position)
+	pick_completed.emit(request_id,position)
 
 func request_pick(screen_position: Vector2, request_id: int) -> void:
 	var pixel := Vector2i(screen_position * float(render_scale[0]))
@@ -409,7 +421,14 @@ func request_pick(screen_position: Vector2, request_id: int) -> void:
 		pick_completed.emit(request_id, Vector3.INF)
 		return
 	_mutex.lock()
+	_pick_epoch+=1
 	_pick_request = Vector3i(pixel.x, pixel.y, request_id)
+	_mutex.unlock()
+
+func cancel_pick()->void:
+	_mutex.lock()
+	_pick_epoch+=1
+	_pick_request=Vector3i(-1,-1,0)
 	_mutex.unlock()
 
 func get_splat_position(_screen_position: Vector2i) -> Vector3:

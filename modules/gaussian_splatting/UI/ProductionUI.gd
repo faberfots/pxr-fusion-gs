@@ -29,6 +29,8 @@ var _migration_quality_disabled := false
 var _dialog_open := false
 var scene_manager_panel: SceneManagerPanel = null
 var cognitive_panel: CognitivePanel = null # [NEW] The Neural HUD
+var color_panel:GSColorAdjustmentPanel
+var transform_controls:GSModelTransformControls
 
 #endregion
 
@@ -41,6 +43,24 @@ func _ready() -> void:
 	
 	_connect_signals()
 	_initialize_ui_state()
+	color_panel=GSColorAdjustmentPanel.new();color_panel.viewer=viewer;add_child(color_panel)
+	var color_button:=Button.new();color_button.text="Color";color_button.tooltip_text="Color presets and image adjustments"
+	color_button.add_theme_font_override("font",scene_manager_button.get_theme_font("font"))
+	color_button.add_theme_font_size_override("font_size",scene_manager_button.get_theme_font_size("font_size"))
+	%SceneManagerButton.get_parent().add_child(color_button)
+	color_button.pressed.connect(func():
+		if color_panel.visible:color_panel.hide_panel()
+		else:color_panel.show_panel()
+	)
+	transform_controls=GSModelTransformControls.new();transform_controls.viewer=viewer;add_child(transform_controls)
+	get_viewport().size_changed.connect(_layout_top_bar)
+	_layout_top_bar.call_deferred()
+
+func _layout_top_bar()->void:
+	var controls:Control=%MainControls
+	controls.anchor_left=1.0;controls.anchor_right=1.0
+	controls.offset_left=-controls.get_combined_minimum_size().x-18
+	controls.offset_right=-18
 
 func _connect_signals() -> void:
 	# --- Connect to viewer signals ---

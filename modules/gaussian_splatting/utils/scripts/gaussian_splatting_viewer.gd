@@ -112,13 +112,21 @@ var _last_activity := 0.0
 var _idle_elapsed := 0.0
 var _last_basis := Basis.IDENTITY
 var _force_redraw := true
+var _color_comparison := false
+var _selection_pick_request := -1
+var _left_press := Vector2.INF
+signal model_clicked(model_id:String,world_position:Vector3)
 
 func _enter_tree() -> void:
 	add_to_group("gaussian_splat_viewers")
 
 func _ready() -> void:
 	_state_machine.state_changed.connect(_on_state_changed)
-	model_registry_changed.connect(func(): _force_redraw = true)
+	model_registry_changed.connect(func():
+		_force_redraw = true
+		_selection_pick_request=-1
+		if rasterizer:rasterizer.cancel_pick()
+	)
 	if not config:
 		config = GaussianSplattingConfig.create_default()
 	if not config.validate():
@@ -210,6 +218,14 @@ func _apply_config() -> void:
 		_applying_config = false
 		_connect_config()
 		return
+	if _only_color_changed():
+		_update_color_uniforms()
+		_applied_config=config.duplicate(true)
+		_applying_config=false
+		_connect_config()
+		configuration_applied.emit(config)
+		_apply_queued_configuration.call_deferred()
+		return
 	var gpu_changed := _applied_config == null or config.gpu_signature() != _applied_config.gpu_signature()
 	if gpu_changed and not _records.is_empty():
 		if is_loading():
@@ -264,9 +280,10 @@ func _apply_config() -> void:
 			rasterizer.render_scale[0] = _applied_config.default_render_scale
 			config.default_render_scale = _applied_config.default_render_scale
 			_report_error("Render scale exceeds available GPU texture headroom", resize_result)
-	for pair in [["exposure", config.post_exposure], ["contrast", config.post_contrast], ["saturation", config.post_saturation], ["sharpness", config.post_sharpness], ["black_point", config.post_black_point], ["white_point", config.post_white_point], ["temperature", config.post_temperature], ["tint", config.post_tint]]:
-		rendered_material.set_shader_parameter(pair[0], pair[1])
-	camera_controller.apply_settings({"mouse_sensitivity": config.camera_mouse_sensitivity, "run_speed_multiplier": config.camera_run_speed_multiplier, "acceleration": config.camera_acceleration, "deceleration": config.camera_deceleration, "vel_multiplier": config.camera_velocity_multiplier, "fov": config.camera_default_fov})
+	_update_color_uniforms()
+	var camera_fov:=config.camera_default_fov
+	if _applied_config and get_camera() and is_equal_approx(config.camera_default_fov,_applied_config.camera_default_fov):camera_fov=get_camera().fov
+	camera_controller.apply_settings({"mouse_sensitivity": config.camera_mouse_sensitivity, "run_speed_multiplier": config.camera_run_speed_multiplier, "acceleration": config.camera_acceleration, "deceleration": config.camera_deceleration, "vel_multiplier": config.camera_velocity_multiplier, "fov": camera_fov})
 	stats_timer.wait_time = config.debug_update_interval
 	if memory_monitor:
 		memory_monitor.vram_budget_mb = config.memory_max_vram_budget_mb
@@ -764,11 +781,29 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_load_zone"):
 		show_load_zone = not show_load_zone
 		get_viewport().set_input_as_handled()
-	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and not is_loading() and rasterizer:
-		if camera_controller and camera_controller.get_camera_state().get("mode") == "Idle":
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			_left_press=event.position
+			return
+		var input_scale:Vector2=Vector2(get_viewport().size)/get_viewport().get_visible_rect().size
+		var clicked:bool=_left_press.is_finite() and ((_left_press-event.position)*input_scale).length()<5
+		_left_press=Vector2.INF
+		if clicked and not is_loading() and not _atlas_migration and rasterizer and camera_controller and not camera_controller.is_movement_blocked():
 			_request_serial += 1
-			rasterizer.request_pick(event.position, _request_serial)
+			_selection_pick_request=_request_serial
+			rasterizer.request_pick(event.position*input_scale, _request_serial)
 			_last_activity = 0.0
+
+func _on_model_pick_completed(request_id:int,instance_id:int,position:Vector3)->void:
+	if request_id!=_selection_pick_request:return
+	_selection_pick_request=-1
+	for record in _records.values():
+		var node=record.node.get_ref()
+		if is_instance_valid(node) and record.status=="loaded" and record.instance_id==instance_id:
+			select_model_id(node.model_id)
+			model_clicked.emit(node.model_id,position)
+			return
+	select_model_id("")
 
 func _on_pick_completed(_request_id: int, position: Vector3) -> void:
 	if position.is_finite():
@@ -894,6 +929,7 @@ func _apply_queued_configuration() -> void:
 	_apply_config()
 
 func _connect_renderer_signals() -> void:
+	rasterizer.model_pick_completed.connect(_on_model_pick_completed)
 	rasterizer.frame_failed.connect(func(message, code):
 		stop_rendering()
 		_report_error(message, code)
@@ -992,3 +1028,32 @@ func _migrate_atlas(requested: GaussianSplattingConfig) -> Error:
 
 func _make_migration_renderer(settings: GaussianSplattingConfig) -> GaussianSplattingRasterizer:
 	return GaussianSplattingRasterizer.new(get_viewport().size,Texture2DRD.new(),get_camera(),settings)
+
+func set_color_comparison(original:bool)->void:
+	_color_comparison=original
+	if is_instance_valid(rendered_material):_update_color_uniforms()
+
+func _only_color_changed()->bool:
+	if not _applied_config:return false
+	for property in config.get_property_list():
+		var field:String=property.name
+		if (int(property.usage)&PROPERTY_USAGE_STORAGE)==0 or field in GaussianSplattingConfig.COLOR_FIELDS or field=="color_settings_edited":continue
+		if config.get(field)!=_applied_config.get(field):return false
+	return true
+
+func _update_color_uniforms()->void:
+	var settings:Dictionary=GSColorSettings.profile("Natural") if _color_comparison else GSColorSettings.snapshot(config)
+	for field in settings:rendered_material.set_shader_parameter(field.trim_prefix("post_"),settings[field])
+	_force_redraw=true
+
+func get_model_world_bounds(node:GaussianSplat)->AABB:
+	if not is_instance_valid(node) or not _records.has(node.get_instance_id()):return AABB()
+	return _world_transform(node)*_records[node.get_instance_id()].resource.aabb
+
+func get_model_edit_transform(node:GaussianSplat)->Transform3D:
+	return _world_transform(node)*Transform3D(config.source_basis().inverse(),Vector3.ZERO)
+
+func set_model_edit_transform(node:GaussianSplat,value:Transform3D)->void:
+	if not is_instance_valid(node) or not node.is_loaded or _atlas_migration:return
+	var frame:=get_model_edit_transform(node)*node.global_transform.affine_inverse()
+	node.global_transform=frame.affine_inverse()*value

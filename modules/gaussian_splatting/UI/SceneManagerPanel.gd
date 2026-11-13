@@ -104,6 +104,11 @@ func _connect_signals() -> void:
 	
 	# Viewer signals for list updates
 	if viewer:
+		viewer.selection_changed.connect(func(_id):
+			_update_transform_controls_enabled(is_instance_valid(selected_node))
+			if is_instance_valid(selected_node):_update_info_labels();_sync_ui_to_node_transform()
+			_update_list_selection_visuals()
+		)
 		viewer.model_registry_changed.connect(func(): call_deferred("_refresh_object_list"))
 		# Note: Direct signal to refresh when scene changes would be ideal.
 		# For now, we refresh periodically or on demand.

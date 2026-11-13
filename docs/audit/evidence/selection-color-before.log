@@ -1,0 +1,16 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (0.557086, 0.371391, 0.742781)
+[CameraController] Camera transform set to: (0.557086, 0.371391, 0.742781)
+[FreeLookCamera] Movement state reset. Position: (0.0, 0.0, 1.0)
+[CameraController] Camera transform set to: (0.0, 0.0, 1.0)
+UNSELECTED (0.4788, 0.1786, 0.1786, 0.8343) SELECTED (0.38, 0.2591, 0.3425, 0.8343)
+FAIL model selection preserves source color
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

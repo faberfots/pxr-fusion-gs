@@ -28,7 +28,7 @@ Sorting uses a stable eight-pass radix sort over a 32-bit float depth word and a
 
 Compute colors are linear premultiplied RGBA. The display shader recovers straight RGB once and Godot applies scene tone mapping. A PRE_TRANSPARENT compositor supplies resolved opaque depth. Correct interleaving with arbitrary transparent meshes, shadow casting, collision geometry and XR multiview are outside the implemented renderer contract.
 
-Selection is owned by the viewer. UI and AI use stable model IDs; the selected instance is tinted by the renderer. AI output is untrusted: tool schemas are advertised only for an allowed role, and arguments and permissions are checked again before mutation. The policy applies to a local desktop session; a future multi-user service must supply authenticated roles.
+Selection is owned by the viewer. UI and AI use stable model IDs; selection is indicated by the model toolbar and transform handles without tinting its radiance. AI output is untrusted: tool schemas are advertised only for an allowed role, and arguments and permissions are checked again before mutation. The policy applies to a local desktop session; a future multi-user service must supply authenticated roles.
 
 ## Checks
 
@@ -86,3 +86,11 @@ A failed replacement initialization rolls back to the previous layout using the 
 Linux CI uses Mesa llvmpipe with MSAA explicitly disabled in the isolated qualification project. The same opaque-depth fixture fails with MSAA enabled: the sampled resolved depth is zero. This remains an unqualified backend combination and is retained in the evidence. Windows RTX Vulkan/MSAA output and its opaque-depth test pass; the application MSAA setting is preserved.
 
 The release preset keeps ImGui enabled because the viewer panel depends on its native class. The portable helper canonicalizes its scene-path autoload before a fresh import and rejects unexpected export errors. The known intermittent editor shutdown RID warning is retained in the package receipt, separately from passing runtime tests.
+
+## Color and direct manipulation
+
+GaussianSplattingConfig owns all live post-processing values. GSColorSettings owns only preset definitions and the validated preference codec. GSColorAdjustmentPanel edits that configuration, saves only color fields to user://gs-color-settings.cfg and provides a reversible neutral comparison. An edited grade survives quality changes. Color-only configuration changes update material uniforms without resetting live renderer controls, camera FOV, atlas resources or model poses.
+
+The former selection highlight blended 25 percent blue into every selected splat. Scene Manager selected the first loaded model automatically; earlier screenshot qualification explicitly cleared selection and missed the user's normal selected appearance. The regression test now fails on the old shader and passes on the corrected one. Selection uses the existing stable model ID; visible-pixel picking supplies the contributing palette identity without physics bounding boxes.
+
+GSModelTransformControls writes the selected Node3D global_transform directly. Its drag snapshot is temporary undo state. The viewer maps renderer basis/scale overrides, and existing Scene Manager controls read the same selected node. Camera movement has a named model_transform blocker. Cancellation restores the original matrix and releases that blocker. Pointer events are consumed only by active handles, and camera navigation continues elsewhere.

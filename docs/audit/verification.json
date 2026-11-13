@@ -470,5 +470,25 @@
       "files": 119,
       "mismatches": 0
     }
+  },
+  "color_and_transform_2026_11_13": {
+    "selection_regression": "Baseline red sample shifted to blue-purple while selected; corrected shader preserves RGB.",
+    "full_scene": {
+      "splats": 7959786,
+      "resolution": [
+        1908,
+        960
+      ],
+      "load_ms": 73078,
+      "sampled_mean_selected_rgb_drift": 4.856326e-08,
+      "sort_overflow": false,
+      "evidence": "evidence/bali-color-review.log"
+    },
+    "controls": "Color presets and fine adjustments, persistence, neutral comparison, independent quality, actual mouse model selection/dragging, all XYZ manipulations and cancellation pass.",
+    "remaining_status_count": {
+      "fully implemented": 61,
+      "partially implemented": 5
+    },
+    "scope": "Windows RTX Vulkan; no credential revocation, authenticated cloud call, signing, XR or asset-rights qualification claimed."
   }
 }

@@ -1,0 +1,49 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (-19993.92, 1.7, 0.0)
+[CameraController] Camera transform set to: (-19993.92, 1.7, 0.0)
+PASS configuration requested during loading applies after the full batch
+WARNING: [GSViewer] GPU configuration preserved: Unavailable
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:850)
+       [1] _apply_config (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:241)
+       [2] _migrate_atlas (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1027)
+       [3] restore (res://modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd:100)
+PASS failed GPU rebuild restores the previous working layout
+PASS failed rebuild preserves both Gaussian populations and stable selection
+WARNING: [GSViewer] GPU configuration preserved: Out of memory
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:850)
+       [1] _apply_config (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:241)
+PASS valid configuration with insufficient instance capacity is rejected before modifying residency
+PASS deletion during migration preserves the remaining model
+PASS compacted instance IDs do not change remaining Gaussian geometry or radiance
+MIGRATION RECOVERY COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

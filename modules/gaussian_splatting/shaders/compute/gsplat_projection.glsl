@@ -84,7 +84,7 @@ uint project_splat(uint id, out RasterData data, out ivec2 low, out ivec2 high) 
 	data.mean_conic=vec4(image,c/det,-b/det);
 	data.color=vec4(sh_color(direction,splat.sh),opacity);
 	data.world_depth=vec4(world,-mean.z);
-	data.extra=vec4(a/det,instance==target.w && target.w>0u?1.0:0.0,0.0,0.0);
+	data.extra=vec4(a/det,instance==target.w && target.w>0u?1.0:0.0,float(instance),0.0);
 	return amount;
 }
 // Reserve once per workgroup. Per-Gaussian compare/exchange loops serialize

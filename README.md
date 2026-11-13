@@ -10,7 +10,8 @@ The complete finding-by-finding implementation status is in [REMEDIATION_STATUS.
 
 - Load Gaussian PLY or GSRES from the load panel or drop a file. Loading appends by default; explicit Replace clears this viewer's models.
 - Right-drag for free look; use WASD/QE to move. Left-drag orbits the focus point. Clicking a visible Gaussian requests an asynchronous world-space pick.
-- Scene Manager selects loaded models, toggles visibility, edits world transforms and deletes individual models.
+- Click a visible model to select it. Use the Select / Move / Rotate / Scale toolbar (keys 1–4), then drag an XYZ handle or the center handle. Escape cancels a drag. Existing camera navigation remains available away from handles. Scene Manager retains numeric transforms, visibility and deletion.
+- The Color button opens Natural, Warm daylight, Soft, Vivid and Architectural presets, fine sliders, tint, original comparison and reset. Edited colors save automatically and remain independent of quality. Selection never tints the splat image.
 - Quality settings migrate a populated atlas transactionally, retaining model identity, selection and independent transforms. A progress indicator remains visible; settings that cannot fit all resident splats are rejected without clearing the scene.
 - The memory setting is the complete GS buffer/texture budget. It includes atlas, projected records, sorting scratch, palette and targets, with resize headroom. It excludes engine resources and driver overhead. There is no source-file-size limit. Admission uses the combined splat residency of every loaded and queued model. Each model retains independent XYZ position, XYZ rotation and scale.
 - High now reserves a 4 GiB complete GS budget with a large atlas and bounded sorting scratch, preserving full-resolution Bali plus additional models on the qualified 8 GiB GPU. Ultra uses a 6 GiB ceiling.
