@@ -1,0 +1,5 @@
+# Optimized Windows template qualification
+
+The official Godot 4.6.2 Windows x86_64 release template was extracted from the official HTTPS multi-platform archive using verified HTTP ranges and ZIP CRC checks. The individual binary SHA-256 and source receipt are recorded in docs/provenance/windows-export-template.json; the whole archive hash was not claimed verified. A minimal independent exported project passes with that executable.
+
+The application package exits with Windows exception 0xC0000005 during startup under this optimized template. The same source-free package passes under the ordinary qualified Godot executable. Isolated tests without optional native libraries, with the qualified ImGui binary, with the Canvas backend, and with a typed font property did not resolve the crash. No experimental binary replacement, add-on change or renderer change was promoted. The working development candidate is retained. P.7.2 stays partially implemented; optimized-template delivery and signing remain unqualified.

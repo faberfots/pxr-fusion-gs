@@ -1028,12 +1028,14 @@
       ],
       "verification": [
         "Local native, source-free GPU/native inference and Windows rendering checks pass; full Bali + Suzuki and 2-million-point SpatialOS performance observations recorded.",
-        "GitHub Actions run 43280842832 (source commit 64ce36c) passed both jobs: Windows release build and real GDScript native inference; Linux source/provider/GPU/lifecycle/rendering/migration/SpatialOS checks with MSAA explicitly disabled."
+        "GitHub Actions run 43280842832 (source commit 64ce36c) passed both jobs: Windows release build and real GDScript native inference; Linux source/provider/GPU/lifecycle/rendering/migration/SpatialOS checks with MSAA explicitly disabled.",
+        "Color/transform source commit dc16f3a passed both GitHub Actions jobs (run 43343127534), including the new Linux software-Vulkan color and actual-input suites. Source-free ordinary-engine package passes script, color/transform, depth-rendering and native-inference checks.",
+        "Main-branch confirmation: run 43345216107 passed both jobs for dc16f3a; retained in evidence/color-final-ci.json and .log."
       ],
       "remaining": [
-        "optimized export-template release executables, Windows signing identity and other real GPU/OS combinations remain unqualified.",
         "Headless editor export still reports two renderer RID/ObjectDB allocations at shutdown; exported source-free inference/GPU checks pass, but the editor teardown warning remains unresolved.",
-        "Software-Vulkan MSAA depth is not qualified; the CI job explicitly tests the supported MSAA-disabled software configuration without changing the application setting."
+        "Software-Vulkan MSAA depth is not qualified; the CI job explicitly tests the supported MSAA-disabled software configuration without changing the application setting.",
+        "Official optimized Windows release template passes a minimal project but this application package exits with 0xC0000005 at startup. The passing ordinary-engine development package is retained. Optimized-template delivery, signing identity and broader real GPU/OS qualification remain open."
       ]
     },
     {
@@ -1057,10 +1059,10 @@
     }
   ],
   "current_work_order": [
-    "P.1.1: revocation reconfirmed outstanding",
-    "P.3.6: MSAA compatibility investigation performed; unsupported capabilities remain explicit",
-    "P.5.7: credential availability checked without printing values; live qualification pending",
-    "P.7.2: new interaction/color regression qualification and source-free export in progress",
-    "P.7.3: provenance records retained; owner evidence still missing"
+    "P.1.1: user reconfirmed key not revoked; provider-account action outstanding",
+    "P.3.6: software-MSAA investigation attempted and rejected; unsupported transparent interleaving, shadows and XR remain explicit",
+    "P.5.7: no process credentials available; authenticated vendor qualification remains pending",
+    "P.7.2: source/color/interaction/ordinary-engine package and CI pass; optimized-template startup crash isolated and retained as an open finding",
+    "P.7.3: ownership/license uncertainty remains unresolved; no rights assertions fabricated"
   ]
 }

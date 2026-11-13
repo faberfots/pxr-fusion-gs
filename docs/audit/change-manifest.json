@@ -6,13 +6,13 @@
       "path": "project.godot",
       "kind": "modified",
       "baseline_sha256": "ef71d1b36285605220930e014de99e48d89984f2b145ee03d390a7d33b352017",
-      "current_sha256": "2801aa2b14113518e21a5082fe1131aa4c1ab49be29b1520e055b068c3082598"
+      "current_sha256": "c3b97978134c9afdfa2f3f158a43c9b4a843ebbab43a41fedcdfbb8a4f9fa57e"
     },
     {
       "path": "README.md",
       "kind": "modified",
       "baseline_sha256": "52a2e99996c4f0dc114e07680e35e88bf2b0861aada416142a6774210f685e98",
-      "current_sha256": "f5bd8d1bdba311a8550955d36bc5e1d4b41ceb725a1d6d68120cd52dda783bc2"
+      "current_sha256": "05104755f84355bf646c423c6c1c5a97d6830767b1e9feb392603a36a4c2fffd"
     },
     {
       "path": "export_presets.cfg",
@@ -48,7 +48,7 @@
       "path": "modules/gaussian_splatting/configs/gaussian_splatting_config.gd",
       "kind": "modified",
       "baseline_sha256": "04feaa87c97fbc99e629cc49eb12457047853cab431c9bc274439ff80af23adb",
-      "current_sha256": "a321db896b90867b437ebe9354c6c3fede9440a2c01414a9b77d5bf9a1a19410"
+      "current_sha256": "803b6549e2323d5ee802410d0cab0e36792140fbc9d959c7eb6d460d0fc7c393"
     },
     {
       "path": "modules/gaussian_splatting/core/gs_memory_monitor.gd",
@@ -120,7 +120,7 @@
       "path": "modules/gaussian_splatting/UI/ProductionUI.gd",
       "kind": "modified",
       "baseline_sha256": "4c01b52b7c52cf4572d7db83784cfd958674c5508ef065ca80f30c6cd47e5e2f",
-      "current_sha256": "035f0aa746b9a0f82da1f2cfc4d424df970e522e92c23db15797adda635ec056"
+      "current_sha256": "30d5e193861197bcdbd3d6f4167fe5cef720e340253079f2ee35e4b732a199e3"
     },
     {
       "path": "modules/gaussian_splatting/UI/ProductionUI.tscn",
@@ -132,7 +132,7 @@
       "path": "modules/gaussian_splatting/UI/SceneManagerPanel.gd",
       "kind": "modified",
       "baseline_sha256": "51cc919d3e12cfa3242146c81aca9bb0a38f89f52f46b5f08f21a7721309e866",
-      "current_sha256": "90ed7cdf01916ec5c2c57ca642280a10299f232e27fe1f729f398654d7207fdb"
+      "current_sha256": "78bc837a785a5db70025c3a24f8975f5324f6cfd597dee08b1380bca26911261"
     },
     {
       "path": "modules/gaussian_splatting/shaders/compute/gsplat_boundaries.glsl",
@@ -144,13 +144,13 @@
       "path": "modules/gaussian_splatting/shaders/compute/gsplat_projection.glsl",
       "kind": "modified",
       "baseline_sha256": "460401b74192e8d5673d45ef064925df5dac49a072d20ad287e95afb5d534b82",
-      "current_sha256": "d565bf4e14fa7df5f4cf0f27b88b6acf2ea6fe0754e241a7a84b2b65fb00e8e0"
+      "current_sha256": "4b372d95ca2771fbf68635f118d8cfc948a6f5cb5bd9122c21979366a8570acb"
     },
     {
       "path": "modules/gaussian_splatting/shaders/compute/gsplat_render.glsl",
       "kind": "modified",
       "baseline_sha256": "fd1ecd666f2f59c8bc6305750148720908c35bd7364dd0849077bdde421eeb9a",
-      "current_sha256": "d3f85bb888c34b7ed9586ee478c04892a9e8e18e17576582e76481f75dd046e7"
+      "current_sha256": "b905f89c1e7cf71c9a1ddfbb2573e4fda25f4c4685ee1c63e40268aac84a6284"
     },
     {
       "path": "modules/gaussian_splatting/shaders/compute/radix_sort_downsweep.glsl",
@@ -186,13 +186,13 @@
       "path": "modules/gaussian_splatting/utils/scripts/gaussian_splatting_rasterizer.gd",
       "kind": "modified",
       "baseline_sha256": "5112dc1cc313b8f2c5721df1fe15159fbe662d556a9e8e35225591c761bdff9b",
-      "current_sha256": "8b7aac1f3607288e0eca312e47f036ebb978190357762d7b5402900496c95183"
+      "current_sha256": "70d0e1b2da79dc706a44be3859b9fac104cf622a17dc534c25d3d291af9ce492"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd",
       "kind": "modified",
       "baseline_sha256": "6a77b33568d9a29d5028fa5c00d3dfc6a419ab16c00018fea4bb2506d8201512",
-      "current_sha256": "f35a3806cff5630b797235c3f1f40e6afc8e645bf974b5a85c0d4e5b01c0396f"
+      "current_sha256": "78430a16b74c6dfb155adbb9cf35653b2feb22eb204fd2410cb4b4b93e6f701e"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/gpu_pipeline_manager.gd",
@@ -469,7 +469,7 @@
       "kind": "modified",
       "baseline_sha256": "8c8c92f8b82f0d3c1e26dbc734015cedc45ab474b65af15c3dacc1f1a2d8dd64",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "ff488f17523c7a007244cb4946250b8b222868abb91aa839d9eeb0237cae1bc2"
+      "current_sha256": "8fa01bee4e84c54388131b67a95eb5cbbee97b090e2c656c6b34beef2c04f063"
     },
     {
       "path": "addons/AdvancedFreeFlyCamera/LICENSE.txt",
@@ -518,28 +518,28 @@
       "kind": "modified",
       "baseline_sha256": "4068dafc7166b88ebdefadba21727a8573be2f59a257e1420eb3c4cc7a84b5d9",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "d593065ba5222eda6c6046454756081bb4a72b0cb146faef7eb0212c9b288333"
+      "current_sha256": "a00214b589b25a72485ae7821a353801c8bde9c47d30368044aa49bc6efc1143"
     },
     {
       "path": "docs/audit/REMEDIATION_STATUS.md",
       "kind": "modified",
       "baseline_sha256": "03d0431deb40a987ad59b8a4882677489bbf9de63803707e258d982f49577ba2",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "41f74a4108e9dbe5d619987459839ed9b8928574df782548637b1c8a094491f9"
+      "current_sha256": "6cc669578fcdfeb016204be19c12fddb6080d3863dfda7a6dbfb1758d3a59f49"
     },
     {
       "path": "docs/audit/remediation-status.json",
       "kind": "modified",
       "baseline_sha256": "f7f67c0a833c230a98536bd61ccb0b0be1d30736dcfba21d26b22a4f20e4bd96",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "209f632b0d953dbbe9c300033a12efd41d17a07a3414f2002ded7075036bdcae"
+      "current_sha256": "803f8d90a9a44ded03f5b9e2dd6bd4aa61c8ff978840d320ae1baab8533adcc4"
     },
     {
       "path": "docs/audit/verification.json",
       "kind": "modified",
       "baseline_sha256": "efa8f698e019da45ef757f51f6d29b088740ab54f9b4256f1d013e81b53bb4ba",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "383dbdf689550d236b9e1bdffcd80bd87e04092ff4bfd28c88059f334d054cfa"
+      "current_sha256": "e0677e4514f98d0b5b3872ec7c49a3a75b07512dd05eda696d44a211a22caa27"
     },
     {
       "path": "docs/dependency-inventory.json",
@@ -1415,6 +1415,111 @@
       "baseline_sha256": null,
       "current_sha256": "21b01a606c9f85f18bb9230245f00ab104df7409cbb2fe9423f6751ca72ba754",
       "baseline_reference": "original untracked workspace file dated 2025-11-25"
+    },
+    {
+      "path": "docs/audit/color-transform-preservation.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "6c45d11355c4e358aef1b34988e1a8d085b7bc4d4b0979f77bbe4af28fea77ff"
+    },
+    {
+      "path": "docs/audit/release-template-investigation.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "0cf55f3a7f3f05a3c107d61884d05a676f733be01e28d58e9869f6f76bd7d759"
+    },
+    {
+      "path": "docs/audit/software-msaa-investigation.md",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "962dcea079ca559f3a5cbc7b02feaf8981a36f95a714502d283a128e4b9047bf"
+    },
+    {
+      "path": "docs/provenance/windows-export-template.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "3f713286eb8561d8fa1b90cabab7889575b4d23656bb378e5d8ab8ae7d319935"
+    },
+    {
+      "path": "modules/gaussian_splatting/UI/ColorAdjustmentPanel.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "eaa0a11447eeb691058ecb3b99abf24a0c922528e43a5e64837b2d60fdfd4afb"
+    },
+    {
+      "path": "modules/gaussian_splatting/UI/ColorAdjustmentPanel.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "21f62f82b40c51b9ea51d660fb53b03d7aa9e4436fd5efc1d008f045301fe1ac"
+    },
+    {
+      "path": "modules/gaussian_splatting/UI/ModelTransformControls.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "25417a6329c5474710a696169d687ab20c127f829a7cf40dcd443a2d27f53132"
+    },
+    {
+      "path": "modules/gaussian_splatting/UI/ModelTransformControls.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "5c8e70578c2df7264d5f4d1e9d64fcc3cef6a4b03f007245cd5441fe9ef3eb17"
+    },
+    {
+      "path": "modules/gaussian_splatting/configs/gs_color_settings.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "e9feeca832f955d38ed0eb3c5596797b93da6f5ac1469ca68a86580d63add354"
+    },
+    {
+      "path": "modules/gaussian_splatting/configs/gs_color_settings.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "4b6ec58743048bfe1592f6beddf3766811f903d93ffef0856555decfd9389e47"
+    },
+    {
+      "path": "tests/bali_color_review.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "52fcd366417f12e4da7c5ae2b387ddccfd1e48dbbbf7bed86af13d0148d239ea"
+    },
+    {
+      "path": "tests/color_transform_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "cbf4ed7c098ec23cb4917be7cd21731755e8b176a819e6cc08c1c90570947a24"
+    },
+    {
+      "path": "tests/color_transform_checks.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "84610cf463dd22930ee3e061fb76d385f267d687672a989c2d6efdd94325ee4e"
+    },
+    {
+      "path": "tests/selection_color_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "1affc666e95e60b84ddc545b3294a9a97c15cc16765ad10dd89f763524c7590e"
+    },
+    {
+      "path": "tests/selection_color_checks.gd.uid",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "14831fd pre-color-and-transform qualification",
+      "current_sha256": "e473f88fdf49874da8dcac53879c512670a610f236b25c64c8ff186c46ac316e"
     }
   ],
   "current_reference": "Final remediation source and delivery configuration; see Git history for the exact commits."

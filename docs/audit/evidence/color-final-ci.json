@@ -1,0 +1,230 @@
+{
+  "conclusion": "success",
+  "headSha": "dc16f3a3a6d7fa15f2f724edad8032a813da0068",
+  "jobs": [
+    {
+      "completedAt": "2026-11-13T01:33:39Z",
+      "conclusion": "success",
+      "databaseId": 131622853772,
+      "name": "native",
+      "startedAt": "2026-11-13T01:28:48Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-13T01:28:50Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-13T01:28:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:28:59Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-11-13T01:28:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:28:59Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 3,
+          "startedAt": "2026-11-13T01:28:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:29:02Z",
+          "conclusion": "success",
+          "name": "Run chickensoft-games/setup-godot@v2",
+          "number": 4,
+          "startedAt": "2026-11-13T01:28:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:29:22Z",
+          "conclusion": "success",
+          "name": "Run dtolnay/rust-toolchain@stable",
+          "number": 5,
+          "startedAt": "2026-11-13T01:29:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:29:55Z",
+          "conclusion": "success",
+          "name": "Run msys2/setup-msys2@v2",
+          "number": 6,
+          "startedAt": "2026-11-13T01:29:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:29:55Z",
+          "conclusion": "success",
+          "name": "Configure native compiler",
+          "number": 7,
+          "startedAt": "2026-11-13T01:29:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:33:13Z",
+          "conclusion": "success",
+          "name": "Reproduce native runtime and build",
+          "number": 8,
+          "startedAt": "2026-11-13T01:29:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:33:34Z",
+          "conclusion": "success",
+          "name": "Real GDScript native inference",
+          "number": 9,
+          "startedAt": "2026-11-13T01:33:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:33:35Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 17,
+          "startedAt": "2026-11-13T01:33:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:33:36Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 18,
+          "startedAt": "2026-11-13T01:33:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:33:37Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "startedAt": "2026-11-13T01:33:36Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43345216107/job/131622853772"
+    },
+    {
+      "completedAt": "2026-11-13T01:31:35Z",
+      "conclusion": "success",
+      "databaseId": 131622854082,
+      "name": "Linux software Vulkan (MSAA disabled)",
+      "startedAt": "2026-11-13T01:28:48Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-13T01:28:50Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-13T01:28:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:28:54Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-11-13T01:28:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:28:55Z",
+          "conclusion": "success",
+          "name": "Run chickensoft-games/setup-godot@v2",
+          "number": 3,
+          "startedAt": "2026-11-13T01:28:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:28:55Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 4,
+          "startedAt": "2026-11-13T01:28:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:28:56Z",
+          "conclusion": "success",
+          "name": "Source and report integrity",
+          "number": 5,
+          "startedAt": "2026-11-13T01:28:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:29:12Z",
+          "conclusion": "success",
+          "name": "Headless source qualification",
+          "number": 6,
+          "startedAt": "2026-11-13T01:28:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:29:13Z",
+          "conclusion": "success",
+          "name": "Provider transport lifecycle (local synthetic server)",
+          "number": 7,
+          "startedAt": "2026-11-13T01:29:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:29:24Z",
+          "conclusion": "success",
+          "name": "Install software Vulkan and display",
+          "number": 8,
+          "startedAt": "2026-11-13T01:29:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:31:29Z",
+          "conclusion": "success",
+          "name": "Vulkan rendering and lifecycle",
+          "number": 9,
+          "startedAt": "2026-11-13T01:29:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:31:32Z",
+          "conclusion": "success",
+          "name": "Upload qualification logs",
+          "number": 10,
+          "startedAt": "2026-11-13T01:31:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:31:32Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 19,
+          "startedAt": "2026-11-13T01:31:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:31:33Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 20,
+          "startedAt": "2026-11-13T01:31:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-13T01:31:33Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 21,
+          "startedAt": "2026-11-13T01:31:33Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43345216107/job/131622854082"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43345216107"
+}

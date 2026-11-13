@@ -1,0 +1,21 @@
+{
+  "source_url": "https://github.com/godotengine/godot/releases/download/4.6.2-stable/Godot_v4.6.2-stable_export_templates.tpz",
+  "archive_sha256_declared_by_github": "942366dc4e27e7686a99da4d3cfb1b8ae8d3eb9444f6d8217eef16245b599ef2",
+  "full_archive_hash_verified": false,
+  "verification": "Official HTTPS release archive ranged extraction; ZIP member CRC verified by zipfile; individual SHA-256 recorded. Entire multi-platform archive was not downloaded.",
+  "downloaded_bytes": 35996045,
+  "members": [
+    {
+      "member": "templates/windows_release_x86_64_console.exe",
+      "bytes": 188928,
+      "zip_crc32": "7a8d07ad",
+      "sha256": "469a031051391367aa7f357c567cc5bea92139e35d7d433940271d8bcaf47ae6"
+    },
+    {
+      "member": "templates/windows_release_x86_64.exe",
+      "bytes": 104653312,
+      "zip_crc32": "f90d6a27",
+      "sha256": "3b2d3f99bd640961aad1a1a200f0f7233b7de45b02801ce22d3224dc294d93d1"
+    }
+  ]
+}

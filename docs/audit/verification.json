@@ -437,9 +437,9 @@
     "url": "https://github.com/faberfots/pxr-fusion-gs",
     "visibility": "private",
     "baseline_commit": "bffa1a1",
-    "qualification": "Both jobs passed for the final source commit.",
-    "qualified_run_url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43280842832",
-    "qualified_commit": "64ce36c52a5766e633b32798283f5dc7dbb5ae23",
+    "qualification": "Current color/transform source passed both CI jobs.",
+    "qualified_run_url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43345216107",
+    "qualified_commit": "dc16f3a3a6d7fa15f2f724edad8032a813da0068",
     "remote_conclusion": "success"
   },
   "test_harness_correction": {
@@ -489,6 +489,10 @@
       "fully implemented": 61,
       "partially implemented": 5
     },
-    "scope": "Windows RTX Vulkan; no credential revocation, authenticated cloud call, signing, XR or asset-rights qualification claimed."
+    "scope": "Windows RTX Vulkan; no credential revocation, authenticated cloud call, signing, XR or asset-rights qualification claimed.",
+    "ci_run_url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43345216107",
+    "qualified_source_commit": "dc16f3a3a6d7fa15f2f724edad8032a813da0068",
+    "source_free_package": "build/color-and-transform-candidate",
+    "optimized_template": "Not qualified: application startup 0xC0000005; minimal project passed; no failed candidate promoted."
   }
 }
