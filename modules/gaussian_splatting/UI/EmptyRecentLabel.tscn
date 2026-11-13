@@ -1,0 +1,4 @@
+[gd_scene format=3]
+[node name="EmptyRecent" type="Label"]
+text = "Your recent models will appear here."
+autowrap_mode = 2

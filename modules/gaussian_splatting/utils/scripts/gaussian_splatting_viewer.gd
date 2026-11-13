@@ -16,6 +16,11 @@ signal scene_mode_changed(mode: SceneMode, mode_name: String)
 signal model_registry_changed
 signal selection_changed(model_id: String)
 var selected_model_id := ""
+var selected_model_ids: Array[String] = []
+signal multi_selection_changed(model_ids: Array[String])
+var _selection_additive := false
+var _transform_undo: Array[Dictionary] = []
+var _transform_redo: Array[Dictionary] = []
 signal configuration_applied(settings: GaussianSplattingConfig)
 signal batch_finished(successes: int, failures: int)
 const ViewerState = GSStateMachine.State
@@ -26,6 +31,10 @@ enum SceneMode { UNKNOWN, OBJECT_MODE, ENVIRONMENT_MODE }
 		config = value
 		if _ready_complete and not _applying_config:
 			call_deferred("_apply_config")
+@export var lighting:GSLightingSettings=GSLightingSettings.new()
+@export var shadow_light:DirectionalLight3D
+var _shadow_signature:=0
+var _shadow_error:=false
 @export var load_splats_on_ready := true
 @export var auto_start_rendering := true
 @export var show_loading_ui := false
@@ -115,6 +124,9 @@ var _force_redraw := true
 var _color_comparison := false
 var _selection_pick_request := -1
 var _left_press := Vector2.INF
+var _hybrid_nodes: Array[GSAlphaMesh3D] = []
+var _hybrid_signature := 0
+var _hybrid_error := ""
 signal model_clicked(model_id:String,world_position:Vector3)
 
 func _enter_tree() -> void:
@@ -555,7 +567,10 @@ func unregister_splat(node: GaussianSplat) -> void:
 	if _active_node_id == id:
 		_cancel_job()
 	var record: Dictionary = _records[id]
-	if is_instance_valid(record.node.get_ref()) and record.node.get_ref().model_id == selected_model_id: select_model_id("")
+	if is_instance_valid(record.node.get_ref()) and selected_model_ids.has(record.node.get_ref().model_id):
+		var remaining:=selected_model_ids.duplicate()
+		remaining.erase(record.node.get_ref().model_id)
+		select_model_ids(remaining)
 	_records.erase(id)
 	_pending.erase(id)
 	_release_record(record)
@@ -608,6 +623,8 @@ func _process(delta: float) -> void:
 	if not _ready_complete or _atlas_migration or not rasterizer or not rasterizer.gpu_init_complete:
 		return
 	_pump_job()
+	_prepare_transparency()
+	_prepare_shadows()
 	var changed := rasterizer.update_camera_matrices()
 	var basis_changed := rasterizer.basis_override != _last_basis
 	_last_basis = rasterizer.basis_override
@@ -670,6 +687,8 @@ func is_loading() -> bool:
 func _on_viewport_resized() -> void:
 	if rasterizer:
 		var result := rasterizer.resize(get_viewport().size)
+		if result == OK:
+			_update_hybrid_presentation()
 		if result != OK:
 			_report_error("Viewport resize exceeds the total GPU budget; previous render size preserved", result)
 
@@ -791,6 +810,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			_left_press=event.position
+			_selection_additive=event.ctrl_pressed or event.meta_pressed
 			return
 		var input_scale:Vector2=Vector2(get_viewport().size)/get_viewport().get_visible_rect().size
 		var clicked:bool=_left_press.is_finite() and ((_left_press-event.position)*input_scale).length()<5
@@ -807,7 +827,8 @@ func _on_model_pick_completed(request_id:int,instance_id:int,position:Vector3)->
 	for record in _records.values():
 		var node=record.node.get_ref()
 		if is_instance_valid(node) and record.status=="loaded" and record.instance_id==instance_id:
-			select_model_id(node.model_id)
+			if _selection_additive: toggle_model_selection(node.model_id)
+			else: select_model_id(node.model_id)
 			model_clicked.emit(node.model_id,position)
 			return
 	select_model_id("")
@@ -828,7 +849,7 @@ func get_model_snapshot() -> Array[Dictionary]:
 		if not is_instance_valid(node):
 			continue
 		var transform: Transform3D = node.global_transform
-		result.append({"model_id": node.model_id, "transform": _world_transform(node), "name": str(node.name), "file": record.path.get_file(), "status": record.status, "visible": node.is_visible_in_tree(), "position": [transform.origin.x, transform.origin.y, transform.origin.z], "rotation_degrees": [node.global_rotation_degrees.x, node.global_rotation_degrees.y, node.global_rotation_degrees.z], "scale": [transform.basis.get_scale().x, transform.basis.get_scale().y, transform.basis.get_scale().z], "splat_count": record.count, "instance_id": record.instance_id, "buffer_offset_bytes": record.offset, "bounds": record.resource.aabb})
+		result.append({"model_id": node.model_id, "transform": _world_transform(node), "name": str(node.name), "file": record.path.get_file(), "file_path": record.path, "status": record.status, "visible": node.is_visible_in_tree(), "position": [transform.origin.x, transform.origin.y, transform.origin.z], "rotation_degrees": [node.global_rotation_degrees.x, node.global_rotation_degrees.y, node.global_rotation_degrees.z], "scale": [transform.basis.get_scale().x, transform.basis.get_scale().y, transform.basis.get_scale().z], "splat_count": record.count, "instance_id": record.instance_id, "buffer_offset_bytes": record.offset, "bounds": record.resource.aabb})
 	return result
 
 func get_stats() -> Dictionary:
@@ -893,6 +914,8 @@ func _create_default_camera_system() -> void:
 	camera_controller.set_camera(camera)
 
 func _exit_tree() -> void:
+	for node in _hybrid_nodes:
+		if is_instance_valid(node):node.set_integrated(false)
 	if _atlas_migration: _atlas_migration.cancelled = true
 	_ready_complete = false
 	_clearing = true
@@ -911,17 +934,63 @@ func get_selected_model() -> GaussianSplat:
 	return null
 
 func select_model_id(model_id: String) -> bool:
-	if model_id == selected_model_id: return true
-	if not model_id.is_empty():
-		var found := false
+	return select_model_ids([] if model_id.is_empty() else [model_id])
+
+func select_model_ids(model_ids: Array) -> bool:
+	var next: Array[String] = []
+	for value in model_ids:
+		var model_id := str(value)
+		if next.has(model_id): continue
+		var valid := false
 		for record in _records.values():
 			var node = record.node.get_ref()
-			if is_instance_valid(node) and node.model_id == model_id and record.status == "loaded": found = true
-		if not found: return false
-	selected_model_id = model_id
+			if is_instance_valid(node) and node.model_id == model_id and record.status == "loaded": valid = true
+		if not valid: return false
+		next.append(model_id)
+	if next == selected_model_ids: return true
+	selected_model_ids = next
+	selected_model_id = next.back() if not next.is_empty() else ""
 	_force_redraw = true
 	_last_activity = 0.0
-	selection_changed.emit(model_id)
+	selection_changed.emit(selected_model_id)
+	multi_selection_changed.emit(selected_model_ids.duplicate())
+	return true
+
+func toggle_model_selection(model_id: String) -> bool:
+	var next := selected_model_ids.duplicate()
+	if next.has(model_id): next.erase(model_id)
+	else: next.append(model_id)
+	return select_model_ids(next)
+
+func get_selected_models() -> Array[GaussianSplat]:
+	var result: Array[GaussianSplat] = []
+	for record in _records.values():
+		var node = record.node.get_ref()
+		if is_instance_valid(node) and selected_model_ids.has(node.model_id) and record.status == "loaded": result.append(node)
+	return result
+
+func commit_transform_edit(before: Dictionary, after: Dictionary) -> void:
+	if before == after or before.is_empty(): return
+	_transform_undo.append({"before":before.duplicate(),"after":after.duplicate()})
+	if _transform_undo.size()>100: _transform_undo.pop_front()
+	_transform_redo.clear()
+
+func undo_transform(redo: bool = false) -> bool:
+	if _atlas_migration or is_loading(): return false
+	var source := _transform_redo if redo else _transform_undo
+	if source.is_empty(): return false
+	var edit: Dictionary = source.back()
+	var values: Dictionary = edit.after if redo else edit.before
+	var nodes := {}
+	for record in _records.values():
+		var node = record.node.get_ref()
+		if is_instance_valid(node): nodes[node.model_id] = node
+	for id in values:
+		if not nodes.has(id): return false
+	for id in values: nodes[id].global_transform = values[id]
+	source.pop_back()
+	if redo: _transform_undo.append(edit)
+	else: _transform_redo.append(edit)
 	return true
 
 func _selected_instance_id() -> int:
@@ -1016,9 +1085,10 @@ func _migrate_atlas(requested: GaussianSplattingConfig) -> Error:
 			if not used.has(id): _free_instance_ids.append(id)
 		_attach_compositor(get_camera())
 		rendered_material.set_shader_parameter("render_texture", render_texture)
+		rendered_material.set_shader_parameter("integrated_frame",false)
 		_force_redraw = true
 	elif old.gpu_init_complete:
-		rendered_material.set_shader_parameter("render_texture", old.render_texture)
+		rendered_material.set_shader_parameter("render_texture", render_texture)
 	_atlas_migration.dispose()
 	_atlas_migration = null
 	set_camera_blocker("atlas_migration", false)
@@ -1064,3 +1134,98 @@ func set_model_edit_transform(node:GaussianSplat,value:Transform3D)->void:
 	if not is_instance_valid(node) or not node.is_loaded or _atlas_migration:return
 	var frame:=get_model_edit_transform(node)*node.global_transform.affine_inverse()
 	node.global_transform=frame.affine_inverse()*value
+
+func frame_models(ids:Array)->bool:
+	var bounds:=AABB()
+	var found:=false
+	for record in _records.values():
+		var model:GaussianSplat=record.node.get_ref()
+		if not is_instance_valid(model) or record.status!="loaded" or not model.is_visible_in_tree():continue
+		if not ids.is_empty() and not ids.has(model.model_id):continue
+		var box:=get_model_world_bounds(model)
+		bounds=bounds.merge(box) if found else box
+		found=true
+	if not found or not get_camera():return false
+	var extent:=maxf(bounds.size.length()*0.5,0.1)
+	var distance:=extent/maxf(0.1,sin(deg_to_rad(get_camera().fov*0.5)))*1.15
+	var center:=bounds.get_center()
+	camera_controller.position_camera_at(center+Vector3(0.75,0.5,1).normalized()*distance,center)
+	return true
+
+func _prepare_transparency() -> void:
+	var draws: Array[Dictionary]=[]
+	var current: Array[GSAlphaMesh3D]=[]
+	for candidate in get_tree().get_nodes_in_group("gs_alpha_meshes"):
+		var node:=candidate as GSAlphaMesh3D
+		if not node or node.get_world_3d()!=get_world_3d():continue
+		var batch:=node.capture()
+		if not batch.is_empty():draws.append_array(batch);current.append(node)
+	var identity:Array=[]
+	for draw in draws:identity.append([draw.key,draw.transform,draw.color,draw.texture,draw.cull])
+	var signature:=hash([identity,GSColorSettings.snapshot(config),_color_comparison,rasterizer.texture_size,rasterizer.get_instance_id()])
+	if signature==_hybrid_signature:
+		_update_hybrid_presentation();return
+	_hybrid_signature=signature
+	var settings:GaussianSplattingConfig=config
+	if _color_comparison:
+		settings=GaussianSplattingConfig.create_default()
+		GSColorSettings.apply(settings,GSColorSettings.profile("Natural"))
+	var tint_color:=settings.post_tint.srgb_to_linear()
+	var grade:=PackedFloat32Array([settings.post_exposure,settings.post_contrast,settings.post_saturation,settings.post_temperature,settings.post_black_point,settings.post_white_point,settings.post_sharpness,0,tint_color.r,tint_color.g,tint_color.b,0]).to_byte_array()
+	var result:=rasterizer.prepare_transparency(draws,grade)
+	for node in _hybrid_nodes:
+		if is_instance_valid(node):node.set_integrated(false)
+	_hybrid_nodes=current
+	_update_hybrid_presentation()
+	if result!=OK and _hybrid_error!=str(result):
+		_hybrid_error=str(result);_report_error("Transparent integration could not fit or initialize; ordinary mesh rendering retained.",result)
+	_force_redraw=true
+
+func _update_hybrid_presentation()->void:
+	var state:=rasterizer.transparency.presentation_status() if rasterizer.transparency_active and rasterizer.transparency else Vector2i.ZERO
+	var integrated:=state.x!=0
+	for node in _hybrid_nodes:
+		if is_instance_valid(node):node.set_integrated(integrated)
+	var output:Texture2DRD=rasterizer.transparency.output if integrated else rasterizer.render_texture
+	if render_texture!=output:
+		render_texture=output;rendered_material.set_shader_parameter("render_texture",output)
+		rendered_material.set_shader_parameter("integrated_frame",integrated);_force_redraw=true
+	if state.y!=0 and _hybrid_error!="overflow":
+		_hybrid_error="overflow";_report_error("Transparent fragment capacity exceeded; last complete composition retained. Reduce overlapping transparent layers or render resolution.",ERR_OUT_OF_MEMORY)
+
+func _prepare_shadows()->void:
+	rasterizer.update_shadow_appearance(lighting.shadow_strength,lighting.shadow_bias)
+	var request:Dictionary={}
+	var signature:=hash([lighting.shadows_enabled,lighting.shadow_resolution])
+	if lighting.shadows_enabled and is_instance_valid(shadow_light) and shadow_light.is_visible_in_tree() and shadow_light.light_energy>0 and _count_loaded_models()>0:
+		var flags:=PackedInt32Array();flags.resize(config.memory_max_instances+1)
+		var bounds:=AABB();var found:=false
+		var poses:Array=[]
+		for record in _records.values():
+			var model:GaussianSplat=record.node.get_ref()
+			if not is_instance_valid(model) or record.status!="loaded":continue
+			flags[int(record.instance_id)]=(1 if model.cast_gaussian_shadows else 0)|(2 if model.receive_gaussian_shadows else 0)
+			if not model.is_visible_in_tree():flags[int(record.instance_id)]=0;continue
+			var box:=get_model_world_bounds(model)
+			bounds=bounds.merge(box) if found else box;found=true
+			poses.append([model.model_id,model.global_transform,flags[int(record.instance_id)],record.count])
+		if found:
+			var radius:=maxf(1,bounds.size.length()*0.55+0.25)
+			var basis:=shadow_light.global_basis.orthonormalized()
+			var position:=bounds.get_center()+basis.z*radius*2
+			var view:=Projection(Transform3D(basis,position).affine_inverse())
+			var projection:=Projection.create_orthogonal(-radius,radius,-radius,radius,0.01,radius*4)
+			signature=hash([poses,basis,rasterizer.model_scale[0],rasterizer.basis_override,lighting.shadow_resolution,rasterizer.get_instance_id()])
+			var matrices:=RenderingContext.pack_projection(view);matrices.append_array(RenderingContext.pack_projection(projection))
+			request={"signature":signature,"resolution":lighting.shadow_resolution,"flags":flags.to_byte_array(),"position":position,"view":view,"projection":projection,"view_projection":matrices}
+	if signature!=_shadow_signature:
+		_shadow_signature=signature
+		var result:=rasterizer.prepare_shadow(request)
+		if result!=OK and not _shadow_error:
+			_shadow_error=true;_report_error("Gaussian shadows could not fit the remaining GPU budget; original appearance retained.",result)
+		_force_redraw=true
+	if rasterizer.shadow_pass and rasterizer.shadow_pass.failure()!=0 and not _shadow_error:
+		_shadow_error=true;_report_error("Gaussian shadow footprint capacity exceeded; last complete shadow map retained.",ERR_OUT_OF_MEMORY)
+	var active:Dictionary=rasterizer.shadow_pass.snapshot() if rasterizer.shadow_pass and lighting.shadows_enabled and not request.is_empty() else {}
+	for receiver in get_tree().get_nodes_in_group("gs_shadow_receivers"):
+		if receiver.get_world_3d()==get_world_3d():receiver.apply_shadow(active,lighting)

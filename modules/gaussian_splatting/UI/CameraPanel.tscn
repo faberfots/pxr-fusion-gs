@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
+[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+[node name="CameraPanel" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+visible = false
+custom_minimum_size = Vector2(340,0)
+script = ExtResource("1")
+theme = ExtResource("2")
+layout_id = "CameraPanel"
+drag_handle = NodePath("Body/Header")
+
+[node name="Body" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+
+
+[node name="Header" type="HBoxContainer" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 6
+
+[node name="Title" type="Label" parent="Body/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Camera & navigation"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+
+[node name="Close" type="Button" parent="Body/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "×"
+tooltip_text = "Close panel"
+
+[node name="Description" type="Label" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "A comfortable view, with a protected camera."
+autowrap_mode = 2
+custom_minimum_size = Vector2(300,0)
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
+
+[node name="Home" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Home view"
+
+[node name="FrameSelected" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Frame selected"
+
+[node name="FrameAll" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Frame all visible models"
+
+[node name="ProtectedFly" type="CheckButton" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Protect camera from floor and colliders"
+button_pressed = true
+
+[node name="OrbitMode" type="CheckButton" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Orbit camera"
+
+[node name="SafetyNote" type="Label" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Floor protection is independent of grid visibility.\nScanned walls need a physical collision proxy."
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 12

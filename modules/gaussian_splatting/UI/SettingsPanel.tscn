@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
+[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+[node name="SettingsPanel" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+visible = false
+custom_minimum_size = Vector2(340,0)
+script = ExtResource("1")
+theme = ExtResource("2")
+layout_id = "SettingsPanel"
+drag_handle = NodePath("Body/Header")
+
+[node name="Body" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+
+
+[node name="Header" type="HBoxContainer" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 6
+
+[node name="Title" type="Label" parent="Body/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Workspace settings"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+
+[node name="Close" type="Button" parent="Body/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "×"
+tooltip_text = "Close panel"
+
+[node name="Description" type="Label" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Keep the viewport responsive and the layout yours."
+autowrap_mode = 2
+custom_minimum_size = Vector2(300,0)
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
+
+[node name="QualitySelector" type="OptionButton" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Performance quality · edited colors remain independent"
+
+[node name="Diagnostics" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Diagnostics · H"
+
+[node name="ResetLayout" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset floating layout"
+
+[node name="ClearSceneButton" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clear all loaded models"
+modulate = Color(1,0.68,0.66,1)

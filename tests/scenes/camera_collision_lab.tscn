@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+[sub_resource type="BoxShape3D" id="box"]
+size = Vector3(4,3,0.5)
+[node name="WallFixture" type="StaticBody3D"]
+position = Vector3(0,1.5,3)
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("box")

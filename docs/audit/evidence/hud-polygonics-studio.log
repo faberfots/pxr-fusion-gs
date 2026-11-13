@@ -1,0 +1,98 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-scene-hybrid-qa
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (6 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | 132130_off_emergency_dismay_siren_anxiety_icon.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-calendar.48.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-user.48 (1).png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | core.svg[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | orbit.svg[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | panel_frame.svg[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (3 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  25% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+[   0% ] [90m[1mreimport[22m | core.svg[39m[0m
+[  25% ] [90m[1mreimport[22m | orbit.svg[39m[0m
+[  50% ] [90m[1mreimport[22m | panel_frame.svg[39m[0m
+[  75% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (3 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS empty scene opens at the elevated authored home view
+[FreeLookCamera] Movement state reset. Position: (0.0, 0.225, 5.0)
+[CameraController] Camera transform set to: (0.0, 0.225, 5.0)
+PASS external camera positioning obeys floor protection
+[FreeLookCamera] Movement state reset. Position: (0.0, -2.0, 5.0)
+[CameraController] Camera transform set to: (0.0, -2.0, 5.0)
+PASS explicit unrestricted flight remains available
+[FreeLookCamera] Movement state reset. Position: (0.0, 0.225, 5.0)
+[CameraController] Camera transform set to: (0.0, 0.225, 5.0)
+PASS reenabling protection immediately recovers above the floor
+SWEEP WALL (0.0, 1.0, 3.485938)
+PASS camera volume sweep prevents high-speed travel through physical geometry
+[CameraController] Camera transform set to: (0.0, 0.225, 5.0)
+PASS orbit camera uses the same floor protection owner
+[FreeLookCamera] Movement state reset. Position: (0.0, 0.225, 1.546649)
+[CameraController] Camera transform set to: (0.0, 0.225, 1.546649)
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (1.56676, 1.544507, 1.089013)
+[CameraController] Camera transform set to: (1.56676, 1.544507, 1.089013)
+PASS multi-selection and active model share one viewer-owned registry
+[FreeLookCamera] Movement state reset. Position: (1.539286, 1.526191, 1.052381)
+[CameraController] Camera transform set to: (1.539286, 1.526191, 1.052381)
+PASS one group drag edits both selected Node3D transforms
+PASS one undo transaction restores the complete selected group
+PASS group transform redo restores the committed edit
+PASS numeric model editing participates in the same transform undo owner
+PASS authored inspector preserves independent XYZ model scaling
+PASS scene navigator remains accessible from the command dock
+[ProductionUI] Cognitive Panel instantiated.
+PASS opening assistant preserves default-denied cloud and action capabilities
+PASS command dock collapses to its compact launcher
+PASS floating dock remains recoverable inside logical viewport bounds
+STUDIO CHECKS COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

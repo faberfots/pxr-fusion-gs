@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/utils/scripts/gs_shadow_receiver.gd" id="1"]
+[node name="GaussianShadowReceiver" type="Node3D"]
+script = ExtResource("1")

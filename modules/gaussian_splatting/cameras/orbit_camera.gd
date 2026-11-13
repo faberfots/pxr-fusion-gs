@@ -54,6 +54,7 @@ func _on_zoom_stop_timer_timeout() -> void:
 		movement_state_changed.emit(false)
 
 func _update_camera_from_spherical() -> void:
+	var previous := global_transform
 	# Convert spherical coordinates to Cartesian position
 	var x := orbit_distance * sin(phi) * cos(theta)
 	var y := orbit_distance * cos(phi)
@@ -61,6 +62,13 @@ func _update_camera_from_spherical() -> void:
 	
 	global_position = orbit_point + Vector3(x, y, z)
 	look_at(orbit_point)
+	var controller := get_parent() as CameraController
+	if controller:
+		global_transform = controller.constrain_pose(previous, global_transform)
+		var offset := global_position - orbit_point
+		orbit_distance = maxf(0.001, offset.length())
+		phi = acos(clampf(offset.y / orbit_distance, -1, 1))
+		theta = atan2(offset.z, offset.x)
 #endregion
 
 #region CameraInterface Implementation
@@ -77,6 +85,15 @@ func reset() -> void:
 	_update_camera_from_spherical()
 	
 	movement_state_changed.emit(false)
+	var controller := get_parent() as CameraController
+	if controller and controller.home_on_ready: controller.go_home()
+
+func reset_movement_state() -> void:
+	is_rotating=false
+	var offset:=global_position-orbit_point
+	orbit_distance=maxf(0.001,offset.length())
+	phi=acos(clampf(offset.y/orbit_distance,-1,1))
+	theta=atan2(offset.z,offset.x)
 
 func set_focused_position(target_position: Vector3) -> void:
 	orbit_point = target_position

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/utils/scripts/gs_alpha_mesh.gd" id="1"]
+[sub_resource type="QuadMesh" id="quad"]
+size = Vector2(0.8,0.8)
+[sub_resource type="StandardMaterial3D" id="alpha"]
+shading_mode = 0
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0,0,1,0.5)
+[sub_resource type="StandardMaterial3D" id="unsupported"]
+transparency = 1
+albedo_color = Color(0,1,0,0.5)
+[node name="HybridLab" type="Node3D"]
+[node name="Pane" type="MeshInstance3D" parent="."]
+script = ExtResource("1")
+mesh = SubResource("quad")
+material_override = SubResource("alpha")
+position = Vector3(0,0,0.5)

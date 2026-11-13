@@ -1,6 +1,7 @@
 shader_type spatial;
 render_mode unshaded, fog_disabled, blend_mix, depth_draw_never, cull_disabled;
 uniform sampler2D render_texture : filter_linear;
+uniform bool integrated_frame = false;
 uniform float exposure : hint_range(0.0,5.0)=1.0;
 uniform float contrast : hint_range(0.5,2.0)=1.0;
 uniform float saturation : hint_range(0.0,2.0)=1.0;
@@ -18,6 +19,10 @@ void vertex() {
 void fragment() {
 	vec4 sample_color=texture(render_texture,SCREEN_UV);
 	vec3 color=straight_color(sample_color);
+	if(integrated_frame) {
+		ALBEDO=max(color,vec3(0.0));
+		ALPHA=sample_color.a;
+	} else {
 	if(sharpness>0.0 && sample_color.a>0.001) {
 		vec2 step_uv=1.0/vec2(textureSize(render_texture,0));
 		vec3 neighborhood=straight_color(texture(render_texture,SCREEN_UV+vec2(step_uv.x,0.0)));
@@ -35,4 +40,5 @@ void fragment() {
 	// Compute output is linear and premultiplied. Recover straight color once; Godot owns tone mapping.
 	ALBEDO=max(color,vec3(0.0));
 	ALPHA=sample_color.a;
+	}
 }

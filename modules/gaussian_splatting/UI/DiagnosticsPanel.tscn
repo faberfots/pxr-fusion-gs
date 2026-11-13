@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/DiagnosticsPanel.gd" id="1"]
+[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+[node name="Diagnostics" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+visible = false
+custom_minimum_size = Vector2(360,0)
+script = ExtResource("1")
+theme = ExtResource("2")
+layout_id = "diagnostics"
+fit_content_height = false
+default_position = Vector2(24,24)
+size = Vector2(360,520)
+drag_handle = NodePath("Frame/Header")
+[node name="Frame" type="VBoxContainer" parent="."]
+
+[node name="Header" type="HBoxContainer" parent="Frame"]
+unique_name_in_owner = true
+mouse_filter = 0
+mouse_default_cursor_shape = 6
+[node name="Title" type="Label" parent="Frame/Header"]
+size_flags_horizontal = 3
+text = "Diagnostics"
+theme_override_font_sizes/font_size = 22
+[node name="Close" type="Button" parent="Frame/Header"]
+unique_name_in_owner = true
+text = "×"
+[node name="Scroll" type="ScrollContainer" parent="Frame"]
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+[node name="Body" type="VBoxContainer" parent="Frame/Scroll"]
+size_flags_horizontal = 3
+[node name="Stats" type="RichTextLabel" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320,165)
+fit_content = true
+bbcode_enabled = true
+text = "Waiting for renderer…"
+[node name="FovLabel" type="Label" parent="Frame/Scroll/Body"]
+text = "Camera field of view"
+[node name="Fov" type="SpinBox" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+min_value = 20.0
+max_value = 170.0
+step = 1.0
+[node name="ResetFov" type="Button" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+text = "Reset camera field of view"
+[node name="Override" type="Button" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+text = "Use camera basis override"
+[node name="ResetBasis" type="Button" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+text = "Reset basis override"
+[node name="EnableStats" type="CheckButton" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+text = "Enable diagnostic statistics"
+[node name="Load" type="Button" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+text = "Load models…"

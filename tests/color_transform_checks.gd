@@ -19,10 +19,12 @@ func run()->void:
 	var model:=viewer.load_new_splat_from_path(Checks.fixture("user://controls-a.ply",1))
 	var front:=viewer.load_new_splat_from_path(Checks.fixture("user://controls-b.ply",1))
 	front.position.z=0.5
+	model.position.y=1.0
+	front.position.y=1.0
 	for i in range(60):await process_frame
 	while viewer.is_loading():await process_frame
 	check(model.is_loaded and front.is_loaded,"both full models are loaded into the shared atlas")
-	viewer.camera_controller.position_camera_at(Vector3(0,0,2),Vector3.ZERO)
+	viewer.camera_controller.position_camera_at(Vector3(0,1,2),Vector3(0,1,0))
 	await settle(1.3)
 	var atlas:RID=viewer.rasterizer.descriptors.splats.rid
 	var pose:=model.global_transform

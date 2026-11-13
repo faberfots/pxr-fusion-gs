@@ -30,6 +30,25 @@ func run() -> void:
 	check(is_equal_approx(ui.color_panel.sliders.post_temperature.value, 0.3), "packaged color sliders synchronize with the authoritative configuration")
 	ui.color_panel.apply_profile("Natural")
 	ui.color_panel.hide_panel()
+	# Qualify the new RD pipelines in the actual optimized template, before large data.
+	var fixture:=viewer.load_new_splat_from_path(Checks.fixture("user://release-hybrid.ply",1))
+	fixture.position.y=1
+	await get_tree().process_frame
+	while viewer.is_loading():await get_tree().process_frame
+	viewer.camera_controller.position_camera_at(Vector3(0,1,2),Vector3(0,1,0))
+	var hybrid:Node3D=load("res://tests/scenes/hybrid_lab.tscn").instantiate();add_child(hybrid)
+	hybrid.get_node("Pane").position.y=1
+	await settle(1.5)
+	var composed:=viewer.render_texture.get_image()
+	var center:=composed.get_pixel(composed.get_width()/2,composed.get_height()/2)
+	check(viewer.rasterizer.transparency_active and center.b>0.3,"optimized release composes participating transparency with actual Gaussian pixels")
+	hybrid.free();await settle()
+	viewer.lighting.shadows_enabled=true;fixture.receive_gaussian_shadows=true
+	await settle(1.5)
+	var frame:Dictionary=viewer.rasterizer.shadow_pass.snapshot() if viewer.rasterizer.shadow_pass else {}
+	check(not frame.is_empty() and frame.projected>0,"optimized release builds Gaussian opacity shadows and dispatches opt-in receiving")
+	viewer.lighting.shadows_enabled=false
+	viewer._clear_scene_and_reset_atlas();await settle()
 	var args := OS.get_cmdline_user_args()
 	var paths: Array[String] = []
 	for index in range(args.size() - 1):
@@ -50,6 +69,20 @@ func run() -> void:
 		check(parsed and is_instance_valid(nodes[index]) and nodes[index].is_loaded, "packaged loader retains every source Gaussian: " + paths[index].get_file())
 	check(expected > 0 and viewer.total_splats_to_load == expected, "packaged atlas contains the full combined population")
 	print("RELEASE POPULATION ", viewer.total_splats_to_load, " load_ms ", Time.get_ticks_msec() - started)
+	viewer.lighting.shadows_enabled=true
+	var shadow_started:=Time.get_ticks_msec()
+	await settle(0.2)
+	while viewer.rasterizer.shadow_pass and viewer.rasterizer.shadow_pass.snapshot().get("signature",0)!=viewer.rasterizer.shadow_request.get("signature",-1) and Time.get_ticks_msec()-shadow_started<15000:await settle(0.1)
+	var large_shadow:Dictionary=viewer.rasterizer.shadow_pass.snapshot() if viewer.rasterizer.shadow_pass else {}
+	check(not large_shadow.is_empty() and large_shadow.get("projected",0)>0 and viewer.rasterizer.shadow_pass.failure()==0,"optimized release casts shadows from the complete loaded scene within the shared GPU budget")
+	print("RELEASE SHADOW projected ",large_shadow.get("projected",0)," cache_ms ",Time.get_ticks_msec()-shadow_started)
+	viewer.lighting.shadows_enabled=false;await settle()
+	var alpha_lab:Node3D=load("res://tests/scenes/hybrid_lab.tscn").instantiate();add_child(alpha_lab)
+	var eye:=viewer.get_camera().global_transform
+	alpha_lab.get_node("Pane").global_transform=Transform3D(eye.basis,eye.origin-eye.basis.z*1.5)
+	await settle(1.5)
+	check(viewer.rasterizer.transparency_active and alpha_lab.get_node("Pane").layers==0 and viewer.total_splats_to_load==expected,"optimized release interleaves a transparent participant with the full unchanged Gaussian population")
+	alpha_lab.free();await settle()
 	if nodes.is_empty() or not is_instance_valid(nodes[0]):
 		finish();return
 	viewer.select_model_id(nodes[0].model_id)
@@ -64,7 +97,7 @@ func run() -> void:
 	nodes[0].global_transform = original
 	await settle()
 	ui.transform_controls.set_mode(GSModelTransformControls.Mode.MOVE)
-	ui.color_panel.show_panel()
+	ui.get_node("%MainControls").get_node("%ColorButton").pressed.emit()
 	await settle()
 	get_viewport().get_texture().get_image().save_png("user://release-controls.png")
 	ui.color_panel.hide_panel()

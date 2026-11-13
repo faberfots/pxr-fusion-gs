@@ -40,6 +40,12 @@ signal camera_validation_failed(camera: CameraInterface, reason: String)
 
 ## Enable debug logging
 @export var enable_debug_logging : bool = false
+@export var ground: Node3D
+@export var home_on_ready := false
+@export var safety: GSCameraSafetySettings = GSCameraSafetySettings.new()
+var _safe_pose := Transform3D.IDENTITY
+var _has_safe_pose := false
+var _collision_sphere := SphereShape3D.new()
 #endregion
 
 #region State
@@ -60,6 +66,7 @@ func _ready() -> void:
 	# Auto-detect camera if not set
 	if not active_camera:
 		_auto_detect_camera()
+	if home_on_ready: go_home.call_deferred()
 	
 	if enable_debug_logging:
 		print("[CameraController] Initialized with camera: %s" % (active_camera.get_class() if active_camera else "None"))
@@ -98,6 +105,10 @@ func set_camera(new_camera: CameraInterface) -> void:
 	# Set new camera
 	active_camera = new_camera
 	active_camera.current = true
+	if is_instance_valid(ground):
+		active_camera.global_transform = constrain_pose(active_camera.global_transform, active_camera.global_transform)
+	_safe_pose = active_camera.global_transform
+	_has_safe_pose = true
 	for child in get_children():
 		if child is CameraInterface:
 			child.enable_camera_movement = child == active_camera and _movement_blockers.is_empty()
@@ -191,6 +202,7 @@ func reset_camera() -> void:
 		return
 	
 	active_camera.reset()
+	if home_on_ready: go_home()
 	
 	if enable_debug_logging:
 		print("[CameraController] Camera reset")
@@ -266,13 +278,78 @@ func set_camera_transform(transform: Transform3D) -> void:
 		return
 	
 	# Apply transform
-	camera.global_transform = transform
+	camera.global_transform = constrain_pose(camera.global_transform, transform)
+	_safe_pose = camera.global_transform
+	_has_safe_pose = true
 	
 	# Reset camera's internal state to prevent override
 	if camera.has_method("reset_movement_state"):
 		camera.reset_movement_state()
 	
-	print("[CameraController] Camera transform set to: %s" % transform.origin)
+	print("[CameraController] Camera transform set to: %s" % active_camera.global_position)
+
+func go_home() -> void:
+	position_camera_at(safety.home_position, safety.home_target)
+
+func set_protection(enabled: bool) -> void:
+	safety.protected_fly = enabled
+	if enabled and active_camera:
+		set_camera_transform(active_camera.global_transform)
+
+func ground_height() -> float:
+	if not is_instance_valid(ground): return -INF
+	if ground is CSGBox3D:
+		return ground.to_global(Vector3(0, ground.size.y * 0.5, 0)).y
+	return ground.global_position.y
+
+func constrain_pose(previous: Transform3D, desired: Transform3D) -> Transform3D:
+	if not safety.protected_fly or not is_instance_valid(ground): return desired
+	var minimum := ground_height() + safety.radius + safety.margin
+	desired.origin.y = maxf(desired.origin.y, minimum)
+	if not Engine.is_in_physics_frame() or not active_camera: return desired
+	var start := previous.origin
+	start.y = maxf(start.y, minimum)
+	var motion := desired.origin - start
+	if motion.length_squared() < 0.00000001: return desired
+	_collision_sphere.radius = safety.radius
+	var query := PhysicsShapeQueryParameters3D.new()
+	query.shape = _collision_sphere
+	query.transform = Transform3D(Basis.IDENTITY, start)
+	query.motion = motion
+	query.margin = safety.margin
+	query.collision_mask = safety.collision_mask
+	query.collide_with_areas = false
+	var state := active_camera.get_world_3d().direct_space_state
+	var fractions := state.cast_motion(query)
+	if fractions.size() == 2 and fractions[0] < 1.0:
+		var safe_fraction := maxf(0.0, fractions[0] - safety.margin / maxf(motion.length(), 0.001))
+		var reached := start + motion * safe_fraction
+		query.transform.origin = start + motion * fractions[1]
+		query.motion = Vector3.ZERO
+		var hit := state.get_rest_info(query)
+		if not hit.is_empty():
+			var normal: Vector3 = hit.normal
+			var slide := (motion * (1.0 - safe_fraction)).slide(normal)
+			query.transform.origin = reached
+			query.motion = slide
+			var remainder := state.cast_motion(query)
+			if remainder.size() == 2: reached += slide * maxf(0, remainder[0] - 0.001)
+			if active_camera is FreeLookCamera:
+				active_camera.velocity = active_camera.velocity.slide(normal)
+		desired.origin = reached
+	desired.origin.y = maxf(desired.origin.y, minimum)
+	return desired
+
+func _physics_process(_delta: float) -> void:
+	if not active_camera: return
+	var desired := active_camera.global_transform
+	var resolved := constrain_pose(_safe_pose if _has_safe_pose else desired, desired)
+	if not resolved.origin.is_equal_approx(desired.origin):
+		active_camera.global_transform = resolved
+		if active_camera is FreeLookCamera:
+			active_camera.velocity.y = maxf(0, active_camera.velocity.y) if resolved.origin.y <= ground_height() + safety.radius + safety.margin + 0.001 else active_camera.velocity.y
+	_safe_pose = resolved
+	_has_safe_pose = true
 
 
 ## ============================================================================

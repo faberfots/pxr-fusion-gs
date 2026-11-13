@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
+[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+[node name="LightingPanel" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+visible = false
+custom_minimum_size = Vector2(340,0)
+script = ExtResource("1")
+theme = ExtResource("2")
+layout_id = "LightingPanel"
+drag_handle = NodePath("Body/Header")
+
+[node name="Body" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+
+
+[node name="Header" type="HBoxContainer" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 6
+
+[node name="Title" type="Label" parent="Body/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Light & integration"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+
+[node name="Close" type="Button" parent="Body/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "×"
+tooltip_text = "Close panel"
+
+[node name="Description" type="Label" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Directional Gaussian shadows and participating transparent meshes."
+autowrap_mode = 2
+custom_minimum_size = Vector2(300,0)
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
+
+[node name="Shadows" type="CheckButton" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Gaussian shadows"
+
+[node name="ShadowStrength" type="HSlider" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 0.65
+tooltip_text = "Dynamic shadow strength"
+
+[node name="ShadowStatus" type="Label" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Original captured radiance is preserved when off."
+autowrap_mode = 2
+
+[node name="IntegrationNote" type="Label" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Choose which models cast and receive shadows in Scene navigator. Receiving stays off until you enable it."
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 12
+
+[node name="ShadowResolution" type="OptionButton" parent="Body"]
+unique_name_in_owner = true
+tooltip_text = "Directional shadow resolution · uses the existing total GPU budget"
+item_count = 3
+selected = 1
+popup/item_0/text = "Draft · 256 × 256"
+popup/item_1/text = "Balanced · 512 × 512"
+popup/item_2/text = "Fine · 1024 × 1024"

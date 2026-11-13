@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="PackedScene" path="res://modules/gaussian_splatting/scenes/gs_shadow_receiver.tscn" id="1"]
+[sub_resource type="PlaneMesh" id="floor"]
+size = Vector2(8,8)
+[sub_resource type="StandardMaterial3D" id="mat"]
+shading_mode = 0
+albedo_color = Color(1,1,1,1)
+[sub_resource type="BoxShape3D" id="unused"]
+[node name="ShadowLab" type="Node3D"]
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("floor")
+material_override = SubResource("mat")
+[node name="Receiver" parent="." node_paths=PackedStringArray("receiver") instance=ExtResource("1")]
+receiver = NodePath("../Floor")
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-1.5707963,0,0)
+shadow_enabled = true

@@ -1,310 +1,286 @@
-[gd_scene format=3 uid="uid://bkyfbfxl18n7g"]
-
-[ext_resource type="Script" uid="uid://fl8kme1ek2hl" path="res://modules/gaussian_splatting/UI/SceneManagerPanel.gd" id="1_script"]
-[ext_resource type="Script" uid="uid://b6xm6wra537ns" path="res://modules/gaussian_splatting/UI/DraggableContainer.gd" id="2_draggable"]
-[ext_resource type="FontFile" uid="uid://b06alat7f14g1" path="res://assets/fonts/Oswald/Oswald-VariableFont_wght.ttf" id="3_font"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.1, 0.1, 0.12, 0.95)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 0.1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-shadow_color = Color(0, 0, 0, 0.3)
-shadow_size = 8
-
-[node name="SceneManagerPanel" type="CanvasLayer" unique_id=233588500]
+[gd_scene load_steps=4 format=3 uid="uid://bkyfbfxl18n7g"]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/SceneManagerPanel.gd" id="1"]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/DraggableContainer.gd" id="2"]
+[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="3"]
+[node name="SceneManagerPanel" type="CanvasLayer"]
 layer = 10
-script = ExtResource("1_script")
-
-[node name="DraggableContainer" type="Control" parent="." unique_id=1139097858 node_paths=PackedStringArray("drag_handle")]
+script = ExtResource("1")
+[node name="DraggableContainer" type="Control" parent="." node_paths=PackedStringArray("drag_handle")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(280, 400)
-layout_mode = 3
-anchors_preset = 0
-offset_left = 77.0
-offset_top = 99.0
-offset_right = 359.0
-offset_bottom = 499.0
-mouse_filter = 1
-script = ExtResource("2_draggable")
+offset_left = 24.0
+offset_top = 110.0
+offset_right = 416.0
+offset_bottom = 610.0
+script = ExtResource("2")
+theme = ExtResource("3")
 drag_handle = NodePath("Panel/MainLayout/HeaderBar")
+layout_id = "scene_navigator"
 
-[node name="Panel" type="PanelContainer" parent="DraggableContainer" unique_id=854372785]
+[node name="Panel" type="PanelContainer" parent="DraggableContainer"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_force_pass_scroll_events = false
-theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="MainLayout" type="VBoxContainer" parent="DraggableContainer/Panel" unique_id=1856512879]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="HeaderBar" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout" unique_id=437371778]
+[node name="MainLayout" type="VBoxContainer" parent="DraggableContainer/Panel"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+
+[node name="HeaderBar" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout"]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
-mouse_force_pass_scroll_events = false
-theme_override_constants/separation = 6
+mouse_default_cursor_shape = 6
 
-[node name="GrabHandle" type="Label" parent="DraggableContainer/Panel/MainLayout/HeaderBar" unique_id=572123461]
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 16
-text = "☰"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TitleLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/HeaderBar" unique_id=904795985]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 14
-text = "SCENE MANAGER"
-vertical_alignment = 1
-
-[node name="MinimizeButton" type="Button" parent="DraggableContainer/Panel/MainLayout/HeaderBar" unique_id=809480788]
+[node name="Title" type="Label" parent="DraggableContainer/Panel/MainLayout/HeaderBar"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-tooltip_text = "Minimize"
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 14
+text = "Scene navigator"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+
+[node name="MinimizeButton" type="Button" parent="DraggableContainer/Panel/MainLayout/HeaderBar"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "−"
-flat = true
+tooltip_text = "Collapse properties"
 
-[node name="CloseButton" type="Button" parent="DraggableContainer/Panel/MainLayout/HeaderBar" unique_id=1877842920]
+[node name="CloseButton" type="Button" parent="DraggableContainer/Panel/MainLayout/HeaderBar"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-tooltip_text = "Close Panel"
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 14
-text = "✕"
-flat = true
+text = "×"
 
-[node name="HeaderSeparator" type="HSeparator" parent="DraggableContainer/Panel/MainLayout" unique_id=1842809389]
+[node name="Search" type="LineEdit" parent="DraggableContainer/Panel/MainLayout"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 4
+placeholder_text = "Find a model…"
+clear_button_enabled = true
 
-[node name="ObjectSection" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout" unique_id=1340735451]
-layout_mode = 2
-mouse_filter = 0
-mouse_force_pass_scroll_events = false
-theme_override_constants/separation = 4
-
-[node name="ObjectSectionHeader" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/ObjectSection" unique_id=595559626]
-layout_mode = 2
-
-[node name="SectionLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/ObjectSection/ObjectSectionHeader" unique_id=1260394431]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 11
-text = "  OBJECTS"
-
-[node name="ObjectScrollContainer" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/ObjectSection" unique_id=473333683]
-custom_minimum_size = Vector2(0, 100)
+[node name="Scroll" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="ObjectList" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/ObjectSection/ObjectScrollContainer" unique_id=2127389320]
+[node name="Content" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 2
 
-[node name="NoObjectsLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/ObjectSection/ObjectScrollContainer/ObjectList" unique_id=1092403931]
+[node name="ObjectSection" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 11
-text = "  No objects loaded"
 
-[node name="TransformSeparator" type="HSeparator" parent="DraggableContainer/Panel/MainLayout" unique_id=778960120]
-layout_mode = 2
-theme_override_constants/separation = 8
 
-[node name="TransformSection" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout" unique_id=1685423157]
+[node name="ObjectList" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/ObjectSection"]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 0
-theme_override_constants/separation = 6
 
-[node name="SectionLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/TransformSection" unique_id=1699165482]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 11
-text = "  TRANSFORMATION"
 
-[node name="PositionRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/TransformSection" unique_id=77819834]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Label" type="Label" parent="DraggableContainer/Panel/MainLayout/TransformSection/PositionRow" unique_id=481516220]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 11
-text = "  Position"
-vertical_alignment = 1
-
-[node name="PosX" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/TransformSection/PositionRow" unique_id=966995812]
+[node name="NoObjectsLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/ObjectSection/ObjectList"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Load a model to begin."
+
+[node name="TransformSection" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="TransformTitle" type="Label" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ACTIVE MODEL TRANSFORM"
+theme_override_font_sizes/font_size = 12
+modulate = Color(0.55,0.74,0.75,1)
+
+[node name="Position" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="PositionLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Position"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Position"
+
+[node name="PositionValues" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Position"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="PosX" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Position/PositionValues"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(104,36)
 size_flags_horizontal = 3
-min_value = -1000.0
-max_value = 1000.0
+min_value = -1000000.0
+max_value = 1000000.0
+step = 0.01
+prefix = "X "
+
+[node name="PosY" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Position/PositionValues"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(104,36)
+size_flags_horizontal = 3
+min_value = -1000000.0
+max_value = 1000000.0
+step = 0.01
+prefix = "Y "
+
+[node name="PosZ" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Position/PositionValues"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(104,36)
+size_flags_horizontal = 3
+min_value = -1000000.0
+max_value = 1000000.0
+step = 0.01
+prefix = "Z "
+
+[node name="Rotation" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="RotationLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Rotation"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rotation"
+
+[node name="RotationValues" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Rotation"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="RotX" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Rotation/RotationValues"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(104,36)
+size_flags_horizontal = 3
+min_value = -1000000.0
+max_value = 1000000.0
 step = 0.1
-allow_greater = true
-allow_lesser = true
-prefix = "X"
-
-[node name="PosY" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/TransformSection/PositionRow" unique_id=279001627]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1000.0
-max_value = 1000.0
-step = 0.1
-allow_greater = true
-allow_lesser = true
-prefix = "Y"
-
-[node name="PosZ" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/TransformSection/PositionRow" unique_id=1501440005]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1000.0
-max_value = 1000.0
-step = 0.1
-allow_greater = true
-allow_lesser = true
-prefix = "Z"
-
-[node name="RotationRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/TransformSection" unique_id=624946751]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Label" type="Label" parent="DraggableContainer/Panel/MainLayout/TransformSection/RotationRow" unique_id=1395786710]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 11
-text = "  Rotation"
-vertical_alignment = 1
-
-[node name="RotX" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/TransformSection/RotationRow" unique_id=481317826]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -180.0
-max_value = 180.0
-prefix = "X"
+prefix = "X "
 suffix = "°"
 
-[node name="RotY" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/TransformSection/RotationRow" unique_id=275059773]
+[node name="RotY" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Rotation/RotationValues"]
 unique_name_in_owner = true
 layout_mode = 2
+custom_minimum_size = Vector2(104,36)
 size_flags_horizontal = 3
-min_value = -180.0
-max_value = 180.0
-prefix = "Y"
-suffix = "°"
-
-[node name="RotZ" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/TransformSection/RotationRow" unique_id=1263947745]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -180.0
-max_value = 180.0
-prefix = "Z"
-suffix = "°"
-
-[node name="ScaleRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/TransformSection" unique_id=1939006574]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Label" type="Label" parent="DraggableContainer/Panel/MainLayout/TransformSection/ScaleRow" unique_id=2035272420]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 11
-text = "  Scale"
-vertical_alignment = 1
-
-[node name="ScaleUniform" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/TransformSection/ScaleRow" unique_id=1906693226]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = 0.01
+min_value = -1000000.0
+max_value = 1000000.0
 step = 0.1
-value = 1.01
-allow_greater = true
+prefix = "Y "
+suffix = "°"
 
-[node name="ResetButton" type="Button" parent="DraggableContainer/Panel/MainLayout/TransformSection/ScaleRow" unique_id=1560312601]
+[node name="RotZ" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/Rotation/RotationValues"]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "Reset to Identity Transform"
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 11
-text = "Reset"
+custom_minimum_size = Vector2(104,36)
+size_flags_horizontal = 3
+min_value = -1000000.0
+max_value = 1000000.0
+step = 0.1
+prefix = "Z "
+suffix = "°"
+
+[node name="ScaleRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="ScaleLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/ScaleRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Uniform scale"
+size_flags_horizontal = 3
+
+[node name="ScaleUniform" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/ScaleRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.001
+max_value = 100000.0
+step = 0.01
+value = 1.0
+custom_minimum_size = Vector2(150,36)
+
+[node name="ResetButton" type="Button" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset active model transform"
+
+[node name="SplatCountLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "No model selected"
+modulate = Color(0.57,0.78,0.75,1)
+
+[node name="GPUDetails" type="Button" parent="DraggableContainer/Panel/MainLayout/Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "GPU details"
 flat = true
 
-[node name="InfoSeparator" type="HSeparator" parent="DraggableContainer/Panel/MainLayout" unique_id=1801740243]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="InfoSection" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout" unique_id=1839509787]
+[node name="InfoSection" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 0
-mouse_force_pass_scroll_events = false
-theme_override_constants/separation = 2
+visible = false
 
-[node name="SectionLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/InfoSection" unique_id=1227228947]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 11
-text = "  NEURAL LINK"
-
-[node name="InstanceIDLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/InfoSection" unique_id=2055937105]
+[node name="InstanceIDLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/InfoSection"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.7, 0.9, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 10
-text = "  Instance ID: -"
+text = "Instance: —"
+theme_override_font_sizes/font_size = 12
 
-[node name="SplatCountLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/InfoSection" unique_id=1971734409]
+[node name="BufferOffsetLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/InfoSection"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.7, 0.9, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 10
-text = "  Splat Count: -"
+text = "Atlas offset: —"
+theme_override_font_sizes/font_size = 12
 
-[node name="BufferOffsetLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/InfoSection" unique_id=1915071012]
-unique_name_in_owner = true
+[node name="ScaleValues" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.7, 0.9, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 10
-text = "  Buffer Offset: -"
+
+[node name="ScaleX" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/ScaleValues"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100,36)
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 10000.0
+step = 0.001
+value = 1.0
+prefix = "X "
+
+[node name="ScaleY" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/ScaleValues"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100,36)
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 10000.0
+step = 0.001
+value = 1.0
+prefix = "Y "
+
+[node name="ScaleZ" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection/ScaleValues"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100,36)
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 10000.0
+step = 0.001
+value = 1.0
+prefix = "Z "
+
+[node name="CastShadow" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
+unique_name_in_owner = true
+text = "Cast Gaussian shadows"
+tooltip_text = "Use this model's actual Gaussian opacity in the directional shadow cache"
+[node name="ReceiveShadow" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
+unique_name_in_owner = true
+text = "Receive Gaussian shadows"
+tooltip_text = "Opt in to additional shadowing of this model's captured radiance"

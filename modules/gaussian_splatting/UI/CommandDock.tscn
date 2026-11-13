@@ -1,0 +1,161 @@
+[gd_scene load_steps=16 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/CommandDock.gd" id="1"]
+[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://modules/gaussian_splatting/UI/OrbitalButton.tscn" id="button"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/art/orbit.svg" id="orbit"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/art/core.svg" id="core"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/art/load.svg" id="icon_load"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/art/scene.svg" id="icon_scene"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/art/image.svg" id="icon_image"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/art/sun.svg" id="icon_sun"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/art/camera.svg" id="icon_camera"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/art/settings.svg" id="icon_settings"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/art/spark.svg" id="icon_spark"]
+[ext_resource type="PackedScene" path="res://modules/gaussian_splatting/UI/BrandMark.tscn" id="brand_mark"]
+[sub_resource type="StyleBoxEmpty" id="empty"]
+[sub_resource type="StyleBoxTexture" id="core_style"]
+texture = ExtResource("core")
+[node name="CommandDock" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+script = ExtResource("1")
+theme = ExtResource("2")
+theme_override_styles/panel = SubResource("empty")
+layout_id = "command_orbit_v2"
+drag_handle = NodePath("Body/Header")
+mouse_filter = 2
+[node name="Body" type="Control" parent="."]
+custom_minimum_size = Vector2(380,400)
+mouse_filter = 2
+[node name="Header" type="HBoxContainer" parent="Body"]
+offset_left = 38.0
+offset_top = 0.0
+offset_right = 342.0
+offset_bottom = 26.0
+mouse_filter = 0
+mouse_default_cursor_shape = 6
+[node name="Brand" type="Label" parent="Body/Header"]
+unique_name_in_owner = true
+text = "P X R F U S I O N   /   S P A T I A L"
+size_flags_horizontal = 3
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.96,0.87,0.85,1)
+mouse_filter = 2
+[node name="Actions" type="Control" parent="Body"]
+unique_name_in_owner = true
+offset_top = 20.0
+offset_right = 380.0
+offset_bottom = 400.0
+mouse_filter = 2
+[node name="Orbit" type="TextureRect" parent="Body/Actions"]
+offset_right = 380.0
+offset_bottom = 380.0
+texture = ExtResource("orbit")
+mouse_filter = 2
+[node name="LoadFileButton" parent="Body/Actions" instance=ExtResource("button")]
+unique_name_in_owner = true
+offset_left = 146.00
+offset_top = 15.00
+offset_right = 234.00
+offset_bottom = 103.00
+tooltip_text = "Load or append Gaussian models · Ctrl+O"
+[node name="Glyph" parent="Body/Actions/LoadFileButton" index="0"]
+texture = ExtResource("icon_load")
+[node name="Caption" parent="Body/Actions/LoadFileButton" index="1"]
+text = "IMPORT"
+[node name="SceneManagerButton" parent="Body/Actions" instance=ExtResource("button")]
+unique_name_in_owner = true
+offset_left = 248.42
+offset_top = 64.32
+offset_right = 336.42
+offset_bottom = 152.32
+tooltip_text = "Scene navigator · select, show and transform models"
+[node name="Glyph" parent="Body/Actions/SceneManagerButton" index="0"]
+texture = ExtResource("icon_scene")
+[node name="Caption" parent="Body/Actions/SceneManagerButton" index="1"]
+text = "SCENE"
+[node name="ColorButton" parent="Body/Actions" instance=ExtResource("button")]
+unique_name_in_owner = true
+offset_left = 273.72
+offset_top = 175.15
+offset_right = 361.72
+offset_bottom = 263.15
+tooltip_text = "Image studio · color presets and fine controls"
+[node name="Glyph" parent="Body/Actions/ColorButton" index="0"]
+texture = ExtResource("icon_image")
+[node name="Caption" parent="Body/Actions/ColorButton" index="1"]
+text = "IMAGE"
+[node name="LightingButton" parent="Body/Actions" instance=ExtResource("button")]
+unique_name_in_owner = true
+offset_left = 202.84
+offset_top = 264.03
+offset_right = 290.84
+offset_bottom = 352.03
+tooltip_text = "Directional Gaussian shadows and material integration"
+[node name="Glyph" parent="Body/Actions/LightingButton" index="0"]
+texture = ExtResource("icon_sun")
+[node name="Caption" parent="Body/Actions/LightingButton" index="1"]
+text = "LIGHT"
+[node name="CameraButton" parent="Body/Actions" instance=ExtResource("button")]
+unique_name_in_owner = true
+offset_left = 89.16
+offset_top = 264.03
+offset_right = 177.16
+offset_bottom = 352.03
+tooltip_text = "Home view, framing and protected flight"
+[node name="Glyph" parent="Body/Actions/CameraButton" index="0"]
+texture = ExtResource("icon_camera")
+[node name="Caption" parent="Body/Actions/CameraButton" index="1"]
+text = "CAMERA"
+[node name="SettingsButton" parent="Body/Actions" instance=ExtResource("button")]
+unique_name_in_owner = true
+offset_left = 18.28
+offset_top = 175.15
+offset_right = 106.28
+offset_bottom = 263.15
+tooltip_text = "Quality, workspace layout and diagnostics"
+[node name="Glyph" parent="Body/Actions/SettingsButton" index="0"]
+texture = ExtResource("icon_settings")
+[node name="Caption" parent="Body/Actions/SettingsButton" index="1"]
+text = "SYSTEM"
+[node name="CognitiveButton" parent="Body/Actions" instance=ExtResource("button")]
+unique_name_in_owner = true
+offset_left = 43.58
+offset_top = 64.32
+offset_right = 131.58
+offset_bottom = 152.32
+tooltip_text = "Optional cloud analysis · permission and consent required"
+[node name="Glyph" parent="Body/Actions/CognitiveButton" index="0"]
+texture = ExtResource("icon_spark")
+[node name="Caption" parent="Body/Actions/CognitiveButton" index="1"]
+text = "ASSIST"
+[node name="Toggle" type="Button" parent="Body"]
+unique_name_in_owner = true
+offset_left = 126.0
+offset_top = 146.0
+offset_right = 254.0
+offset_bottom = 274.0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("core_style")
+theme_override_styles/hover = SubResource("core_style")
+theme_override_styles/pressed = SubResource("core_style")
+theme_override_styles/focus = SubResource("empty")
+tooltip_text = "Collapse command orbit · drag the title to move"
+[node name="BrandMark" parent="Body/Toggle" instance=ExtResource("brand_mark")]
+[node name="Population" type="Label" parent="Body"]
+unique_name_in_owner = true
+offset_left = 54.0
+offset_top = 380.0
+offset_right = 326.0
+offset_bottom = 400.0
+text = "3D GAUSSIAN WORKSPACE"
+horizontal_alignment = 1
+mouse_filter = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.72,0.83,0.83,1)
+[editable path="Body/Actions/LoadFileButton"]
+[editable path="Body/Actions/SceneManagerButton"]
+[editable path="Body/Actions/ColorButton"]
+[editable path="Body/Actions/LightingButton"]
+[editable path="Body/Actions/CameraButton"]
+[editable path="Body/Actions/SettingsButton"]
+[editable path="Body/Actions/CognitiveButton"]

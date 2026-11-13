@@ -1,0 +1,283 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/ColorAdjustmentPanel.gd" id="1"]
+[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+[node name="ColorAdjustmentPanel" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+visible = false
+custom_minimum_size = Vector2(344,0)
+size = Vector2(344,480)
+theme = ExtResource("2")
+script = ExtResource("1")
+layout_id = "image"
+fit_content_height = false
+drag_handle = NodePath("Frame/Header")
+
+[node name="Frame" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Frame"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 6
+
+[node name="Title" type="Label" parent="Frame/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Image studio"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+
+[node name="Close" type="Button" parent="Frame/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "×"
+tooltip_text = "Close image studio"
+
+[node name="Description" type="Label" parent="Frame"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Shape the image. Preserve the source."
+theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
+theme_override_font_sizes/font_size = 13
+
+[node name="Preset" type="OptionButton" parent="Frame"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 6
+popup/item_0/text = "Custom"
+popup/item_1/text = "Natural"
+popup/item_2/text = "Warm daylight"
+popup/item_3/text = "Soft"
+popup/item_4/text = "Vivid"
+popup/item_5/text = "Architectural"
+
+[node name="Scroll" type="ScrollContainer" parent="Frame"]
+unique_name_in_owner = true
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Body" type="VBoxContainer" parent="Frame/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="post_exposureRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="post_exposureLabel" type="Label" parent="Frame/Scroll/Body/post_exposureRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exposure"
+size_flags_horizontal = 3
+
+[node name="post_exposureValue" type="Label" parent="Frame/Scroll/Body/post_exposureRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.00"
+horizontal_alignment = 2
+
+[node name="post_exposure" type="HSlider" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.0
+max_value = 5.0
+step = 0.01
+custom_minimum_size = Vector2(0,20)
+tooltip_text = "Exposure"
+
+[node name="post_contrastRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="post_contrastLabel" type="Label" parent="Frame/Scroll/Body/post_contrastRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Contrast"
+size_flags_horizontal = 3
+
+[node name="post_contrastValue" type="Label" parent="Frame/Scroll/Body/post_contrastRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.00"
+horizontal_alignment = 2
+
+[node name="post_contrast" type="HSlider" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.5
+max_value = 2.0
+step = 0.01
+custom_minimum_size = Vector2(0,20)
+tooltip_text = "Contrast"
+
+[node name="post_saturationRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="post_saturationLabel" type="Label" parent="Frame/Scroll/Body/post_saturationRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Saturation"
+size_flags_horizontal = 3
+
+[node name="post_saturationValue" type="Label" parent="Frame/Scroll/Body/post_saturationRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.00"
+horizontal_alignment = 2
+
+[node name="post_saturation" type="HSlider" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.0
+max_value = 2.0
+step = 0.01
+custom_minimum_size = Vector2(0,20)
+tooltip_text = "Saturation"
+
+[node name="post_temperatureRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="post_temperatureLabel" type="Label" parent="Frame/Scroll/Body/post_temperatureRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Warmth"
+size_flags_horizontal = 3
+
+[node name="post_temperatureValue" type="Label" parent="Frame/Scroll/Body/post_temperatureRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.00"
+horizontal_alignment = 2
+
+[node name="post_temperature" type="HSlider" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+custom_minimum_size = Vector2(0,20)
+tooltip_text = "Warmth"
+
+[node name="post_black_pointRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="post_black_pointLabel" type="Label" parent="Frame/Scroll/Body/post_black_pointRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Black point"
+size_flags_horizontal = 3
+
+[node name="post_black_pointValue" type="Label" parent="Frame/Scroll/Body/post_black_pointRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.00"
+horizontal_alignment = 2
+
+[node name="post_black_point" type="HSlider" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.0
+max_value = 0.5
+step = 0.01
+custom_minimum_size = Vector2(0,20)
+tooltip_text = "Black point"
+
+[node name="post_white_pointRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="post_white_pointLabel" type="Label" parent="Frame/Scroll/Body/post_white_pointRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "White point"
+size_flags_horizontal = 3
+
+[node name="post_white_pointValue" type="Label" parent="Frame/Scroll/Body/post_white_pointRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.00"
+horizontal_alignment = 2
+
+[node name="post_white_point" type="HSlider" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.5
+max_value = 2.0
+step = 0.01
+custom_minimum_size = Vector2(0,20)
+tooltip_text = "White point"
+
+[node name="post_sharpnessRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="post_sharpnessLabel" type="Label" parent="Frame/Scroll/Body/post_sharpnessRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sharpness"
+size_flags_horizontal = 3
+
+[node name="post_sharpnessValue" type="Label" parent="Frame/Scroll/Body/post_sharpnessRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.00"
+horizontal_alignment = 2
+
+[node name="post_sharpness" type="HSlider" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+custom_minimum_size = Vector2(0,20)
+tooltip_text = "Sharpness"
+
+[node name="TintRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+
+
+[node name="TintLabel" type="Label" parent="Frame/Scroll/Body/TintRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Color tint"
+size_flags_horizontal = 3
+
+[node name="Tint" type="ColorPickerButton" parent="Frame/Scroll/Body/TintRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(84,28)
+edit_alpha = false
+
+[node name="Compare" type="CheckButton" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Compare original"
+
+[node name="Reset" type="Button" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset to Natural"
+
+[node name="Note" type="Label" parent="Frame/Scroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Saved automatically · independent of quality"
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
+
+[node name="SaveTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+wait_time = 0.4

@@ -53,6 +53,8 @@ var _is_minimized := false
 
 ## Tracks if the user is actively editing a spinbox (prevents sync override)
 var _user_is_editing := false
+var _numeric_before:Dictionary={}
+var _numeric_model_id:=""
 
 ## Preloaded ObjectListItem scene for performance
 var _object_list_item_scene: PackedScene = preload("res://modules/gaussian_splatting/UI/ObjectListItem.tscn")
@@ -74,6 +76,16 @@ func _ready() -> void:
 		draggable_container.mouse_entered.connect(_on_mouse_entered_panel)
 		draggable_container.mouse_exited.connect(_on_mouse_exited_panel)
 	
+	for axis in range(3):
+		get_node("%Scale"+["X","Y","Z"][axis]).value_changed.connect(_on_axis_scale_changed.bind(axis))
+	%CastShadow.toggled.connect(func(value):
+		if not _is_updating_ui and is_instance_valid(selected_node):selected_node.cast_gaussian_shadows=value
+	)
+	%ReceiveShadow.toggled.connect(func(value):
+		if not _is_updating_ui and is_instance_valid(selected_node):selected_node.receive_gaussian_shadows=value
+	)
+	%Search.text_changed.connect(func(_value):_filter_rows())
+	%GPUDetails.pressed.connect(func():info_section.visible=not info_section.visible)
 	# Connect UI signals
 	_connect_signals()
 	
@@ -98,13 +110,14 @@ func _connect_signals() -> void:
 	scale_uniform.value_changed.connect(_on_scale_changed)
 	
 	# [NEW] Focus tracking to prevent sync while user is editing
-	for spinbox in [pos_x, pos_y, pos_z, rot_x, rot_y, rot_z, scale_uniform]:
-		spinbox.get_line_edit().focus_entered.connect(func(): _user_is_editing = true)
-		spinbox.get_line_edit().focus_exited.connect(func(): _user_is_editing = false)
+	for spinbox in [pos_x, pos_y, pos_z, rot_x, rot_y, rot_z, scale_uniform,%ScaleX,%ScaleY,%ScaleZ]:
+		spinbox.get_line_edit().focus_entered.connect(_begin_numeric_edit)
+		spinbox.get_line_edit().focus_exited.connect(_finish_numeric_edit)
 	
 	# Viewer signals for list updates
 	if viewer:
 		viewer.selection_changed.connect(func(_id):
+			_finish_numeric_edit()
 			_update_transform_controls_enabled(is_instance_valid(selected_node))
 			if is_instance_valid(selected_node):_update_info_labels();_sync_ui_to_node_transform()
 			_update_list_selection_visuals()
@@ -151,13 +164,15 @@ func _refresh_object_list() -> void:
 		# Set display name
 		var display_name = node.file_path.get_file() if not node.file_path.is_empty() else node.name
 		select_button.text = display_name
+		select_button.tooltip_text = node.file_path+"\nCtrl-click to add/remove selection"
 		
 		# Set visibility icon
-		visibility_button.text = "👁" if node.visible else "◯"
+		visibility_button.modulate.a=1.0 if node.visible else 0.35
 		
 		# Connect signals (capture 'node' in closure)
 		select_button.pressed.connect(_on_object_selected.bind(node))
 		visibility_button.pressed.connect(_on_visibility_toggled.bind(node, visibility_button))
+		item.get_node("%FrameButton").pressed.connect(func():viewer.frame_models([node.model_id]))
 		delete_button.pressed.connect(_on_delete_pressed.bind(node))
 		
 		# Store node reference for later lookup
@@ -165,6 +180,7 @@ func _refresh_object_list() -> void:
 		
 		object_list.add_child(item)
 	
+	_filter_rows()
 	# Auto-select first if nothing selected
 	if not is_instance_valid(selected_node) and viewer.managed_splats.size() > 0:
 		for candidate in viewer.managed_splats.keys():
@@ -186,7 +202,8 @@ func _on_object_selected(node: GaussianSplat) -> void:
 		_clear_selection()
 		return
 	
-	selected_node = node
+	if Input.is_key_pressed(KEY_CTRL):viewer.toggle_model_selection(node.model_id)
+	else:selected_node = node
 	_update_transform_controls_enabled(true)
 	_sync_ui_to_node_transform()
 	_update_info_labels()
@@ -215,6 +232,8 @@ func _update_transform_controls_enabled(enabled: bool) -> void:
 	rot_z.editable = enabled
 	scale_uniform.editable = enabled
 	reset_button.disabled = not enabled
+	for control in [%ScaleX,%ScaleY,%ScaleZ]:control.editable=enabled
+	%CastShadow.disabled=not enabled;%ReceiveShadow.disabled=not enabled
 
 
 ## Syncs UI spinbox values to the selected node's current transform
@@ -239,6 +258,9 @@ func _sync_ui_to_node_transform() -> void:
 	
 	# Scale (uniform - use X as reference)
 	scale_uniform.value = t.basis.get_scale().x
+	%ScaleX.value=selected_node.scale.x;%ScaleY.value=selected_node.scale.y;%ScaleZ.value=selected_node.scale.z
+	%CastShadow.button_pressed=selected_node.cast_gaussian_shadows
+	%ReceiveShadow.button_pressed=selected_node.receive_gaussian_shadows
 	
 	_is_updating_ui = false
 
@@ -266,9 +288,9 @@ func _update_list_selection_visuals() -> void:
 		var stored_node = item.get_meta("splat_node", null)
 		var select_button: Button = item.get_node("%SelectButton")
 		
-		if stored_node == selected_node:
+		if is_instance_valid(stored_node) and viewer.selected_model_ids.has(stored_node.model_id):
 			# Highlight selected
-			select_button.add_theme_color_override("font_color", Color(0.3, 0.7, 1.0, 1.0))
+			select_button.add_theme_color_override("font_color", Color(1.0, 0.40, 0.38, 1.0))
 		else:
 			# Remove highlight
 			select_button.remove_theme_color_override("font_color")
@@ -276,60 +298,39 @@ func _update_list_selection_visuals() -> void:
 
 
 #region Transform Handlers (Live Update)
-func _on_pos_x_changed(value: float) -> void:
-	if _is_updating_ui or not is_instance_valid(selected_node):
-		return
-	selected_node.global_position.x = value
-
-
-func _on_pos_y_changed(value: float) -> void:
-	if _is_updating_ui or not is_instance_valid(selected_node):
-		return
-	selected_node.global_position.y = value  # [FIX] Invert Y for intuitive UI (+ = up)
-
-
-func _on_pos_z_changed(value: float) -> void:
-	if _is_updating_ui or not is_instance_valid(selected_node):
-		return
-	selected_node.global_position.z = value
-
-
-func _on_rot_x_changed(value: float) -> void:
-	if _is_updating_ui or not is_instance_valid(selected_node):
-		return
-	var euler := selected_node.global_rotation_degrees
-	euler.x = value
-	selected_node.global_rotation_degrees = euler
-
-
-func _on_rot_y_changed(value: float) -> void:
-	if _is_updating_ui or not is_instance_valid(selected_node):
-		return
-	var euler := selected_node.global_rotation_degrees
-	euler.y = value
-	selected_node.global_rotation_degrees = euler
-
-
-func _on_rot_z_changed(value: float) -> void:
-	if _is_updating_ui or not is_instance_valid(selected_node):
-		return
-	var euler := selected_node.global_rotation_degrees
-	euler.z = value
-	selected_node.global_rotation_degrees = euler
-
-
-func _on_scale_changed(value: float) -> void:
-	if _is_updating_ui or not is_instance_valid(selected_node):
-		return
-	selected_node.global_basis = Basis.from_euler(selected_node.global_rotation).scaled(Vector3.ONE * value)
-
-
-func _on_reset_transform_pressed() -> void:
-	if not is_instance_valid(selected_node):
-		return
-	
-	selected_node.global_transform = Transform3D.IDENTITY
-	_sync_ui_to_node_transform()
+func _begin_numeric_edit()->void:
+	_user_is_editing=true
+	if is_instance_valid(selected_node):
+		_numeric_model_id=selected_node.model_id;_numeric_before={_numeric_model_id:selected_node.global_transform}
+func _finish_numeric_edit()->void:
+	_user_is_editing=false
+	if not _numeric_before.is_empty() and is_instance_valid(selected_node) and selected_node.model_id==_numeric_model_id:
+		viewer.commit_transform_edit(_numeric_before,{_numeric_model_id:selected_node.global_transform})
+	_numeric_before.clear();_numeric_model_id=""
+func _numeric_edit(kind:String,axis:int,value:float)->void:
+	if _is_updating_ui or not is_instance_valid(selected_node):return
+	var before:Dictionary={selected_node.model_id:selected_node.global_transform}
+	if kind=="position":
+		var v:=selected_node.global_position;v[axis]=value;selected_node.global_position=v
+	elif kind=="rotation":
+		var v:=selected_node.global_rotation_degrees;v[axis]=value;selected_node.global_rotation_degrees=v
+	elif kind=="scale":
+		var v:=selected_node.scale;v[axis]=value;selected_node.scale=v
+	elif kind=="uniform":selected_node.global_basis=Basis.from_euler(selected_node.global_rotation).scaled(Vector3.ONE*value)
+	if not _user_is_editing:viewer.commit_transform_edit(before,{selected_node.model_id:selected_node.global_transform})
+func _on_pos_x_changed(value:float)->void:_numeric_edit("position",0,value)
+func _on_pos_y_changed(value:float)->void:_numeric_edit("position",1,value)
+func _on_pos_z_changed(value:float)->void:_numeric_edit("position",2,value)
+func _on_rot_x_changed(value:float)->void:_numeric_edit("rotation",0,value)
+func _on_rot_y_changed(value:float)->void:_numeric_edit("rotation",1,value)
+func _on_rot_z_changed(value:float)->void:_numeric_edit("rotation",2,value)
+func _on_scale_changed(value:float)->void:_numeric_edit("uniform",0,value)
+func _on_axis_scale_changed(value:float,axis:int)->void:_numeric_edit("scale",axis,value)
+func _on_reset_transform_pressed()->void:
+	if not is_instance_valid(selected_node):return
+	var before:Dictionary={selected_node.model_id:selected_node.global_transform}
+	selected_node.global_transform=Transform3D.IDENTITY
+	viewer.commit_transform_edit(before,{selected_node.model_id:selected_node.global_transform});_sync_ui_to_node_transform()
 #endregion
 
 
@@ -339,7 +340,7 @@ func _on_visibility_toggled(node: GaussianSplat, button: Button) -> void:
 		return
 	
 	node.visible = not node.visible
-	button.text = "👁" if node.visible else "◯"
+	button.modulate.a=1.0 if node.visible else 0.35
 
 
 func _on_delete_pressed(node: GaussianSplat) -> void:
@@ -364,15 +365,18 @@ func _on_minimize_pressed() -> void:
 	
 	# Toggle visibility of content sections
 	transform_section.visible = not _is_minimized
-	info_section.visible = not _is_minimized
+	info_section.visible = false
+	%Scroll.visible=not _is_minimized
+	%Search.visible=not _is_minimized
+	draggable_container.size.y=68 if _is_minimized else minf(500,get_viewport().get_visible_rect().size.y-100)
 	
 	# Find and toggle object section
-	var object_section = draggable_container.get_node("Panel/MainLayout/ObjectSection")
+	var object_section = get_node("%ObjectSection")
 	if object_section:
 		object_section.visible = not _is_minimized
 	
 	# Find and toggle separators
-	for child in draggable_container.get_node("Panel/MainLayout").get_children():
+	for child in get_node("%MainLayout").get_children():
 		if child is HSeparator:
 			child.visible = not _is_minimized
 	
@@ -419,7 +423,7 @@ func show_panel() -> void:
 
 ## Public API: Hide the panel
 func hide_panel() -> void:
-	for spinbox in [pos_x, pos_y, pos_z, rot_x, rot_y, rot_z, scale_uniform]:
+	for spinbox in [pos_x, pos_y, pos_z, rot_x, rot_y, rot_z, scale_uniform,%ScaleX,%ScaleY,%ScaleZ]:
 		spinbox.get_line_edit().release_focus()
 	_user_is_editing = false
 	if is_instance_valid(viewer): viewer.set_camera_blocker("scene_manager", false)
@@ -439,3 +443,10 @@ func _select_item_by_name(identifier: String) -> bool:
 
 func _exit_tree() -> void:
 	if is_instance_valid(viewer): viewer.set_camera_blocker("scene_manager", false)
+
+func _filter_rows()->void:
+	var query:String=%Search.text.to_lower()
+	for item in object_list.get_children():
+		if item==no_objects_label:continue
+		var model:GaussianSplat=item.get_meta("splat_node",null)
+		item.visible=is_instance_valid(model) and (query.is_empty() or query in model.file_path.to_lower())

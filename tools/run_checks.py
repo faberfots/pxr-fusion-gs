@@ -6,9 +6,12 @@ ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--godot', default=os.environ.get('GODOT_BIN', r'C:\Users\User\Downloads\Godot_v4.6.2\Godot_v4.6.2-stable_win64_console.exe'))
 parser.add_argument('--gpu', action='store_true')
+parser.add_argument('--resolution', default='64x64', help='Physical GPU review viewport, for example 1142x648.')
 parser.add_argument('--disable-msaa', action='store_true', help='Exercise the explicit MSAA-disabled rendering configuration.')
 parser.add_argument('--candidate', type=Path)
 parser.add_argument('--skip-import', action='store_true')
+parser.add_argument('--import-timeout', type=int, default=90)
+parser.add_argument('--skip-native', action='store_true', help='Qualify rendering without copying platform-specific optional native ML libraries.')
 parser.add_argument('--script', default='res://tests/core_checks.gd')
 parser.add_argument('--timeout', type=int, default=180)
 parser.add_argument('--test-arg', action='append', default=[])
@@ -23,7 +26,7 @@ for directory in ('modules', 'addons', 'assets', 'tests'):
     if source.exists():
         shutil.copytree(source, candidate / directory, dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.backup', '*.boundaries', '__pycache__'))
 native = ROOT / 'rust/spatial_ml'
-if (native / 'spatial_ml.gdextension').exists() and (native / 'bin').exists():
+if not args.skip_native and (native / 'spatial_ml.gdextension').exists() and (native / 'bin').exists():
     shutil.copytree(native / 'bin', candidate / 'rust/spatial_ml/bin', dirs_exist_ok=True)
     shutil.copytree(native / 'models', candidate / 'rust/spatial_ml/models', dirs_exist_ok=True)
     shutil.copy2(native / 'spatial_ml.gdextension', candidate / 'rust/spatial_ml/spatial_ml.gdextension')
@@ -52,11 +55,11 @@ def run(extra, timeout):
     print("Process exit:", result.returncode, flush=True)
     if "SCRIPT ERROR:" in result.stderr or "ERROR:" in result.stderr: return 1
     return result.returncode
-code = 0 if args.skip_import else run(['--headless', '--editor', '--import', '--single-threaded-scene'], 90)
+code = 0 if args.skip_import else run(['--headless', '--editor', '--import', '--single-threaded-scene'], args.import_timeout)
 if code:
     sys.exit(code)
 code = run(['--headless', '--script', 'res://tests/script_checks.gd'], 60)
 if code:
     sys.exit(code)
-flags = ['--rendering-method', 'forward_plus', '--rendering-driver', 'vulkan', '--resolution', '64x64', '--position', '-32000,-32000'] if args.gpu else ['--headless']
+flags = ['--rendering-method', 'forward_plus', '--rendering-driver', 'vulkan', '--resolution', args.resolution, '--position', '-32000,-32000'] if args.gpu else ['--headless']
 sys.exit(run(flags + ['--script', args.script] + (['--'] + args.test_arg if args.test_arg else []), args.timeout))

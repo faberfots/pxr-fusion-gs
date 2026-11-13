@@ -52,6 +52,31 @@ var _depth_rid := RID()
 var _sampler := RID()
 var _reported_overflow := false
 var _allocation_plan: Dictionary = {}
+var shadow_pass:GSShadowPass
+var shadow_request:Dictionary={}
+var shadow_appearance:=Vector2(0.65,0.02)
+var transparency: GSTransparencyPass
+var transparency_active := false
+var _hybrid_grade := PackedByteArray()
+
+func prepare_transparency(draws: Array[Dictionary], colors: PackedByteArray) -> Error:
+	if not gpu_init_complete:return ERR_UNAVAILABLE
+	var result:Error=_sync(func()->Error:
+		_hybrid_grade=colors
+		if draws.is_empty():
+			if transparency:transparency.cleanup();transparency=null
+			transparency_active=false;return OK
+		if transparency and transparency.size!=_texture_size:
+			transparency.cleanup();transparency=null
+		if not transparency:
+			transparency=GSTransparencyPass.new()
+			var initialized:=transparency.initialize(context,_texture_size,config.memory_max_vram_budget_mb*1048576-context.deletion_queue.get_tracked_memory())
+			if initialized!=OK:transparency.cleanup();transparency=null;transparency_active=false;return initialized
+		var prepared:=transparency.prepare(draws,config.memory_max_vram_budget_mb*1048576-context.deletion_queue.get_tracked_memory())
+		transparency_active=prepared==OK
+		return prepared
+	)
+	return result
 
 func _init(output_size: Vector2i = Vector2i.ONE, output_texture: Texture2DRD = null, view_camera: Camera3D = null, custom_config: GaussianSplattingConfig = null) -> void:
 	config = custom_config.duplicate(true) if custom_config else GaussianSplattingConfig.create_default()
@@ -213,6 +238,10 @@ func cleanup() -> void:
 	_is_busy_modifying_resources = false
 
 func _cleanup_on_render_thread() -> void:
+	if shadow_pass:shadow_pass.cleanup();shadow_pass=null
+	shadow_request.clear()
+	if transparency:transparency.cleanup();transparency=null
+	transparency_active=false
 	_generation += 1
 	gpu_init_complete = false
 	is_loaded = false
@@ -315,6 +344,7 @@ func render_on_render_thread(depth: RID = RID(), scene_depth_enabled: bool = fal
 	var snapshot := _snapshot.duplicate()
 	var pick := _pick_request
 	var pick_epoch:=_pick_epoch
+	var appearance:=shadow_appearance
 	_mutex.unlock()
 	if snapshot.is_empty() or (not snapshot.get("enabled", false) and pick.z <= 0):
 		return
@@ -341,7 +371,9 @@ func render_on_render_thread(depth: RID = RID(), scene_depth_enabled: bool = fal
 	var inverse_data: PackedByteArray = snapshot.inverse
 	for i in range(64):
 		uniforms[64 + i] = inverse_data[i]
+	if shadow_pass and not shadow_request.is_empty():shadow_pass.render(self,shadow_request,snapshot)
 	rd.buffer_update(descriptors.uniforms.rid, 0, 128, uniforms)
+	if transparency_active and transparency:transparency.gather(snapshot.view)
 	rd.buffer_clear(descriptors.histogram.rid, 0, 16)
 	rd.buffer_clear(descriptors.tile_bounds.rid, 0, descriptors.tile_bounds.size)
 	rd.buffer_clear(descriptors.tile_splat_pos.rid, 0, 16)
@@ -350,17 +382,12 @@ func render_on_render_thread(depth: RID = RID(), scene_depth_enabled: bool = fal
 	var list := context.compute_list_begin()
 	pipeline_manager.get_pipeline("gsplat_projection").call(context, list, snapshot.view)
 	context.compute_list_end()
-	list = context.compute_list_begin()
-	for pass_index in range(8):
-		var constants := RenderingContext.create_push_constant([pass_index, pair_capacity * (pass_index % 2), pair_capacity * (1 - pass_index % 2), pair_capacity])
-		pipeline_manager.get_pipeline("radix_sort_upsweep").call(context, list, constants, [], descriptors.grid_dimensions.rid, 0)
-		pipeline_manager.get_pipeline("radix_sort_spine").call(context, list, constants)
-		pipeline_manager.get_pipeline("radix_sort_downsweep").call(context, list, constants, [], descriptors.grid_dimensions.rid, 0)
-	context.compute_list_end()
-	list = context.compute_list_begin()
-	pipeline_manager.get_pipeline("gsplat_boundaries").call(context, list, PackedByteArray(), [], descriptors.grid_dimensions.rid, 12)
+	if shadow_pass and not shadow_request.is_empty():shadow_pass.shade(self,snapshot.population,appearance)
+	sort_projected_pairs()
+	list=context.compute_list_begin()
 	pipeline_manager.get_pipeline("gsplat_render").call(context, list, PackedByteArray(), [descriptor_sets.gsplat_render])
 	context.compute_list_end()
+	if transparency_active and transparency:transparency.merge(self,_depth_rid,_hybrid_grade)
 	var now := Time.get_ticks_msec()
 	if not _readback_pending and now - _last_readback_ms >= int(config.debug_update_interval * 1000):
 		_readback_pending = true
@@ -375,6 +402,18 @@ func render_on_render_thread(depth: RID = RID(), scene_depth_enabled: bool = fal
 		var result := rd.buffer_get_data_async(descriptors.tile_splat_pos.rid, _receive_pick.bind(generation, pick.z,pick_epoch), 0, 16)
 		if result != OK:
 			_pick_inflight = false
+
+func sort_projected_pairs(boundary_override:RID=RID())->void:
+	var list:=context.compute_list_begin()
+	for pass_index in range(8):
+		var constants:=RenderingContext.create_push_constant([pass_index,pair_capacity*(pass_index%2),pair_capacity*(1-pass_index%2),pair_capacity])
+		pipeline_manager.get_pipeline("radix_sort_upsweep").call(context,list,constants,[],descriptors.grid_dimensions.rid,0)
+		pipeline_manager.get_pipeline("radix_sort_spine").call(context,list,constants)
+		pipeline_manager.get_pipeline("radix_sort_downsweep").call(context,list,constants,[],descriptors.grid_dimensions.rid,0)
+	context.compute_list_end()
+	list=context.compute_list_begin()
+	pipeline_manager.get_pipeline("gsplat_boundaries").call(context,list,PackedByteArray(),[boundary_override] if boundary_override.is_valid() else [],descriptors.grid_dimensions.rid,12)
+	context.compute_list_end()
 
 func _receive_stats(bytes: PackedByteArray, generation: int) -> void:
 	if generation != _generation:
@@ -446,9 +485,10 @@ func resize(size: Vector2i) -> Error:
 		return OK
 	var additional := next.x * next.y * 16 + ((next.x + config.tile_size - 1) / config.tile_size) * ((next.y + config.tile_size - 1) / config.tile_size) * 8
 	var previous := _texture_size.x * _texture_size.y * 16 + tile_dims.x * tile_dims.y * 8
-	if allocation_bytes + additional > int(_allocation_plan.budget):
+	if context.deletion_queue.get_tracked_memory() + additional > int(_allocation_plan.budget):
 		return ERR_OUT_OF_MEMORY
 	var result: Error = _sync(func():
+		if transparency:transparency.cleanup();transparency=null;transparency_active=false
 		var replacement := context.create_texture(next, RenderingDevice.DATA_FORMAT_R32G32B32A32_SFLOAT)
 		var next_tiles := (next + Vector2i.ONE * (config.tile_size - 1)) / config.tile_size
 		var ranges := context.create_storage_buffer(next_tiles.x * next_tiles.y * 8)
@@ -495,7 +535,7 @@ func get_stats() -> Dictionary:
 	return snapshot
 
 static func get_render_capabilities() -> Dictionary:
-	return {"opaque_depth":true,"orthographic_projection":true,"independent_model_transform3d":true,"transparent_mesh_interleaving":false,"gaussian_shadow_casting":false,"xr_multiview":false,"llvmpipe_scene_msaa_modes":[Viewport.MSAA_DISABLED,Viewport.MSAA_4X]}
+	return {"opaque_depth":true,"orthographic_projection":true,"independent_model_transform3d":true,"transparent_mesh_interleaving":true,"transparent_mesh_contract":"GSAlphaMesh3D: rigid triangles, unshaded StandardMaterial3D Alpha/Mix, albedo/UV/color/cull","arbitrary_transparent_shaders":false,"gaussian_shadow_casting":true,"gaussian_shadow_receiving":true,"shadow_contract":"one directional light, deep opacity map, explicit GSShadowReceiver3D and opt-in Gaussian receivers","xr_multiview":false,"llvmpipe_scene_msaa_modes":[Viewport.MSAA_DISABLED,Viewport.MSAA_4X]}
 
 static func scene_msaa_mode(requested:int,device_name:String)->int:
 	# Godot 4.6.2 retains the requested sample count after its Vulkan driver
@@ -505,3 +545,22 @@ static func scene_msaa_mode(requested:int,device_name:String)->int:
 	if "llvmpipe" in device_name.to_lower() and requested in [Viewport.MSAA_2X,Viewport.MSAA_8X]:
 		return Viewport.MSAA_4X
 	return requested
+
+func prepare_shadow(request:Dictionary)->Error:
+	if not gpu_init_complete:return ERR_UNAVAILABLE
+	var result:Error=_sync(func()->Error:
+		if request.is_empty():
+			if shadow_pass:shadow_pass.cleanup();shadow_pass=null
+			shadow_request={};return OK
+		if shadow_pass and shadow_pass.resolution!=int(request.resolution):shadow_pass.cleanup();shadow_pass=null
+		if not shadow_pass:
+			shadow_pass=GSShadowPass.new()
+			var initialized:=shadow_pass.initialize(self,request.resolution)
+			if initialized!=OK:shadow_pass.cleanup();shadow_pass=null;return initialized
+		shadow_request=request
+		return OK
+	)
+	return result
+
+func update_shadow_appearance(strength:float,bias:float)->void:
+	_mutex.lock();shadow_appearance=Vector2(strength,bias);_mutex.unlock()

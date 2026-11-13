@@ -3,6 +3,8 @@ class_name GaussianSplat
 extends Node3D
 signal loaded
 @export var model_id := ""
+@export var cast_gaussian_shadows := true
+@export var receive_gaussian_shadows := false
 @export_file("*.ply", "*.gsres") var file_path := "":
 	set(value):
 		if file_path == value:

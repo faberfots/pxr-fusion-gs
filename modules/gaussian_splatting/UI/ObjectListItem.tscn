@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cscenemanager_listitem"]
+[gd_scene load_steps=6 format=3 uid="uid://cscenemanager_listitem"]
 
 [ext_resource type="FontFile" uid="uid://b06alat7f14g1" path="res://assets/fonts/Oswald/Oswald-VariableFont_wght.ttf" id="1_font"]
 
+[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="studio_theme"]
+
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/icons/eye.svg" id="eye"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/icons/trash.svg" id="trash"]
+[ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/icons/focus.svg" id="focus"]
 [node name="ObjectListItem" type="HBoxContainer"]
+theme = ExtResource("studio_theme")
 custom_minimum_size = Vector2(0, 28)
 theme_override_constants/separation = 6
 
@@ -12,8 +18,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 flat = true
-theme_override_fonts/font = ExtResource("1_font")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 15
 text = "object_name.ply"
 alignment = 0
 clip_text = true
@@ -24,9 +29,8 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 flat = true
-theme_override_fonts/font = ExtResource("1_font")
-theme_override_font_sizes/font_size = 14
-text = "👁"
+theme_override_font_sizes/font_size = 15
+icon = ExtResource("eye")
 tooltip_text = "Toggle Visibility"
 
 [node name="DeleteButton" type="Button" parent="."]
@@ -35,7 +39,13 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 flat = true
-theme_override_fonts/font = ExtResource("1_font")
-theme_override_font_sizes/font_size = 14
-text = "🗑"
+theme_override_font_sizes/font_size = 15
+icon = ExtResource("trash")
 tooltip_text = "Remove from Scene"
+
+[node name="FrameButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32,32)
+icon = ExtResource("focus")
+flat = true
+tooltip_text = "Frame this model"

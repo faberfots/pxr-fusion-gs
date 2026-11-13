@@ -127,6 +127,8 @@ func reset() -> void:
 	if cursor:
 		cursor.set_alpha(0.0)
 		cursor.update_position(orbit_position)
+	var controller := get_parent() as CameraController
+	if controller and controller.home_on_ready: controller.go_home()
 
 func set_focused_position(target_position: Vector3) -> void:
 	if not enable_camera_movement or not current:
@@ -257,10 +259,18 @@ func _handle_keyboard(event: InputEventKey) -> void:
 
 ##region Movement Update
 func _process(delta: float) -> void:
-	_update_movement(delta)
 	_update_movement_signal()
 
 func _physics_process(delta: float) -> void:
+	var previous := global_transform
+	_update_movement(delta)
+	var controller := get_parent() as CameraController
+	if controller:
+		var resolved := controller.constrain_pose(previous, global_transform)
+		if not resolved.origin.is_equal_approx(global_position):
+			global_transform = resolved
+			if velocity.y < 0 and global_position.y <= controller.ground_height() + controller.safety.radius + controller.safety.margin + 0.001: velocity.y = 0
+			if target: target.global_position = global_position
 	# Only manage the mouse if the camera is actually enabled.
 	if enable_camera_movement and current:
 		# Update mouse capture state

@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://b6xm6wra537ns" path="res://modules/gaussian_splatting/UI/DraggableContainer.gd" id="2_drag"]
 [ext_resource type="FontFile" uid="uid://b06alat7f14g1" path="res://assets/fonts/Oswald/Oswald-VariableFont_wght.ttf" id="3_font"]
 
+[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="studio_theme"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glass"]
 bg_color = Color(0.05, 0.05, 0.08, 0.9)
 border_width_left = 1
@@ -23,6 +25,7 @@ layer = 20
 script = ExtResource("1_logic")
 
 [node name="DraggableContainer" type="Control" parent="." unique_id=1925712803 node_paths=PackedStringArray("drag_handle")]
+theme = ExtResource("studio_theme")
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
@@ -33,6 +36,7 @@ offset_bottom = 500.0
 mouse_filter = 1
 script = ExtResource("2_drag")
 drag_handle = NodePath("Panel/MainLayout/HeaderBar")
+layout_id = "assistant"
 
 [node name="Panel" type="PanelContainer" parent="DraggableContainer" unique_id=984596188]
 layout_mode = 1
@@ -42,7 +46,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_glass")
 
 [node name="MainLayout" type="VBoxContainer" parent="DraggableContainer/Panel" unique_id=1154754334]
 layout_mode = 2
@@ -58,7 +61,6 @@ theme_override_constants/separation = 8
 [node name="GrabHandle" type="Label" parent="DraggableContainer/Panel/MainLayout/HeaderBar" unique_id=32187861]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
 text = "::"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -74,8 +76,7 @@ color = Color(0.4, 0.4, 0.4, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 15
 text = "CORTEX // VISUAL INTELLIGENCE"
 vertical_alignment = 1
 
@@ -84,7 +85,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_fonts/font = ExtResource("3_font")
 text = "✕"
 flat = true
 
@@ -118,7 +118,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 15
 text = "Last captured view"
 vertical_alignment = 1
 
@@ -140,6 +140,17 @@ text = "System Initialized..."
 fit_content = true
 scroll_following = true
 
+[node name="Privacy" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/ContentArea"]
+layout_mode = 2
+[node name="CloudConsent" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/ContentArea/Privacy"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enable cloud analysis"
+tooltip_text = "Transmits the 3D view, model context and your prompt to the selected provider."
+[node name="ActionConsent" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/ContentArea/Privacy"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Allow camera and selection actions"
 [node name="InputArea" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/ContentArea" unique_id=1224308705]
 layout_mode = 2
 mouse_filter = 0
@@ -150,14 +161,12 @@ theme_override_constants/separation = 4
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 placeholder_text = "Ask Cortex about the scene..."
 flat = true
 
 [node name="AnalyzeButton" type="Button" parent="DraggableContainer/Panel/MainLayout/ContentArea/InputArea" unique_id=1824495709]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_font")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = " ANALYZE "

@@ -23,25 +23,16 @@ func _ready() -> void:
 	chat_feed.text = ""
 	_print_system_message("CORTEX SYSTEMS ONLINE. Ready for visual analysis.")
 	
-	var privacy_box := VBoxContainer.new()
-	input_field.get_parent().get_parent().add_child(privacy_box)
-	input_field.get_parent().get_parent().move_child(privacy_box, input_field.get_parent().get_index())
-	var consent := CheckButton.new()
-	consent.text = "Send view + context to " + SIConfig.get_provider()
-	consent.tooltip_text = "Cloud analysis transmits the 3D view, model names, bounds and your prompt."
-	privacy_box.add_child(consent)
-	consent.add_theme_font_size_override("font_size", 13)
-	consent.toggled.connect(func(enabled):
-		SpatialIntelligence.policy.cloud_enabled = enabled
-		if not enabled: SpatialIntelligence.cancel_analysis()
+	%CloudConsent.text="Send view + context to "+SIConfig.get_provider()
+	%CloudConsent.set_pressed_no_signal(SpatialIntelligence.policy.cloud_enabled)
+	%ActionConsent.set_pressed_no_signal(SpatialIntelligence.policy.allows_action())
+	%CloudConsent.toggled.connect(func(enabled):
+		SpatialIntelligence.policy.cloud_enabled=enabled
+		if not enabled:SpatialIntelligence.cancel_analysis()
 	)
-	var actions := CheckButton.new()
-	actions.text = "Allow camera and selection actions"
-	privacy_box.add_child(actions)
-	actions.add_theme_font_size_override("font_size", 13)
-	actions.toggled.connect(func(enabled):
-		SpatialIntelligence.policy.role = AIAccessPolicy.Role.OPERATOR if enabled else AIAccessPolicy.Role.ANALYST
-		SpatialIntelligence.policy.actions_enabled = enabled
+	%ActionConsent.toggled.connect(func(enabled):
+		SpatialIntelligence.policy.role=AIAccessPolicy.Role.OPERATOR if enabled else AIAccessPolicy.Role.ANALYST
+		SpatialIntelligence.policy.actions_enabled=enabled
 	)
 	SpatialIntelligence.capture_ready.connect(func(image): vision_preview.texture = ImageTexture.create_from_image(image))
 	# Connect Signals
