@@ -1,0 +1,89 @@
+warning: Invalid parameter passed to C runtime function.
+WorkerThreadPool: 16 threads, 4 max low-priority.
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Unrecognized output string "misc2" in mapping:
+030000008a2e0000dd10000000000000,Hand Held Legend GC Ultimate,a:b0,b:b2,back:b17,dpdown:b5,dpleft:b6,dpright:b7,dpup:b4,guide:b18,leftshoulder:b10,leftstick:b8,lefttrigger:a3,leftx:a0,lefty:a1,misc1:b19,misc2:b24,paddle1:b13,paddle2:b12,rightshoulder:b11,rightstick:b9,righttrigger:a4,rightx:a2,righty:a5,start:b16,x:b1,y:b3,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000000d0f00000202000000000000,Horipad O Nintendo Switch 2 Controller,a:b1,b:b0,back:b8,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b4,leftstick:b10,lefttrigger:b6,leftx:a0,lefty:a1,misc1:b13,misc2:b14,rightshoulder:b5,rightstick:b11,righttrigger:b7,rightx:a2,righty:a3,start:b9,x:b3,y:b2,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000000d0f00009601000000000000,Horipad Steam,a:b0,b:b1,back:b10,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b6,leftstick:b13,lefttrigger:b8,leftx:a0,lefty:a1,misc2:b2,paddle1:b5,paddle2:b15,paddle3:b18,paddle4:b19,rightshoulder:b7,rightstick:b14,righttrigger:b9,rightx:a3,righty:a4,start:b11,x:b3,y:b4,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000007e0500006920000000000000,Nintendo Switch 2 Pro Controller,a:b0,b:b1,back:b14,dpdown:b8,dpleft:b10,dpright:b9,dpup:b11,guide:b16,leftshoulder:b12,leftstick:b15,lefttrigger:b13,leftx:a0,lefty:a1~,misc1:b17,misc2:b20,paddle1:b18,paddle2:b19,rightshoulder:b4,rightstick:b7,righttrigger:b5,rightx:a2,righty:a3~,start:b6,x:b2,y:b3,platform:Windows,
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 0
+EDITOR API HASH: 0
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://.godot/exported/133200997/export-7cf5604219c1875b1ba212623b35fd2c-ImGuiRoot.scn
+Loading resource: res://addons/imgui-godot/scripts/ImGuiRoot.gdc
+Loading resource: res://modules/gaussian_splatting/UI/HistoryManager.gdc
+Loading resource: res://modules/spatial_intelligence/autoload/SpatialIntelligence.gdc
+Loaded system CA certificates
+Loading resource: res://.godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn
+Loading resource: res://modules/gaussian_splatting/UI/demo_ui_controller.gdc
+Loading resource: res://.godot/exported/133200997/export-30157ab3624c6790cd8bad0adb78eb84-ProductionUI.scn
+Loading resource: res://modules/gaussian_splatting/UI/ProductionUI.gdc
+Loading resource: res://.godot/exported/133200997/export-a563aa2c6592de5e450737401f3c59b1-ObjectListItem.scn
+Loading resource: res://assets/fonts/Oswald/Oswald-VariableFont_wght.ttf
+Loading resource: res://.godot/imported/Oswald-VariableFont_wght.ttf-d7dfcd409cdd0ac56859dc4db92dfbc0.fontdata
+Loading resource: res://addons/sky_3d/shaders/SkyMaterial.gdshader
+Loading resource: res://addons/sky_3d/assets/thirdparty/textures/moon/MoonMap.png
+Loading resource: res://.godot/imported/MoonMap.png-81d542c3fafff4e5b235a177af6f3221.s3tc.ctex
+Loading resource: res://addons/sky_3d/assets/thirdparty/textures/milkyway/Milkyway.jpg
+Loading resource: res://.godot/imported/Milkyway.jpg-a06044e407cf6953ab6e46a2f0f17f3a.s3tc.ctex
+Loading resource: res://addons/sky_3d/assets/thirdparty/textures/milkyway/StarField.jpg
+Loading resource: res://.godot/imported/StarField.jpg-9d224e20fcbe8fdc7ff5028dae269839.s3tc.ctex
+Loading resource: res://addons/sky_3d/assets/textures/noise.jpg
+Loading resource: res://.godot/imported/noise.jpg-b47d5d36d9abfdaec2a09c140a78ba24.s3tc.ctex
+Loading resource: res://.godot/exported/133200997/export-45b8f9ce13823187b17d6afe560649e0-SNoise.res
+Loading resource: res://addons/sky_3d/assets/textures/noiseClouds.png
+Loading resource: res://.godot/imported/noiseClouds.png-07511094ef8b72a49cc860b35c60d0fd.s3tc.ctex
+Loading resource: res://addons/sky_3d/src/Sky3D.gdc
+Loading resource: res://addons/sky_3d/shaders/AtmFog.gdshader
+Loading resource: res://.godot/exported/133200997/export-e184a938d773687c6fc99866e2f3256f-SunMoonLightFade.res
+Loading resource: res://assets/materials/textures/prototype-texture-with-size.png
+Loading resource: res://.godot/imported/prototype-texture-with-size.png-85c2ad31ce31c0cf51371b9e04035069.s3tc.ctex
+Loading resource: res://modules/gaussian_splatting/cameras/cursor.gdc
+Loading resource: res://modules/gaussian_splatting/cameras/orbit_camera.gdc
+Loading resource: res://.godot/exported/133200997/export-f3aef18dc66670e3e51fe771bbf5ee42-gaussian_splatting_viewer.scn
+Loading resource: res://modules/gaussian_splatting/shaders/spatial/main.gdshader
+Loading resource: res://.godot/exported/133200997/export-112d7ee2890a130632989ca6fe8d628e-SceneManagerPanel.scn
+Loading resource: res://addons/imgui-godot/scripts/ImGuiConfig.gdc
+
+Thread 1 received signal SIGSEGV, Segmentation fault.
+0x00007ff7bd95de96 in godot.windows.template_release.x86_64!NoHotPatch ()
+#0  0x00007ff7bd95de96 in godot.windows.template_release.x86_64!NoHotPatch ()
+#1  0x00007ff7bd95e4f0 in godot.windows.template_release.x86_64!NoHotPatch ()
+#2  0x00007ff7bf2c42d9 in godot.windows.template_release.x86_64!NoHotPatch ()
+#3  0x00007ff7bb13ed16 in godot.windows.template_release.x86_64!NoHotPatch ()
+#4  0x00007ff7bb054e09 in godot.windows.template_release.x86_64!NoHotPatch ()
+#5  0x00007ff7bd790141 in godot.windows.template_release.x86_64!NoHotPatch ()
+#6  0x00007ff7bb13d347 in godot.windows.template_release.x86_64!NoHotPatch ()
+#7  0x00007ff7bb04d748 in godot.windows.template_release.x86_64!NoHotPatch ()
+#8  0x00007ff7bc0ce205 in godot.windows.template_release.x86_64!NoHotPatch ()
+#9  0x00007ff7be86f025 in godot.windows.template_release.x86_64!NoHotPatch ()
+#10 0x00007ff7bd955d31 in godot.windows.template_release.x86_64!NoHotPatch ()
+#11 0x00007ff7bc0bf9b6 in godot.windows.template_release.x86_64!NoHotPatch ()
+#12 0x00007ff7bc0ca74d in godot.windows.template_release.x86_64!NoHotPatch ()
+#13 0x00007ff7bef273e6 in godot.windows.template_release.x86_64!NoHotPatch ()
+#14 0x00007ff7bb13cec7 in godot.windows.template_release.x86_64!NoHotPatch ()
+#15 0x00007ff7bb04d748 in godot.windows.template_release.x86_64!NoHotPatch ()
+#16 0x00007ff7bc0ce205 in godot.windows.template_release.x86_64!NoHotPatch ()
+#17 0x00007ff7be704f05 in godot.windows.template_release.x86_64!NoHotPatch ()
+#18 0x00007ff7bd955d31 in godot.windows.template_release.x86_64!NoHotPatch ()
+#19 0x00007ff7bc0bf9b6 in godot.windows.template_release.x86_64!NoHotPatch ()
+#20 0x00007ff7bc0bf964 in godot.windows.template_release.x86_64!NoHotPatch ()
+#21 0x00007ff7bc0bf964 in godot.windows.template_release.x86_64!NoHotPatch ()
+#22 0x00007ff7bc0c8370 in godot.windows.template_release.x86_64!NoHotPatch ()
+#23 0x00007ff7babc4b9e in godot.windows.template_release.x86_64!NoHotPatch ()
+#24 0x00007ff7bac1a702 in godot.windows.template_release.x86_64!NoHotPatch ()
+#25 0x00007ff7bac1a73e in godot.windows.template_release.x86_64!NoHotPatch ()
+#26 0x00007ff7babc10c9 in ?? ()
+#27 0x00007ff7babc13f6 in ?? ()
+#28 0x00007ffa4db4dda7 in KERNEL32!BaseThreadInitThunk () from C:\WINDOWS\System32\kernel32.dll
+#29 0x00007ffa4f799c5c in ntdll!RtlUserThreadStart () from C:\WINDOWS\SYSTEM32\ntdll.dll
+#30 0x0000000000000000 in ?? ()

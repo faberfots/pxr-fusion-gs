@@ -7,7 +7,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--godot', type=Path, required=True)
 parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--engine', type=Path, help='Optional official Windows engine executable to copy as GSViewer.exe.')
+parser.add_argument('--engine-kind', choices=('ordinary', 'release-template'), default='ordinary')
+parser.add_argument('--qualification', action='store_true', help='Export the dedicated release-check scene instead of the application entry point.')
 args = parser.parse_args()
+native_descriptor = ROOT / 'rust/spatial_ml/spatial_ml.gdextension'
+if (ROOT / 'rust/spatial_ml/bin/windows').exists() and not native_descriptor.is_file():
+    raise SystemExit('Native binaries exist without their generated GDExtension descriptor. Run tools/setup_native_ml.py before packaging.')
 output = args.output.resolve()
 if output == ROOT or ROOT.is_relative_to(output):
     raise SystemExit('Choose a dedicated package directory.')
@@ -24,7 +29,8 @@ for name in ('main.tscn', 'icon.svg', 'export_presets.cfg', 'rust/spatial_ml/spa
         shutil.copy2(source, work / name)
 project = (ROOT / 'project.godot').read_text(encoding='utf-8')
 project = re.sub(r'config/name="[^"]*"', 'config/name="GS Packaged Qualification"', project)
-project = re.sub(r'run/main_scene=.*', 'run/main_scene="res://main.tscn"', project)
+entry = 'res://tests/release_checks.tscn' if args.qualification else 'res://main.tscn'
+project = re.sub(r'run/main_scene=.*', 'run/main_scene="' + entry + '"', project)
 project = re.sub(r'ImGuiRoot=.*', 'ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"', project)
 (work / 'project.godot').write_text(project, encoding='utf-8')
 startup = None
@@ -40,7 +46,7 @@ for command in (['--headless', '--editor', '--import', '--single-threaded-scene'
     log = result.stdout + result.stderr
     logs.append(log)
     fatal_errors = [line for line in log.splitlines() if 'ERROR:' in line
-                    and "2 RID allocations of type 'N17RendererSceneCull8InstanceE' were leaked at exit." not in line]
+                    or 'ObjectDB instances leaked at exit' in line]
     if result.returncode or fatal_errors:
         (output / 'export.log').write_text('\n'.join(logs), encoding='utf-8')
         raise SystemExit('Godot package creation failed; inspect export.log.')
@@ -68,7 +74,10 @@ if (ROOT / 'docs/provenance/Godot-LICENSE.txt').exists():
 if args.engine:
     shutil.copy2(args.engine.resolve(), output / 'GSViewer.exe')
 (output / 'export.log').write_text('\n'.join(logs), encoding='utf-8')
-receipt = {'type': 'unsigned development candidate', 'source_free': True,
+receipt = {'type': 'unsigned optimized-template candidate' if args.engine_kind == 'release-template' else 'unsigned development candidate', 'source_free': True,
+           'engine_kind': args.engine_kind,
+           'entry_point': entry,
+           'engine_sha256': hashlib.sha256(args.engine.read_bytes()).hexdigest() if args.engine else None,
            'known_export_warnings': [line for log in logs for line in log.splitlines() if 'ERROR:' in line or 'WARNING:' in line],
            'files': {str(path.relative_to(output)).replace('\\', '/'): hashlib.sha256(path.read_bytes()).hexdigest()
                      for path in sorted(output.rglob('*')) if path.is_file() and path.name != 'package-receipt.json'}}

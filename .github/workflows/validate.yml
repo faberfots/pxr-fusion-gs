@@ -4,7 +4,7 @@ permissions:
   contents: read
 jobs:
   desktop:
-    name: Linux software Vulkan (MSAA disabled)
+    name: Linux software Vulkan (disabled and native 4x MSAA)
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -32,11 +32,16 @@ jobs:
         run: |
           export VK_ICD_FILENAMES="$(find /usr/share/vulkan/icd.d -iname '*lvp*' | head -1)"
           test -n "$VK_ICD_FILENAMES"
-          for suite in startup_checks gpu_checks lifecycle_checks rendering_checks migration_recovery_checks spatial_checks selection_color_checks color_transform_checks; do
+          for suite in startup_checks camera_lifecycle_checks gpu_checks lifecycle_checks rendering_checks migration_recovery_checks spatial_checks selection_color_checks color_transform_checks; do
             xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --timeout 300 --script "res://tests/$suite.gd"
           done
           python tools/make_spatial_fixture.py /tmp/spatial-ci.ply --count 40000
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --script res://tests/spatial_async_checks.gd --test-arg /tmp/spatial-ci.ply --test-arg 40000
+      - name: Native software MSAA depth (runtime selects supported 4x)
+        shell: bash
+        run: |
+          export VK_ICD_FILENAMES="$(find /usr/share/vulkan/icd.d -iname '*lvp*' | head -1)"
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --gpu --timeout 300 --script res://tests/rendering_checks.gd
       - name: Upload qualification logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -57,7 +62,7 @@ jobs:
         with:
           version: 4.6.2
           use-dotnet: false
-          include-templates: false
+          include-templates: true
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: x86_64-pc-windows-gnu
@@ -76,3 +81,21 @@ jobs:
         run: python tools/setup_native_ml.py --build
       - name: Real GDScript native inference
         run: python tools/run_checks.py --godot godot --script res://tests/native_inference_checks.gd
+      - name: Package and start the official optimized Windows template
+        shell: pwsh
+        run: |
+          $template = Join-Path $env:APPDATA 'Godot/export_templates/4.6.2.stable/windows_release_x86_64.exe'
+          if (-not (Test-Path -LiteralPath $template)) { throw 'Official release template missing' }
+          $engine = (Get-Command godot).Source
+          python tools/package_candidate.py --godot $engine --engine $template --engine-kind release-template --output build/ci-release
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tools/check_packaged_startup.py --package build/ci-release
+      - name: Upload release qualification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-release-qualification
+          path: |
+            build/ci-release/*.log
+            build/ci-release/*receipt.json
+          retention-days: 14

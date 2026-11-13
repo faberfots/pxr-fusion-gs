@@ -83,9 +83,9 @@ A failed replacement initialization rolls back to the previous layout using the 
 
 ## Software Vulkan qualification
 
-Linux CI uses Mesa llvmpipe with MSAA explicitly disabled in the isolated qualification project. The same opaque-depth fixture fails with MSAA enabled: the sampled resolved depth is zero. This remains an unqualified backend combination and is retained in the evidence. Windows RTX Vulkan/MSAA output and its opaque-depth test pass; the application MSAA setting is preserved.
+Linux CI qualifies Mesa llvmpipe with MSAA disabled and adds an opaque-depth check with native 4x MSAA. On Godot 4.6.2 the requested 2x/8x modes fail on llvmpipe; the viewer negotiates its qualified native 4x mode in that case. Disabled AA, hardware GPU modes and project settings are preserved. No additional atlas/render-target allocation is introduced. Arbitrary transparent interleaving, Gaussian shadows and XR remain unsupported.
 
-The release preset keeps ImGui enabled because the viewer panel depends on its native class. The portable helper canonicalizes its scene-path autoload before a fresh import and rejects unexpected export errors. The known intermittent editor shutdown RID warning is retained in the package receipt, separately from passing runtime tests.
+The release preset keeps ImGui enabled because the viewer panel depends on its native class. The portable helper canonicalizes its scene-path autoload before a fresh import and rejects unexpected export errors. The camera add-on now creates visualization nodes only inside its ready-owned path, removing the reproduced detached-constructor/export RID leak. Packaging rejects all export errors and ObjectDB leak reports. The normal color panel waits for viewer readiness; startup tests no longer inject a configuration before main-scene initialization.
 
 ## Color and direct manipulation
 
@@ -94,3 +94,7 @@ GaussianSplattingConfig owns all live post-processing values. GSColorSettings ow
 The former selection highlight blended 25 percent blue into every selected splat. Scene Manager selected the first loaded model automatically; earlier screenshot qualification explicitly cleared selection and missed the user's normal selected appearance. The regression test now fails on the old shader and passes on the corrected one. Selection uses the existing stable model ID; visible-pixel picking supplies the contributing palette identity without physics bounding boxes.
 
 GSModelTransformControls writes the selected Node3D global_transform directly. Its drag snapshot is temporary undo state. The viewer maps renderer basis/scale overrides, and existing Scene Manager controls read the same selected node. Camera movement has a named model_transform blocker. Cancellation restores the original matrix and releases that blocker. Pointer events are consumed only by active handles, and camera navigation continues elsewhere.
+
+## Optimized Windows release qualification
+
+The official Godot 4.6.2 Windows x86_64 optimized release template now starts the real application and passes a separate source-free qualification scene with full Bali + Suzuki, independent model transforms and native ML initialization. tools/qualify_release.py exports that separate scene because official templates disable --script/--path overrides. tools/check_packaged_startup.py checks the actual main entry point. Package receipts identify entry point, engine kind and executable SHA-256. The ordinary-engine development package is retained. Current limits are unsigned Windows delivery and unqualified additional physical GPUs/OS/XR targets; see the audit SSOT for each remaining gap.

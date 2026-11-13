@@ -6,6 +6,8 @@ func check(condition: bool, label: String) -> void:
 func _initialize() -> void:
 	call_deferred("run")
 func run() -> void:
+	check(GaussianSplattingRasterizer.scene_msaa_mode(Viewport.MSAA_2X,"llvmpipe (LLVM 20)")==Viewport.MSAA_4X and GaussianSplattingRasterizer.scene_msaa_mode(Viewport.MSAA_8X,"llvmpipe (LLVM 21)")==Viewport.MSAA_4X,"software Vulkan selects native 4x depth rather than an unsupported sample count")
+	check(GaussianSplattingRasterizer.scene_msaa_mode(Viewport.MSAA_DISABLED,"llvmpipe")==Viewport.MSAA_DISABLED and GaussianSplattingRasterizer.scene_msaa_mode(Viewport.MSAA_2X,"NVIDIA GeForce RTX")==Viewport.MSAA_2X,"scene depth policy preserves disabled AA and existing hardware GPU settings")
 	var allocator := SplatBlockAllocator.new(2400)
 	var a := allocator.allocate(720)
 	var b := allocator.allocate(1680)

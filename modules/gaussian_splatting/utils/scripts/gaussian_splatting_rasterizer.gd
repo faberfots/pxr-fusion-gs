@@ -495,4 +495,13 @@ func get_stats() -> Dictionary:
 	return snapshot
 
 static func get_render_capabilities() -> Dictionary:
-	return {"opaque_depth":true,"orthographic_projection":true,"independent_model_transform3d":true,"transparent_mesh_interleaving":false,"gaussian_shadow_casting":false,"xr_multiview":false}
+	return {"opaque_depth":true,"orthographic_projection":true,"independent_model_transform3d":true,"transparent_mesh_interleaving":false,"gaussian_shadow_casting":false,"xr_multiview":false,"llvmpipe_scene_msaa_modes":[Viewport.MSAA_DISABLED,Viewport.MSAA_4X]}
+
+static func scene_msaa_mode(requested:int,device_name:String)->int:
+	# Godot 4.6.2 retains the requested sample count after its Vulkan driver
+	# silently lowers unsupported counts. On llvmpipe this corrupts depth at
+	# 2x/8x. Keep AA using its qualified native 4x mode, without changing the
+	# project setting or any hardware-GPU setting.
+	if "llvmpipe" in device_name.to_lower() and requested in [Viewport.MSAA_2X,Viewport.MSAA_8X]:
+		return Viewport.MSAA_4X
+	return requested

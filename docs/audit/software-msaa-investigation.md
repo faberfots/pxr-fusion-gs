@@ -1,3 +1,9 @@
 # Software Vulkan MSAA investigation
 
 2026-11-13: the existing llvmpipe opaque-depth failure reproduces with MSAA enabled. An isolated explicit sampler2DMS reverse-Z resolve was tried with both depth-retention modes; Windows passed, llvmpipe still failed. The experiment was removed before promotion. The qualified Windows pipeline and memory plan remain unchanged. Linux CI retains its explicit no-MSAA scope. This does not close P.3.6; arbitrary transparent interleaving, Gaussian shadows and XR remain unsupported.
+
+Follow-up: the full requested-mode matrix identifies the failure precisely. Disabled and native 4x pass; requested 2x and 8x fail. Godot's Vulkan driver silently lowers unsupported sample counts while RenderSceneBuffersRD retains the requested count used by depth resolve ([driver source](https://github.com/godotengine/godot/blob/4.6.2-stable/drivers/vulkan/rendering_device_driver_vulkan.cpp), [resolve source](https://github.com/godotengine/godot/blob/4.6.2-stable/servers/rendering/renderer_rd/forward_clustered/render_forward_clustered.cpp)). The observed matrix is consistent with that mismatch; the driver-level sample support was not queried directly.
+
+The viewer now selects qualified native 4x for llvmpipe when 2x or 8x was requested. It preserves disabled AA, hardware-GPU modes and project settings, and adds no render target or atlas allocation. All four requested modes now pass actual opaque-mesh, grid, orthographic, picking and migration rendering checks. Native 2x/8x are not claimed supported on llvmpipe. CI retains its disabled configuration suites and adds a distinct native-4x depth check through runtime negotiation.
+
+The PRE_TRANSPARENT compositor, shader layout and Windows MSAA settings are retained. Moving the callback to POST_OPAQUE was also tested in isolation and rejected. Remaining P.3.6 capabilities require separate transparent-fragment/shadow/multiview integration; this fix does not fabricate that functionality.

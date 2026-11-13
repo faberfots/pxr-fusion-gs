@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--godot', default=os.environ.get('GODOT_BIN', r'C:\Users\User\Downloads\Godot_v4.6.2\Godot_v4.6.2-stable_win64_console.exe'))
 parser.add_argument('--gpu', action='store_true')
-parser.add_argument('--disable-msaa', action='store_true', help='Qualify software Vulkan without the unresolved MSAA depth path.')
+parser.add_argument('--disable-msaa', action='store_true', help='Exercise the explicit MSAA-disabled rendering configuration.')
 parser.add_argument('--candidate', type=Path)
 parser.add_argument('--skip-import', action='store_true')
 parser.add_argument('--script', default='res://tests/core_checks.gd')

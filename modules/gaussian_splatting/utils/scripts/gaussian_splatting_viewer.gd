@@ -149,6 +149,13 @@ func _ready() -> void:
 			start_rendering()
 
 func _initialize_components() -> void:
+	var device:=RenderingServer.get_rendering_device()
+	if device:
+		var viewport:=get_viewport()
+		var scene_msaa:=GaussianSplattingRasterizer.scene_msaa_mode(viewport.msaa_3d,device.get_device_name())
+		if scene_msaa!=viewport.msaa_3d:
+			viewport.msaa_3d=scene_msaa as Viewport.MSAA
+			print("[GSViewer] Using native 4x scene MSAA for llvmpipe depth integration.")
 	render_texture = Texture2DRD.new()
 	rendered_mesh = get_node_or_null("RenderedSplats")
 	if not rendered_mesh:

@@ -90,12 +90,12 @@ var _state: int = State.IDLE
 var _cam_from_pivot_dist: float
 var _pivot_transform: Transform3D
 var _pole_mesh := ImmediateMesh.new()
-var _pole_mesh_instance := MeshInstance3D.new()
+var _pole_mesh_instance: MeshInstance3D
 var _pole_mat := StandardMaterial3D.new()
 
 # Raycast debug visualization
 var _debug_mesh := ImmediateMesh.new()
-var _debug_mesh_instance := MeshInstance3D.new()
+var _debug_mesh_instance: MeshInstance3D
 var _debug_mat := StandardMaterial3D.new()
 
 # Track mouse state for drag detection
@@ -153,6 +153,10 @@ func _ready() -> void:
 	_setup_floor_click_components()
 	
 func _setup_visualization() -> void:
+	# Export/editor inspection can instantiate this script without entering a tree.
+	# Only create Node children when they can be owned and freed by the camera.
+	_pole_mesh_instance = MeshInstance3D.new()
+	_debug_mesh_instance = MeshInstance3D.new()
 	# Pivot visualization
 	_pole_mat.vertex_color_use_as_albedo = true
 	_pole_mesh_instance.mesh = _pole_mesh

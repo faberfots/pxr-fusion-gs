@@ -328,7 +328,8 @@
       ],
       "verification": [
         "GPU known-color compositing plus actual display pixel checks",
-        "The selection-color regression fails before and passes after. Full Bali + Suzuki at 1908x960 retains all 7,959,786 splats; selected/unselected sampled mean RGB drift is 4.856326e-8. Color panel/persistence/quality-independence and original comparison checks pass."
+        "The selection-color regression fails before and passes after. Full Bali + Suzuki at 1908x960 retains all 7,959,786 splats; selected/unselected sampled mean RGB drift is 4.856326e-8. Color panel/persistence/quality-independence and original comparison checks pass.",
+        "Follow-up startup/release qualification preserves this feature; normal main-scene startup now runs without a test-injected configuration."
       ],
       "remaining": []
     },
@@ -406,16 +407,18 @@
       "changes": [
         "PRE_TRANSPARENT compositor uses resolved opaque depth with inverse camera projection",
         "The demo reference grid draws before Gaussian presentation without writing opaque depth; ordinary opaque geometry retains depth occlusion.",
-        "Renderer capability metadata is the SSOT used by scene/LLM context; unsupported multiview fails explicitly instead of silently returning a blank frame."
+        "Renderer capability metadata is the SSOT used by scene/LLM context; unsupported multiview fails explicitly instead of silently returning a blank frame.",
+        "Godot 4.6.2 llvmpipe uses qualified native 4x MSAA when 2x or 8x was requested; disabled AA and hardware GPU modes are preserved. No project setting, atlas layout or buffer budget is changed."
       ],
       "verification": [
         "rendering_checks: opaque green mesh hides Gaussian; perspective and orthographic projection pass",
         "Grid occlusion regression fails before and passes after; opaque-mesh and orthographic checks still pass.",
-        "2026-11-13: explicit MSAA depth-resolve experiment still failed on llvmpipe and was removed before promotion. Existing qualified Windows depth integration and GPU budget are preserved; see software-msaa-investigation.md."
+        "2026-11-13: explicit MSAA depth-resolve experiment still failed on llvmpipe and was removed before promotion. Existing qualified Windows depth integration and GPU budget are preserved; see software-msaa-investigation.md.",
+        "2026-11-13 follow-up: opaque-depth fixtures pass locally for requested MSAA disabled/2x/4x/8x; 2x/8x select native 4x on llvmpipe. NVIDIA RTX depth and existing rendering/migration checks pass unchanged. See software-msaa-investigation.md."
       ],
       "remaining": [
         "Correct interleaving with arbitrary transparent meshes, Gaussian shadow casting and XR multiview are not implemented. Mono opaque-depth rendering remains qualified; no headset is currently available (confirmed by user).",
-        "Linux software Vulkan resolves zero scene depth with MSAA enabled in the reproduced fixture; MSAA-disabled software Vulkan passes. Windows RTX MSAA depth remains qualified."
+        "The llvmpipe workaround qualifies native 4x, not native 2x/8x. Transparent mesh interleaving, Gaussian shadow casting and headset validation remain outside this mono opaque-depth path."
       ]
     },
     {
@@ -686,7 +689,8 @@
       "verification": [
         "World-transform bounds and selection lifecycle checks; UI source/render review",
         "Scene Manager moves XYZ, rotates XYZ and scales the second full model; Bali remains unchanged and both GPU palette entries match.",
-        "Actual viewport mouse press/drag/release edits the selected model while camera and other model remain unchanged. All XYZ handles, numeric control synchronization, cancellation and renderer basis override pass."
+        "Actual viewport mouse press/drag/release edits the selected model while camera and other model remain unchanged. All XYZ handles, numeric control synchronization, cancellation and renderer basis override pass.",
+        "Follow-up startup/release qualification preserves this feature; normal main-scene startup now runs without a test-injected configuration."
       ],
       "remaining": []
     },
@@ -701,7 +705,8 @@
         "Default analyst/read-only session policy; explicit cloud/actions toggles; tool allowlist and finite/type/size argument validation"
       ],
       "verification": [
-        "core_checks: denied policy/malformed vectors; lifecycle_checks: authorized valid/invalid actions"
+        "core_checks: denied policy/malformed vectors; lifecycle_checks: authorized valid/invalid actions",
+        "Follow-up startup/release qualification preserves this feature; normal main-scene startup now runs without a test-injected configuration."
       ],
       "remaining": []
     },
@@ -1024,18 +1029,22 @@
       "changes": [
         "Created a private GitHub repository with a sanitized qualified Bali baseline and remediation commits; source secret/size scan passes.",
         "Isolated Godot CPU/GPU/lifecycle/rendering/migration/SpatialOS/native/network suites; CI for Linux software Vulkan and Windows native build/inference; unsigned source-free development packaging helper includes external DLLs, notices and a hash receipt.",
-        "Added observable color-regression, saved-color-preference, actual mouse manipulation and overlapping-model selection coverage to the regression suite and CI. Current candidate qualification is being recorded separately."
+        "Added observable color-regression, saved-color-preference, actual mouse manipulation and overlapping-model selection coverage to the regression suite and CI. Current candidate qualification is being recorded separately.",
+        "Fixed normal main-scene startup: the color panel waits for the viewer owner to initialize its configuration. No UI-owned configuration is introduced.",
+        "Fixed camera add-on export-time orphan nodes with lazy owned visualization creation. Packaging now rejects every export error and ObjectDB leak instead of ignoring known RID warnings.",
+        "Dedicated optimized-template qualification scene and real-main startup helper cover official templates that disable --script/--path overrides. CI adds normal scene startup, camera lifecycle, native software MSAA and optimized Windows template packaging/startup."
       ],
       "verification": [
         "Local native, source-free GPU/native inference and Windows rendering checks pass; full Bali + Suzuki and 2-million-point SpatialOS performance observations recorded.",
         "GitHub Actions run 43280842832 (source commit 64ce36c) passed both jobs: Windows release build and real GDScript native inference; Linux source/provider/GPU/lifecycle/rendering/migration/SpatialOS checks with MSAA explicitly disabled.",
         "Color/transform source commit dc16f3a passed both GitHub Actions jobs (run 43343127534), including the new Linux software-Vulkan color and actual-input suites. Source-free ordinary-engine package passes script, color/transform, depth-rendering and native-inference checks.",
-        "Main-branch confirmation: run 43345216107 passed both jobs for dc16f3a; retained in evidence/color-final-ci.json and .log."
+        "Main-branch confirmation: run 43345216107 passed both jobs for dc16f3a; retained in evidence/color-final-ci.json and .log.",
+        "Startup regression reproduces both null reads and lost preferences before the fix; normal scene startup, saved preferences and existing color/transform controls pass afterward.",
+        "Camera lifecycle reproduces two leaked renderer objects before the fix; detached/active camera teardown and both visualizations pass afterward. Fresh optimized QA export reports zero warning/error lines.",
+        "Official optimized Godot 4.6.2 Windows x86_64 package runs the real main scene and loads full Bali + Suzuki: 7,959,786 splats in 71,857 ms, independent model transforms and native initialization pass. No failed template experiment is promoted."
       ],
       "remaining": [
-        "Headless editor export still reports two renderer RID/ObjectDB allocations at shutdown; exported source-free inference/GPU checks pass, but the editor teardown warning remains unresolved.",
-        "Software-Vulkan MSAA depth is not qualified; the CI job explicitly tests the supported MSAA-disabled software configuration without changing the application setting.",
-        "Official optimized Windows release template passes a minimal project but this application package exits with 0xC0000005 at startup. The passing ordinary-engine development package is retained. Optimized-template delivery, signing identity and broader real GPU/OS qualification remain open."
+        "Unsigned Windows Vulkan/CPU qualification does not provide a Windows signing identity or certify additional GPU vendors, operating systems or XR devices. These release qualification boundaries remain open; the reproduced startup crash, export RID leak and software-MSAA depth failure are addressed."
       ]
     },
     {
@@ -1060,9 +1069,9 @@
   ],
   "current_work_order": [
     "P.1.1: user reconfirmed key not revoked; provider-account action outstanding",
-    "P.3.6: software-MSAA investigation attempted and rejected; unsupported transparent interleaving, shadows and XR remain explicit",
-    "P.5.7: no process credentials available; authenticated vendor qualification remains pending",
-    "P.7.2: source/color/interaction/ordinary-engine package and CI pass; optimized-template startup crash isolated and retained as an open finding",
+    "P.3.6: native 4x software-MSAA mitigation and existing opaque-depth checks pass; arbitrary transparency, Gaussian shadows and XR remain unimplemented",
+    "P.5.7: authenticated provider qualification still needs a valid replacement credential",
+    "P.7.2: main startup/release-template crash and camera export leak fixed; unsigned local release qualification passes; CI confirmation and final package records pending",
     "P.7.3: ownership/license uncertainty remains unresolved; no rights assertions fabricated"
   ]
 }

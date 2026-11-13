@@ -23,6 +23,8 @@ func run() -> void:
 	viewer.config.memory_max_vram_budget_mb = 32
 	viewer.config.post_sharpness = 0.0
 	root.add_child(viewer)
+	var device_name:=RenderingServer.get_rendering_device().get_device_name()
+	check(root.msaa_3d==GaussianSplattingRasterizer.scene_msaa_mode(root.msaa_3d,device_name),"viewport uses a qualified native scene-depth sample count")
 	viewer.load_new_splat_from_path(Checks.fixture("user://pixel.ply", 1))
 	for i in range(60): await process_frame
 	viewer.camera_controller.position_camera_at(Vector3(0, 0, 1), Vector3.ZERO)
