@@ -12,7 +12,7 @@
       "path": "README.md",
       "kind": "modified",
       "baseline_sha256": "52a2e99996c4f0dc114e07680e35e88bf2b0861aada416142a6774210f685e98",
-      "current_sha256": "e09ee642ecb2231fea1a5963abfb96f1e28fd6fbefa4b9f541a059ec830aab33"
+      "current_sha256": "89463e97ea97f0aed2cbf014a6743e53e7f7e82d98ed466fd25c723973dd8f4d"
     },
     {
       "path": "export_presets.cfg",
@@ -518,28 +518,28 @@
       "kind": "modified",
       "baseline_sha256": "4068dafc7166b88ebdefadba21727a8573be2f59a257e1420eb3c4cc7a84b5d9",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "c0b2d0a86f3c2d67dfaf3d30fcd2dfa6e0ae2a4a6270fedfc49159c494c07fe2"
+      "current_sha256": "bc9c5d36403468f37e7b41c5c3e8fc3c457aaba2a43224f74947111e1e893e8f"
     },
     {
       "path": "docs/audit/REMEDIATION_STATUS.md",
       "kind": "modified",
       "baseline_sha256": "03d0431deb40a987ad59b8a4882677489bbf9de63803707e258d982f49577ba2",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "0d5b85bfbdafa4915a23636dd865ebfa1666b0563baa176c9265a3fbe9b8a51a"
+      "current_sha256": "02330e62032f73982c9b72bcaf19602bc960fe0d84ca88f15d8c590349c1aa7e"
     },
     {
       "path": "docs/audit/remediation-status.json",
       "kind": "modified",
       "baseline_sha256": "f7f67c0a833c230a98536bd61ccb0b0be1d30736dcfba21d26b22a4f20e4bd96",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "f037a51afe49f8031e6f9b5d4e0298cd405da4d9f97c03d89e4e91e7c725007c"
+      "current_sha256": "92975da8f7117dbc12e93246754b4fd756746aa02674233d2450fc987baf5d25"
     },
     {
       "path": "docs/audit/verification.json",
       "kind": "modified",
       "baseline_sha256": "efa8f698e019da45ef757f51f6d29b088740ab54f9b4256f1d013e81b53bb4ba",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "feffa8aaef1cde330ca22df683dd29cb46d8d34a19af5270c0fd323e8e7445df"
+      "current_sha256": "611f87b215217997d13c7230539155480411ca1f23b9319fd41af07e4875cf80"
     },
     {
       "path": "docs/dependency-inventory.json",
@@ -1533,21 +1533,21 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "736868c898fc3577446c5522c7b9c02ebc0f2e9a71f1b41c08eb7e7f481fb558"
+      "current_sha256": "56b786ed92e6db5472972979e232130f96f311c30601aa6cda273c74d4e03d92"
     },
     {
       "path": "docs/audit/evidence/camera-leak-before.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "77716c03aef9859f850a29aff34461214b9b5cfc283b7a233a1eb8964f04e120"
+      "current_sha256": "c9b6c5550a3b5f7b2f14229e457d1b6c248483d0f9eb0af6172bab05081b63ab"
     },
     {
       "path": "docs/audit/evidence/release-bali-checks.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "98f015513d3bf287448d206414651ab72d46feef491ef0faef44bc113522d3d4"
+      "current_sha256": "c15dd98999d26990a7e35248a25f9ab130e48bc8a96c9bc174a53358bfadef9e"
     },
     {
       "path": "docs/audit/evidence/release-bali-controls.png",
@@ -1561,91 +1561,91 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "e8a16daaf4337a6083ca6af19dd6e8333f0694bb4853329b0b940157f4d631a5"
+      "current_sha256": "07821b097bf988857834e60c1cc93ce1ead9dad155dd26fda0295925b64f33b0"
     },
     {
       "path": "docs/audit/evidence/release-bali-qualification.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "09b3e471ea975f61866842a8e7b835796ddeb5cc22b9459600c6a9d4a9c4e30e"
+      "current_sha256": "a162bebcd816e7e87b69521f9dc7b3dceae6ac790f09a10e5aab9e16b3715bcf"
     },
     {
       "path": "docs/audit/evidence/release-startup-before-gdb.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "b12f350edbecaa6022702d252bc496252f0830d6b30e1993ee4f9f5ac9733540"
+      "current_sha256": "8df503cbf28a2df5b481769af71bc9f005d8989c0402132a36f36eb56d252f8d"
     },
     {
       "path": "docs/audit/evidence/software-fixed-msaa-0.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "3560bdf01315d872bed2824e9ff8855437f582f575e794fd4782c442f47fbad8"
+      "current_sha256": "6b14f02d397dfec2f87748219175c02f46ef0c056e0e7935cba535682bcc685b"
     },
     {
       "path": "docs/audit/evidence/software-fixed-msaa-1.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "7035b4645533a1aa42fcc9c00eed54b9a6bfee6f70158bbf91b7b4f3bd9fd50f"
+      "current_sha256": "5b91ca9854e82a773259a90a74af531dd54d0d5692dc63536d171f28bc374149"
     },
     {
       "path": "docs/audit/evidence/software-fixed-msaa-2.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "3560bdf01315d872bed2824e9ff8855437f582f575e794fd4782c442f47fbad8"
+      "current_sha256": "6b14f02d397dfec2f87748219175c02f46ef0c056e0e7935cba535682bcc685b"
     },
     {
       "path": "docs/audit/evidence/software-fixed-msaa-3.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "7035b4645533a1aa42fcc9c00eed54b9a6bfee6f70158bbf91b7b4f3bd9fd50f"
+      "current_sha256": "5b91ca9854e82a773259a90a74af531dd54d0d5692dc63536d171f28bc374149"
     },
     {
       "path": "docs/audit/evidence/software-msaa-0.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "bf425b243317cd4a7914480f1fdb20290694b44af3cc083977a15ef231f9b63d"
+      "current_sha256": "20a14901b3a3b1c5660515a46779b3f9a023e06ef45ec7b298f1a66633489d98"
     },
     {
       "path": "docs/audit/evidence/software-msaa-1.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "d66c1ba7bbddcb92599d6e9304348ebd119e53cc3709fbe7b31625a09e44e90e"
+      "current_sha256": "b5493af0f5ed2eb64317c8469cc6ecd3223006a8c0cd178c44ff42f76073c4c6"
     },
     {
       "path": "docs/audit/evidence/software-msaa-2.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "bf425b243317cd4a7914480f1fdb20290694b44af3cc083977a15ef231f9b63d"
+      "current_sha256": "20a14901b3a3b1c5660515a46779b3f9a023e06ef45ec7b298f1a66633489d98"
     },
     {
       "path": "docs/audit/evidence/software-msaa-3.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "d66c1ba7bbddcb92599d6e9304348ebd119e53cc3709fbe7b31625a09e44e90e"
+      "current_sha256": "b5493af0f5ed2eb64317c8469cc6ecd3223006a8c0cd178c44ff42f76073c4c6"
     },
     {
       "path": "docs/audit/evidence/startup-after.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "ec559120164eaf40d10a71fa391739a517c61fc0c608b01cfb4e72e1fb34fc34"
+      "current_sha256": "9a73bc117b77630d51b42b0bfb82e15a64844a271a9c814c2bda09b527117730"
     },
     {
       "path": "docs/audit/evidence/startup-before.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "5ff94971be2c5a8127337bc29f07e0cdd9539f093f156256b468876e38958235"
+      "current_sha256": "0ee4cb8bb7f1d2fab3eb7dc2c10af37834f913fbc0684200df4d20a7669b2236"
     },
     {
       "path": "tests/camera_lifecycle_checks.gd",
@@ -1694,120 +1694,125 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "146b6cd8f785dbe6249c82d55fdfea5c65f5218d6160164450ec844005346dd1"
+      "current_sha256": "9c4138ec5eb17b02f2281d0aa267261a5f8700c71e7b01dc63fe22416a1c7851"
     },
     {
       "path": "docs/audit/evidence/release-actual-inference.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "43fddf1cffb01b269b2cc608767612b43127e8405d0600c500751fe9707c8b57"
+      "current_sha256": "9b6471e897c7f01f5bcb7f58dec16ff9da836abf8f5e711cfa4989f43c17fc30"
     },
     {
       "path": "docs/audit/evidence/release-binary-comparison.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "2ed96a535e7908d8c2e5da17487470c9f3f9729a10d273821af28380e21bcbc3"
+      "current_sha256": "debe795a713905a099d9fd22c4e5238a7f31f97ec99ea30757b090def31ebb57"
     },
     {
       "path": "docs/audit/evidence/release-installed-main.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "333a9b5a307067e0be42c3607a113aa1013e900a94208d15431d585a3faa5705"
+      "current_sha256": "1ee938343620312aaef7de34d237c2fbe6943bd997da8d0b9780182f11087ed1"
     },
     {
       "path": "docs/audit/evidence/release-main-gpu.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "333a9b5a307067e0be42c3607a113aa1013e900a94208d15431d585a3faa5705"
+      "current_sha256": "1ee938343620312aaef7de34d237c2fbe6943bd997da8d0b9780182f11087ed1"
     },
     {
       "path": "docs/audit/evidence/release-main-headless.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "872a1cb8cbf575493250c79ed602d3c65ce49846a7c19eb1aaedbdcbfc030737"
+      "current_sha256": "bd9248a76f4357536b9203658415c697b70bd3f54ee3220f9cb7fb1161d89cd2"
     },
     {
       "path": "docs/audit/evidence/release-package-receipt.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "f7f796748063b81294d3ebb7b59aabded0490791c9836fc6a04036a73c195143"
+      "current_sha256": "52fd42043d01c2d57934205d190fa6df68da10b8e402927901e9f877b4daf446"
     },
     {
       "path": "docs/audit/evidence/startup-camera_lifecycle_checks.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "8996f7d56f5beb7e90adba56c0a3885898b85bd1f5379db2d465c17279e7d9cd"
+      "current_sha256": "eab4fec5426cd607ea1dac56f460e41b6b41ada80e68b12595d899969864d33e"
     },
     {
       "path": "docs/audit/evidence/startup-color_transform_checks.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "f4f2033788f4b0ecbaf15a625c262738a04180a5680d0f2e65933f183841b148"
+      "current_sha256": "8988d64977a9ccc8fe8857360bbb7a8e02ddb13542e1d7c9ed93ed993be5f881"
     },
     {
       "path": "docs/audit/evidence/startup-core.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "d215d991528081c809b6a60c83654364cbcbccd883e28a22be5a14957ac6a225"
+      "current_sha256": "79d2dee415f4e0cb3b116e3cffcd37cb2c93bd4afe02e9088cefbbcf934097a8"
     },
     {
       "path": "docs/audit/evidence/startup-gpu_checks.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "3ec309ed1f953ea5f9aa040d8070c32656b9ff52916c69029caa85c518e2c5ff"
+      "current_sha256": "ecf7828bc024ab6a59bb9dc2b970009d8e51d132743bb3a65d23d8dfa0f027c9"
     },
     {
       "path": "docs/audit/evidence/startup-lifecycle_checks.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "8bb224e9793d56b54a21d876a0bb73a91f20bc7ff390bd44a50526dd893f37b7"
+      "current_sha256": "83aece3360b128677f8ea437c58d2c8b5a2988af7b186a2ad8709137891048b9"
     },
     {
       "path": "docs/audit/evidence/startup-migration_recovery_checks.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "b9f51c6a2436b800bb489d58e8d365f11b9be64870ca9fc2bd5db74bd633dc57"
+      "current_sha256": "1cdf994f194f7154752ff3ed42b6d6c7dc6768c8a9ca447254c2861c4b4c143e"
     },
     {
       "path": "docs/audit/evidence/startup-native-inference.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "54f9ec56d2b0bcae5b86271ac269b895682c4783dfbd9c1100a6d82c00e90414"
+      "current_sha256": "53966f79c4f767c4321686d8ca4e73dbfccf1a0c2a2a25acc941d123fc4e1181"
     },
     {
       "path": "docs/audit/evidence/startup-native-rendering.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "5d9bd39351561dc33e426ec71f36d69c27b0bb14a6082a009521e4c08f5df1a9"
+      "current_sha256": "c5294975d0bcdfaaeea3b3faae430e5c48e4cd47d27e72ac64579782737285ef"
     },
     {
       "path": "docs/audit/evidence/startup-release-ci.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "8086173d3100742f9d3e43456c9c192fee3d6c1f9730c1a016c1c18e696c846c"
+      "current_sha256": "4cdc1871787913ae7cfd6852ca0f191c82fde985802e6f3dcd6eaedd3c061ccb"
     },
     {
       "path": "docs/audit/evidence/startup-selection_color_checks.log",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
-      "current_sha256": "1a5a707215fb2c35a2f4c48592f68a19a209745b0b76891a7554a885f8828fbe"
+      "current_sha256": "2e80caddebe51effb81194ccfbc0333d7e61f11352228cf677a7b3d594c33b60"
     }
   ],
-  "current_reference": "Tracked source qualified at 06e68b1 plus final documentation/evidence; source checkout hashes. The user editor UID rewrite in local project.godot is preserved separately."
+  "current_reference": "Runtime source qualified at 06e68b1; final tracked documentation/evidence at fad718b27d255dc5c73024668dcf1089019140a0.",
+  "current_hash_basis": "Git blob bytes, independent of Windows checkout line endings; the manifest itself is excluded.",
+  "current_blob_commit": "fad718b27d255dc5c73024668dcf1089019140a0",
+  "preserved_local_changes": [
+    "project.godot editor serialization of ImGuiRoot to uid://dugmpnsxaagba; excluded from tracked-source hashes and left untouched."
+  ]
 }
