@@ -1,6 +1,6 @@
-Development package: C:\Users\User\AppData\Local\Temp\gs-orbit-release-qa-final
+Development package: C:\Users\User\AppData\Local\Temp\gs-polygonics-aa9edb9-qa
 Export warning lines: 0
-Isolated export source retained for diagnostics: C:\Users\User\AppData\Local\Temp\gs-package-source-_hdc3fuu
+Isolated export source retained for diagnostics: C:\Users\User\AppData\Local\Temp\gs-package-source-qge1e9lt
 Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
 Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
 Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
@@ -18,9 +18,9 @@ PASS optimized release builds Gaussian opacity shadows and dispatches opt-in rec
 PASS packaged loader retains every source Gaussian: Bali_Ressort.ply
 PASS packaged loader retains every source Gaussian: suzuki-bike-ply.ply
 PASS packaged atlas contains the full combined population
-RELEASE POPULATION 7959786 load_ms 67561
+RELEASE POPULATION 7959786 load_ms 79405
 PASS optimized release casts shadows from the complete loaded scene within the shared GPU budget
-RELEASE SHADOW projected 7956764 cache_ms 303
+RELEASE SHADOW projected 7956764 cache_ms 304
 PASS optimized release interleaves a transparent participant with the full unchanged Gaussian population
 PASS packaged model retains independent XYZ translation, rotation and scale
 PASS packaged edits preserve the other model

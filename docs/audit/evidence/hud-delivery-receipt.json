@@ -1,0 +1,17 @@
+{
+  "runtime_commit": "aa9edb9079aca23d81352b20de3eebde517e69d7",
+  "qualification_scope": "Windows x86_64 NVIDIA Vulkan/CPU and Linux software Vulkan, official Godot 4.6.2, unsigned",
+  "ci_run": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43416837577",
+  "ci_conclusion": "success",
+  "engine_sha256": "3b2d3f99bd640961aad1a1a200f0f7233b7de45b02801ce22d3224dc294d93d1",
+  "pck_sha256": "7d66fb66fe573c277ace014bf250ef54bde5ca5769f83026864675a2a8bbf4d4",
+  "verified_package_files": 119,
+  "complete_dataset_population": 7959786,
+  "load_ms": 79405,
+  "shadow_projected": 7956764,
+  "shadow_cache_ms": 304,
+  "normal_main_startup": "passed",
+  "ui_panel_opacity": 0.33,
+  "branding": "Existing Polygonics infinite diamond; white PXR/red Fusion; red decorative accents",
+  "evidence_update_classification": "Documentation/evidence only; no runtime files changed after this qualified commit."
+}
