@@ -6,43 +6,43 @@
       "path": "project.godot",
       "kind": "modified",
       "baseline_sha256": "ef71d1b36285605220930e014de99e48d89984f2b145ee03d390a7d33b352017",
-      "current_sha256": "c3b97978134c9afdfa2f3f158a43c9b4a843ebbab43a41fedcdfbb8a4f9fa57e"
+      "current_sha256": "e2e9c3a0a1bea0df73e53386eda5cf8742ec6e11c7da59a9abbb970a957a159d"
     },
     {
       "path": "README.md",
       "kind": "modified",
       "baseline_sha256": "52a2e99996c4f0dc114e07680e35e88bf2b0861aada416142a6774210f685e98",
-      "current_sha256": "05104755f84355bf646c423c6c1c5a97d6830767b1e9feb392603a36a4c2fffd"
+      "current_sha256": "e09ee642ecb2231fea1a5963abfb96f1e28fd6fbefa4b9f541a059ec830aab33"
     },
     {
       "path": "export_presets.cfg",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "c0867f7ad1556511d3491107e1b396aed02548699f5906570f68b26757849fcb"
+      "current_sha256": "0cde03a313e53e85d0f9fbfe0534d3f93f4987515d014ee062237a0483cc89cc"
     },
     {
       "path": "modules/gaussian_splatting/cameras/camera_controller.gd",
       "kind": "modified",
       "baseline_sha256": "bbe5b792529bd8bb55d88c7a846f286ea4f4daeb24bb58116dc18a7c315a05c5",
-      "current_sha256": "089972d5f1e00e758191ad5c3bc493711624af8c369677292dd4511a5a9be92f"
+      "current_sha256": "ee348909f382aa54341e7904e6a18d58bd10294f4b04984e1ee447cc5b9bb75f"
     },
     {
       "path": "modules/gaussian_splatting/cameras/cursor.gd",
       "kind": "modified",
       "baseline_sha256": "b2a15864a39829b2fa606d8a5e68cda3594f60d753dc86d4079b9aa16af666a1",
-      "current_sha256": "8d2706ba970cc488f0a808143e1b0f75bee59241dc8015b3cb89048aed59fb4b"
+      "current_sha256": "214c72117229acb38c6db70c3f458181837bbf165ac914be9493a966c3235c7a"
     },
     {
       "path": "modules/gaussian_splatting/cameras/freelook_camera.gd",
       "kind": "modified",
       "baseline_sha256": "1f67ff920b75293e27110cff93107ff26e11b1f16aa57fcaf980115fdafb9321",
-      "current_sha256": "cffc74431fbeeac3ad6be338e4aa5734f1116cf8444d7dd8ae5c3da899d23ea4"
+      "current_sha256": "641694c60727d2e9266874e4618c69e69be1ed3ebcfa9182d0bc823422f4fd0e"
     },
     {
       "path": "modules/gaussian_splatting/cameras/orbit_camera.gd",
       "kind": "modified",
       "baseline_sha256": "a9c456ea823480b94a945118d5fd2ff928c2327c03bfe8954fec3bd61a0ea740",
-      "current_sha256": "9c0e7b5aa94cd437feff6569ecf920f41125a5aa882fa7b5240012a12162a003"
+      "current_sha256": "3282f7180ae9c56df7fb51e0d68485ac293cced4e4ce027a6d753bc04937f7ad"
     },
     {
       "path": "modules/gaussian_splatting/configs/gaussian_splatting_config.gd",
@@ -54,67 +54,67 @@
       "path": "modules/gaussian_splatting/core/gs_memory_monitor.gd",
       "kind": "modified",
       "baseline_sha256": "22f9eaadf5c3a52f922f05473af6917489590ca26b283929dedb0b6b4df19559",
-      "current_sha256": "78cba580ed04b5f53a1f76aa366f8f1900364eb195bc1531d19f7fbdde4bd3a1"
+      "current_sha256": "b3e396b960c8c69c136edbe8d479c7ecce9fd4e20f7a577cf5829ce1e410e3b9"
     },
     {
       "path": "modules/gaussian_splatting/core/gs_preloader.gd",
       "kind": "modified",
       "baseline_sha256": "f7357febd06fcf14da848c0005a0c363e16d1106e1c26ea313cba4d2e38edfe3",
-      "current_sha256": "9488cee8af61627765789d9dbd067b3e846d2887f4799d8cc9aac638bbdd1f21"
+      "current_sha256": "b9eabbcffaecfaffb056814ee875017795e0df1323b67423c6b23599b23a4405"
     },
     {
       "path": "modules/gaussian_splatting/core/gs_state_machine.gd",
       "kind": "modified",
       "baseline_sha256": "048d8c52a1db36edb8e6eb7d7bd044006e6f08cfa87c0aed0915d638f43f5270",
-      "current_sha256": "f1567d3f31479df1b77efcdbc6af8dd19d6d3976a3b144ee3303e5af06534653"
+      "current_sha256": "3c5e679a135d8794435c0905b920d2cc0041042f8921a15571e117f368c9d726"
     },
     {
       "path": "modules/gaussian_splatting/loaders/gaussian_splat_import_plugin.gd",
       "kind": "modified",
       "baseline_sha256": "8591e7fd0ea29829ecc0f86309b0d941ca617f7d33a83404d622aa910133b50e",
-      "current_sha256": "88823e451d8e50e9a37f0d1da5d4e44b8f25ee3bd3d48f9ef71cd0a815c31adf"
+      "current_sha256": "c884fd109df9ad5570f7b11fe036d7563847a6f193595155a0b91ee55e437a34"
     },
     {
       "path": "modules/gaussian_splatting/loaders/gaussian_splat_resource.gd",
       "kind": "modified",
       "baseline_sha256": "3685a153e5544b18e2ee1c47ce3eb18fafcac6e04c67f56aa547315794845a3b",
-      "current_sha256": "0adc7df2619ee552b0f8729ca4c86bf1255ee5a950e98137166beee9742928bc"
+      "current_sha256": "7ecc9682f73eb56781004c89d0dfed8dec339f84b60be5fc68fdf9ad0a3e3591"
     },
     {
       "path": "modules/gaussian_splatting/loaders/gs_load_job.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "70cb1fe1c5492198b41aa96fd7982484f866b2329270511e6b8eadb2109e5d5b"
+      "current_sha256": "754832897f480e894972a07cb4f82cefc52282143194fcacc8000a91a3b9c468"
     },
     {
       "path": "modules/gaussian_splatting/loaders/ply_converter.gd",
       "kind": "modified",
       "baseline_sha256": "897d2d5ae9751ad1f06a86f5a39eca6893796f86574ffe16a270664a2b2f9748",
-      "current_sha256": "0ba152545a3f857428bf6752c3534c98d471026a09a6809c8829e2ab1632e5a0"
+      "current_sha256": "17b7445c6ca8461e875b04a8f30c0108203ea952e23e9797c97368c90348320a"
     },
     {
       "path": "modules/gaussian_splatting/loaders/ply_document.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "5ea396d3c880cb4f5ab241b2d988387140f7548a2f08f8c4b3e5200811e92d3b"
+      "current_sha256": "4bfa002805afee672528448737aafcd8e6840e1a1d149a3e29b843791643633b"
     },
     {
       "path": "modules/gaussian_splatting/loaders/ply_file.gd",
       "kind": "modified",
       "baseline_sha256": "d7efaa15726fe8c96fe3b1b771ca2a6b7833456229b9aa5498880fabd4fad384",
-      "current_sha256": "035ab8cb160e42c777a8afd3ac9ee111e2c6c2cb769e3f98fe3395cb93b3f166"
+      "current_sha256": "92f33ff06f937594bae4c830e7358c761844861354c3857c801cfc33552e3597"
     },
     {
       "path": "modules/gaussian_splatting/UI/demo_ui_controller.gd",
       "kind": "modified",
       "baseline_sha256": "d1d171375f84c4f86cc615163e9d1196afa66de6064f2417a4576281f91ad720",
-      "current_sha256": "eaf00ca44fc24a0872c0978508aed2c9b4975c50b8562c3bdb4779927e34cf92"
+      "current_sha256": "b2cf2617f634b72475f600eaec2489e62530be4c4031229460a456143cbabfc6"
     },
     {
       "path": "modules/gaussian_splatting/UI/DraggableContainer.gd",
       "kind": "modified",
       "baseline_sha256": "2a598eba69eae21267d87d97aedacb9bd1a4d151c7bba98135b16e7a7fa00fe8",
-      "current_sha256": "f3732d500a36b49d1e97a90f4308a946aad2276d174ee70cfc691086ec55ed8c"
+      "current_sha256": "ec86367d80bc08ecdf70441024f2283b2cf1613d4c41c6bdcf12161b6787ffbf"
     },
     {
       "path": "modules/gaussian_splatting/UI/ProductionUI.gd",
@@ -126,7 +126,7 @@
       "path": "modules/gaussian_splatting/UI/ProductionUI.tscn",
       "kind": "modified",
       "baseline_sha256": "58d600cf3b7141ccd48a84b2b3e2e3850372e3dc74963f023ff68ae349d07a49",
-      "current_sha256": "f6eb2dc16b42994c057e152abaeefa04f23891b83c536d8c439c2a86d567f344"
+      "current_sha256": "b4e2886ad0cab175272f46af29ac496384b11240391bffd2362c3ef9406eb17d"
     },
     {
       "path": "modules/gaussian_splatting/UI/SceneManagerPanel.gd",
@@ -138,7 +138,7 @@
       "path": "modules/gaussian_splatting/shaders/compute/gsplat_boundaries.glsl",
       "kind": "modified",
       "baseline_sha256": "b27efbacc1639a4dad5e415d59c65fcc7f20093e2cb4c13ab585716d5fcae805",
-      "current_sha256": "399849631027228e742634207d060367c2e25207950bce0a45c37400249bb38d"
+      "current_sha256": "b5f7bd9b4cce353b8b190ddeb165461a15d335d6def0004ee205bcefc01b77c7"
     },
     {
       "path": "modules/gaussian_splatting/shaders/compute/gsplat_projection.glsl",
@@ -156,19 +156,19 @@
       "path": "modules/gaussian_splatting/shaders/compute/radix_sort_downsweep.glsl",
       "kind": "modified",
       "baseline_sha256": "a69c60ae790d0f37a6bce14bbfd2b10b30711355f9533ad98c20589c1c8273a2",
-      "current_sha256": "2ff5a72fdfa87b3f6fdec11ea8e58b565acceb4a15ce8008308ab29c19e49cb8"
+      "current_sha256": "3598b382a8b3ece5af372fa58c6808e9b1aa2200b4b6a3cf4ca069f15aa08c79"
     },
     {
       "path": "modules/gaussian_splatting/shaders/compute/radix_sort_spine.glsl",
       "kind": "modified",
       "baseline_sha256": "b3e2e0dbf1e18854ab9da836dcb82c03004ff76ac17ed26cf3dfd154ceab7129",
-      "current_sha256": "ffb9e12c0a29a156a4b9e9574d8bc4b6568847c75ec34cf7cc45626c047c4acb"
+      "current_sha256": "6e85455e5bab33d00b13a7c68eab1b01a35fe5272b08104e889225c16d95f2cc"
     },
     {
       "path": "modules/gaussian_splatting/shaders/compute/radix_sort_upsweep.glsl",
       "kind": "modified",
       "baseline_sha256": "b2571d89e58f764b7be671ae259763c06a6e5886228bd26cd8c4a028e7dcf60d",
-      "current_sha256": "78c4a821418e699931f1f82189173f308e5459fbc14f4e2de4b5c307a065bf65"
+      "current_sha256": "434feb3331ed0842f4ca6224acbb5e4af8532fa07852083301c65679e52db55d"
     },
     {
       "path": "modules/gaussian_splatting/shaders/spatial/main.gdshader",
@@ -180,277 +180,277 @@
       "path": "modules/gaussian_splatting/utils/scripts/gaussian_splat.gd",
       "kind": "modified",
       "baseline_sha256": "2dbfbd9f6021533ebb637c1e5d06e1097af706a6a9da45e109e1f86fbc019e54",
-      "current_sha256": "9aedb71682d940fcff8f3199d3e8483a9b9c2271bd19470b9d40ff1a5ac4ebb0"
+      "current_sha256": "9a5349091ee2478349b8dfe39c3dd9c4dde4f833e0ac780b551353b8e8e74321"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/gaussian_splatting_rasterizer.gd",
       "kind": "modified",
       "baseline_sha256": "5112dc1cc313b8f2c5721df1fe15159fbe662d556a9e8e35225591c761bdff9b",
-      "current_sha256": "70d0e1b2da79dc706a44be3859b9fac104cf622a17dc534c25d3d291af9ce492"
+      "current_sha256": "4391332f3a937d09c19f00163ef54d49451d0654b171c8873e490c14756c75d8"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd",
       "kind": "modified",
       "baseline_sha256": "6a77b33568d9a29d5028fa5c00d3dfc6a419ab16c00018fea4bb2506d8201512",
-      "current_sha256": "78430a16b74c6dfb155adbb9cf35653b2feb22eb204fd2410cb4b4b93e6f701e"
+      "current_sha256": "da118aae4d6cb65c8fdb453a9d1de1dfa3c61cd82a2e7abea92afcdb18dff5f3"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/gpu_pipeline_manager.gd",
       "kind": "modified",
       "baseline_sha256": "66894aef965e30e046adac02a78ad5766fc631971cd6fc3b3510f7aeb1c08f50",
-      "current_sha256": "e7361b8ccf119c262145b5ecdabeb9bcecfabf29e20e9b3f6c509ff276e63484"
+      "current_sha256": "b6dfd19af4af741f2e57fba1311e8215d8dd35e1829dac9e073c92ae864189ee"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/gs_compositor_effect.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "e593c86fba4970106392156c6184f3363962d650c8f8bbbf06e2d16d0c51e7bc"
+      "current_sha256": "9dc3de67696b936a493b404187ddf874afcb5eb54cb8f13f369bc6c71a91167c"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/render_context.gd",
       "kind": "modified",
       "baseline_sha256": "504d2b72fb7c513867209dd6dcaea735257ef1bdb37366fb52bacbb9237edc00",
-      "current_sha256": "81110ea0904763bdabdf2b6bde18659039f1fe20cad5cce5347df1f5f469dc6b"
+      "current_sha256": "9a464ad7472df9a887b9574b007bf475c21b38725e421fc8cddf7532a23f7ced"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/splat_block_allocator.gd",
       "kind": "modified",
       "baseline_sha256": "0d21722d7791d6f251a57eb751558d193565061f28f08eb891cb5f1b0584ce26",
-      "current_sha256": "c6c5b5e1d7431a7237ae19942da21cf109a72aa916322ae91c79f6e19195fa48"
+      "current_sha256": "59cb2795e4600b727303135be1222a24a83f0366e5001bda810cf093f12abbe8"
     },
     {
       "path": "modules/SpatialOS/core/AsyncPLYLoader.gd",
       "kind": "modified",
       "baseline_sha256": "3c77dfcf8c1a57e2aeec9ab3cf006c62857561c6d6e52c13077670c29214fcf9",
-      "current_sha256": "5e45d62221d1212d8eba2e6db8b32105a12ad7b63f22140dc3885e58acfbfa42"
+      "current_sha256": "5ab0c75c6a93918663001546fe9283c00b888910bf9bf689b746d41732304033"
     },
     {
       "path": "modules/SpatialOS/core/ply_loader.gd",
       "kind": "modified",
       "baseline_sha256": "57d7b3523c1385d9eaa0047f011ecc8c4f81a628291775a4c029cc3175105ec7",
-      "current_sha256": "33ca0fc789ec57af18cec9f74c388bdda3d4b6807d2a97a70319bb8de0cd15bc"
+      "current_sha256": "8a3d75f1babc1b3760a8cf101803c73facaa0f3a2f90ec290cc5791d0cd25485"
     },
     {
       "path": "modules/SpatialOS/core/SpatialGraph.gd",
       "kind": "modified",
       "baseline_sha256": "f0b2067b75baeb93378091cebf8a424db686caaa9e8358fb9d14ffffe2a35eb3",
-      "current_sha256": "63fccb0d8e2ced144443babd62d020edfdadfa92af7c48cfe3d1d31700fd7391"
+      "current_sha256": "ebd13d80bf8d0b07a50ef53071e3d8f4e92bb2d7e9e188c65127989ac5e89991"
     },
     {
       "path": "modules/SpatialOS/core/SpatialIndex.gd",
       "kind": "modified",
       "baseline_sha256": "cb9535d1e2ed275a9f26b8d5bf098d928a41e618e3e412969335815baf0d7f88",
-      "current_sha256": "ee1a511acd534244fac2167d50a61b3b5e2e595d30e80b21cccf2d48b1545805"
+      "current_sha256": "ed99ab32e36f6987fb4f89cf2ec21d308aab7cb617f0b27036520e9a9d2108ca"
     },
     {
       "path": "modules/SpatialOS/core/spatial_config.gd",
       "kind": "modified",
       "baseline_sha256": "7009c9517fb99349d2e65573f4c1d9a29e27a114bd3e00bb8769d24faa8354f6",
-      "current_sha256": "ed26129773cc9f81d766172ef974a9ca8c224f220a125eab4ccbaa00b5ca8472"
+      "current_sha256": "fc03d4c4029ffde772c1c054ce88f579c4547e810b09ca100a66386705d5973b"
     },
     {
       "path": "modules/SpatialOS/core/spatial_pipeline.gd",
       "kind": "modified",
       "baseline_sha256": "1c8075b52c88718da232bcff464fe68390b9bb33dd8e41c56443a34f711f50c3",
-      "current_sha256": "f257b21d1560221debbdb7b4625d3145f53561685a77c307a92526e8194e5f10"
+      "current_sha256": "272a5f63205cf6c9c92dde407099cfe6a5b062900986c5bb9c6d85ad6afbbab9"
     },
     {
       "path": "modules/SpatialOS/core/spatial_ply_job.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "262bd9c60ac57e43827d14831b3d1755ed73c862c5a8c0d69f68aabcb7f84703"
+      "current_sha256": "e46d1163ee9048d9fd6e02d2540537f2d30149730de82bf2e1f32e2e891ff4ec"
     },
     {
       "path": "modules/SpatialOS/scenes/Foundation1Demo.gd",
       "kind": "modified",
       "baseline_sha256": "68b141d2781f5f78ff1e99cc33324c4a5f5455d2246fcd06959f87ff1091e419",
-      "current_sha256": "72da03ba0b0884d87a527ba0747f53c274293958b4b94890555f800969e1420d"
+      "current_sha256": "413f4255a4c2b7fab54e44d5e57198067cdba1140c37c345e7c73252c1c72c0c"
     },
     {
       "path": "modules/SpatialOS/scenes/PointVisualizer.gd",
       "kind": "modified",
       "baseline_sha256": "07026522d5647d9dd05f4dae1f5aeb4bf4f6554810e9df0f52377c953666d528",
-      "current_sha256": "1455fbe426d2d095fc9bbc80ad4613d94e454a5e8f5429840e3536d08729d1ea"
+      "current_sha256": "d07e5fd1ba54c73d2ce2f235cd1b76bf0d71c03eb07e6f84075d80b0727c7d2d"
     },
     {
       "path": "modules/SpatialOS/shaders/geometric_analysis.glsl",
       "kind": "modified",
       "baseline_sha256": "2dd759b487186ffc0198845d9a9a7ca5feff243b3ff8014dff0fcc82e1352e8b",
-      "current_sha256": "520c34f553a9a3557e70d8aeb4761d4230bb96dae41474779d43c8aac6e4b070"
+      "current_sha256": "62f60b6c2f8ac39fa244496dfc2cb2aff3ee94ab4b60cb68b788b603e88f8864"
     },
     {
       "path": "modules/SpatialOS/shaders/graph_segmentation.glsl",
       "kind": "modified",
       "baseline_sha256": "f3ea7484a5fe593c611810ab334023c6adccfc81e9d2e702a1a6c8234dceb17a",
-      "current_sha256": "e1b8ee2af54d146bd7b721b8d61f653021a68fe09306e7c553a2f28bd079bbf1"
+      "current_sha256": "d9d32b63845ca721930a3a94fced4791b471a0f9096651c2cdf2a7225e2afc41"
     },
     {
       "path": "modules/SpatialOS/core/types/point_cloud_resource.gd",
       "kind": "modified",
       "baseline_sha256": "f5ac142eb580440f3e552b858a5eec83fdfe47a8df08a35d554bd88a4f4093b6",
-      "current_sha256": "49be4927cafc670015f108a37e8c05729e1c6781d367e64fb22f1a0debba71e3"
+      "current_sha256": "e1722757626cf4bdc16a569033009e4a4cc7a3770391ac6ef94238f9023b6ca0"
     },
     {
       "path": "modules/SpatialOS/core/types/segment_data.gd",
       "kind": "modified",
       "baseline_sha256": "5146cbaf19aa3892ca10e2fe9112ca9ccb38f027a4efccc451fe57c5dd75109a",
-      "current_sha256": "b77d7cc7a73d9845d548dadcf6578ff0813c52a8082742b18c6085ef47620c53"
+      "current_sha256": "1d794695c95dfbf6cd291089096d914594176ce16352cb78d5b85e4d6b5cfbb4"
     },
     {
       "path": "modules/SpatialOS/core/types/spatial_relationship.gd",
       "kind": "modified",
       "baseline_sha256": "657e5fa868041ab16f81d067ce12505f6a3f885508186b8b18149077740b4e4d",
-      "current_sha256": "f1f62f517cfb746addea3aac435ccdd37fce4dc988a3314e7b9e325ed4533105"
+      "current_sha256": "c42f8e2a028945f721d720d12e9d17121615e431d27c1d5769607db3bf98a976"
     },
     {
       "path": "modules/SpatialOS/shaders/compute/compactor.glsl",
       "kind": "modified",
       "baseline_sha256": "87801147356a6ed65c2b33ffc04d319a3b1f461688e239133942b1316beb1ae0",
-      "current_sha256": "d1cc7a7fe27171e8f072ee609288bdbf6628f651768af4ea344f5889fcd9a90f"
+      "current_sha256": "8bf075fd1128d89f58bfa60dd911c6f0a3e2b39f5d377bdd03c8676ca0180ed0"
     },
     {
       "path": "modules/SpatialOS/shaders/compute/voxelizer.glsl",
       "kind": "modified",
       "baseline_sha256": "228c53c04f9197beac9b865fef6007edefa99456177d939198eb947c2344d6e5",
-      "current_sha256": "c86b93ac8f0138e901e7647e84d0d9c7d515d25601cbfd14389c8cc6f7a79fb8"
+      "current_sha256": "1f05ada065b957a3e96f86542750c7e7641d4374abd84047be048274e118976a"
     },
     {
       "path": "modules/spatial_intelligence/autoload/ActionController.gd",
       "kind": "modified",
       "baseline_sha256": "29ef9b588eb5e1090cc2afd95b33336a0a5ba5fb54fe9f4afc6c7aca64326ffa",
-      "current_sha256": "09b650d0231ba30116f97a8679870188c43e0a59273d2d17e74bf5fa4b134221"
+      "current_sha256": "1b274affaf792408e3e001a62a885d740d46f60563ad1698c91d1179a1220eaf"
     },
     {
       "path": "modules/spatial_intelligence/autoload/SceneContext.gd",
       "kind": "modified",
       "baseline_sha256": "b7110a6e2e9361d910aa8e5f678d93d1e2846dc905055eca686a94dc88b9a6e9",
-      "current_sha256": "21a2eb161d6db9a1a2d1e744ddb894eed60e25a258055bf161c1aecdd0a77061"
+      "current_sha256": "674e5ce8eca13d926d8f3bbb80cee5734e79ce4e711827b37b19e37c63e0a050"
     },
     {
       "path": "modules/spatial_intelligence/autoload/SpatialIntelligence.gd",
       "kind": "modified",
       "baseline_sha256": "08fa1d7c79eb939710bc3197a8f9163a7fc0421e9e0755326d5a9527f3cd0e58",
-      "current_sha256": "8975c0e12fa9c11105acef7954bbb6d98294ed9288ac5fa8668f2ef76d0c3769"
+      "current_sha256": "e0225aad4f0ea5648b679b923d5e5767b12b2f4fda64247caf9f759ce8c7f99b"
     },
     {
       "path": "modules/spatial_intelligence/autoload/ViewportCapture.gd",
       "kind": "modified",
       "baseline_sha256": "997fc76efad7a681c9561c78026d432329be31bb762c099073f817e6c989cf34",
-      "current_sha256": "4320f45042b00bbbf3b4a9d92aa64c291ed3d60bee316d38f5ccb48123d15de6"
+      "current_sha256": "273b3a3d41f49a62467093738b90a0307115e3b81d66a675c66d1ea23cd4381b"
     },
     {
       "path": "modules/spatial_intelligence/configs/ai_access_policy.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "b2dd8588db04070ce4eb01c51fa1580dcad6cff5846b8306a7ed04a598f40699"
+      "current_sha256": "07767867e766b8ab821bae766ba243125825cf04a7362b8d6e1295eda7389422"
     },
     {
       "path": "modules/spatial_intelligence/configs/SIConfig.gd",
       "kind": "modified",
       "baseline_sha256": "52e8795f127398cf13e6f02635ccccd559d696f671e6239fc2d8245f462f868c",
-      "current_sha256": "6bcd32c80bad3a2d0595764ef2d1d73f36ea3b5e3a00bdc3daa49c5b8231cc62"
+      "current_sha256": "ca2c60e0dac956496b3c8e5456ad495f5d2658615c142e2b6b806e3d79f38d6d"
     },
     {
       "path": "modules/spatial_intelligence/ui/CognitivePanel.gd",
       "kind": "modified",
       "baseline_sha256": "28ee34632b6020c254414ff2c2c8ca7601948fa41f667fb01fe0118dc43c87ee",
-      "current_sha256": "750a6973efc16d4ed81df034cd6af83ae356b346cbfee6c65b8b1df5971c269b"
+      "current_sha256": "50001b050806cd4d0c6519ce0ef22a2fc1f414ae523d651899e1fbed364a7a27"
     },
     {
       "path": "modules/spatial_intelligence/utils/LLMClient.gd",
       "kind": "modified",
       "baseline_sha256": "065b73071d11a9dc78379f64b334870f46487400f893b248b9e5efc0543e615e",
-      "current_sha256": "68cfd92f12a516dd677de6336ca2d71fcfe1f6b56dfa887e60cb3135b0e15bc6"
+      "current_sha256": "664994e23679a190f3aaaa13437acbeaec3d70d5d6ce5cfc425d1c6cee8bfd31"
     },
     {
       "path": "modules/spatial_intelligence/utils/NativeMLBridge.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "05700d4cdf31cbe898c1dc634ec1bf1553af226100ee95a985c114133a660d6e"
+      "current_sha256": "ead6eec36392d4380abe001ada8b2ec7334c5bff01dbf8a14b37bc301786090c"
     },
     {
       "path": "tools/audit_status.py",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "e63baa25a8a8fd3d74c17f38d7701ba69c160102ead0b04b0d8d1663d1203d59"
+      "current_sha256": "056a1876b42d60f003f3c69a0838798a74af22345c5378a6e66f4de6157a182c"
     },
     {
       "path": "tools/run_checks.py",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "9df7db655def1b6eff646c47e24eb1b914b963d92526593c7a4ae6a6106820e3"
+      "current_sha256": "a68e0c79079fdaf0dcf0a0b905ce94d0bee6cec4af6f34be642e10512d87f937"
     },
     {
       "path": "tests/core_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "2be0050ea8d17b5640b94069baac31401fac49f74f6f1fe190c56dc57d7a21bb"
+      "current_sha256": "06d04000c7ce34abbec37cec9fbd0a08720ed139fdb507caa09ae88dfc8dd15b"
     },
     {
       "path": "tests/gpu_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "770d2741b56132b464bf0ed8af6e641a618d28c0a4c84dccaa1158f13076895e"
+      "current_sha256": "46126eb9bc0e635bbce2a4a56d53d4c4d1975776fcd1f0a8a8fa6b447082f945"
     },
     {
       "path": "tests/lifecycle_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "364a68228b5c5bcd868c39c2d4257ae55cd634ef42fa1011fedb5c943c96b8e0"
+      "current_sha256": "3c2eaf9273293aed3cafd7fe03f4a6d0cd4d338fdd59e1eb93aff142bce0387c"
     },
     {
       "path": "tests/real_scene_review.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "63eea06d9b7cb683c376b4faddf87e0e1c2eb49831b6645083bbee3608d42cd6"
+      "current_sha256": "eef8859b0494a2bdadc7ad087cd379a83076b64097d455684a16ac7e872ed54c"
     },
     {
       "path": "tests/rendering_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "702c4fbbbb24b8247f7b2a31ee2714b4a1ce91796c8a9ba23495daeda4607215"
+      "current_sha256": "dffaa66976719e065e820cb1bec125ab21a40461320aa774053915e2182c80d5"
     },
     {
       "path": "tests/spatial_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "eb7d0ee0f9787bb2236d028701803c297484b91c2ccb93392c787305765e8db1"
+      "current_sha256": "7864ca76eb408e820a1a2e10fc0647d44d8a38f54e8d883d85fa492c0f6c78ee"
     },
     {
       "path": "tests/visual_review.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "1e227d6acf9e7d602a82c55dfb1549ca0893204922808df0e1e8f52c7e7d9234"
+      "current_sha256": "4bc765bdd38e92af854f923590bb9c35ff6d0631dcc1080535e816458296cb9c"
     },
     {
       "path": "rust/spatial_ml/src/lib.rs",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "2f4f2fae73118656681d7207c961cb504f45de0476bc5798a4142ba049065291"
+      "current_sha256": "2bfe794a3620086698269e22133251bd363141579bd1e6f4d4ff3f0a1cbd5fee"
     },
     {
       "path": "rust/spatial_ml/src/mobile_sam.rs",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "6a6aea3ff7b07ad16e427b11df97748ffbe69f89893d5888f7a8689c4453b628"
+      "current_sha256": "77ddc37abf6eb47e535590133fe2ce4e8ed37421e979a90c4833630722409532"
     },
     {
       "path": "rust/spatial_ml/Cargo.toml",
       "kind": "modified",
       "baseline_sha256": "6c18355051be0288eccc0d11c91818292354d9e7adb7200acffb729b1686c79d",
-      "current_sha256": "d7cc6195f458ec651a8899d4bce9ebad68b4e54b03237aaf2db85d63aef77a7e"
+      "current_sha256": "f65fe27c528482244333c699d57dc27665ac7d2859a2ba46028f25364eb3d6e5"
     },
     {
       "path": "rust/spatial_ml/Cargo.lock",
       "kind": "modified",
       "baseline_sha256": "f8d7029db1710e669fc1cb723189978b60941f56ea38e0ffdc76e57c63b44cb4",
-      "current_sha256": "0f32dbec0c4aa4b1b64c3e5b143112b3d1d48b631e1682bd2aff36811fc77505"
+      "current_sha256": "4f74f8942f66aa26c3b8d301632d1330f206384088be9a686adf58b4a0315f49"
     },
     {
       "path": "rust/spatial_ml/spatial_ml.gdextension.in",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "d7cc36c19a40033a9379234b94098c3d9fd25fdeae01b375682b7994fdea20c1"
+      "current_sha256": "8de675317c2b1ba1cb5fb8c3eb97f97f40afde35f59600a0d6d56391456c4b89"
     },
     {
       "path": "tests/script_checks.gd",
@@ -462,28 +462,28 @@
       "path": "tests/large_scene_checks.gd",
       "kind": "added",
       "baseline_sha256": null,
-      "current_sha256": "c4a5ed19d892b0823fdbbc07a0883d8441a264f2763b5bb21436f107976616af"
+      "current_sha256": "eb0b15863fd4902aee8856a29ca7cce0e6fd4c6bdc8edbb4b9abc70b56d8f423"
     },
     {
       "path": ".github/workflows/validate.yml",
       "kind": "modified",
       "baseline_sha256": "8c8c92f8b82f0d3c1e26dbc734015cedc45ab474b65af15c3dacc1f1a2d8dd64",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "8fa01bee4e84c54388131b67a95eb5cbbee97b090e2c656c6b34beef2c04f063"
+      "current_sha256": "653034e3b605edf61891efff02efe733a64fc13b4b24e08706d206f46082b793"
     },
     {
       "path": "addons/AdvancedFreeFlyCamera/LICENSE.txt",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "0558bd09e66f14f6cac1c75acfa0eb3acc7eb7a4eb2b4322d4d3b2304175f3f1"
+      "current_sha256": "2ae01f88692086ff09ec7da2b0e94664398f5a44955c953bf0e6cae8bb59c188"
     },
     {
       "path": "addons/advanced_control_camera3d/LICENSE.txt",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "0558bd09e66f14f6cac1c75acfa0eb3acc7eb7a4eb2b4322d4d3b2304175f3f1"
+      "current_sha256": "2ae01f88692086ff09ec7da2b0e94664398f5a44955c953bf0e6cae8bb59c188"
     },
     {
       "path": "addons/imgui-godot/LICENSE.txt",
@@ -504,49 +504,49 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "71830ebe956a4ae9d6c52409c6c48d658c66a1a66bf56e3cd431659c76e42701"
+      "current_sha256": "c12f931439d924c1d3eef18695beaeb2947a4848f1751f71751d05cf57a7e955"
     },
     {
       "path": "assets/fonts/source-code-pro/LICENSE.md",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "7c940e28a5388e9bba866cf0e408edda45fe0899ba98665b8f6ab31dc5e4b8ff"
+      "current_sha256": "0b2c3168605cb4f3ba54cf3cf2003f67ff894c66484c75702007f23eda92c353"
     },
     {
       "path": "docs/IMPLEMENTATION.md",
       "kind": "modified",
       "baseline_sha256": "4068dafc7166b88ebdefadba21727a8573be2f59a257e1420eb3c4cc7a84b5d9",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "a00214b589b25a72485ae7821a353801c8bde9c47d30368044aa49bc6efc1143"
+      "current_sha256": "c0b2d0a86f3c2d67dfaf3d30fcd2dfa6e0ae2a4a6270fedfc49159c494c07fe2"
     },
     {
       "path": "docs/audit/REMEDIATION_STATUS.md",
       "kind": "modified",
       "baseline_sha256": "03d0431deb40a987ad59b8a4882677489bbf9de63803707e258d982f49577ba2",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "6cc669578fcdfeb016204be19c12fddb6080d3863dfda7a6dbfb1758d3a59f49"
+      "current_sha256": "0d5b85bfbdafa4915a23636dd865ebfa1666b0563baa176c9265a3fbe9b8a51a"
     },
     {
       "path": "docs/audit/remediation-status.json",
       "kind": "modified",
       "baseline_sha256": "f7f67c0a833c230a98536bd61ccb0b0be1d30736dcfba21d26b22a4f20e4bd96",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "803f8d90a9a44ded03f5b9e2dd6bd4aa61c8ff978840d320ae1baab8533adcc4"
+      "current_sha256": "f037a51afe49f8031e6f9b5d4e0298cd405da4d9f97c03d89e4e91e7c725007c"
     },
     {
       "path": "docs/audit/verification.json",
       "kind": "modified",
       "baseline_sha256": "efa8f698e019da45ef757f51f6d29b088740ab54f9b4256f1d013e81b53bb4ba",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "e0677e4514f98d0b5b3872ec7c49a3a75b07512dd05eda696d44a211a22caa27"
+      "current_sha256": "feffa8aaef1cde330ca22df683dd29cb46d8d34a19af5270c0fd323e8e7445df"
     },
     {
       "path": "docs/dependency-inventory.json",
       "kind": "modified",
       "baseline_sha256": "334a1b3717d22d169b460af0b767fe5f6687af04b29060425664a54c7d9bd72d",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "983313f8c92fa2c77f397dba363a93f9fbccf4f12db43c756ad894105f68047b"
+      "current_sha256": "9cd304b04a17fb2c5f4ee4babd2bfc9a0a58c6375915acc4a7deaa9447ffc5b0"
     },
     {
       "path": "docs/provenance/Godot-LICENSE.txt",
@@ -567,35 +567,35 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "bdc57b3982483ff67405ed7ebfedec91a63a82df86485ba85658cf8b0cf75e71"
+      "current_sha256": "1d1d838eaada71ea78e61fb93cb82f01e717d9141d4cd71e8953351a543acf68"
     },
     {
       "path": "docs/provenance/owner-confirmation.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "2f37901e2445b8e20a6d6dc4bb2c1f95e6062be7b0ad85f8702eab48c6407049"
+      "current_sha256": "27f7394a209098fd0a4c5b7b0767bffa9b6ec0333f21bd2dc87a2b8c4fbee0d4"
     },
     {
       "path": "docs/provenance/retrievals.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "8e446be061793732641756043a01a1e04f4c0d1282234f32fde71e142f29c3cf"
+      "current_sha256": "a0890b01f32dc75734ac91c247a08ecce883ed98886763f6d9613a7c6d7749cb"
     },
     {
       "path": "docs/provenance/rust-dependencies.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "54fb8e7f82bc2c3c3a3dacba23182b2a73e6b22371a331e654c3c71e79daf093"
+      "current_sha256": "be66b068fd279a9f7ad858d48c76923499bd98da17d190a86e5cae70f5f0871a"
     },
     {
       "path": "docs/provenance/rust-license-origins.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "d47fb3cadaf9b77e05427db5ee4dbffb47d38752b4d21ab28e703f0a2f223af6"
+      "current_sha256": "cf84d1eaed36a6ac4ab2e17ad5d63d92229bcafdac88f8f7bb52f1f738af45bd"
     },
     {
       "path": "docs/provenance/rust-licenses/aho-corasick-1.1.4/COPYING",
@@ -679,7 +679,7 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "bbc0714dc52c64e73fd2601de1ed3dc76ddd6f0d345ae50e9240f358757b4bec"
+      "current_sha256": "8aefc236e12109edde23860eec46065d2aeb763d01d1422f12c9eb398dfabd0e"
     },
     {
       "path": "docs/provenance/rust-licenses/glam-0.30.10/LICENSE-APACHE",
@@ -1211,7 +1211,7 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "7c940e28a5388e9bba866cf0e408edda45fe0899ba98665b8f6ab31dc5e4b8ff"
+      "current_sha256": "0b2c3168605cb4f3ba54cf3cf2003f67ff894c66484c75702007f23eda92c353"
     },
     {
       "path": "docs/provenance/virtual-joystick-LICENSE.md",
@@ -1225,7 +1225,7 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "e476da31e4af427f260dde9bfc60c9dbbbf6ed49a916c2dcf3a25480d4c48202"
+      "current_sha256": "4cdfba3525d32a7c6de7da0e02aa0ce1b0f053981dab5c58b3b51f854dd1a887"
     },
     {
       "path": "modules/SpatialOS/core/spatial_processing_job.gd.uid",
@@ -1239,7 +1239,7 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "d9ef4dfc0633ca563010ac2ddc08055df11ac20a7c1df4d198bf8df62ae6b050"
+      "current_sha256": "de89675978054a722f5e752dcb7714a1714e95d591941801545391f93ac7afdb"
     },
     {
       "path": "modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd.uid",
@@ -1253,14 +1253,14 @@
       "kind": "modified",
       "baseline_sha256": "3ec2a5e0281e481866f56c59fb7308113b3b2550abb4e31ba0c5f2bc28031966",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "e5529ff7876ce57ed4302a6aab2a575e222c2368e488bce2ebb9b2921ef0606b"
+      "current_sha256": "782756c04e93a25fbbfd6af9a04e57782d9f7cb1147c1539d79e8bead42d10d8"
     },
     {
       "path": "rust/spatial_ml/build.ps1",
       "kind": "modified",
       "baseline_sha256": "ee240a57be4b4645d929fd65b888bd0bc403890edf7f70ff61f56d576531859c",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "3cb60a25fb1c8e18e4c295fb052ae86e44755e7b662994ded8b79b6c3449e671"
+      "current_sha256": "7d7288803be1c3c1547e439dc2e4b4dba14db9b7d8c4f926d3647bb403a30112"
     },
     {
       "path": "rust/spatial_ml/models/LICENSE-MobileSAM.txt",
@@ -1274,21 +1274,21 @@
       "kind": "modified",
       "baseline_sha256": "68c7ceed9fad526dd9acc1eb540ca8f9f19b1396e8332e717608752bbeeba61f",
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "960d5389df3ae81e6df4507249c3a6a9aba9a78169e5d44b3dfbc2a2aed17c02"
+      "current_sha256": "af3ef8974bda742be4baf58f8880713f4e02aa4b0564364870f92bc10e850f54"
     },
     {
       "path": "rust/spatial_ml/models/export-receipt.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "376de173a1b6e2afc7bdb75136b449e4eb72b0d8c68cfb54890286ef61b85aa0"
+      "current_sha256": "b464744e6cf25e06fb0aa062da814f7cbf7e8f29de40039fb8f0183a271c3126"
     },
     {
       "path": "rust/spatial_ml/models/manifest.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "4617ed49ca7925301c45969949b3c7d4e4194d1232b2de144fbcf687274f0e4e"
+      "current_sha256": "9f07942527ba55cb6b9b1748d3943de59dc693e7e13c0d79a8b7cbfa16b6d8b9"
     },
     {
       "path": "rust/spatial_ml/models/mobile_sam_decoder.onnx",
@@ -1309,7 +1309,7 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "1a9e8c7d41b55aa4818d6eecd41a051732e8f78c8df86795bde21a06a5bc548c"
+      "current_sha256": "895f7b8af9eae0f76a4898ec5836f70926cdf62743c390d10e4bf087c7665318"
     },
     {
       "path": "tests/migration_recovery_checks.gd.uid",
@@ -1323,7 +1323,7 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "bbf9773fcf8a18e2fbfd5cabe96dd3f360b8596b157dd78c10518a9e1bb98046"
+      "current_sha256": "fcd60e36cd6c7724f10412487cc5102598373e8adf900c5329add036e36cc545"
     },
     {
       "path": "tests/native_inference_checks.gd.uid",
@@ -1337,7 +1337,7 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "1e0bf5e8637ee00e5b354b5eea392b976052cbfcdfd4a617ffce67e7f2372389"
+      "current_sha256": "927786896522a150ec6ab9eff18247638054ea74bc5b74f9a67c841307e67fcf"
     },
     {
       "path": "tests/provider_network_checks.gd.uid",
@@ -1351,7 +1351,7 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "3ca919ec3f654e992191edb30c7f04bdc4e7757a9603881b54fcb6454853e50e"
+      "current_sha256": "3e298889ace63871b632276e376ae24e4992058f17ccae465c8bcdf87806da3e"
     },
     {
       "path": "tests/spatial_async_checks.gd.uid",
@@ -1365,49 +1365,49 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "b546722779f7d1e16f7e902ba57fd48b11a2f90f0d155ca75f284dd0be7e8e7a"
+      "current_sha256": "6092112d9d6f923361c3a472a0c5b45d08c5e2202a646574a38b334eeaa3f3f4"
     },
     {
       "path": "tools/check_source.py",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "83f760d4d385c3dd0a2bfb8ac107c641c088fe47aba49d71efd93de01ca520d5"
+      "current_sha256": "7b62f2f710acf3b9ea67a4b89c9a7be3414f0c6da9de3c0db36c9f908145dd4d"
     },
     {
       "path": "tools/export_native_ml.py",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "fe3c798ba09c2b7825c7947497baea36aea92847bc1692530a753bb05f45c62b"
+      "current_sha256": "a25b885073fe0ec7d673e53ccba8e43d362da46b0652ebc9bbf137bbb88ed466"
     },
     {
       "path": "tools/make_spatial_fixture.py",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "015547a0587875400b4ba9629c0c0c372c712d315ca9c3f844fdf589b0a7ffdc"
+      "current_sha256": "1b482175f52c3deb3702c6197fdc11145eabec5119160e251b572d9a77519cf8"
     },
     {
       "path": "tools/native_ml_requirements.txt",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "75e12ec17b9dbb723f3e9018e9ab4a9d7f9d881153cc8c353637c8c12ecbc16f"
+      "current_sha256": "eac7b3ed373840b17c9e9eca9ad6cbae36348ec1567eb6d8e984be7cd80d1524"
     },
     {
       "path": "tools/package_candidate.py",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "bf1eab0860494a9482fea0129352910cc734ffe2267b404a6eb1c687fc1d580f"
+      "current_sha256": "5bc6f86cd16908680380f8065036306d52488c2e88369b6370a523a45d64d007"
     },
     {
       "path": "tools/setup_native_ml.py",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "bffa1a1 sanitized qualified Bali baseline",
-      "current_sha256": "2fbf3f0d70607d232cdb6ab9fe9530415b67846b4384d4da9df4218234222982"
+      "current_sha256": "960651191a4cb258853ed3c11b34fcc2ddcf010a47be8d51b9279be6ee650efd"
     },
     {
       "path": ".gitattributes",
@@ -1428,28 +1428,28 @@
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "14831fd pre-color-and-transform qualification",
-      "current_sha256": "0cf55f3a7f3f05a3c107d61884d05a676f733be01e28d58e9869f6f76bd7d759"
+      "current_sha256": "24b3cb0d0769a209798c033be67821b1aa5abf088e9ec79fa610c6be8fa89fca"
     },
     {
       "path": "docs/audit/software-msaa-investigation.md",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "14831fd pre-color-and-transform qualification",
-      "current_sha256": "962dcea079ca559f3a5cbc7b02feaf8981a36f95a714502d283a128e4b9047bf"
+      "current_sha256": "b5798f4804bb848c6f1743fcae6066aa9d1cc57c875928fc0e107cb5b2e15e7f"
     },
     {
       "path": "docs/provenance/windows-export-template.json",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "14831fd pre-color-and-transform qualification",
-      "current_sha256": "3f713286eb8561d8fa1b90cabab7889575b4d23656bb378e5d8ab8ae7d319935"
+      "current_sha256": "ca7565ef68e412c736e497fad5edcefff4729437c18c2b75b3f298e69e95e5c2"
     },
     {
       "path": "modules/gaussian_splatting/UI/ColorAdjustmentPanel.gd",
       "kind": "added",
       "baseline_sha256": null,
       "baseline_reference": "14831fd pre-color-and-transform qualification",
-      "current_sha256": "eaa0a11447eeb691058ecb3b99abf24a0c922528e43a5e64837b2d60fdfd4afb"
+      "current_sha256": "e3b755020ddbc94c3772b7e71d0ae90b889a6be4c17cddb5104bba5aced59943"
     },
     {
       "path": "modules/gaussian_splatting/UI/ColorAdjustmentPanel.gd.uid",
@@ -1520,7 +1520,294 @@
       "baseline_sha256": null,
       "baseline_reference": "14831fd pre-color-and-transform qualification",
       "current_sha256": "e473f88fdf49874da8dcac53879c512670a610f236b25c64c8ff186c46ac316e"
+    },
+    {
+      "path": "addons/advanced_control_camera3d/nodes/advanced_control_camera_3d.gd",
+      "kind": "modified",
+      "baseline_sha256": "1851dcf256ff84f311636e7d19e2640e030f9ff5f05d72bd8fdc0a8312e6630f",
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "8bcec2f70da78f0cf39f7f1e11bdbfbf116f0f9bab121a3536142fe59bdcefa4"
+    },
+    {
+      "path": "docs/audit/evidence/camera-leak-after.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "736868c898fc3577446c5522c7b9c02ebc0f2e9a71f1b41c08eb7e7f481fb558"
+    },
+    {
+      "path": "docs/audit/evidence/camera-leak-before.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "77716c03aef9859f850a29aff34461214b9b5cfc283b7a233a1eb8964f04e120"
+    },
+    {
+      "path": "docs/audit/evidence/release-bali-checks.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "98f015513d3bf287448d206414651ab72d46feef491ef0faef44bc113522d3d4"
+    },
+    {
+      "path": "docs/audit/evidence/release-bali-controls.png",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "1494c28c7228c73334f2182a079fca45a6bd438a9076050e247266e8176325d4"
+    },
+    {
+      "path": "docs/audit/evidence/release-bali-export.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "e8a16daaf4337a6083ca6af19dd6e8333f0694bb4853329b0b940157f4d631a5"
+    },
+    {
+      "path": "docs/audit/evidence/release-bali-qualification.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "09b3e471ea975f61866842a8e7b835796ddeb5cc22b9459600c6a9d4a9c4e30e"
+    },
+    {
+      "path": "docs/audit/evidence/release-startup-before-gdb.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "b12f350edbecaa6022702d252bc496252f0830d6b30e1993ee4f9f5ac9733540"
+    },
+    {
+      "path": "docs/audit/evidence/software-fixed-msaa-0.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "3560bdf01315d872bed2824e9ff8855437f582f575e794fd4782c442f47fbad8"
+    },
+    {
+      "path": "docs/audit/evidence/software-fixed-msaa-1.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "7035b4645533a1aa42fcc9c00eed54b9a6bfee6f70158bbf91b7b4f3bd9fd50f"
+    },
+    {
+      "path": "docs/audit/evidence/software-fixed-msaa-2.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "3560bdf01315d872bed2824e9ff8855437f582f575e794fd4782c442f47fbad8"
+    },
+    {
+      "path": "docs/audit/evidence/software-fixed-msaa-3.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "7035b4645533a1aa42fcc9c00eed54b9a6bfee6f70158bbf91b7b4f3bd9fd50f"
+    },
+    {
+      "path": "docs/audit/evidence/software-msaa-0.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "bf425b243317cd4a7914480f1fdb20290694b44af3cc083977a15ef231f9b63d"
+    },
+    {
+      "path": "docs/audit/evidence/software-msaa-1.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "d66c1ba7bbddcb92599d6e9304348ebd119e53cc3709fbe7b31625a09e44e90e"
+    },
+    {
+      "path": "docs/audit/evidence/software-msaa-2.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "bf425b243317cd4a7914480f1fdb20290694b44af3cc083977a15ef231f9b63d"
+    },
+    {
+      "path": "docs/audit/evidence/software-msaa-3.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "d66c1ba7bbddcb92599d6e9304348ebd119e53cc3709fbe7b31625a09e44e90e"
+    },
+    {
+      "path": "docs/audit/evidence/startup-after.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "ec559120164eaf40d10a71fa391739a517c61fc0c608b01cfb4e72e1fb34fc34"
+    },
+    {
+      "path": "docs/audit/evidence/startup-before.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "5ff94971be2c5a8127337bc29f07e0cdd9539f093f156256b468876e38958235"
+    },
+    {
+      "path": "tests/camera_lifecycle_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "ec6c2aa091f68f8786e35028ecffcb580045153180ce9dc399ec1c4073fd7bb4"
+    },
+    {
+      "path": "tests/release_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "6df323f9fd2403356efc8ffdf89b9ef472bf9710bcc9d0c6d41de72f9e7a8876"
+    },
+    {
+      "path": "tests/release_checks.tscn",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "359c5ed4cfdffc396d597e0213cdeaa9467f8941630c9e6d367a2b803f007f24"
+    },
+    {
+      "path": "tests/startup_checks.gd",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "a15d605d92470195cfd3275379e314785297b69bd02f7d278d2cd088df9ebbd8"
+    },
+    {
+      "path": "tools/check_packaged_startup.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "6a6a200fc6370997b036c5d65b3fb7b404e47b5b16ddf7e25a0c5c94daf5f022"
+    },
+    {
+      "path": "tools/qualify_release.py",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "cd4f6408d8d02dedbde2798b2d6e7cc60d41cde85fddb06515ad600fc359e20d"
+    },
+    {
+      "path": "docs/audit/evidence/release-actual-inference-qualification.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "146b6cd8f785dbe6249c82d55fdfea5c65f5218d6160164450ec844005346dd1"
+    },
+    {
+      "path": "docs/audit/evidence/release-actual-inference.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "43fddf1cffb01b269b2cc608767612b43127e8405d0600c500751fe9707c8b57"
+    },
+    {
+      "path": "docs/audit/evidence/release-binary-comparison.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "2ed96a535e7908d8c2e5da17487470c9f3f9729a10d273821af28380e21bcbc3"
+    },
+    {
+      "path": "docs/audit/evidence/release-installed-main.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "333a9b5a307067e0be42c3607a113aa1013e900a94208d15431d585a3faa5705"
+    },
+    {
+      "path": "docs/audit/evidence/release-main-gpu.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "333a9b5a307067e0be42c3607a113aa1013e900a94208d15431d585a3faa5705"
+    },
+    {
+      "path": "docs/audit/evidence/release-main-headless.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "872a1cb8cbf575493250c79ed602d3c65ce49846a7c19eb1aaedbdcbfc030737"
+    },
+    {
+      "path": "docs/audit/evidence/release-package-receipt.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "f7f796748063b81294d3ebb7b59aabded0490791c9836fc6a04036a73c195143"
+    },
+    {
+      "path": "docs/audit/evidence/startup-camera_lifecycle_checks.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "8996f7d56f5beb7e90adba56c0a3885898b85bd1f5379db2d465c17279e7d9cd"
+    },
+    {
+      "path": "docs/audit/evidence/startup-color_transform_checks.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "f4f2033788f4b0ecbaf15a625c262738a04180a5680d0f2e65933f183841b148"
+    },
+    {
+      "path": "docs/audit/evidence/startup-core.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "d215d991528081c809b6a60c83654364cbcbccd883e28a22be5a14957ac6a225"
+    },
+    {
+      "path": "docs/audit/evidence/startup-gpu_checks.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "3ec309ed1f953ea5f9aa040d8070c32656b9ff52916c69029caa85c518e2c5ff"
+    },
+    {
+      "path": "docs/audit/evidence/startup-lifecycle_checks.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "8bb224e9793d56b54a21d876a0bb73a91f20bc7ff390bd44a50526dd893f37b7"
+    },
+    {
+      "path": "docs/audit/evidence/startup-migration_recovery_checks.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "b9f51c6a2436b800bb489d58e8d365f11b9be64870ca9fc2bd5db74bd633dc57"
+    },
+    {
+      "path": "docs/audit/evidence/startup-native-inference.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "54f9ec56d2b0bcae5b86271ac269b895682c4783dfbd9c1100a6d82c00e90414"
+    },
+    {
+      "path": "docs/audit/evidence/startup-native-rendering.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "5d9bd39351561dc33e426ec71f36d69c27b0bb14a6082a009521e4c08f5df1a9"
+    },
+    {
+      "path": "docs/audit/evidence/startup-release-ci.json",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "8086173d3100742f9d3e43456c9c192fee3d6c1f9730c1a016c1c18e696c846c"
+    },
+    {
+      "path": "docs/audit/evidence/startup-selection_color_checks.log",
+      "kind": "added",
+      "baseline_sha256": null,
+      "baseline_reference": "d472bf0 pre-startup/depth/release follow-up",
+      "current_sha256": "1a5a707215fb2c35a2f4c48592f68a19a209745b0b76891a7554a885f8828fbe"
     }
   ],
-  "current_reference": "Final remediation source and delivery configuration; see Git history for the exact commits."
+  "current_reference": "Tracked source qualified at 06e68b1 plus final documentation/evidence; source checkout hashes. The user editor UID rewrite in local project.godot is preserved separately."
 }

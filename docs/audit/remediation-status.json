@@ -1029,7 +1029,7 @@
       "changes": [
         "Created a private GitHub repository with a sanitized qualified Bali baseline and remediation commits; source secret/size scan passes.",
         "Isolated Godot CPU/GPU/lifecycle/rendering/migration/SpatialOS/native/network suites; CI for Linux software Vulkan and Windows native build/inference; unsigned source-free development packaging helper includes external DLLs, notices and a hash receipt.",
-        "Added observable color-regression, saved-color-preference, actual mouse manipulation and overlapping-model selection coverage to the regression suite and CI. Current candidate qualification is being recorded separately.",
+        "Added observable color-regression, saved-color-preference, actual mouse manipulation and overlapping-model selection coverage to the regression suite and CI.",
         "Fixed normal main-scene startup: the color panel waits for the viewer owner to initialize its configuration. No UI-owned configuration is introduced.",
         "Fixed camera add-on export-time orphan nodes with lazy owned visualization creation. Packaging now rejects every export error and ObjectDB leak instead of ignoring known RID warnings.",
         "Dedicated optimized-template qualification scene and real-main startup helper cover official templates that disable --script/--path overrides. CI adds normal scene startup, camera lifecycle, native software MSAA and optimized Windows template packaging/startup."
@@ -1041,7 +1041,9 @@
         "Main-branch confirmation: run 43345216107 passed both jobs for dc16f3a; retained in evidence/color-final-ci.json and .log.",
         "Startup regression reproduces both null reads and lost preferences before the fix; normal scene startup, saved preferences and existing color/transform controls pass afterward.",
         "Camera lifecycle reproduces two leaked renderer objects before the fix; detached/active camera teardown and both visualizations pass afterward. Fresh optimized QA export reports zero warning/error lines.",
-        "Official optimized Godot 4.6.2 Windows x86_64 package runs the real main scene and loads full Bali + Suzuki: 7,959,786 splats in 71,857 ms, independent model transforms and native initialization pass. No failed template experiment is promoted."
+        "Official optimized Godot 4.6.2 Windows x86_64 package runs the real main scene and loads full Bali + Suzuki: 7,959,786 splats in 71,857 ms, independent model transforms and native initialization pass. No failed template experiment is promoted.",
+        "Source commit 06e68b1 passes GitHub Actions run 43351577832: Linux disabled/native-4x rendering and all source/input/lifecycle suites; Windows native build, real inference, optimized-template package and real-main startup.",
+        "The optimized template also encodes a real non-square RGB image and decodes a prompt-conditioned full-size mask. Final normal-main package has 119 receipt files, all hashes verified, zero export warnings/errors; installed separately at build/startup-depth-release-candidate."
       ],
       "remaining": [
         "Unsigned Windows Vulkan/CPU qualification does not provide a Windows signing identity or certify additional GPU vendors, operating systems or XR devices. These release qualification boundaries remain open; the reproduced startup crash, export RID leak and software-MSAA depth failure are addressed."
@@ -1071,7 +1073,7 @@
     "P.1.1: user reconfirmed key not revoked; provider-account action outstanding",
     "P.3.6: native 4x software-MSAA mitigation and existing opaque-depth checks pass; arbitrary transparency, Gaussian shadows and XR remain unimplemented",
     "P.5.7: authenticated provider qualification still needs a valid replacement credential",
-    "P.7.2: main startup/release-template crash and camera export leak fixed; unsigned local release qualification passes; CI confirmation and final package records pending",
+    "P.7.2: main startup/release-template crash and camera export leak fixed; source CI, unsigned optimized package and GPU/native checks pass. Signing and broader physical-platform qualification remain pending.",
     "P.7.3: ownership/license uncertainty remains unresolved; no rights assertions fabricated"
   ]
 }

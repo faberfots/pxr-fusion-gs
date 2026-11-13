@@ -1,0 +1,22 @@
+{
+  "engine_same_sha256": true,
+  "engine_sha256": "3b2d3f99bd640961aad1a1a200f0f7233b7de45b02801ce22d3224dc294d93d1",
+  "external_dll_comparisons": [
+    {
+      "file": "addons/imgui-godot/bin/libimgui-godot-native.windows.debug.x86_64.dll",
+      "same_sha256": true,
+      "sha256": "3ae42f3a210919effbe0555dbafde3b7073166caa0562f2d00c0022eab2dd55d"
+    },
+    {
+      "file": "addons/imgui-godot/bin/libimgui-godot-native.windows.release.x86_64.dll",
+      "same_sha256": true,
+      "sha256": "1d773916453a9930e976238e937d80ac3243faeb9932e84ac893d5addc4ac095"
+    },
+    {
+      "file": "rust/spatial_ml/bin/windows/release/spatial_ml_0_3_0.dll",
+      "same_sha256": true,
+      "sha256": "d54d9b23940fa736e3ed267184d5058d2a0dc90ff89099a0059cc558c9f3c54f"
+    }
+  ],
+  "note": "No ImGui/native DLL replacement was needed. The fixed official-template package passes real-main and GPU/native qualification."
+}

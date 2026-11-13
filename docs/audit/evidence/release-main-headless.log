@@ -1,0 +1,9 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+WARNING: [GSViewer] Cannot initialize the GS renderer: Unavailable
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+WARNING: [GSViewer] Cannot initialize the GS renderer: Unavailable
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+
+PACKAGED MAIN STARTUP: PASS exit 0

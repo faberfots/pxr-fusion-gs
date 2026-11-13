@@ -1,10 +1,216 @@
 {
   "schema_version": 1,
-  "date": "2026-11-12",
+  "date": "2026-11-13",
   "engine": "Godot 4.6.2 stable",
   "device": "NVIDIA RTX 4070 Laptop GPU; Vulkan; Windows",
   "native_version": "0.3.0",
-  "results": [
+  "real_scene": {
+    "splats": 219953,
+    "load_ms": 2032,
+    "resolution": [
+      1142,
+      810
+    ],
+    "tracked_gpu_bytes": 429495564,
+    "budget_bytes": 536870912,
+    "tile_splat_pairs": 691243,
+    "sort_overflow": false
+  },
+  "external_boundaries": [
+    "Previously exposed provider credential not yet revoked (user confirmed)",
+    "No authenticated vendor request qualification; localhost synthetic transport tests pass",
+    "Arbitrary transparent interleaving, Gaussian shadows and XR multiview unimplemented; no headset available",
+    "Unsigned ordinary-engine development candidate; optimized templates/signing and other real GPU/platform combinations unqualified",
+    "Intermittent headless editor-export shutdown RID/ObjectDB warning remains",
+    "Unknown project artwork/video/dataset origins; historical bundled binary provenance gaps remain"
+  ],
+  "large_scene": {
+    "source_file_bytes": 1919480116,
+    "bali_splats": 7739833,
+    "second_model_splats": 219953,
+    "total_splats": 7959786,
+    "load_ms": 143506,
+    "downsampling": false,
+    "resolution": [
+      1142,
+      648
+    ],
+    "tracked_gpu_bytes": 3435972892,
+    "budget_bytes": 4294967296,
+    "tile_splat_pairs": 7473225,
+    "sort_overflow": false,
+    "per_model_transform3d": "independent XYZ position, XYZ rotation and scale; GPU palette and Scene Manager controls verified",
+    "evidence": [
+      "evidence/bali.log",
+      "evidence/bali-main.png",
+      "evidence/bali-multiple.png",
+      "evidence/bali-transforms.png"
+    ],
+    "qualification": "actual main scene, full source load and displayed frames visually inspected; no claim about universal frame rates",
+    "object_mode": {
+      "tile_splat_pairs": 14131970,
+      "projected_splats": 7956764,
+      "sort_overflow": false,
+      "capture_ms": 440,
+      "scope": "mode change, two process frames and screenshot; not a frame-rate benchmark",
+      "evidence": [
+        "evidence/bali-object.log",
+        "evidence/bali-object.png"
+      ]
+    },
+    "pack_sha256": "0650cec7193a1eeb780b68e0b8dbe25d85c9f6a0f8ce842af32b1fa460e48293",
+    "migration": {
+      "total_splats": 7959786,
+      "migration_ms": 16809,
+      "tracked_gpu_bytes": 3435972924,
+      "tile_size": 32,
+      "capacity": 8475242,
+      "sort_overflow": false,
+      "preserved": "all source splats, stable model IDs, per-model Transform3D and GPU palette",
+      "evidence": [
+        "evidence/final-bali-migration.log",
+        "evidence/bali-migrated.png"
+      ]
+    }
+  },
+  "spatial_responsiveness": {
+    "source_points": 2000000,
+    "ingest_and_visualization_ms": 43577,
+    "progressive_chunks": 489,
+    "ui_frames": 3490,
+    "max_observed_ui_gap_ms": 98,
+    "evidence": "evidence/final-spatial-async.log",
+    "scope": "local device; not a universal performance guarantee"
+  },
+  "native_inference": {
+    "upstream": "https://github.com/ChaoningZhang/MobileSAM",
+    "revision": "f706ad9c4eb7f219c00d9050e46328518ffb65d2",
+    "runtime": "ONNX Runtime 1.23.2 Windows x86_64 CPU",
+    "manifest": "rust/spatial_ml/models/manifest.json",
+    "fixture_dimensions": [
+      640,
+      384
+    ],
+    "circle_iou": 0.99029946188557,
+    "source_free_package_pass": true,
+    "evidence": [
+      "evidence/final-native-inference.log",
+      "evidence/portable-native-inference.log",
+      "evidence/native-test-input.png",
+      "evidence/native-circle-mask.png"
+    ]
+  },
+  "git_repository": {
+    "url": "https://github.com/faberfots/pxr-fusion-gs",
+    "visibility": "private",
+    "baseline_commit": "bffa1a1",
+    "qualification": "Current startup/depth/release source passed both CI jobs.",
+    "qualified_run_url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43351577832",
+    "qualified_commit": "06e68b1a9e1ed294e7bb96d84642727f785dcd8d",
+    "remote_conclusion": "success"
+  },
+  "test_harness_correction": {
+    "issue": "Fixed 32 MiB recovery-test budget admitted fewer than 40,007 fixture splats at a larger output resolution; later test access stalled after admission failure.",
+    "correction": "Budget now includes resolution-dependent output texture headroom and the test quits immediately on load failure.",
+    "result": "current migration recovery suite passes at 1142x648; no renderer behavior change"
+  },
+  "software_vulkan": {
+    "device": "Mesa llvmpipe LLVM20.1.2 locally; CI runner reported separately",
+    "msaa_disabled": "passes",
+    "native_msaa_4x": "passes",
+    "requested_msaa_2x_and_8x": "reproduced failing before negotiation; runtime selects qualified native 4x, and both requested modes pass afterward",
+    "hardware_gpu_settings": "NVIDIA RTX MSAA remains unchanged and rendering checks pass",
+    "evidence": [
+      "evidence/software-fixed-msaa-0.log",
+      "evidence/software-fixed-msaa-1.log",
+      "evidence/software-fixed-msaa-2.log",
+      "evidence/software-fixed-msaa-3.log"
+    ],
+    "scope": "mono opaque scene depth; native 2x/8x on llvmpipe not claimed supported"
+  },
+  "development_package": {
+    "path": "build/unsigned-candidate",
+    "type": "unsigned ordinary-engine development candidate",
+    "receipt": "evidence/package-receipt.json",
+    "source_free": true,
+    "full_main_and_ai_panel_pass": true,
+    "release_imgui_retained": true,
+    "native_cpu_inference_pass": true,
+    "shader_gpu_depth_and_migration_pass": true,
+    "receipt_hashes_verified": {
+      "files": 119,
+      "mismatches": 0
+    }
+  },
+  "color_and_transform_2026_11_13": {
+    "selection_regression": "Baseline red sample shifted to blue-purple while selected; corrected shader preserves RGB.",
+    "full_scene": {
+      "splats": 7959786,
+      "resolution": [
+        1908,
+        960
+      ],
+      "load_ms": 73078,
+      "sampled_mean_selected_rgb_drift": 4.856326e-08,
+      "sort_overflow": false,
+      "evidence": "evidence/bali-color-review.log"
+    },
+    "controls": "Color presets and fine adjustments, persistence, neutral comparison, independent quality, actual mouse model selection/dragging, all XYZ manipulations and cancellation pass.",
+    "remaining_status_count": {
+      "fully implemented": 61,
+      "partially implemented": 5
+    },
+    "scope": "Windows RTX Vulkan; no credential revocation, authenticated cloud call, signing, XR or asset-rights qualification claimed.",
+    "ci_run_url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43345216107",
+    "qualified_source_commit": "dc16f3a3a6d7fa15f2f724edad8032a813da0068",
+    "source_free_package": "build/color-and-transform-candidate",
+    "optimized_template": "Follow-up fixed null configuration startup; see startup_depth_release_2026_11_13."
+  },
+  "startup_depth_release_2026_11_13": {
+    "source_commit": "06e68b1a9e1ed294e7bb96d84642727f785dcd8d",
+    "startup": "normal main scene fails with null reads before fix; saved preference/startup checks pass after waiting for viewer readiness",
+    "export_leak": "detached camera constructor reproduces two leaked renderer objects before fix; lazy owned visualization and camera lifecycle checks pass after fix",
+    "optimized_template": {
+      "version": "official Godot 4.6.2 Windows x86_64",
+      "sha256": "3b2d3f99bd640961aad1a1a200f0f7233b7de45b02801ce22d3224dc294d93d1",
+      "main_startup_gpu_pass": true,
+      "main_startup_headless_pass": true,
+      "fresh_export_warning_error_lines": 0,
+      "source_free": true,
+      "native_actual_image_encode_decode_pass": true
+    },
+    "full_scene": {
+      "splats": 7959786,
+      "load_ms": 71857,
+      "resolution": [
+        1142,
+        648
+      ],
+      "independent_transforms_pass": true,
+      "evidence": "evidence/release-bali-checks.log"
+    },
+    "local_suites": [
+      "core",
+      "gpu",
+      "lifecycle",
+      "rendering",
+      "migration recovery",
+      "selection color",
+      "color transform",
+      "startup",
+      "camera lifecycle",
+      "native inference"
+    ],
+    "ci_run_url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43351577832",
+    "ci_status": "success",
+    "release_package": "build/startup-depth-release-candidate",
+    "scope": "unsigned Windows x86_64 RTX Vulkan and CPU ML; Linux software Vulkan native 4x/disabled; no arbitrary transparent interleaving, Gaussian shadows, XR or signing qualification claimed",
+    "receipt_hashes_verified": {
+      "files": 119,
+      "mismatches": 0
+    }
+  },
+  "historical_results": [
     {
       "suite": "core",
       "evidence": "evidence/core.log",
@@ -337,162 +543,97 @@
       "scope": "Windows x86_64 native CPU build/inference and Linux software Vulkan without MSAA; no general GPU/platform claim"
     }
   ],
-  "real_scene": {
-    "splats": 219953,
-    "load_ms": 2032,
-    "resolution": [
-      1142,
-      810
-    ],
-    "tracked_gpu_bytes": 429495564,
-    "budget_bytes": 536870912,
-    "tile_splat_pairs": 691243,
-    "sort_overflow": false
-  },
-  "external_boundaries": [
-    "Previously exposed provider credential not yet revoked (user confirmed)",
-    "No authenticated vendor request qualification; localhost synthetic transport tests pass",
-    "Arbitrary transparent interleaving, Gaussian shadows and XR multiview unimplemented; no headset available",
-    "Unsigned ordinary-engine development candidate; optimized templates/signing and other real GPU/platform combinations unqualified",
-    "Intermittent headless editor-export shutdown RID/ObjectDB warning remains",
-    "Unknown project artwork/video/dataset origins; historical bundled binary provenance gaps remain"
-  ],
-  "large_scene": {
-    "source_file_bytes": 1919480116,
-    "bali_splats": 7739833,
-    "second_model_splats": 219953,
-    "total_splats": 7959786,
-    "load_ms": 143506,
-    "downsampling": false,
-    "resolution": [
-      1142,
-      648
-    ],
-    "tracked_gpu_bytes": 3435972892,
-    "budget_bytes": 4294967296,
-    "tile_splat_pairs": 7473225,
-    "sort_overflow": false,
-    "per_model_transform3d": "independent XYZ position, XYZ rotation and scale; GPU palette and Scene Manager controls verified",
-    "evidence": [
-      "evidence/bali.log",
-      "evidence/bali-main.png",
-      "evidence/bali-multiple.png",
-      "evidence/bali-transforms.png"
-    ],
-    "qualification": "actual main scene, full source load and displayed frames visually inspected; no claim about universal frame rates",
-    "object_mode": {
-      "tile_splat_pairs": 14131970,
-      "projected_splats": 7956764,
-      "sort_overflow": false,
-      "capture_ms": 440,
-      "scope": "mode change, two process frames and screenshot; not a frame-rate benchmark",
-      "evidence": [
-        "evidence/bali-object.log",
-        "evidence/bali-object.png"
-      ]
+  "results": [
+    {
+      "suite": "core",
+      "evidence": "evidence/startup-core.log",
+      "pass_labels": 32,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
     },
-    "pack_sha256": "0650cec7193a1eeb780b68e0b8dbe25d85c9f6a0f8ce842af32b1fa460e48293",
-    "migration": {
-      "total_splats": 7959786,
-      "migration_ms": 16809,
-      "tracked_gpu_bytes": 3435972924,
-      "tile_size": 32,
-      "capacity": 8475242,
-      "sort_overflow": false,
-      "preserved": "all source splats, stable model IDs, per-model Transform3D and GPU palette",
-      "evidence": [
-        "evidence/final-bali-migration.log",
-        "evidence/bali-migrated.png"
-      ]
+    {
+      "suite": "gpu",
+      "evidence": "evidence/startup-gpu_checks.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "lifecycle",
+      "evidence": "evidence/startup-lifecycle_checks.log",
+      "pass_labels": 21,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "rendering",
+      "evidence": "evidence/startup-native-rendering.log",
+      "pass_labels": 10,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "migration_recovery",
+      "evidence": "evidence/startup-migration_recovery_checks.log",
+      "pass_labels": 6,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "selection_color",
+      "evidence": "evidence/startup-selection_color_checks.log",
+      "pass_labels": 1,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "color_transform",
+      "evidence": "evidence/startup-color_transform_checks.log",
+      "pass_labels": 33,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "startup",
+      "evidence": "evidence/startup-after.log",
+      "pass_labels": 8,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "camera_lifecycle",
+      "evidence": "evidence/camera-leak-after.log",
+      "pass_labels": 4,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "native_inference",
+      "evidence": "evidence/startup-native-inference.log",
+      "pass_labels": 6,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "optimized_main_startup",
+      "evidence": "evidence/release-main-gpu.log",
+      "pass_labels": 0,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "optimized_inference",
+      "evidence": "evidence/release-actual-inference.log",
+      "pass_labels": 14,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
+    },
+    {
+      "suite": "optimized_full_scene",
+      "evidence": "evidence/release-bali-checks.log",
+      "pass_labels": 12,
+      "errors_logged": false,
+      "scope": "2026-11-13 current startup/depth/release source; local Windows x86_64 Vulkan/CPU"
     }
-  },
-  "spatial_responsiveness": {
-    "source_points": 2000000,
-    "ingest_and_visualization_ms": 43577,
-    "progressive_chunks": 489,
-    "ui_frames": 3490,
-    "max_observed_ui_gap_ms": 98,
-    "evidence": "evidence/final-spatial-async.log",
-    "scope": "local device; not a universal performance guarantee"
-  },
-  "native_inference": {
-    "upstream": "https://github.com/ChaoningZhang/MobileSAM",
-    "revision": "f706ad9c4eb7f219c00d9050e46328518ffb65d2",
-    "runtime": "ONNX Runtime 1.23.2 Windows x86_64 CPU",
-    "manifest": "rust/spatial_ml/models/manifest.json",
-    "fixture_dimensions": [
-      640,
-      384
-    ],
-    "circle_iou": 0.99029946188557,
-    "source_free_package_pass": true,
-    "evidence": [
-      "evidence/final-native-inference.log",
-      "evidence/portable-native-inference.log",
-      "evidence/native-test-input.png",
-      "evidence/native-circle-mask.png"
-    ]
-  },
-  "git_repository": {
-    "url": "https://github.com/faberfots/pxr-fusion-gs",
-    "visibility": "private",
-    "baseline_commit": "bffa1a1",
-    "qualification": "Current color/transform source passed both CI jobs.",
-    "qualified_run_url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43345216107",
-    "qualified_commit": "dc16f3a3a6d7fa15f2f724edad8032a813da0068",
-    "remote_conclusion": "success"
-  },
-  "test_harness_correction": {
-    "issue": "Fixed 32 MiB recovery-test budget admitted fewer than 40,007 fixture splats at a larger output resolution; later test access stalled after admission failure.",
-    "correction": "Budget now includes resolution-dependent output texture headroom and the test quits immediately on load failure.",
-    "result": "current migration recovery suite passes at 1142x648; no renderer behavior change"
-  },
-  "software_vulkan": {
-    "device": "Mesa llvmpipe LLVM20.1.2 locally / LLVM21.1.8 GitHub runner",
-    "msaa_disabled": "all current Linux CI suites pass",
-    "msaa_enabled": "opaque-depth pixel fixture fails; diagnostic compute sampling observed resolved depth 0 and unbounded occluder limit",
-    "evidence": [
-      "evidence/linux-rendering-local.log",
-      "evidence/linux-rendering-no-msaa.log"
-    ],
-    "scope": "software renderer qualification only; no change to Windows MSAA configuration"
-  },
-  "development_package": {
-    "path": "build/unsigned-candidate",
-    "type": "unsigned ordinary-engine development candidate",
-    "receipt": "evidence/package-receipt.json",
-    "source_free": true,
-    "full_main_and_ai_panel_pass": true,
-    "release_imgui_retained": true,
-    "native_cpu_inference_pass": true,
-    "shader_gpu_depth_and_migration_pass": true,
-    "receipt_hashes_verified": {
-      "files": 119,
-      "mismatches": 0
-    }
-  },
-  "color_and_transform_2026_11_13": {
-    "selection_regression": "Baseline red sample shifted to blue-purple while selected; corrected shader preserves RGB.",
-    "full_scene": {
-      "splats": 7959786,
-      "resolution": [
-        1908,
-        960
-      ],
-      "load_ms": 73078,
-      "sampled_mean_selected_rgb_drift": 4.856326e-08,
-      "sort_overflow": false,
-      "evidence": "evidence/bali-color-review.log"
-    },
-    "controls": "Color presets and fine adjustments, persistence, neutral comparison, independent quality, actual mouse model selection/dragging, all XYZ manipulations and cancellation pass.",
-    "remaining_status_count": {
-      "fully implemented": 61,
-      "partially implemented": 5
-    },
-    "scope": "Windows RTX Vulkan; no credential revocation, authenticated cloud call, signing, XR or asset-rights qualification claimed.",
-    "ci_run_url": "https://github.com/faberfots/pxr-fusion-gs/actions/runs/43345216107",
-    "qualified_source_commit": "dc16f3a3a6d7fa15f2f724edad8032a813da0068",
-    "source_free_package": "build/color-and-transform-candidate",
-    "optimized_template": "Not qualified: application startup 0xC0000005; minimal project passed; no failed candidate promoted."
-  }
+  ]
 }

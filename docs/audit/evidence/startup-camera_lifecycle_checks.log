@@ -1,0 +1,7 @@
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS export-time camera construction and destruction leave no orphan visualization nodes
+PASS active camera retains its pivot visualization
+PASS active camera retains its raycast visualization
+PASS active camera teardown frees all visualization children
+CAMERA LIFECYCLE COMPLETE: 0 failures

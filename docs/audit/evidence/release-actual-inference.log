@@ -1,0 +1,27 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS packaged real main begins without an injected configuration
+PASS optimized release initializes the real viewer renderer
+PASS packaged color panel opens and applies a preset
+PASS packaged color sliders synchronize with the authoritative configuration
+[CameraController] Camera transform set to: (0.557086, 0.371391, 0.742781)
+PASS packaged loader retains every source Gaussian: release-a.ply
+PASS packaged loader retains every source Gaussian: release-b.ply
+PASS packaged atlas contains the full combined population
+RELEASE POPULATION 2 load_ms 31
+PASS packaged model retains independent XYZ translation, rotation and scale
+PASS packaged edits preserve the other model
+PASS qualification runs in a true export template
+PASS optimized release verifies native models and CPU runtime
+PASS optimized release initializes the real native ML bridge
+PASS optimized release encodes an actual non-square RGB image
+PASS optimized release decodes a real prompt-conditioned mask at original image dimensions
+RELEASE CHECKS COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
