@@ -209,8 +209,8 @@ func finish_drag(cancelled:bool)->void:
 	var model:GaussianSplat=_drag_model.get_ref() if _drag_model else null
 	if dragging:
 		var after:Dictionary={}
-		for selected in viewer.get_selected_models():
-			if not _group_node.has(selected.model_id):continue
+		for selected in viewer.managed_splats:
+			if not is_instance_valid(selected) or not _group_node.has(selected.model_id):continue
 			if cancelled:selected.global_transform=_group_node[selected.model_id]
 			after[selected.model_id]=selected.global_transform
 		if not cancelled:viewer.commit_transform_edit(_group_node,after)

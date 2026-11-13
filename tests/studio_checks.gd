@@ -56,6 +56,11 @@ func run()->void:
 	check(not a.global_transform.is_equal_approx(before_a) and not b.global_transform.is_equal_approx(before_b),"one group drag edits both selected Node3D transforms")
 	check(viewer.undo_transform() and a.global_transform.is_equal_approx(before_a) and b.global_transform.is_equal_approx(before_b),"one undo transaction restores the complete selected group")
 	check(viewer.undo_transform(true) and not a.global_transform.is_equal_approx(before_a),"group transform redo restores the committed edit")
+	var cancel_a:=a.global_transform;var cancel_b:=b.global_transform
+	tools.begin_drag(-1,tools._center);tools.update_drag(tools._center+Vector2(40,10))
+	viewer.select_model_id(a.model_id)
+	check(not tools.dragging and a.global_transform.is_equal_approx(cancel_a) and b.global_transform.is_equal_approx(cancel_b),"selection changes cancel the entire original drag group atomically")
+	viewer.select_model_ids([a.model_id,b.model_id])
 	dock.get_node("%ColorButton").pressed.emit()
 	await settle()
 	root.get_texture().get_image().save_png("user://studio-image.png")
@@ -75,6 +80,11 @@ func run()->void:
 	check(viewer.undo_transform(),"numeric model editing participates in the same transform undo owner")
 	navigator.get_node("%ScaleZ").value=1.7
 	check(is_equal_approx(viewer.get_selected_model().scale.z,1.7),"authored inspector preserves independent XYZ model scaling")
+	viewer.select_model_id(a.model_id)
+	var numeric_before:=a.global_transform
+	navigator._begin_numeric_edit();navigator.pos_z.value+=1.0
+	viewer.select_model_id(b.model_id)
+	check(viewer.undo_transform() and a.global_transform.is_equal_approx(numeric_before),"switching selection commits numeric undo to the originally edited model")
 	check(ui.scene_manager_panel.visible,"scene navigator remains accessible from the command dock")
 	ui.scene_manager_panel.hide_panel()
 	dock.get_node("%CognitiveButton").pressed.emit();await settle()
@@ -91,6 +101,15 @@ func run()->void:
 	dock.position=Vector2(-9000,9000);dock._fit()
 	check(dock.position.x>=0 and dock.position.y+dock.size.y<=root.get_visible_rect().size.y,"floating dock remains recoverable inside logical viewport bounds")
 	dock.reset_layout()
+	viewer.select_model_id(a.model_id);var survivor:=a.global_transform
+	navigator.pos_y.value+=0.2
+	viewer.select_model_id(b.model_id);navigator.pos_x.value+=0.3
+	viewer.select_model_ids([a.model_id,b.model_id]);navigator._on_delete_pressed(b)
+	for i in range(5):await process_frame
+	check(viewer.selected_model_ids==[a.model_id],"deleting the active model preserves the surviving selected model")
+	check(viewer.undo_transform() and a.global_transform.is_equal_approx(survivor),"deleted-model history cannot block undo for surviving models")
+	viewer._clear_scene_and_reset_atlas()
+	check(not viewer.undo_transform() and not viewer.undo_transform(true),"clearing the scene releases transform history")
 	scene.queue_free();for i in range(5):await process_frame
 	print("STUDIO CHECKS COMPLETE: ",failures.size()," failures")
 	quit(0 if failures.is_empty() else 1)

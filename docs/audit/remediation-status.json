@@ -704,14 +704,16 @@
         "Transform controls read/write world coordinates consistently and query viewer-owned selection",
         "Scaled model rotation controls read global_rotation_degrees, preserving XYZ angles after scale edits.",
         "Simple Select/Move/Rotate/Scale toolbar and screen handles directly edit the existing GaussianSplat Node3D. World translation/rotation, local XYZ and uniform scaling, free drag, Escape/focus-loss cancellation and basis override mapping share viewer-owned selection with Scene Manager.",
-        "2026-11-13: Viewer-owned stable multi-selection, group transforms, cancel/undo/redo, active-model numeric XYZ controls, framing and model search preserve independent Node3D transforms."
+        "2026-11-13: Viewer-owned stable multi-selection, group transforms, cancel/undo/redo, active-model numeric XYZ controls, framing and model search preserve independent Node3D transforms.",
+        "Transform edit history follows original model identities across selection changes; deletion prunes obsolete transactions and scene clear releases history. Scene rows use weak references and detach before deferred teardown."
       ],
       "verification": [
         "World-transform bounds and selection lifecycle checks; UI source/render review",
         "Scene Manager moves XYZ, rotates XYZ and scales the second full model; Bali remains unchanged and both GPU palette entries match.",
         "Actual viewport mouse press/drag/release edits the selected model while camera and other model remain unchanged. All XYZ handles, numeric control synchronization, cancellation and renderer basis override pass.",
         "Follow-up startup/release qualification preserves this feature; normal main-scene startup now runs without a test-injected configuration.",
-        "Studio group drag/undo/redo and numeric XYZ scale checks pass; existing actual-input color_transform_checks still pass."
+        "Studio group drag/undo/redo and numeric XYZ scale checks pass; existing actual-input color_transform_checks still pass.",
+        "studio_checks: selection change cancels the whole drag group; numeric undo targets the original model; active deletion preserves the survivor; stale deleted-model history cannot block undo; clear removes undo/redo state. No script errors during teardown."
       ],
       "remaining": []
     },

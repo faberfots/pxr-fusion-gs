@@ -55,6 +55,7 @@ var _is_minimized := false
 var _user_is_editing := false
 var _numeric_before:Dictionary={}
 var _numeric_model_id:=""
+var _numeric_node:WeakRef
 
 ## Preloaded ObjectListItem scene for performance
 var _object_list_item_scene: PackedScene = preload("res://modules/gaussian_splatting/UI/ObjectListItem.tscn")
@@ -141,6 +142,7 @@ func _refresh_object_list() -> void:
 	# Clear existing items (except the "no objects" placeholder)
 	for child in object_list.get_children():
 		if child != no_objects_label:
+			object_list.remove_child(child)
 			child.queue_free()
 	
 	# Check if viewer has any managed splats
@@ -176,7 +178,7 @@ func _refresh_object_list() -> void:
 		delete_button.pressed.connect(_on_delete_pressed.bind(node))
 		
 		# Store node reference for later lookup
-		item.set_meta("splat_node", node)
+		item.set_meta("splat_node", weakref(node))
 		
 		object_list.add_child(item)
 	
@@ -204,7 +206,7 @@ func _on_object_selected(node: GaussianSplat) -> void:
 	
 	if Input.is_key_pressed(KEY_CTRL):viewer.toggle_model_selection(node.model_id)
 	else:selected_node = node
-	_update_transform_controls_enabled(true)
+	_update_transform_controls_enabled(is_instance_valid(selected_node))
 	_sync_ui_to_node_transform()
 	_update_info_labels()
 	
@@ -285,7 +287,8 @@ func _update_list_selection_visuals() -> void:
 		if item == no_objects_label:
 			continue
 		
-		var stored_node = item.get_meta("splat_node", null)
+		var reference:WeakRef=item.get_meta("splat_node",null)
+		var stored_node:GaussianSplat=reference.get_ref() if reference else null
 		var select_button: Button = item.get_node("%SelectButton")
 		
 		if is_instance_valid(stored_node) and viewer.selected_model_ids.has(stored_node.model_id):
@@ -301,12 +304,14 @@ func _update_list_selection_visuals() -> void:
 func _begin_numeric_edit()->void:
 	_user_is_editing=true
 	if is_instance_valid(selected_node):
+		_numeric_node=weakref(selected_node)
 		_numeric_model_id=selected_node.model_id;_numeric_before={_numeric_model_id:selected_node.global_transform}
 func _finish_numeric_edit()->void:
 	_user_is_editing=false
-	if not _numeric_before.is_empty() and is_instance_valid(selected_node) and selected_node.model_id==_numeric_model_id:
-		viewer.commit_transform_edit(_numeric_before,{_numeric_model_id:selected_node.global_transform})
-	_numeric_before.clear();_numeric_model_id=""
+	var edited:GaussianSplat=_numeric_node.get_ref() if _numeric_node else null
+	if not _numeric_before.is_empty() and is_instance_valid(edited) and edited.model_id==_numeric_model_id:
+		viewer.commit_transform_edit(_numeric_before,{_numeric_model_id:edited.global_transform})
+	_numeric_before.clear();_numeric_model_id="";_numeric_node=null
 func _numeric_edit(kind:String,axis:int,value:float)->void:
 	if _is_updating_ui or not is_instance_valid(selected_node):return
 	var before:Dictionary={selected_node.model_id:selected_node.global_transform}
@@ -347,10 +352,7 @@ func _on_delete_pressed(node: GaussianSplat) -> void:
 	if not is_instance_valid(node):
 		return
 	
-	# Clear selection if this was selected
-	if node == selected_node:
-		_clear_selection()
-	
+	# The registry removes this identity and preserves other selected models.
 	# Remove node
 	node.queue_free()
 	
@@ -448,5 +450,6 @@ func _filter_rows()->void:
 	var query:String=%Search.text.to_lower()
 	for item in object_list.get_children():
 		if item==no_objects_label:continue
-		var model:GaussianSplat=item.get_meta("splat_node",null)
+		var reference:WeakRef=item.get_meta("splat_node",null)
+		var model:GaussianSplat=reference.get_ref() if reference else null
 		item.visible=is_instance_valid(model) and (query.is_empty() or query in model.file_path.to_lower())

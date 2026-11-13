@@ -572,6 +572,8 @@ func unregister_splat(node: GaussianSplat) -> void:
 		remaining.erase(record.node.get_ref().model_id)
 		select_model_ids(remaining)
 	_records.erase(id)
+	_transform_undo.assign(_transform_undo.filter(func(edit):return not edit.before.has(node.model_id)))
+	_transform_redo.assign(_transform_redo.filter(func(edit):return not edit.before.has(node.model_id)))
 	_pending.erase(id)
 	_release_record(record)
 	model_registry_changed.emit()
@@ -594,6 +596,7 @@ func _clear_scene_and_reset_atlas() -> void:
 			nodes.append(node)
 	_records.clear()
 	select_model_id("")
+	_transform_undo.clear();_transform_redo.clear()
 	for node in nodes:
 		node.is_loaded = false
 		node.queue_free()
