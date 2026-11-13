@@ -13,6 +13,7 @@ var _body:VBoxContainer
 const LABELS:=["Exposure","Contrast","Saturation","Warmth","Black point","White point","Sharpness"]
 func _ready()->void:
 	name="ColorAdjustmentPanel"
+	hide()
 	custom_minimum_size=Vector2(310,0)
 	var style:=StyleBoxFlat.new()
 	style.bg_color=Color("18222f")
@@ -46,16 +47,24 @@ func _ready()->void:
 	var reset:=Button.new();reset.text="Reset to Natural";reset.size_flags_horizontal=Control.SIZE_EXPAND_FILL;reset.pressed.connect(func():apply_profile("Natural"));footer.add_child(reset)
 	var note:=Label.new();note.text="Saved automatically · independent of quality";note.add_theme_font_size_override("font_size",11);body.add_child(note)
 	save_timer=Timer.new();save_timer.one_shot=true;save_timer.wait_time=0.4;save_timer.timeout.connect(_save);add_child(save_timer)
-	GSColorSettings.load_preferences(viewer.config)
+	if not is_instance_valid(viewer):return
 	viewer.configuration_applied.connect(func(_settings):_sync())
 	get_viewport().size_changed.connect(_place)
+	# ProductionUI precedes the viewer in main.tscn. Wait for the configuration's
+	# owner instead of inventing a UI copy or depending on sibling ready order.
+	if not viewer.is_node_ready():await viewer.ready
+	if not _has_settings():return
+	GSColorSettings.load_preferences(viewer.config)
 	_sync();_place();hide()
+func _has_settings()->bool:
+	return is_instance_valid(viewer) and is_instance_valid(viewer.config)
 func _place()->void:
 	var viewport_size:=get_viewport_rect().size
 	var top:=165.0 if viewport_size.y>=400 else 90.0
 	if is_instance_valid(_body):size.y=minf(_body.get_combined_minimum_size().y+30,maxf(160,viewport_size.y-top-36))
 	position=Vector2(maxf(10,viewport_size.x-size.x-18),top)
 func show_panel()->void:
+	if not _has_settings():return
 	_sync();show();reset_size();_place()
 func hide_panel()->void:
 	compare.button_pressed=false
@@ -65,25 +74,26 @@ func hide_panel()->void:
 	if focus and is_ancestor_of(focus):focus.release_focus()
 	hide()
 func apply_profile(label:String)->bool:
+	if not _has_settings():return false
 	var profile:=GSColorSettings.profile(label)
 	if profile.is_empty() or not GSColorSettings.apply(viewer.config,profile):return false
 	_sync();save_timer.start();return true
 func _on_preset(index:int)->void:
 	if not _syncing and index>0:apply_profile(preset.get_item_text(index))
 func _on_value(value:float,field:String)->void:
-	if _syncing:return
+	if _syncing or not _has_settings():return
 	if GSColorSettings.apply(viewer.config,{field:value}):save_timer.start()
 	_sync()
 func _on_tint(color:Color)->void:
-	if not _syncing and GSColorSettings.apply(viewer.config,{"post_tint":color}):save_timer.start()
+	if not _syncing and _has_settings() and GSColorSettings.apply(viewer.config,{"post_tint":color}):save_timer.start()
 func _on_compare(enabled:bool)->void:
 	if is_instance_valid(viewer):viewer.set_color_comparison(enabled)
 func _save()->void:
-	if is_instance_valid(viewer) and viewer.config.color_settings_edited:
+	if _has_settings() and viewer.config.color_settings_edited:
 		var result:=GSColorSettings.save_preferences(viewer.config)
 		if result!=OK:push_warning("Color preferences could not be saved: "+error_string(result))
 func _sync()->void:
-	if not is_instance_valid(viewer):return
+	if not _has_settings():return
 	_syncing=true
 	for field in sliders:
 		sliders[field].value=viewer.config.get(field)
