@@ -1,5 +1,6 @@
 extends SceneTree
 const Checks=preload("res://tests/core_checks.gd")
+const Recovery=preload("res://tests/migration_recovery_checks.gd")
 var failures:Array[String]=[]
 func _initialize()->void:run.call_deferred()
 func check(value:bool,label:String)->void:
@@ -13,7 +14,7 @@ func sample(viewer:GaussianSplattingViewer,point:Vector3)->Color:
 	return image.get_pixelv(Vector2i(pixel).clamp(Vector2i.ZERO,image.get_size()-Vector2i.ONE))
 func run()->void:
 	var lab:Node3D=load("res://tests/scenes/shadow_lab.tscn").instantiate();root.add_child(lab)
-	var viewer:=GaussianSplattingViewer.new()
+	var viewer:=Recovery.RecoveringViewer.new()
 	viewer.config=GaussianSplattingConfig.create_default();viewer.config.memory_max_vram_budget_mb=128
 	viewer.shadow_light=lab.get_node("Sun")
 	root.add_child(viewer)
@@ -37,6 +38,32 @@ func run()->void:
 	model.cast_gaussian_shadows=false
 	await settle(2.0)
 	check(sample(viewer,Vector3(0.7,0,0)).r>moved.r+0.15,"per-model cast toggle removes its shadow without changing Gaussian residency")
+	model.cast_gaussian_shadows=true
+	var alpha_lab:Node3D=load("res://tests/scenes/hybrid_lab.tscn").instantiate();root.add_child(alpha_lab)
+	alpha_lab.get_node("Pane").position.x=4
+	await settle()
+	var old_renderer_id:=viewer.rasterizer.get_instance_id()
+	var model_transform:=model.global_transform
+	# The source is no longer available: this must use the resident atlas checkpoint.
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(model.file_path))
+	viewer.config.memory_max_vram_budget_mb=160
+	for i in range(180):
+		await process_frame
+		if viewer.rasterizer.get_instance_id()!=old_renderer_id and not viewer._atlas_migration:break
+	await settle(2.0)
+	check(viewer.rasterizer.get_instance_id()!=old_renderer_id and model.is_loaded and model.global_transform.is_equal_approx(model_transform),"quality migration retains the resident model without reopening its deleted source")
+	check(viewer.rasterizer.transparency_active and alpha_lab.get_node("Pane").layers==0 and viewer.rasterizer.shadow_pass!=null and not viewer.rasterizer.shadow_pass.snapshot().is_empty(),"quality migration rebuilds transparent and shadow caches together")
+	check(sample(viewer,Vector3(0.7,0,0)).r<original.r-0.15,"ordinary receiver shadow pixels remain correct after quality migration")
+	var accepted:=viewer.config.gpu_signature()
+	old_renderer_id=viewer.rasterizer.get_instance_id();viewer.fail_next=true
+	viewer.config.tile_size=32
+	for i in range(180):
+		await process_frame
+		if viewer.rasterizer.get_instance_id()!=old_renderer_id and not viewer._atlas_migration:break
+	await settle(2.0)
+	check(viewer.config.gpu_signature()==accepted and viewer.rasterizer.transparency_active and viewer.rasterizer.shadow_pass!=null,"failed quality rebuild restores the working transparency and shadow contract")
+	check(sample(viewer,Vector3(0.7,0,0)).r<original.r-0.15 and model.is_loaded,"failed rebuild retains actual shadow pixels and the complete resident source")
+	alpha_lab.free();await settle()
 	lab.get_node("Floor").hide()
 	model.position.x=0;model.cast_gaussian_shadows=true
 	var receiver_model:=viewer.load_new_splat_from_path(Checks.fixture("user://shadow-receiver.ply",1))
@@ -60,6 +87,17 @@ func run()->void:
 	await settle()
 	check(viewer.total_splats_to_load==2 and model.is_loaded,"shadow changes preserve the full source model")
 	root.get_texture().get_image().save_png("user://shadow-lab.png")
-	viewer.free();lab.free();await process_frame
+	receiver_model.hide()
+	lab.get_node("Floor").show();viewer.lighting.shadows_enabled=true
+	viewer.camera_controller.position_camera_at(Vector3(0,3,5),Vector3.ZERO)
+	await settle(2.0)
+	var before_exit:=sample(viewer,Vector3.ZERO)
+	var after_camera:=Camera3D.new();root.add_child(after_camera)
+	after_camera.global_transform=viewer.get_camera().global_transform;after_camera.fov=viewer.get_camera().fov
+	viewer.free();after_camera.make_current();await settle()
+	var image:=root.get_texture().get_image()
+	var floor_pixel:=after_camera.unproject_position(Vector3.ZERO)*Vector2(image.get_size())/root.get_visible_rect().size
+	check(image.get_pixelv(Vector2i(floor_pixel)).r>before_exit.r+0.15,"viewer teardown removes its shadow from a surviving ordinary receiver")
+	after_camera.free();lab.free();await process_frame
 	print("SHADOW CHECKS COMPLETE: ",failures.size()," failures")
 	quit(0 if failures.is_empty() else 1)

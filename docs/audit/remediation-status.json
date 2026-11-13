@@ -187,12 +187,14 @@
       "status": "fully implemented",
       "changes": [
         "Populated GPU layout changes queue behind loading, preflight all residency, checkpoint with async chunked readback and per-model SHA-256, verify before release, then restore within the memory budget.",
-        "Stable model IDs, independent Transform3D, visibility and selection survive migration; deletions, queued registrations and clear are handled. Progress is visible; initialization failures roll back to the previous layout."
+        "Stable model IDs, independent Transform3D, visibility and selection survive migration; deletions, queued registrations and clear are handled. Progress is visible; initialization failures roll back to the previous layout.",
+        "Shadow receivers are detached before their maps are retired during migration, clear and viewer teardown; caches rebuild through the existing atlas transaction."
       ],
       "verification": [
         "lifecycle_checks and rendering_checks: populated migration preserves identity/pose/selection/pixel output; subsequent model movement remains live.",
         "migration_recovery_checks: queued changes, 40,000-splat multi-chunk restore, injected replacement failure/rollback, insufficient capacity rejection and deletion/ID compaction pass.",
-        "Actual Bali + Suzuki: all 7,959,786 splats retained, no downsampling, 16.809-second migration, preserved transforms/palette and visually inspected output."
+        "Actual Bali + Suzuki: all 7,959,786 splats retained, no downsampling, 16.809-second migration, preserved transforms/palette and visually inspected output.",
+        "Combined transparent/shadow qualification migrates from the resident atlas after its original PLY is deleted, recovers from a forced GPU rebuild failure and verifies actual receiver pixels and teardown."
       ],
       "remaining": []
     },
@@ -427,7 +429,8 @@
         "Actual NVIDIA Vulkan pixels pass front/behind mesh composition, intersecting transparent surfaces, sRGB texture decoding, unsupported-material native fallback, target resizing and cache release.",
         "Actual receiver pixels pass Gaussian cast shadows, shadow movement, cast-off and Gaussian receiving; receiving-off restores source radiance and preserves opacity.",
         "Official optimized Windows template loads all 7,959,786 Bali/Suzuki Gaussians in 67,561 ms, builds a directional shadow cache with 7,956,764 projected casters in 303 ms, and integrates a transparent participant with the unchanged full population. No export warnings/errors.",
-        "Godot 4.6.2 Linux software Vulkan (llvmpipe, MSAA disabled) passes the actual transparent texture/intersection/resize/release tests and cast/receive shadow pixel tests. This is software-renderer evidence, not additional physical GPU or XR qualification."
+        "Godot 4.6.2 Linux software Vulkan (llvmpipe, MSAA disabled) passes the actual transparent texture/intersection/resize/release tests and cast/receive shadow pixel tests. This is software-renderer evidence, not additional physical GPU or XR qualification.",
+        "Combined alpha/shadow quality migration and forced rebuild rollback preserve actual shadow pixels without reopening the source; a surviving ordinary receiver returns to its original appearance after viewer teardown."
       ],
       "remaining": [
         "Arbitrary custom transparent shaders/refraction, skinning/blend shapes/particles and XR multiview remain outside the implemented contract. No headset is available. The supported participant transparency and directional cast/receive shadow features are implemented; the broader P.3.6 finding remains partially implemented.",

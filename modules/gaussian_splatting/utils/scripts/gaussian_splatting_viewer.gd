@@ -586,6 +586,7 @@ func _clear_scene_and_reset_atlas() -> void:
 		_clear_after_migration = true
 		return
 	_clearing = true
+	_apply_shadow_receivers({})
 	_generation += 1
 	_cancel_job()
 	_pending.clear()
@@ -917,6 +918,7 @@ func _create_default_camera_system() -> void:
 	camera_controller.set_camera(camera)
 
 func _exit_tree() -> void:
+	_apply_shadow_receivers({})
 	for node in _hybrid_nodes:
 		if is_instance_valid(node):node.set_integrated(false)
 	if _atlas_migration: _atlas_migration.cancelled = true
@@ -1030,6 +1032,7 @@ func _migrate_atlas(requested: GaussianSplattingConfig) -> Error:
 	old.update_camera_matrices()
 	_atlas_migration = GSAtlasMigration.new()
 	_atlas_migration.progress_changed.connect(func(fraction):configuration_migration_progress.emit(fraction))
+	_apply_shadow_receivers({})
 	configuration_migration_changed.emit(true)
 	set_camera_blocker("atlas_migration", true)
 	# The frame remains visible while only the atlas owner changes. No model is re-read from disk.
@@ -1221,6 +1224,7 @@ func _prepare_shadows()->void:
 			signature=hash([poses,basis,rasterizer.model_scale[0],rasterizer.basis_override,lighting.shadow_resolution,rasterizer.get_instance_id()])
 			var matrices:=RenderingContext.pack_projection(view);matrices.append_array(RenderingContext.pack_projection(projection))
 			request={"signature":signature,"resolution":lighting.shadow_resolution,"flags":flags.to_byte_array(),"position":position,"view":view,"projection":projection,"view_projection":matrices}
+	if request.is_empty():_apply_shadow_receivers({})
 	if signature!=_shadow_signature:
 		_shadow_signature=signature
 		var result:=rasterizer.prepare_shadow(request)
@@ -1230,5 +1234,9 @@ func _prepare_shadows()->void:
 	if rasterizer.shadow_pass and rasterizer.shadow_pass.failure()!=0 and not _shadow_error:
 		_shadow_error=true;_report_error("Gaussian shadow footprint capacity exceeded; last complete shadow map retained.",ERR_OUT_OF_MEMORY)
 	var active:Dictionary=rasterizer.shadow_pass.snapshot() if rasterizer.shadow_pass and lighting.shadows_enabled and not request.is_empty() else {}
+	_apply_shadow_receivers(active)
+
+func _apply_shadow_receivers(frame:Dictionary)->void:
+	if not is_inside_tree():return
 	for receiver in get_tree().get_nodes_in_group("gs_shadow_receivers"):
-		if receiver.get_world_3d()==get_world_3d():receiver.apply_shadow(active,lighting)
+		if receiver.get_world_3d()==get_world_3d():receiver.apply_shadow(frame,lighting)
