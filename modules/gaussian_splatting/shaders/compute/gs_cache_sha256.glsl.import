@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://x6r1u0goon4e"
+path="res://.godot/imported/gs_cache_sha256.glsl-9f1571daaab0a396dfb356716ae89357.res"
+
+[deps]
+
+source_file="res://modules/gaussian_splatting/shaders/compute/gs_cache_sha256.glsl"
+dest_files=["res://.godot/imported/gs_cache_sha256.glsl-9f1571daaab0a396dfb356716ae89357.res"]
+
+[params]
+

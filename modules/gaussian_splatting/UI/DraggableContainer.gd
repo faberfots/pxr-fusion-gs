@@ -29,6 +29,7 @@ var _drag_offset := Vector2.ZERO
 
 
 func _ready() -> void:
+	GSUiScale.apply(self)
 	get_viewport().size_changed.connect(_fit)
 	_restore.call_deferred()
 	# Connect to the drag handle's input events
@@ -45,7 +46,7 @@ func _on_drag_handle_input(event: InputEvent) -> void:
 			if event.pressed:
 				# Start dragging
 				_is_dragging = true
-				_drag_offset = get_global_mouse_position() - global_position
+				_drag_offset = drag_handle.get_global_transform()*event.position - global_position
 				drag_started.emit()
 			else:
 				# Stop dragging
@@ -53,17 +54,13 @@ func _on_drag_handle_input(event: InputEvent) -> void:
 				drag_ended.emit();_save()
 
 
-func _process(_delta: float) -> void:
-	if not _is_dragging:
-		return
-	
-	# Calculate new position
-	var new_position := get_global_mouse_position() - _drag_offset
+func _drag_to(pointer:Vector2) -> void:
+	var new_position := pointer - _drag_offset
 	
 	# Constrain to viewport if enabled
 	if constrain_to_viewport:
 		var viewport_size := get_viewport_rect().size
-		var container_size := size
+		var container_size := GSUiScale.extent(self)
 		
 		# Clamp X
 		new_position.x = clampf(new_position.x, 0, maxf(0.0, viewport_size.x - container_size.x))
@@ -92,13 +89,17 @@ func is_dragging() -> bool:
 	return _is_dragging
 
 func _input(event:InputEvent)->void:
-	if _is_dragging and event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT and not event.pressed:stop_drag()
+	if not _is_dragging:return
+	if event is InputEventMouseMotion:
+		_drag_to(get_canvas_transform().affine_inverse()*event.position)
+		get_viewport().set_input_as_handled()
+	elif event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT and not event.pressed:stop_drag()
 func _notification(what:int)->void:
 	if what==NOTIFICATION_WM_WINDOW_FOCUS_OUT and _is_dragging:stop_drag()
 func _exit_tree()->void:
 	if _is_dragging:drag_ended.emit()
 func _fit()->void:
-	if constrain_to_viewport:position=position.clamp(Vector2(12,12),(get_viewport_rect().size-size-Vector2(12,30)).max(Vector2(12,12)))
+	if constrain_to_viewport:position=position.clamp(Vector2(12,12),(get_viewport_rect().size-GSUiScale.extent(self)-Vector2(12,30)).max(Vector2(12,12)))
 func _save()->void:
 	if layout_id.is_empty() or not is_inside_tree():return
 	var file:=ConfigFile.new();file.load(GSFloatingPanel.LAYOUT_PATH)

@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-14",
+  "delivery": "Applied to active working checkout; current user scene/theme customizations and earlier qualified packages preserved. No source commit or new remote CI conclusion is claimed.",
+  "scope": "Official Godot 4.6.2 Windows x86_64, NVIDIA RTX 4070 Laptop Vulkan; unsigned optimized template.",
+  "features": {
+    "main_control": "Held left drag on medallion, click toggles, bounded gesture threshold, both expansion states, normalized layout persistence, focus-loss cleanup.",
+    "placement": "Viewer-owned pending fully resident model, hidden until commit; base-centre/origin anchors; real GS pick, ordinary collision hit and reference-floor fallback; click/Enter/Escape and authored HUD.",
+    "integration": "Picker, file drop and recent models stage placement; PXRSCENE restores saved layout directly; Keep original retains import transforms and first-import framing.",
+    "ownership": "Atlas, registry, transform mapping and camera remain their existing owners; stale pick/view confirmation rejected; pending model cannot pick itself; guide floor cannot override visible GS beneath it."
+  },
+  "checks": {
+    "new_features": "launcher_drag_checks and placement_checks passed at 1142x648 and 1908x960; placement_routes_checks passed at 1142x648",
+    "ui_scale": "existing density/popup/toolbar tests passed",
+    "regressions": "composition, color/XYZ input, studio, normal startup and lifecycle passed locally",
+    "package": "optimized real-main startup passed, zero export warning/error lines"
+  },
+  "real_assets": {
+    "models": [
+      "Girl_A",
+      "Suzuki"
+    ],
+    "complete_population": 447877,
+    "contact_error_world_units": 1.1920929e-07,
+    "saved_transform": "restored exactly within Godot transform precision",
+    "camera_pose": "preserved"
+  },
+  "package": {
+    "path": "build/placement-delivery",
+    "engine_sha256": "3b2d3f99bd640961aad1a1a200f0f7233b7de45b02801ce22d3224dc294d93d1",
+    "pck_sha256": "ca430bfb6dc1d1feee923a3448139560e3ca8d5f431d6a063ca90fc846bcdc7a",
+    "verified_receipt_files": 119
+  },
+  "runtime_file_sha256": {
+    "modules/gaussian_splatting/UI/CommandDock.gd": "bd6940e0244d6829663d47cc28b94fb6442fd465d6d9f4a3fb890354aeeb14c3",
+    "modules/gaussian_splatting/UI/CommandDock.tscn": "f4fddc8605b98716b54284074cad09eef6ae50ebad5a5483e5693de0eb6b56a5",
+    "modules/gaussian_splatting/UI/ProductionUI.gd": "e0da9f15496a13086451762ee3f63b749135489dd6da7c31c7e56ab4063083c7",
+    "modules/gaussian_splatting/UI/ProductionUI.tscn": "a5d337531517634942b6e95b362b351d77abfd64bf9fc886e1392958d46b3077",
+    "modules/gaussian_splatting/UI/ModelTransformControls.gd": "f9d6ce14079e46e1f69637f09862c1d5ef5604b68824b7238e4bd13d893a99b4",
+    "modules/gaussian_splatting/UI/CompositionFiles.gd": "48a2f9cf248d7a48a6499687edc9b5df3174e486777eb99f289366e0ded16896",
+    "modules/gaussian_splatting/UI/PlacementHUD.gd": "b5df67a71c4ae408caf8f32d0c4ab6ea871c7a99cfeab62daf762db0c16c9f35",
+    "modules/gaussian_splatting/UI/PlacementHUD.tscn": "acbb4ce97e6747c3d299de938771bacbb1f3dddc87fb7f9c0dd3da06258ea4b8",
+    "modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd": "34d5a02ccfdb445fa3263ade391dec80cc1daa40324cb734433ee3fbcd3f8539",
+    "modules/gaussian_splatting/utils/scripts/gs_placement_session.gd": "df5b3763191440a3fe17287434c802f0c3f245bd0f24d1a070eac5b209b9a161"
+  },
+  "boundaries": [
+    "GS picking uses a Gaussian hit point, not reconstructed collision geometry. Ordinary surfaces need colliders.",
+    "Base-centre derives from full bounds including ground patches/outliers; origin and existing XYZ tools remain available.",
+    "No file-size cap, downsampling, new GPU atlas, new cloud permission or XR qualification is added."
+  ],
+  "status_counts": {
+    "fully implemented": 61,
+    "partially implemented": 5,
+    "not yet implemented": 0
+  }
+}

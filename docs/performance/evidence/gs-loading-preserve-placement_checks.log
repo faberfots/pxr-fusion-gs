@@ -1,0 +1,82 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-loading-f
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (-0.442914, 1.771391, 0.742781)
+[CameraController] Camera transform set to: (-0.442914, 1.771391, 0.742781)
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 5.0)
+PASS an individual import begins one viewer-owned placement transaction
+PASS the complete model loads before placement can commit
+GS PLACEMENT TARGET { "active": true, "kind": 1, "ready": true, "valid": true, "target": (-1.0, 1.4, 0.0), "surface": "GS surface", "anchor": 0, "bounds": [P: (-2.0, 1.4, 0.0), S: (2.0, 0.0, 0.0)], "name": "placement-model.ply", "status": "Click to place · Enter confirms · Esc cancels" }
+PASS actual GPU picking locates the existing GS surface above the reference floor
+PASS pending import is fully resident and hidden from its own placement picks
+PASS placement controls keep the chosen marker visible and clickable
+PASS placement preview preserves the existing model and camera view
+PASS saving cannot capture an unfinished hidden placement
+PASS left click confirms placement after resolving its current surface
+PASS base-centre anchor lands on the chosen GS point
+PASS placement preserves orientation/scale and activates the existing transform controls
+PASS confirmed placement participates in the existing scene document
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 5.0)
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 5.0)
+PASS saved scene reopening restores rather than re-enters placement mode
+PASS composition round trip preserves the exact placed model matrix
+PASS next model can target ordinary colliding scene geometry
+PASS platform model loads completely
+PLATFORM TARGET { "active": true, "kind": 1, "ready": true, "valid": true, "target": (1.500001, 0.95, -0.000001), "surface": "Scene geometry", "anchor": 1, "bounds": [P: (1.500001, 0.95, -0.000001), S: (0.0, 0.0, 0.0)], "name": "platform-model.ply", "status": "Click to place · Enter confirms · Esc cancels" }
+PASS physics hit selects the platform top rather than the lower floor
+PASS HUD confirmation retains the last scene cursor and honors the origin anchor
+PASS appending a placed model preserves an explicitly chosen scene mode
+PASS a visible scan below the reference grid remains a placement target
+PASS the non-occluding reference grid cannot override a visible GS hit
+PASS confirmed placement follows the scanned surface below the guide floor
+PASS a loading placement can be cancelled
+PASS cancelling a worker releases only the pending model and its atlas allocation
+PASS placement accepts the existing renderer basis and scale overrides
+PASS basis-override model loads
+PASS Enter confirms floor placement in rendered world coordinates under renderer overrides
+PASS renderer-aware placement retains the imported Node3D basis
+PASS original-position import remains available
+PASS original-position model loads
+PASS Keep original completes the import with its authored transform
+PASS view-change cancellation begins a separate placement
+PASS view-change fixture loads
+[FreeLookCamera] Movement state reset. Position: (0.4, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.4, 3.0, 5.0)
+PASS changing the view invalidates an uncommitted confirmation instead of placing at a stale point
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 5.0)
+PASS sky clicks without a valid surface keep the model pending
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 5.0)
+PASS Escape cancellation starts from a ready placement
+PASS Escape fixture loads
+PASS Escape cancels without claiming unrelated camera controls
+PASS viewer teardown cancels pending placement work without orphaned UI or GPU ownership
+PLACEMENT CHECKS COMPLETE: 0 failures
+ WARNING: [GSViewer] Finish the current load or settings operation first.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1175)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:282)
+       [2] save_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:274)
+       [3] run (res://tests/placement_checks.gd:64)
+       [4] settle (res://tests/placement_checks.gd:10)
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

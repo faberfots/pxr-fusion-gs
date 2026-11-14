@@ -1,0 +1,32 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-loading-f
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (0.557086, 1.371391, 0.742781)
+[CameraController] Camera transform set to: (0.557086, 1.371391, 0.742781)
+[FreeLookCamera] Movement state reset. Position: (4.0, 5.0, 6.0)
+[CameraController] Camera transform set to: (4.0, 5.0, 6.0)
+GRID SHADOW top (1.0, 0.9961, 0.9961, 1.0) -> (0.502, 0.498, 0.498, 1.0) underside (1.0, 1.0, 1.0, 1.0) -> (1.0, 1.0, 1.0, 1.0)
+PASS transparent closed grid receives one visible Gaussian shadow on its top surface
+PASS hidden underside of transparent grid cannot add a displaced duplicate shadow
+PASS explicit double-sided receiving remains available through the material's own cull mode
+PASS restoring material back-face culling immediately clears the underside shadow
+PASS disabling generated shadows restores the original captured appearance
+PASS shadow correction preserves floor collision, floor thickness and the complete resident model
+GRID SHADOW CHECKS COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpArrayLength is not supported yet.
+
+Process exit: 0

@@ -38,8 +38,8 @@ func _has_settings()->bool:
 func _place()->void:
 	var viewport_size:=get_viewport_rect().size
 	var top:=128.0 if viewport_size.y>=400 else 90.0
-	if is_instance_valid(_body):size.y=minf(_body.get_combined_minimum_size().y+30,maxf(160,viewport_size.y-top-36))
-	if not _placed:position=Vector2(maxf(12,viewport_size.x-size.x-24),top)
+	if is_instance_valid(_body):size.y=minf(_body.get_combined_minimum_size().y+30,maxf(160,(viewport_size.y-top-36)/GSUiScale.FACTOR))
+	if not _placed:position=Vector2(maxf(12,viewport_size.x-GSUiScale.extent(self).x-24),top)
 	_fit()
 func show_panel()->void:
 	if not _has_settings():return

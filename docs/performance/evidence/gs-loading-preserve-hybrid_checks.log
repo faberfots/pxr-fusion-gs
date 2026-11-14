@@ -1,0 +1,41 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-loading-f
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (0.557086, 0.371391, 0.742781)
+[CameraController] Camera transform set to: (0.557086, 0.371391, 0.742781)
+[FreeLookCamera] Movement state reset. Position: (0.0, 0.0, 2.0)
+[CameraController] Camera transform set to: (0.0, 0.0, 2.0)
+PASS Gaussian baseline is visible before integration
+HYBRID COLORS baseline (0.4216, 0.1572, 0.1572, 0.7346) front (0.2108, 0.0786, 0.5786, 0.8673) reason Rigid unshaded alpha material participates.
+PASS compatible alpha mesh enters the hardware fragment capture path once
+PASS front pane attenuates the actual Gaussian instead of merely sorting whole objects
+HYBRID BEHIND (0.4216, 0.1572, 0.2899, 0.8673)
+PASS moving the same pane behind the Gaussian changes per-pixel depth composition
+PASS rotated rigid participant retains integrated rendering
+PASS Gaussian color edits preserve the blue mesh contribution
+HYBRID TEXTURE (0.0, 0.0, 0.1083, 0.502)
+PASS albedo texture is sampled in linear color with independent alpha
+INTERSECTION (0.0, 0.25, 0.5, 0.75) / (0.0, 0.5, 0.25, 0.75)
+PASS intersecting transparent surfaces exchange depth order across actual pixels
+PASS unsupported shaded material retains native Godot rendering with a support reason
+PASS integrated renderer admits a viewport resize within the shared budget
+PASS viewport resize rebuilds dependent alpha targets and resumes integration
+PASS integrated renderer restores its original output size
+PASS opting out restores ordinary Godot mesh rendering
+PASS opt-out releases the alpha cache and its tracked GPU allocation
+HYBRID CHECKS COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

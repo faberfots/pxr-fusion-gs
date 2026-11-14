@@ -39,12 +39,20 @@ func _enter_tree() -> void:
 	$Surface/ColorAdjustmentPanel.viewer=viewer
 	$Surface/ModelTransformControls.viewer=viewer
 	$Surface/ModelTransformControls.layout_host=self
+	$Surface/PlacementHUD.viewer=viewer
+	$Surface/LightingPanel.get_node("%SkyControls").sky=viewer.get_parent().get_node_or_null("Sky3D") as Sky3D
 func _ready() -> void:
 	if not is_instance_valid(viewer):hide();return
+	GSUiScale.apply(load_zone_panel)
+	GSUiScale.apply(status_label.get_parent())
+	load_zone_panel.resized.connect(_scale_auxiliary_layout)
+	status_label.get_parent().resized.connect(_scale_auxiliary_layout)
+	_scale_auxiliary_layout.call_deferred()
 	color_panel=%ColorAdjustmentPanel
 	transform_controls=%ModelTransformControls
 	status_label.visibility_changed.connect(func():status_label.get_parent().visible=status_label.visible)
 	_connect_signals();_initialize_ui_state()
+	%LightingPanel.get_node("%Tabs").set_tab_title(1,"Sky & time")
 	var dock:GSCommandDock=%MainControls
 	dock.get_node("%ColorButton").pressed.connect(func():_toggle_panel(color_panel))
 	for pair in [["CameraButton",%CameraPanel],["SettingsButton",%SettingsPanel],["LightingButton",%LightingPanel]]:
@@ -55,7 +63,7 @@ func _ready() -> void:
 		dock.get_node("%"+name).pressed.connect(func():dock.set_expanded(false))
 	for panel in [dock,color_panel,%CameraPanel,%SettingsPanel,%LightingPanel]:
 		panel.drag_changed.connect(func(active):viewer.set_camera_blocker("floating_"+panel.layout_id,active))
-	%CameraPanel.get_node("%Home").pressed.connect(func():viewer.camera_controller.go_home())
+	%CameraPanel.get_node("%Home").pressed.connect(func():viewer.home_view())
 	%CameraPanel.get_node("%FrameSelected").pressed.connect(func():viewer.frame_models(viewer.selected_model_ids))
 	%CameraPanel.get_node("%FrameAll").pressed.connect(func():viewer.frame_models([]))
 	%CameraPanel.get_node("%ProtectedFly").toggled.connect(func(value):viewer.camera_controller.set_protection(value))
@@ -64,6 +72,19 @@ func _ready() -> void:
 		for panel in [dock,color_panel,%CameraPanel,%SettingsPanel,%LightingPanel]:panel.reset_layout()
 		for manager in get_tree().get_nodes_in_group("gs_scene_managers"):manager.draggable_container.reset_layout()
 		if is_instance_valid(cognitive_panel):cognitive_panel.draggable_container.reset_layout()
+		transform_controls.reset_toolbar_layout()
+	)
+	viewer.composition_progress.connect(func(message):status_label.text=message;status_label.show();status_timer.start(5.0))
+	viewer.composition_operation_changed.connect(func(active):
+		if active:transform_controls.finish_drag(true)
+		load_file_button.disabled=active;quality_selector.disabled=active;clear_scene_button.disabled=active
+	)
+	viewer.placement_changed.connect(func(active):
+		if active:transform_controls.finish_drag(true)
+		load_file_button.disabled=active;quality_selector.disabled=active
+	)
+	%SettingsPanel.get_node("%ProgressivePreview").toggled.connect(func(value):
+		if viewer.config:viewer.config.loading_progressive_preview=value
 	)
 	%SettingsPanel.get_node("%Diagnostics").pressed.connect(_toggle_diagnostics)
 	%LightingPanel.get_node("%Shadows").toggled.connect(func(value):viewer.lighting.shadows_enabled=value)
@@ -189,7 +210,8 @@ func _on_all_splats_loading_started() -> void:
 	status_timer.stop()
 
 func _on_viewer_loading_progress(progress: float, _loaded: int, _total: int) -> void:
-	status_label.text = "Loading... %d%%" % int(progress * 100)
+	var state:=viewer.get_loading_state()
+	status_label.text=("Preview · %d / %d splats · verification pending" % [state.resident_splats,state.total_splats]) if state.preview else "Loading... %d%%" % int(progress*100)
 
 func _on_all_splats_loading_completed(total_splat_count: int) -> void:
 	# This new function handles the completion of ANY loading operation.
@@ -270,9 +292,12 @@ func _on_quality_selected(index: int) -> void:
 # --- File Loading Handlers ---
 func _on_file_dialog_selected(path: String) -> void:
 	_dialog_open = false
-	# BUG FIX: Call the correct, non-destructive function to add a new splat.
-	viewer.load_new_splat_from_path(path)
 	viewer.show_load_zone = false
+	await _import_interactive(path)
+
+func _import_interactive(path:String,point:Vector2=Vector2.INF)->void:
+	if path.get_extension().to_lower()=="pxrscene":await viewer.import_path(path)
+	else:viewer.begin_model_placement(path,point,%ImportKind.selected)
 
 func _on_file_dialog_canceled() -> void:
 	_dialog_open = false
@@ -284,14 +309,14 @@ func _on_files_dropped(files: PackedStringArray) -> void:
 		return
 		
 	var file_path := files[0]
-	if file_path.get_extension().to_lower() not in ['ply', 'gsres']:
-		status_label.text = "ERROR: Invalid file type (expected .ply)"
+	if file_path.get_extension().to_lower() not in ['ply', 'gsres', 'pxrscene']:
+		status_label.text = "ERROR: Expected a PLY, GSRES or PXRSCENE file"
 		status_label.show()
 		status_timer.start(5.0)
 		return
 		
 	# BUG FIX: Call the correct, non-destructive function to add a new splat.
-	viewer.load_new_splat_from_path(file_path)
+	await _import_interactive(file_path,get_viewport().get_mouse_position())
 	
 ## Logic: Disables camera movement whenever the mouse is over UI
 func _apply_iron_dome_to_node(node: Control) -> void:
@@ -338,7 +363,7 @@ func _rebuild_recent_files_list() -> void:
 		for file_path in HistoryManager.recent_files:
 			var button:Button=preload("res://modules/gaussian_splatting/UI/RecentFileButton.tscn").instantiate()
 			button.tooltip_text=file_path;button.text=file_path.get_file()
-			button.pressed.connect(func():viewer.load_new_splat_from_path(file_path);viewer.show_load_zone=false)
+			button.pressed.connect(func():viewer.show_load_zone=false;await _import_interactive(file_path))
 			recent_files_list.add_child(button)
 
 ## Scans the scene and ensures NO mouse event reaches the 3D world through UI
@@ -347,6 +372,7 @@ func _apply_universal_shielding() -> void:
 
 func _process(_delta: float) -> void:
 	if not is_instance_valid(viewer): return
+	if viewer.config:%SettingsPanel.get_node("%ProgressivePreview").set_pressed_no_signal(viewer.config.loading_progressive_preview)
 	if viewer.camera_controller:
 		%CameraPanel.get_node("%ProtectedFly").set_pressed_no_signal(viewer.camera_controller.safety.protected_fly)
 		%CameraPanel.get_node("%OrbitMode").set_pressed_no_signal(viewer.camera_controller.active_camera is OrbitCamera)
@@ -381,7 +407,13 @@ func _on_configuration_migration_changed(active: bool) -> void:
 func get_ui_obstacles()->Array[Rect2]:
 	var result:Array[Rect2]=[]
 	for panel in get_tree().get_nodes_in_group("gs_floating_panels"):
-		if panel.get_viewport()==get_viewport() and panel.is_visible_in_tree():result.append(panel.get_global_rect())
-	if is_instance_valid(scene_manager_panel) and scene_manager_panel.visible:result.append(scene_manager_panel.draggable_container.get_global_rect())
-	if is_instance_valid(cognitive_panel) and cognitive_panel.visible:result.append(cognitive_panel.draggable_container.get_global_rect())
+		if is_instance_valid(transform_controls) and panel==transform_controls.toolbar:continue
+		if panel.get_viewport()==get_viewport() and panel.is_visible_in_tree():result.append(GSUiScale.screen_rect(panel))
+	if is_instance_valid(scene_manager_panel) and scene_manager_panel.visible:result.append(GSUiScale.screen_rect(scene_manager_panel.draggable_container))
+	if is_instance_valid(cognitive_panel) and cognitive_panel.visible:result.append(GSUiScale.screen_rect(cognitive_panel.draggable_container))
 	return result
+
+func _scale_auxiliary_layout()->void:
+	load_zone_panel.pivot_offset=load_zone_panel.size*0.5
+	var strip:Control=status_label.get_parent()
+	strip.pivot_offset=Vector2(strip.size.x*0.5,strip.size.y)

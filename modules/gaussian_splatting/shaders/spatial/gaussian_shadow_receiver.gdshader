@@ -1,6 +1,8 @@
 shader_type spatial;
 render_mode unshaded, blend_mix, cull_disabled, depth_draw_never;
 uniform bool shadow_enabled=false;
+// Match the receiving material: back=0, front=1, disabled=2.
+uniform int receiver_cull_mode=0;
 uniform sampler2D gaussian_shadow_map : filter_nearest, repeat_disable;
 uniform mat4 shadow_view;
 uniform mat4 shadow_projection;
@@ -25,6 +27,7 @@ float visibility(vec2 uv,float depth){
  return transmission;
 }
 void fragment(){
+ if((receiver_cull_mode==0 && !FRONT_FACING)||(receiver_cull_mode==1 && FRONT_FACING))discard;
  if(!shadow_enabled)discard;
  vec4 view_position=shadow_view*vec4(world_position,1.0);
  vec4 clip=shadow_projection*view_position;

@@ -1,0 +1,130 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-loading-f
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (0.459013, 0.726009, 1.452017)
+[CameraController] Camera transform set to: (0.459013, 0.726009, 1.452017)
+[CameraController] Camera transform set to: (0.459013, 0.726009, 1.452017)
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+PASS scene saves complete models without flattening or rewriting PLY data
+PASS saved document contains all identities and source fingerprints
+PASS saving over an existing composition succeeds
+[FreeLookCamera] Movement state reset. Position: (4.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+PASS the standard import dispatcher recognizes .pxrscene
+PASS reopen restores the exact population, including repeated instances of one source
+PASS model 0 retains its full world matrix, including nonuniform/reflected scale
+PASS model casting choice is preserved
+PASS model 1 retains its full world matrix, including nonuniform/reflected scale
+PASS hidden models remain hidden after reopen
+PASS model 2 retains its full world matrix, including nonuniform/reflected scale
+PASS model receiving choice is preserved
+PASS camera mode/pose/lens, image grade and renderer settings round-trip exactly
+PASS malformed scene is rejected before changing live nodes
+PASS missing original leaves the current composition intact
+PASS changed source fingerprint is rejected before replacing the atlas
+PASS save rejects a source changed since import rather than recording data different from the resident model
+PASS original source can be removed after completed file operations
+PASS a decoder failure rejects the incomplete composition
+PASS decoder failure exercises resident checkpoint rollback after replacement began
+PASS failed open restores original node identities, selection, transforms and resident atlas even with an old source missing
+PASS scene operation releases only its own input blocker
+SAVE FAILURE CHECK result 7 source exists false original hash 465647ef3f45f2049ed52dc9506a6911baef96c051117eb6fcea6d291920db88 after 465647ef3f45f2049ed52dc9506a6911baef96c051117eb6fcea6d291920db88
+PASS failed save preserves the previous composition file byte-for-byte
+PASS the existing Import file picker exposes the .pxrscene extension
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+PASS normal Import picker signal restores a composition without duplicating models
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+PASS drag-and-drop uses the same scene dispatcher
+PASS opened compositions appear in the existing recent-files list
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+PASS recent-file button reopens a composition through the same dispatcher
+PASS Save Scene dialog owns its independent camera blocker
+PASS authored Save Scene control adds the extension and saves the complete composition
+PASS PLY still imports through the same dispatcher
+PASS ordinary import preserves the composed scene and appends its complete model
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+PASS an empty saved composition restores the empty view without stale models
+COMPOSITION CHECKS COMPLETE: 0 failures
+ WARNING: [GSViewer] A model source or transform is invalid.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1175)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:301)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:26)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:22)
+WARNING: [GSViewer] Cannot read file: C:/missing-source.ply
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1175)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:301)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:26)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:22)
+       [4] open (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:222)
+       [5] read (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:183)
+       [6] fingerprint (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:89)
+WARNING: [GSViewer] Original PLY differs from the saved scene: C:/Users/User/AppData/Roaming/Godot/app_userdata/GS Qualification gs-loading-f/composition-b.ply
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1175)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:301)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:26)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:22)
+       [4] open (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:222)
+       [5] read (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:184)
+       [6] fingerprint (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:91)
+WARNING: [GSViewer] Original source changed since import. Reload the model before saving: C:/Users/User/AppData/Roaming/Godot/app_userdata/GS Qualification gs-loading-f/composition-b.ply
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1175)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:301)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:26)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:22)
+       [4] save (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:102)
+       [5] fingerprint (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:91)
+WARNING: [GSViewer] Invalid ASCII scalar
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1175)
+       [1] _fail_record (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:770)
+       [2] _pump_job (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:724)
+       [3] _process (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:884)
+WARNING: [GSViewer] Scene could not load completely; the previous composition was restored.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1175)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:301)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:26)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:22)
+       [4] open (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:290)
+       [5] restore (res://modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd:141)
+WARNING: [GSViewer] Original PLY is unavailable: C:/Users/User/AppData/Roaming/Godot/app_userdata/GS Qualification gs-loading-f/composition-b.ply
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1175)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:301)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:26)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:22)
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

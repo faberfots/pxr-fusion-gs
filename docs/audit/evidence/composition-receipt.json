@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-14",
+  "delivery": "Changes applied to active working checkout; original user UI/scene changes and earlier qualified releases preserved. No new source commit or remote CI result is claimed.",
+  "scope": "Godot 4.6.2 Windows x86_64 NVIDIA RTX 4070 Laptop Vulkan, official unsigned optimized Windows template.",
+  "features": {
+    "movable_toolbar": "Authored dotted grip, 67% scale, saved normalized layout, camera blocker and reset to automatic placement.",
+    "composition": "Data-only version-1 .pxrscene, original source fingerprints, exact full model matrices, identity/visibility/shadow settings and saved camera/image/renderer view.",
+    "imports": "Existing picker, dropped files and recent files accept .pxrscene. PLY/GSRES retain append semantics.",
+    "recovery": "Atomic document replacement; resident-atlas checkpoint rollback; independent IO lifetime drains teardown cancellation."
+  },
+  "checks": {
+    "composition_roundtrip": "passed; all import routes, repeated sources, transformed/hidden models, modified/missing originals, injected decoder failure with an unavailable old source, failed overwrite preservation and empty scene",
+    "composition_lifecycle": "passed; hashing/checkpoint teardown releases source handles, temp files and resources",
+    "toolbar_input": "1142x648 and 1908x960; drag, restore, camera isolation, reset",
+    "existing_suites": "headless core; color/XYZ input, studio, startup, viewer lifecycle, migration/rollback, shadows and opaque depth passed",
+    "optimized_real_main": "passed; zero export warnings/errors"
+  },
+  "real_assets": {
+    "models": [
+      "Girl_A",
+      "Suzuki"
+    ],
+    "complete_population": 447877,
+    "full_world_transforms": "matched",
+    "mean_sampled_rgb_drift": 7.782603e-08
+  },
+  "package": {
+    "path": "build/composition-delivery",
+    "engine_sha256": "3b2d3f99bd640961aad1a1a200f0f7233b7de45b02801ce22d3224dc294d93d1",
+    "pck_sha256": "021b5e39783403c6a70409430d3d58053484a76d2df335583cce43a7af96bc26",
+    "verified_receipt_files": 119
+  },
+  "runtime_file_sha256": {
+    "modules/gaussian_splatting/utils/scripts/gs_composition.gd": "221210df2b5ee945eab73c2a3c99876e48eae0b7d906f640c9b33ca75812408f",
+    "modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd": "2f4d6c99dab3aaea6d09234930cfa23243ab5f39ebb792145341e34ebe2778a5",
+    "modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd": "11c8cc1a9d81cda254c90802427982c7529d35fb53d77e627b7b30727836ba68",
+    "modules/gaussian_splatting/loaders/gs_load_job.gd": "751af949b03db9eb579c38a2a0b98040b1d9252833e2442a595ad165cab21bbf",
+    "modules/gaussian_splatting/UI/ModelTransformControls.gd": "fc9592b9c7e03bde708d50e090e71c2f67bf2cfd2c94f6639877250143209a93",
+    "modules/gaussian_splatting/UI/ModelTools.tscn": "9b43ffe210721b5ceeb3ea40b06fa4f20f764a57adfbf77935cd9d96308208c2",
+    "modules/gaussian_splatting/UI/CompositionFiles.gd": "a89ad057226da50bf0164efadb8d3c56bba985583964bd9d47d6c6354afa5fc7",
+    "modules/gaussian_splatting/UI/CompositionFiles.tscn": "6dfb0af6111a582f3e1a57025b2bbd332ec50bc6aabfc5077f544f37fe6f270f",
+    "modules/gaussian_splatting/UI/SceneManagerPanel.gd": "bb95b2e604e0a5a061b6968564c45834696acc1daa2ceb7088f2d5b73b79639d",
+    "modules/gaussian_splatting/UI/SceneManagerPanel.tscn": "1cc9ebda6ce0c64d45cafc94746d3c2b79baf74a637d21c462da47f24f39121d",
+    "modules/gaussian_splatting/UI/ProductionUI.gd": "4192b8600b3f636133352374ad4eeba053bf29d16e64c3265e0ef26c15628fe7",
+    "modules/gaussian_splatting/UI/ProductionUI.tscn": "42a029e4a6e9b089052c7fe471aa1636c9c338179245450373e2166c5ef30b9f"
+  },
+  "boundaries": [
+    "Original PLY/GSRES files remain linked and must be available unchanged; no embedded portable bundle.",
+    "Arbitrary Godot world nodes/scripts and complete sky/environment state are not serialized.",
+    "GPU budget remains local. No new XR, other GPU vendor, remote CI or authenticated provider qualification."
+  ],
+  "audit_counts": {
+    "fully implemented": 61,
+    "partially implemented": 5,
+    "not yet implemented": 0
+  }
+}

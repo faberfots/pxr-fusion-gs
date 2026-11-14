@@ -1,0 +1,778 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-loading-core
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (145 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | ImGuiConfig[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | ImGuiFont[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | DateTimeUtil[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | OrbitalElements[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | ScatterLib[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | Sky3D[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | Skydome[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | TimeOfDay[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | TOD_Math[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | CameraProfile[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | CameraRegistrar[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | SmartCameraNode[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | VirtualJoystick[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | CameraController[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | CameraInterface[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | GSCameraSafetySettings[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | FreeLookCamera[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | OrbitCamera[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | GaussianSplattingConfig[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | GSColorSettings[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | GSLightingSettings[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | GSSkySettings[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | GSConstants[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | GSEventBus[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | GSMemoryMonitor[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | GSPreloader[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | GSStateMachine[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | GaussianSplatResource[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | GSCheckpointWriter[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | GSDiskCheckpointJob[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | GSFileHashJob[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | GSGpuDecoder[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | GSLoadJob[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | GSPreparedCache[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | PlyConverter[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | PLYDocument[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | PlyFile[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | GSPXRBrandMark[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | GSColorAdjustmentPanel[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | GSCommandDock[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | DemoUIController[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | GSDiagnosticsPanel[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | DraggableContainer[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | GSFloatingPanel[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | LoadingBar[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | GSModelTransformControls[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | ProductionUI[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | SceneManagerPanel[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | GSUiScale[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | GaussianSplat[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | GaussianSplattingRasterizer[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | GaussianSplattingViewer[39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | GPUPipelineManager[39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | GSAlphaMesh3D[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | GSAtlasMigration[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | GSComposition[39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | GSCompositorEffect[39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | GSPlacementSession[39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | GSShadowPass[39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | GSShadowReceiver3D[39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | GSTransparencyPass[39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | RenderingContext[39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | SplatBlockAllocator[39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | PointCloudResource[39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | SegmentData[39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | SpatialRelationship[39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | AsyncPLYLoader[39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | PLYLoader[39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | SpatialGraph[39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | SpatialIndex[39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | SpatialConfig[39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | SpatialPipeline[39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | SpatialPLYJob[39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | SpatialProcessingJob[39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | ActionController[39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | SceneContext[39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | ViewportCapture[39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | AIAccessPolicy[39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | SIConfig[39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | CognitivePanel[39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | LLMClient[39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | NativeMLBridge[39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (191 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | icon.png[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | advanced_control_camera3d.svg[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | ImGuiShader.glsl[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | noise2.png[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | noise.jpg[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | noiseClouds.png[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | SkyIcon.png[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | Milkyway.jpg[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | StarField.jpg[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | MoonMap.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | joystick_texture_1.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | joystick_texture_2.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | joystick_texture_3.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | joystick_texture_4.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | joystick_texture_5.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | joystick_texture_6.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | stick_texture_1.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | stick_texture_2.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | stick_texture_3.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | stick_texture_4.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | stick_texture_5.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | stick_texture_6.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | icon-16x16.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | ArchitectsDaughter.ttf[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | cmunit.ttf[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | cmuntb.ttf[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | cmuntt.ttf[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | cmuntx.ttf[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | Connection.otf[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | ConnectionBold.otf[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | ConnectionII.otf[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | DroidSans-Bold.ttf[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | DroidSans.ttf[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | KiriFont.otf[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | KiriFont.ttf[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | LinLibertine_DR.otf[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | LinLibertine_I.otf[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | LinLibertine_M.otf[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | LinLibertine_R.otf[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | LinLibertine_RB.otf[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | LinLibertine_RBI.otf[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | LinLibertine_RI.otf[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | LinLibertine_RZ.otf[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | LinLibertine_RZI.otf[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | Montreal-Bold.ttf[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | Montreal-Regular.ttf[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | Oswald-Bold.ttf[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | Oswald-ExtraLight.ttf[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | Oswald-Light.ttf[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | Oswald-Medium.ttf[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | Oswald-Regular.ttf[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | Oswald-SemiBold.ttf[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | Oswald-VariableFont_wght.ttf[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | Poco.ttf[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | Poppins-Black.ttf[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | Poppins-BlackItalic.ttf[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | Poppins-Bold.ttf[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | Poppins-BoldItalic.ttf[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | Poppins-ExtraBold.ttf[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | Poppins-ExtraBoldItalic.ttf[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | Poppins-ExtraLight.ttf[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | Poppins-ExtraLightItalic.ttf[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | Poppins-Italic.ttf[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | Poppins-Light.ttf[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | Poppins-LightItalic.ttf[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | Poppins-Medium.ttf[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | Poppins-MediumItalic.ttf[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | Poppins-Regular.ttf[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | Poppins-SemiBold.ttf[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | Poppins-SemiBoldItalic.ttf[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | Poppins-Thin.ttf[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | Poppins-ThinItalic.ttf[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | SourceCodePro-Black.ttf[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | SourceCodePro-BlackIt.ttf[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | SourceCodePro-Bold.ttf[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | SourceCodePro-BoldIt.ttf[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | SourceCodePro-ExtraLight.ttf[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | SourceCodePro-ExtraLightIt.ttf[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | SourceCodePro-It.ttf[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | SourceCodePro-Light.ttf[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | SourceCodePro-LightIt.ttf[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | SourceCodePro-Medium.ttf[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | SourceCodePro-MediumIt.ttf[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | SourceCodePro-Regular.ttf[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | SourceCodePro-Semibold.ttf[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | SourceCodePro-SemiboldIt.ttf[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | Xolonium-Bold.ttf[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | Xolonium-Regular.ttf[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | overview.PNG[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | 3DPlace.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | 3D_Place_Blue.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | 3D_Place_Grey.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | dashboards.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | events.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | place_map.png[39m[0m
+[  49% ] [90m[1m_update_scan_actions[22m | settings.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | users.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | wall_screen.png[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | 132129_globe_planet_browser_global_internet_icon.png[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | 132130_off_emergency_dismay_siren_anxiety_icon.png[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | Everaldo-Crystal-Clear-Action-view-icon.48 (1).png[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | Everaldo-Crystal-Clear-Action-view-icon.48.png[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | Hopstarter-Puck-Windows-Close-Program.48.png[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | Hopstarter-Puck-Windows-Log-Off.48.png[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | Hopstarter-Puck-Windows-Restart.48.png[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | Hopstarter-Puck-Windows-Stand-By.48.png[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | Hopstarter-Puck-Windows-Turn-Off.48.png[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | Icondesigner.net-Hyperion-3D-Icons.48.png[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows-actions.48.png[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows-move.48.png[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows.48 (1).png[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows.48.png[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | Saki-NuoveXT-2-Apps-preferences-system-windows.48.png[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | Saki-NuoveXT-Actions-windows-fullscreen.48.png[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | Saki-NuoveXT-Actions-windows-nofullscreen.48.png[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | Thvg-Slick-Drives-Windows-HD-Drive.48.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-calendar.48.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-games.48.png[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-user.48 (1).png[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-user.48.png[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | Windows_Close_Program_22531.png[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | effect.png[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | eye_closed.png[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | eye_open.png[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | render_icon.png[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | for_parallax_image_2.png[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | infinite_square.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | logo v3.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | Logo.png[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | penrose-square.png[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | PNG_Logo_black_300.png[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | company.png[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | PNG_Logo_white.png[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | promesse3D.png[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | dark.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | green.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | orange.png[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | prototype-texture-with-size.png[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | prototype-texture.png[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | purple.png[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | red.png[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | gaussian_splat_icon.svg[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | alpha_gather.glsl[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | alpha_merge.glsl[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | gsplat_boundaries.glsl[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | gsplat_projection.glsl[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | gsplat_render.glsl[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | gs_cache_sha256.glsl[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | gs_import.glsl[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | gs_shadow_projection.glsl[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | gs_shadow_receive.glsl[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | gs_shadow_render.glsl[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | radix_sort_downsweep.glsl[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | radix_sort_spine.glsl[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | radix_sort_upsweep.glsl[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | button_hover.svg[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | button_normal.svg[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | button_pressed.svg[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | camera.svg[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | core.svg[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | image.svg[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | load.svg[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | orbit.svg[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | orb_hover.svg[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | orb_plate.svg[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | panel_frame.svg[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | scene.svg[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | settings.svg[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | slider_gem.svg[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | spark.svg[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | sun.svg[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | camera.svg[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | eye.svg[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | focus.svg[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | image.svg[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | load.svg[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | move.svg[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | rotate.svg[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | scale.svg[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | scene.svg[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | select.svg[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | settings.svg[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | spark.svg[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | sun.svg[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | trash.svg[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | compactor.glsl[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | voxelizer.glsl[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | geometric_analysis.glsl[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | graph_segmentation.glsl[39m[0m
+[  98% ] [90m[1m_update_scan_actions[22m | spatial_index.glsl[39m[0m
+[  98% ] [90m[1m_update_scan_actions[22m | icon.svg[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (183 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   1% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   1% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   2% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   2% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   3% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   3% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   4% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   4% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   5% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   5% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   6% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   7% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   7% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   8% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   8% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   9% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   9% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  10% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  10% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  11% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  11% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  12% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  13% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  13% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  14% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  14% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  15% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  15% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  16% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  16% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  17% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  17% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  18% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  19% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  19% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  21% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  21% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  22% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  22% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  23% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  23% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  24% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  25% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  25% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  26% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  26% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  27% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  27% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  28% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  28% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  29% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  29% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  30% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  30% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  31% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  32% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  32% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  33% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  33% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  34% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  34% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  35% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  35% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  36% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  36% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  37% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  38% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  38% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  39% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  39% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  41% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  41% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  42% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  42% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  43% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  44% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  44% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  45% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  45% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  46% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  46% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  47% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  47% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  48% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  48% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  49% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  51% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  51% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  52% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  52% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  53% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  53% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  54% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  54% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  55% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  55% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  56% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  57% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  57% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  58% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  58% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  59% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  59% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  61% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  61% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  62% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  63% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  63% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  64% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  64% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  65% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  65% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  66% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  66% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  67% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  67% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  68% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  69% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  69% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  70% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  70% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  71% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  71% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  72% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  72% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  73% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  73% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  74% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  75% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  75% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  76% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  76% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  77% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  77% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  78% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  78% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  79% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  79% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  80% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  80% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  81% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  82% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  82% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  83% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  83% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  84% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  84% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  85% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  85% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  86% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  86% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  87% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  88% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  88% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  89% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  89% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  90% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  90% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  91% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  91% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  92% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  92% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  93% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  94% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  94% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  95% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  95% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  96% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  96% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  97% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  97% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  98% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  98% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+[   0% ] [90m[1mreimport[22m | Poppins-Bold.ttf[39m[0m
+[   0% ] [90m[1mreimport[22m | Poppins-BlackItalic.ttf[39m[0m
+[   1% ] [90m[1mreimport[22m | Poppins-Black.ttf[39m[0m
+[   1% ] [90m[1mreimport[22m | Poco.ttf[39m[0m
+[   2% ] [90m[1mreimport[22m | Oswald-VariableFont_wght.ttf[39m[0m
+[   2% ] [90m[1mreimport[22m | Oswald-SemiBold.ttf[39m[0m
+[   3% ] [90m[1mreimport[22m | Oswald-Regular.ttf[39m[0m
+[   3% ] [90m[1mreimport[22m | Oswald-Medium.ttf[39m[0m
+[   4% ] [90m[1mreimport[22m | Oswald-Light.ttf[39m[0m
+[   4% ] [90m[1mreimport[22m | Oswald-ExtraLight.ttf[39m[0m
+[   5% ] [90m[1mreimport[22m | Oswald-Bold.ttf[39m[0m
+[   5% ] [90m[1mreimport[22m | Montreal-Regular.ttf[39m[0m
+[   6% ] [90m[1mreimport[22m | Montreal-Bold.ttf[39m[0m
+[   7% ] [90m[1mreimport[22m | LinLibertine_RZI.otf[39m[0m
+[   7% ] [90m[1mreimport[22m | LinLibertine_RZ.otf[39m[0m
+[   8% ] [90m[1mreimport[22m | LinLibertine_RI.otf[39m[0m
+[   8% ] [90m[1mreimport[22m | LinLibertine_RBI.otf[39m[0m
+[   9% ] [90m[1mreimport[22m | SourceCodePro-Bold.ttf[39m[0m
+[   9% ] [90m[1mreimport[22m | SourceCodePro-BlackIt.ttf[39m[0m
+[  10% ] [90m[1mreimport[22m | SourceCodePro-Black.ttf[39m[0m
+[  10% ] [90m[1mreimport[22m | Poppins-ThinItalic.ttf[39m[0m
+[  11% ] [90m[1mreimport[22m | Poppins-Thin.ttf[39m[0m
+[  11% ] [90m[1mreimport[22m | Poppins-SemiBoldItalic.ttf[39m[0m
+[  12% ] [90m[1mreimport[22m | Poppins-SemiBold.ttf[39m[0m
+[  13% ] [90m[1mreimport[22m | Poppins-Regular.ttf[39m[0m
+[  13% ] [90m[1mreimport[22m | Poppins-MediumItalic.ttf[39m[0m
+[  14% ] [90m[1mreimport[22m | Poppins-Medium.ttf[39m[0m
+[  14% ] [90m[1mreimport[22m | Poppins-LightItalic.ttf[39m[0m
+[  15% ] [90m[1mreimport[22m | Poppins-Light.ttf[39m[0m
+[  15% ] [90m[1mreimport[22m | Poppins-Italic.ttf[39m[0m
+[  16% ] [90m[1mreimport[22m | Poppins-ExtraLightItalic.ttf[39m[0m
+[  16% ] [90m[1mreimport[22m | Poppins-ExtraLight.ttf[39m[0m
+[  17% ] [90m[1mreimport[22m | Poppins-ExtraBoldItalic.ttf[39m[0m
+[  17% ] [90m[1mreimport[22m | Poppins-ExtraBold.ttf[39m[0m
+[  18% ] [90m[1mreimport[22m | Poppins-BoldItalic.ttf[39m[0m
+[  19% ] [90m[1mreimport[22m | Xolonium-Regular.ttf[39m[0m
+[  19% ] [90m[1mreimport[22m | Xolonium-Bold.ttf[39m[0m
+[  20% ] [90m[1mreimport[22m | SourceCodePro-SemiboldIt.ttf[39m[0m
+[  20% ] [90m[1mreimport[22m | SourceCodePro-Semibold.ttf[39m[0m
+[  21% ] [90m[1mreimport[22m | SourceCodePro-Regular.ttf[39m[0m
+[  21% ] [90m[1mreimport[22m | SourceCodePro-MediumIt.ttf[39m[0m
+[  22% ] [90m[1mreimport[22m | SourceCodePro-Medium.ttf[39m[0m
+[  22% ] [90m[1mreimport[22m | SourceCodePro-LightIt.ttf[39m[0m
+[  23% ] [90m[1mreimport[22m | SourceCodePro-Light.ttf[39m[0m
+[  23% ] [90m[1mreimport[22m | SourceCodePro-It.ttf[39m[0m
+[  24% ] [90m[1mreimport[22m | SourceCodePro-ExtraLightIt.ttf[39m[0m
+[  25% ] [90m[1mreimport[22m | SourceCodePro-ExtraLight.ttf[39m[0m
+[  25% ] [90m[1mreimport[22m | SourceCodePro-BoldIt.ttf[39m[0m
+[  26% ] [90m[1mreimport[22m | ArchitectsDaughter.ttf[39m[0m
+[  26% ] [90m[1mreimport[22m | cmunit.ttf[39m[0m
+[  27% ] [90m[1mreimport[22m | LinLibertine_RB.otf[39m[0m
+[  27% ] [90m[1mreimport[22m | LinLibertine_R.otf[39m[0m
+[  28% ] [90m[1mreimport[22m | LinLibertine_M.otf[39m[0m
+[  28% ] [90m[1mreimport[22m | LinLibertine_I.otf[39m[0m
+[  29% ] [90m[1mreimport[22m | LinLibertine_DR.otf[39m[0m
+[  29% ] [90m[1mreimport[22m | KiriFont.ttf[39m[0m
+[  30% ] [90m[1mreimport[22m | KiriFont.otf[39m[0m
+[  30% ] [90m[1mreimport[22m | DroidSans.ttf[39m[0m
+[  31% ] [90m[1mreimport[22m | DroidSans-Bold.ttf[39m[0m
+[  32% ] [90m[1mreimport[22m | ConnectionII.otf[39m[0m
+[  32% ] [90m[1mreimport[22m | ConnectionBold.otf[39m[0m
+[  33% ] [90m[1mreimport[22m | Connection.otf[39m[0m
+[  33% ] [90m[1mreimport[22m | cmuntx.ttf[39m[0m
+[  34% ] [90m[1mreimport[22m | cmuntt.ttf[39m[0m
+[  34% ] [90m[1mreimport[22m | cmuntb.ttf[39m[0m
+[  35% ] [90m[1mreimport[22m | gsplat_projection.glsl[39m[0m
+[  35% ] [90m[1mreimport[22m | gsplat_render.glsl[39m[0m
+[  36% ] [90m[1mreimport[22m | gs_cache_sha256.glsl[39m[0m
+[  36% ] [90m[1mreimport[22m | gs_import.glsl[39m[0m
+[  37% ] [90m[1mreimport[22m | gs_shadow_projection.glsl[39m[0m
+[  38% ] [90m[1mreimport[22m | gsplat_boundaries.glsl[39m[0m
+[  38% ] [90m[1mreimport[22m | alpha_merge.glsl[39m[0m
+[  39% ] [90m[1mreimport[22m | alpha_gather.glsl[39m[0m
+[  39% ] [90m[1mreimport[22m | gs_shadow_receive.glsl[39m[0m
+[  40% ] [90m[1mreimport[22m | gs_shadow_render.glsl[39m[0m
+[  40% ] [90m[1mreimport[22m | radix_sort_downsweep.glsl[39m[0m
+[  41% ] [90m[1mreimport[22m | radix_sort_spine.glsl[39m[0m
+[  41% ] [90m[1mreimport[22m | radix_sort_upsweep.glsl[39m[0m
+[  42% ] [90m[1mreimport[22m | spatial_index.glsl[39m[0m
+[  42% ] [90m[1mreimport[22m | ImGuiShader.glsl[39m[0m
+[  43% ] [90m[1mreimport[22m | compactor.glsl[39m[0m
+[  44% ] [90m[1mreimport[22m | voxelizer.glsl[39m[0m
+[  44% ] [90m[1mreimport[22m | geometric_analysis.glsl[39m[0m
+[  45% ] [90m[1mreimport[22m | graph_segmentation.glsl[39m[0m
+[  45% ] [90m[1mreimport[22m | camera.svg[39m[0m
+[  46% ] [90m[1mreimport[22m | button_pressed.svg[39m[0m
+[  46% ] [90m[1mreimport[22m | button_normal.svg[39m[0m
+[  47% ] [90m[1mreimport[22m | button_hover.svg[39m[0m
+[  47% ] [90m[1mreimport[22m | gaussian_splat_icon.svg[39m[0m
+[  48% ] [90m[1mreimport[22m | red.png[39m[0m
+[  48% ] [90m[1mreimport[22m | purple.png[39m[0m
+[  49% ] [90m[1mreimport[22m | prototype-texture.png[39m[0m
+[  50% ] [90m[1mreimport[22m | prototype-texture-with-size.png[39m[0m
+[  50% ] [90m[1mreimport[22m | orange.png[39m[0m
+[  51% ] [90m[1mreimport[22m | green.png[39m[0m
+[  51% ] [90m[1mreimport[22m | dark.png[39m[0m
+[  52% ] [90m[1mreimport[22m | promesse3D.png[39m[0m
+[  52% ] [90m[1mreimport[22m | icon.svg[39m[0m
+[  53% ] [90m[1mreimport[22m | trash.svg[39m[0m
+[  53% ] [90m[1mreimport[22m | sun.svg[39m[0m
+[  54% ] [90m[1mreimport[22m | spark.svg[39m[0m
+[  54% ] [90m[1mreimport[22m | settings.svg[39m[0m
+[  55% ] [90m[1mreimport[22m | select.svg[39m[0m
+[  55% ] [90m[1mreimport[22m | scene.svg[39m[0m
+[  56% ] [90m[1mreimport[22m | scale.svg[39m[0m
+[  57% ] [90m[1mreimport[22m | rotate.svg[39m[0m
+[  57% ] [90m[1mreimport[22m | move.svg[39m[0m
+[  58% ] [90m[1mreimport[22m | load.svg[39m[0m
+[  58% ] [90m[1mreimport[22m | image.svg[39m[0m
+[  59% ] [90m[1mreimport[22m | focus.svg[39m[0m
+[  59% ] [90m[1mreimport[22m | eye.svg[39m[0m
+[  60% ] [90m[1mreimport[22m | camera.svg[39m[0m
+[  60% ] [90m[1mreimport[22m | sun.svg[39m[0m
+[  61% ] [90m[1mreimport[22m | spark.svg[39m[0m
+[  61% ] [90m[1mreimport[22m | slider_gem.svg[39m[0m
+[  62% ] [90m[1mreimport[22m | settings.svg[39m[0m
+[  63% ] [90m[1mreimport[22m | scene.svg[39m[0m
+[  63% ] [90m[1mreimport[22m | panel_frame.svg[39m[0m
+[  64% ] [90m[1mreimport[22m | orb_plate.svg[39m[0m
+[  64% ] [90m[1mreimport[22m | orb_hover.svg[39m[0m
+[  65% ] [90m[1mreimport[22m | orbit.svg[39m[0m
+[  65% ] [90m[1mreimport[22m | load.svg[39m[0m
+[  66% ] [90m[1mreimport[22m | image.svg[39m[0m
+[  66% ] [90m[1mreimport[22m | core.svg[39m[0m
+[  67% ] [90m[1mreimport[22m | Everaldo-Crystal-Clear-Action-view-icon.48 (1).png[39m[0m
+[  67% ] [90m[1mreimport[22m | 132129_globe_planet_browser_global_internet_icon.png[39m[0m
+[  68% ] [90m[1mreimport[22m | wall_screen.png[39m[0m
+[  69% ] [90m[1mreimport[22m | users.png[39m[0m
+[  69% ] [90m[1mreimport[22m | settings.png[39m[0m
+[  70% ] [90m[1mreimport[22m | place_map.png[39m[0m
+[  70% ] [90m[1mreimport[22m | events.png[39m[0m
+[  71% ] [90m[1mreimport[22m | dashboards.png[39m[0m
+[  71% ] [90m[1mreimport[22m | 3D_Place_Grey.png[39m[0m
+[  72% ] [90m[1mreimport[22m | 3D_Place_Blue.png[39m[0m
+[  72% ] [90m[1mreimport[22m | 3DPlace.png[39m[0m
+[  73% ] [90m[1mreimport[22m | overview.PNG[39m[0m
+[  73% ] [90m[1mreimport[22m | icon-16x16.png[39m[0m
+[  74% ] [90m[1mreimport[22m | stick_texture_6.png[39m[0m
+[  75% ] [90m[1mreimport[22m | stick_texture_5.png[39m[0m
+[  75% ] [90m[1mreimport[22m | stick_texture_4.png[39m[0m
+[  76% ] [90m[1mreimport[22m | stick_texture_3.png[39m[0m
+[  76% ] [90m[1mreimport[22m | stick_texture_2.png[39m[0m
+[  77% ] [90m[1mreimport[22m | stick_texture_1.png[39m[0m
+[  77% ] [90m[1mreimport[22m | joystick_texture_6.png[39m[0m
+[  78% ] [90m[1mreimport[22m | joystick_texture_5.png[39m[0m
+[  78% ] [90m[1mreimport[22m | joystick_texture_4.png[39m[0m
+[  79% ] [90m[1mreimport[22m | joystick_texture_3.png[39m[0m
+[  79% ] [90m[1mreimport[22m | joystick_texture_2.png[39m[0m
+[  80% ] [90m[1mreimport[22m | joystick_texture_1.png[39m[0m
+[  80% ] [90m[1mreimport[22m | SkyIcon.png[39m[0m
+[  81% ] [90m[1mreimport[22m | noise2.png[39m[0m
+[  82% ] [90m[1mreimport[22m | advanced_control_camera3d.svg[39m[0m
+[  82% ] [90m[1mreimport[22m | icon.png[39m[0m
+[  83% ] [90m[1mreimport[22m | PNG_Logo_white.png[39m[0m
+[  83% ] [90m[1mreimport[22m | company.png[39m[0m
+[  84% ] [90m[1mreimport[22m | PNG_Logo_black_300.png[39m[0m
+[  84% ] [90m[1mreimport[22m | penrose-square.png[39m[0m
+[  85% ] [90m[1mreimport[22m | Logo.png[39m[0m
+[  85% ] [90m[1mreimport[22m | logo v3.png[39m[0m
+[  86% ] [90m[1mreimport[22m | infinite_square.png[39m[0m
+[  86% ] [90m[1mreimport[22m | for_parallax_image_2.png[39m[0m
+[  87% ] [90m[1mreimport[22m | render_icon.png[39m[0m
+[  88% ] [90m[1mreimport[22m | eye_open.png[39m[0m
+[  88% ] [90m[1mreimport[22m | eye_closed.png[39m[0m
+[  89% ] [90m[1mreimport[22m | effect.png[39m[0m
+[  89% ] [90m[1mreimport[22m | Windows_Close_Program_22531.png[39m[0m
+[  90% ] [90m[1mreimport[22m | Tonev-Windows-7-Windows-7-user.48.png[39m[0m
+[  90% ] [90m[1mreimport[22m | Tonev-Windows-7-Windows-7-games.48.png[39m[0m
+[  91% ] [90m[1mreimport[22m | Thvg-Slick-Drives-Windows-HD-Drive.48.png[39m[0m
+[  91% ] [90m[1mreimport[22m | Saki-NuoveXT-Actions-windows-nofullscreen.48.png[39m[0m
+[  92% ] [90m[1mreimport[22m | Saki-NuoveXT-Actions-windows-fullscreen.48.png[39m[0m
+[  92% ] [90m[1mreimport[22m | Saki-NuoveXT-2-Apps-preferences-system-windows.48.png[39m[0m
+[  93% ] [90m[1mreimport[22m | Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows.48.png[39m[0m
+[  94% ] [90m[1mreimport[22m | Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows.48 (1).png[39m[0m
+[  94% ] [90m[1mreimport[22m | Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows-move.48.png[39m[0m
+[  95% ] [90m[1mreimport[22m | Oxygen-Icons.org-Oxygen-Apps-preferences-system-windows-actions.48.png[39m[0m
+[  95% ] [90m[1mreimport[22m | Icondesigner.net-Hyperion-3D-Icons.48.png[39m[0m
+[  96% ] [90m[1mreimport[22m | Hopstarter-Puck-Windows-Turn-Off.48.png[39m[0m
+[  96% ] [90m[1mreimport[22m | Hopstarter-Puck-Windows-Stand-By.48.png[39m[0m
+[  97% ] [90m[1mreimport[22m | Hopstarter-Puck-Windows-Restart.48.png[39m[0m
+[  97% ] [90m[1mreimport[22m | Hopstarter-Puck-Windows-Log-Off.48.png[39m[0m
+[  98% ] [90m[1mreimport[22m | Hopstarter-Puck-Windows-Close-Program.48.png[39m[0m
+[  98% ] [90m[1mreimport[22m | Everaldo-Crystal-Clear-Action-view-icon.48.png[39m[0m
+[  99% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (183 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS software Vulkan selects native 4x depth rather than an unsupported sample count
+PASS scene depth policy preserves disabled AA and existing hardware GPU settings
+PASS allocator admission
+PASS allocator coalescing
+PASS allocator reset high water
+PASS complete GPU budget
+PASS unterminated PLY rejected
+PASS mixed scalar big-endian PLY
+PASS ASCII Gaussian schema
+PASS source file size is not an admission gate
+PASS valid thin Bali Gaussians retain full source population
+PASS High atlas fits Bali plus another full-resolution model
+PASS Gaussian CPU conversion
+PASS binary save
+PASS binary checksum round trip
+PASS binary corruption rejected
+PASS shared SpatialOS decoding
+PASS AI vector validation
+PASS AI default read-only policy
+PASS denied AI action
+PASS malformed provider response
+PASS multiple provider tools decoded
+PASS derived point count and bounds
+PASS geometry invalidates derived graph
+PASS indexed geometry edit invalidates bounds
+PASS retained geometry snapshot cannot mutate source
+PASS CPU worker start
+PASS bounded worker cancellation joins
+PASS bounded floor samples span the complete source
+PASS SpatialOS async start
+PASS SpatialOS async cancellation joins
+PASS failed initialization releases lock
+CHECKS COMPLETE: 0 failures
+ 
+Process exit: 0

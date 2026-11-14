@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dq6yk1kur4j70"
+path="res://.godot/imported/gs_shadow_receive.glsl-5e29866a4f366f43790c36a1cf379247.res"
+
+[deps]
+
+source_file="res://modules/gaussian_splatting/shaders/compute/gs_shadow_receive.glsl"
+dest_files=["res://.godot/imported/gs_shadow_receive.glsl-5e29866a4f366f43790c36a1cf379247.res"]
+
+[params]
+

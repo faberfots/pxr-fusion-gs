@@ -99,7 +99,7 @@ func open_reader() -> FileAccess:
 		file.seek(data_offset)
 	return file
 
-func read_vertices(file: FileAccess, count: int) -> Dictionary:
+func read_vertices(file: FileAccess, count: int, validate_values:bool=true) -> Dictionary:
 	if file == null or count <= 0:
 		return {"error": "Invalid vertex read"}
 	var result := PackedFloat32Array()
@@ -143,9 +143,9 @@ func read_vertices(file: FileAccess, count: int) -> Dictionary:
 						"i32": value = stream.get_32()
 						"u32": value = stream.get_u32()
 					result[row * properties.size() + column] = value
-	for value in result:
-		if not is_finite(value):
-			return {"error": "PLY contains non-finite or unrepresentable values"}
+	if validate_values:
+		for value in result:
+			if not is_finite(value):return {"error":"PLY contains non-finite or unrepresentable values"}
 	return {"values": result}
 
 func gaussian_mapping() -> Dictionary:

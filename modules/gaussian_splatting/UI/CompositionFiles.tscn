@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/CompositionFiles.gd" id="1"]
+[node name="CompositionFiles" type="VBoxContainer"]
+script = ExtResource("1")
+[node name="Actions" type="HBoxContainer" parent="."]
+layout_mode = 2
+[node name="Open" type="Button" parent="Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Open scene"
+tooltip_text = "Use Import to open a .pxrscene composition or append a PLY model"
+[node name="Save" type="Button" parent="Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save scene"
+tooltip_text = "Save every GS model, exact transforms, camera and image settings"
+[node name="Status" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Linked originals · keep source PLY files available"
+autowrap_mode = 2
+[node name="SaveDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Save PXRFusion scene"
+size = Vector2i(700, 460)
+file_mode = 4
+access = 2
+filters = PackedStringArray("*.pxrscene ; PXRFusion composed scene")
+current_file = "Composition.pxrscene"
+use_native_dialog = true

@@ -1,0 +1,614 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/SkyControls.gd" id="1"]
+[node name="SkyControls" type="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("1")
+[node name="Unavailable" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "This scene has no Sky3D environment."
+autowrap_mode = 2
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+[node name="Content" type="VBoxContainer" parent="Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Hint" type="Label" parent="Scroll/Content"]
+layout_mode = 2
+text = "Shape the world around your captured scene."
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 13
+
+[node name="ClockRow" type="HBoxContainer" parent="Scroll/Content"]
+layout_mode = 2
+
+
+[node name="Clock" type="Label" parent="Scroll/Content/ClockRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "09:42"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+
+[node name="State" type="Label" parent="Scroll/Content/ClockRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "PAUSED · DAY"
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 12
+
+[node name="Preset" type="OptionButton" parent="Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Time presets pause the day cycle. Your GS image settings stay unchanged."
+selected = 0
+item_count = 5
+popup/item_0/text = "Custom time"
+popup/item_0/id = 0
+popup/item_1/text = "Morning"
+popup/item_1/id = 1
+popup/item_2/text = "Daylight"
+popup/item_2/id = 2
+popup/item_3/text = "Sunset"
+popup/item_3/id = 3
+popup/item_4/text = "Night"
+popup/item_4/id = 4
+
+[node name="current_timeRow" type="VBoxContainer" parent="Scroll/Content"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/current_timeRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/current_timeRow/Heading"]
+layout_mode = 2
+text = "Time of day"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/current_timeRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="current_time" type="HSlider" parent="Scroll/Content/current_timeRow"]
+layout_mode = 2
+step = 0.01
+tooltip_text = "Local solar time · drag to move the sun and moon"
+
+[node name="enable_game_time" type="CheckButton" parent="Scroll/Content"]
+layout_mode = 2
+text = "Animate day / night"
+tooltip_text = "Let Sky3D advance time; turn off to keep this lighting"
+
+[node name="Visibility" type="HSeparator" parent="Scroll/Content"]
+layout_mode = 2
+
+
+[node name="sky3d_enabled" type="CheckButton" parent="Scroll/Content"]
+layout_mode = 2
+text = "Sky3D enabled"
+tooltip_text = "Sky3D enabled"
+
+[node name="VisibilityGrid" type="GridContainer" parent="Scroll/Content"]
+layout_mode = 2
+columns = 2
+
+[node name="sky_enabled" type="CheckButton" parent="Scroll/Content/VisibilityGrid"]
+layout_mode = 2
+text = "Sky"
+tooltip_text = "Sky"
+
+[node name="clouds_enabled" type="CheckButton" parent="Scroll/Content/VisibilityGrid"]
+layout_mode = 2
+text = "Clouds"
+tooltip_text = "Clouds"
+
+[node name="lights_enabled" type="CheckButton" parent="Scroll/Content/VisibilityGrid"]
+layout_mode = 2
+text = "Sun / moon"
+tooltip_text = "Sun / moon"
+
+[node name="fog_enabled" type="CheckButton" parent="Scroll/Content/VisibilityGrid"]
+layout_mode = 2
+text = "Fog"
+tooltip_text = "Fog"
+
+[node name="cloud_intensityRow" type="VBoxContainer" parent="Scroll/Content"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/cloud_intensityRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/cloud_intensityRow/Heading"]
+layout_mode = 2
+text = "Cloud intensity"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/cloud_intensityRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="cloud_intensity" type="HSlider" parent="Scroll/Content/cloud_intensityRow"]
+layout_mode = 2
+step = 0.01
+tooltip_text = "Cloud intensity"
+
+[node name="sun_energyRow" type="VBoxContainer" parent="Scroll/Content"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/sun_energyRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/sun_energyRow/Heading"]
+layout_mode = 2
+text = "Sun energy"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/sun_energyRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="sun_energy" type="HSlider" parent="Scroll/Content/sun_energyRow"]
+layout_mode = 2
+step = 0.01
+tooltip_text = "Sun energy"
+
+[node name="ambient_energyRow" type="VBoxContainer" parent="Scroll/Content"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/ambient_energyRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/ambient_energyRow/Heading"]
+layout_mode = 2
+text = "Ambient energy"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/ambient_energyRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="ambient_energy" type="HSlider" parent="Scroll/Content/ambient_energyRow"]
+layout_mode = 2
+step = 0.01
+tooltip_text = "Ambient energy"
+
+[node name="Advanced" type="Button" parent="Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Advanced atmosphere & exposure"
+toggle_mode = true
+tooltip_text = "Expand Sky3D lighting, night, exposure and overlay controls"
+
+[node name="AdvancedFields" type="VBoxContainer" parent="Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+theme_override_constants/separation = 8
+
+[node name="Time&lighting" type="Label" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+text = "TIME & LIGHTING"
+theme_override_font_sizes/font_size = 14
+
+[node name="minutes_per_dayRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/minutes_per_dayRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/minutes_per_dayRow/Heading"]
+layout_mode = 2
+text = "Minutes per day"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/minutes_per_dayRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="minutes_per_day" type="HSlider" parent="Scroll/Content/AdvancedFields/minutes_per_dayRow"]
+layout_mode = 2
+step = 0.1
+tooltip_text = "Minutes per day"
+
+[node name="update_intervalRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/update_intervalRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/update_intervalRow/Heading"]
+layout_mode = 2
+text = "Update interval (seconds)"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/update_intervalRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="update_interval" type="HSlider" parent="Scroll/Content/AdvancedFields/update_intervalRow"]
+layout_mode = 2
+step = 0.016
+tooltip_text = "Update interval (seconds)"
+
+[node name="camera_exposureRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/camera_exposureRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/camera_exposureRow/Heading"]
+layout_mode = 2
+text = "World camera exposure"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/camera_exposureRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="camera_exposure" type="HSlider" parent="Scroll/Content/AdvancedFields/camera_exposureRow"]
+layout_mode = 2
+step = 0.005
+tooltip_text = "World camera exposure"
+
+[node name="tonemap_exposureRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/tonemap_exposureRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/tonemap_exposureRow/Heading"]
+layout_mode = 2
+text = "World tonemap exposure"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/tonemap_exposureRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="tonemap_exposure" type="HSlider" parent="Scroll/Content/AdvancedFields/tonemap_exposureRow"]
+layout_mode = 2
+step = 0.005
+tooltip_text = "World tonemap exposure"
+
+[node name="skydome_energyRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/skydome_energyRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/skydome_energyRow/Heading"]
+layout_mode = 2
+text = "Sky energy"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/skydome_energyRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="skydome_energy" type="HSlider" parent="Scroll/Content/AdvancedFields/skydome_energyRow"]
+layout_mode = 2
+step = 0.005
+tooltip_text = "Sky energy"
+
+[node name="sun_shadow_opacityRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/sun_shadow_opacityRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/sun_shadow_opacityRow/Heading"]
+layout_mode = 2
+text = "Sun shadow opacity"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/sun_shadow_opacityRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="sun_shadow_opacity" type="HSlider" parent="Scroll/Content/AdvancedFields/sun_shadow_opacityRow"]
+layout_mode = 2
+step = 0.005
+tooltip_text = "Sun shadow opacity"
+
+[node name="sky_contributionRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/sky_contributionRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/sky_contributionRow/Heading"]
+layout_mode = 2
+text = "Ambient sky contribution"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/sky_contributionRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="sky_contribution" type="HSlider" parent="Scroll/Content/AdvancedFields/sky_contributionRow"]
+layout_mode = 2
+step = 0.005
+tooltip_text = "Ambient sky contribution"
+
+[node name="Autoexposure" type="Label" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+text = "AUTO EXPOSURE"
+theme_override_font_sizes/font_size = 14
+
+[node name="auto_exposure" type="CheckButton" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+text = "Automatic world exposure"
+tooltip_text = "Automatic world exposure"
+
+[node name="auto_exposure_scaleRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/auto_exposure_scaleRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/auto_exposure_scaleRow/Heading"]
+layout_mode = 2
+text = "Exposure scale"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/auto_exposure_scaleRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="auto_exposure_scale" type="HSlider" parent="Scroll/Content/AdvancedFields/auto_exposure_scaleRow"]
+layout_mode = 2
+step = 0.005
+tooltip_text = "Exposure scale"
+
+[node name="auto_exposure_minRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/auto_exposure_minRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/auto_exposure_minRow/Heading"]
+layout_mode = 2
+text = "Exposure minimum"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/auto_exposure_minRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="auto_exposure_min" type="HSlider" parent="Scroll/Content/AdvancedFields/auto_exposure_minRow"]
+layout_mode = 2
+step = 0.5
+tooltip_text = "Exposure minimum"
+
+[node name="auto_exposure_maxRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/auto_exposure_maxRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/auto_exposure_maxRow/Heading"]
+layout_mode = 2
+text = "Exposure maximum"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/auto_exposure_maxRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="auto_exposure_max" type="HSlider" parent="Scroll/Content/AdvancedFields/auto_exposure_maxRow"]
+layout_mode = 2
+step = 0.5
+tooltip_text = "Exposure maximum"
+
+[node name="auto_exposure_speedRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/auto_exposure_speedRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/auto_exposure_speedRow/Heading"]
+layout_mode = 2
+text = "Adaptation speed"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/auto_exposure_speedRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="auto_exposure_speed" type="HSlider" parent="Scroll/Content/AdvancedFields/auto_exposure_speedRow"]
+layout_mode = 2
+step = 0.1
+tooltip_text = "Adaptation speed"
+
+[node name="Night" type="Label" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+text = "NIGHT"
+theme_override_font_sizes/font_size = 14
+
+[node name="night_ambient" type="CheckButton" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+text = "Night ambient lift"
+tooltip_text = "Night ambient lift"
+
+[node name="moon_energyRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/moon_energyRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/moon_energyRow/Heading"]
+layout_mode = 2
+text = "Moon energy"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/moon_energyRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="moon_energy" type="HSlider" parent="Scroll/Content/AdvancedFields/moon_energyRow"]
+layout_mode = 2
+step = 0.005
+tooltip_text = "Moon energy"
+
+[node name="moon_shadow_opacityRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/moon_shadow_opacityRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/moon_shadow_opacityRow/Heading"]
+layout_mode = 2
+text = "Moon shadow opacity"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/moon_shadow_opacityRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="moon_shadow_opacity" type="HSlider" parent="Scroll/Content/AdvancedFields/moon_shadow_opacityRow"]
+layout_mode = 2
+step = 0.005
+tooltip_text = "Moon shadow opacity"
+
+[node name="night_ambient_minRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/night_ambient_minRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/night_ambient_minRow/Heading"]
+layout_mode = 2
+text = "Minimum night ambient"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/night_ambient_minRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="night_ambient_min" type="HSlider" parent="Scroll/Content/AdvancedFields/night_ambient_minRow"]
+layout_mode = 2
+step = 0.005
+tooltip_text = "Minimum night ambient"
+
+[node name="ambient_tween_timeRow" type="VBoxContainer" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+
+
+[node name="Heading" type="HBoxContainer" parent="Scroll/Content/AdvancedFields/ambient_tween_timeRow"]
+layout_mode = 2
+
+
+[node name="Label" type="Label" parent="Scroll/Content/AdvancedFields/ambient_tween_timeRow/Heading"]
+layout_mode = 2
+text = "Ambient transition (seconds)"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+
+[node name="Value" type="Label" parent="Scroll/Content/AdvancedFields/ambient_tween_timeRow/Heading"]
+layout_mode = 2
+text = "1.00"
+theme_override_font_sizes/font_size = 13
+
+[node name="ambient_tween_time" type="HSlider" parent="Scroll/Content/AdvancedFields/ambient_tween_timeRow"]
+layout_mode = 2
+step = 0.05
+tooltip_text = "Ambient transition (seconds)"
+
+[node name="show_azimuthal_grid" type="CheckButton" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+text = "Azimuthal sky grid"
+tooltip_text = "Azimuthal sky grid"
+
+[node name="show_equatorial_grid" type="CheckButton" parent="Scroll/Content/AdvancedFields"]
+layout_mode = 2
+text = "Equatorial sky grid"
+tooltip_text = "Equatorial sky grid"
+
+[node name="Note" type="Label" parent="Scroll/Content"]
+layout_mode = 2
+text = "Sky3D controls world lighting and frame exposure. Image studio adds your GS colour grade."
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 12
+
+[node name="Reset" type="Button" parent="Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Restore scene atmosphere"
+tooltip_text = "Restore Sky3D settings captured when this scene started"

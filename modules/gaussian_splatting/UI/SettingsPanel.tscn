@@ -1,63 +1,72 @@
-[gd_scene load_steps=3 format=3]
-[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
-[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
-[node name="SettingsPanel" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+[gd_scene format=3 uid="uid://ckwpsigseqf6u"]
+
+[ext_resource type="Script" uid="uid://dsqyn3j7m563r" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b32hafhaxd5yv" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+
+[node name="SettingsPanel" type="PanelContainer" unique_id=1088886314 node_paths=PackedStringArray("drag_handle")]
 visible = false
-custom_minimum_size = Vector2(340,0)
-script = ExtResource("1")
+custom_minimum_size = Vector2(340, 0)
 theme = ExtResource("2")
-layout_id = "SettingsPanel"
+script = ExtResource("1")
 drag_handle = NodePath("Body/Header")
+layout_id = "SettingsPanel"
 
-[node name="Body" type="VBoxContainer" parent="."]
+[node name="Body" type="VBoxContainer" parent="." unique_id=1414808226]
 unique_name_in_owner = true
+layout_mode = 2
 
-
-[node name="Header" type="HBoxContainer" parent="Body"]
+[node name="Header" type="HBoxContainer" parent="Body" unique_id=775467375]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 6
 
-[node name="Title" type="Label" parent="Body/Header"]
+[node name="Title" type="Label" parent="Body/Header" unique_id=1170084820]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Workspace settings"
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 22
+text = "Workspace settings"
+horizontal_alignment = 1
 
-[node name="Close" type="Button" parent="Body/Header"]
+[node name="Close" type="Button" parent="Body/Header" unique_id=1474699916]
 unique_name_in_owner = true
 layout_mode = 2
-text = "×"
 tooltip_text = "Close panel"
+text = "×"
 
-[node name="Description" type="Label" parent="Body"]
+[node name="Description" type="Label" parent="Body" unique_id=318316583]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.68, 0.74, 1)
+theme_override_font_sizes/font_size = 13
 text = "Keep the viewport responsive and the layout yours."
 autowrap_mode = 2
-custom_minimum_size = Vector2(300,0)
-theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
 
-[node name="QualitySelector" type="OptionButton" parent="Body"]
+[node name="QualitySelector" type="OptionButton" parent="Body" unique_id=1911506064]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Performance quality · edited colors remain independent"
 
-[node name="Diagnostics" type="Button" parent="Body"]
+[node name="Diagnostics" type="Button" parent="Body" unique_id=1562976978]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Diagnostics · H"
 
-[node name="ResetLayout" type="Button" parent="Body"]
+[node name="ResetLayout" type="Button" parent="Body" unique_id=2037453886]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Reset floating layout"
 
-[node name="ClearSceneButton" type="Button" parent="Body"]
+[node name="ClearSceneButton" type="Button" parent="Body" unique_id=1278887018]
 unique_name_in_owner = true
+modulate = Color(1, 0.68, 0.66, 1)
 layout_mode = 2
 text = "Clear all loaded models"
-modulate = Color(1,0.68,0.66,1)
+
+[node name="ProgressivePreview" type="CheckButton" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Progressive import preview"
+tooltip_text = "Show resident data while loading; complete means every original splat has been verified. Object placement keeps its normal workflow."

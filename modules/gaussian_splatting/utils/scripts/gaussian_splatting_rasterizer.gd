@@ -70,9 +70,9 @@ func prepare_transparency(draws: Array[Dictionary], colors: PackedByteArray) -> 
 			transparency.cleanup();transparency=null
 		if not transparency:
 			transparency=GSTransparencyPass.new()
-			var initialized:=transparency.initialize(context,_texture_size,config.memory_max_vram_budget_mb*1048576-context.deletion_queue.get_tracked_memory())
+			var initialized:=transparency.initialize(context,_texture_size,config.memory_max_vram_budget_mb*1048576-tracked_gpu_bytes())
 			if initialized!=OK:transparency.cleanup();transparency=null;transparency_active=false;return initialized
-		var prepared:=transparency.prepare(draws,config.memory_max_vram_budget_mb*1048576-context.deletion_queue.get_tracked_memory())
+		var prepared:=transparency.prepare(draws,config.memory_max_vram_budget_mb*1048576-tracked_gpu_bytes())
 		transparency_active=prepared==OK
 		return prepared
 	)
@@ -284,13 +284,38 @@ func clear_gpu_memory() -> void:
 	should_terminate_thread[0] = false
 	_reported_overflow = false
 
-func upload_splat_data(data: PackedByteArray, offset_bytes: int) -> Error:
-	if not gpu_init_complete or offset_bytes < 0 or data.size() % GSConstants.SPLAT_STRUCT_BYTES != 0 or offset_bytes + data.size() > atlas_capacity_splats * GSConstants.SPLAT_STRUCT_BYTES:
-		return ERR_PARAMETER_RANGE_ERROR
-	var generation := _generation
+var _import_reserved_bytes:=0
+func tracked_gpu_bytes()->int:
+	_upload_mutex.lock();var reserved:=_import_reserved_bytes;_upload_mutex.unlock()
+	return context.deletion_queue.get_tracked_memory()+reserved
+func reserve_import_scratch()->int:
+	return int(_sync(func():
+		var available:=maxi(0,config.memory_max_vram_budget_mb*1048576-context.deletion_queue.get_tracked_memory())
+		_upload_mutex.lock();_import_reserved_bytes=mini(128*1048576,int(available/2));var reserved:=_import_reserved_bytes;_upload_mutex.unlock()
+		return reserved
+	))
+func release_import_scratch()->void:
+	_upload_mutex.lock();_import_reserved_bytes=0;_upload_mutex.unlock()
+var _upload_mutex:=Mutex.new()
+var _queued_upload_bytes:Dictionary={}
+var _upload_failures:Dictionary={}
+func queued_upload_bytes()->int:
+	_upload_mutex.lock();var amount:=int(_queued_upload_bytes.get(_generation,0));_upload_mutex.unlock();return amount
+func take_upload_error()->int:
+	_upload_mutex.lock();var error:=int(_upload_failures.get(_generation,OK));_upload_failures.erase(_generation);_upload_mutex.unlock();return error
+func upload_splat_data(data:PackedByteArray,offset_bytes:int)->Error:
+	if not gpu_init_complete or offset_bytes<0 or data.size()%GSConstants.SPLAT_STRUCT_BYTES!=0 or offset_bytes+data.size()>atlas_capacity_splats*GSConstants.SPLAT_STRUCT_BYTES:return ERR_PARAMETER_RANGE_ERROR
+	var epoch:=_generation;var amount:=data.size()
+	_upload_mutex.lock();_queued_upload_bytes[epoch]=int(_queued_upload_bytes.get(epoch,0))+amount;_upload_mutex.unlock()
 	RenderingServer.call_on_render_thread(func():
-		if generation == _generation and gpu_init_complete:
-			context.device.buffer_update(descriptors.splats.rid, offset_bytes, data.size(), data)
+		var result:int=OK
+		if epoch==_generation and gpu_init_complete:result=context.device.buffer_update(descriptors.splats.rid,offset_bytes,amount,data)
+		_upload_mutex.lock()
+		var remaining:=int(_queued_upload_bytes.get(epoch,amount))-amount
+		if remaining>0:_queued_upload_bytes[epoch]=remaining
+		else:_queued_upload_bytes.erase(epoch)
+		if result!=OK and epoch==_generation:_upload_failures[epoch]=result
+		_upload_mutex.unlock()
 	)
 	return OK
 
@@ -485,7 +510,7 @@ func resize(size: Vector2i) -> Error:
 		return OK
 	var additional := next.x * next.y * 16 + ((next.x + config.tile_size - 1) / config.tile_size) * ((next.y + config.tile_size - 1) / config.tile_size) * 8
 	var previous := _texture_size.x * _texture_size.y * 16 + tile_dims.x * tile_dims.y * 8
-	if context.deletion_queue.get_tracked_memory() + additional > int(_allocation_plan.budget):
+	if tracked_gpu_bytes() + additional > int(_allocation_plan.budget):
 		return ERR_OUT_OF_MEMORY
 	var result: Error = _sync(func():
 		if transparency:transparency.cleanup();transparency=null;transparency_active=false

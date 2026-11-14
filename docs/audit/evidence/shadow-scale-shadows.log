@@ -1,0 +1,109 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-shadow-scale-qa
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:3 - ext_resource, invalid UID: uid://h5f2ildmbs1h - using text path instead: res://modules/gaussian_splatting/UI/art/button_hover.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scan (res://tests/script_checks.gd:13)
+       [1] scan (res://tests/script_checks.gd:17)
+       [2] scan (res://tests/script_checks.gd:17)
+       [3] _initialize (res://tests/script_checks.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:4 - ext_resource, invalid UID: uid://dlfvu6u6eaoh2 - using text path instead: res://modules/gaussian_splatting/UI/art/button_normal.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scan (res://tests/script_checks.gd:13)
+       [1] scan (res://tests/script_checks.gd:17)
+       [2] scan (res://tests/script_checks.gd:17)
+       [3] _initialize (res://tests/script_checks.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:5 - ext_resource, invalid UID: uid://4n6ae5yv86xa - using text path instead: res://modules/gaussian_splatting/UI/art/button_pressed.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scan (res://tests/script_checks.gd:13)
+       [1] scan (res://tests/script_checks.gd:17)
+       [2] scan (res://tests/script_checks.gd:17)
+       [3] _initialize (res://tests/script_checks.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:6 - ext_resource, invalid UID: uid://bo1ggjab3f1qb - using text path instead: res://modules/gaussian_splatting/UI/art/panel_frame.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scan (res://tests/script_checks.gd:13)
+       [1] scan (res://tests/script_checks.gd:17)
+       [2] scan (res://tests/script_checks.gd:17)
+       [3] _initialize (res://tests/script_checks.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:7 - ext_resource, invalid UID: uid://b4vipovlru5nj - using text path instead: res://modules/gaussian_splatting/UI/art/slider_gem.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] scan (res://tests/script_checks.gd:13)
+       [1] scan (res://tests/script_checks.gd:17)
+       [2] scan (res://tests/script_checks.gd:17)
+       [3] _initialize (res://tests/script_checks.gd:4)
+
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (0.557086, 1.371391, 0.742781)
+[CameraController] Camera transform set to: (0.557086, 1.371391, 0.742781)
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 5.0)
+SHADOW PIXELS original (1.0, 1.0, 1.0, 1.0) shadowed (0.6196, 0.6196, 0.6196, 1.0)
+PASS directional shadow map is built from the existing Gaussian atlas
+PASS actual Gaussian opacity casts a visible shadow onto the ordinary receiver material
+SHADOW MOVED (0.9961, 0.9961, 0.9961, 1.0) new (0.6078, 0.6078, 0.6078, 1.0)
+PASS shadow follows the model transform and clears its former location
+PASS per-model cast toggle removes its shadow without changing Gaussian residency
+PASS quality migration retains the resident model without reopening its deleted source
+PASS quality migration rebuilds transparent and shadow caches together
+PASS ordinary receiver shadow pixels remain correct after quality migration
+PASS failed quality rebuild restores the working transparency and shadow contract
+PASS failed rebuild retains actual shadow pixels and the complete resident source
+[FreeLookCamera] Movement state reset. Position: (0.0, 0.1, 3.0)
+[CameraController] Camera transform set to: (0.0, 0.1, 3.0)
+RECEIVER SCENE [X: (2.0, 0.0, 0.0), Y: (0.0, 2.0, 0.0), Z: (0.0, 0.0, 2.0), O: (0.0, 0.1, 0.0)] size (120, 64) stats 2 active 3
+GAUSSIAN RECEIVER (0.4516, 0.1684, 0.1684, 0.7868) shaded (0.0544, 0.0203, 0.0203, 0.7868)
+PASS opt-in Gaussian receiver darkens captured radiance while preserving opacity
+PASS disabling Gaussian receiving restores captured radiance
+PASS shadow changes preserve the full source model
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 5.0)
+PASS viewer teardown removes its shadow from a surviving ordinary receiver
+SHADOW CHECKS COMPLETE: 0 failures
+ WARNING: [GSViewer] GPU configuration preserved: Unavailable
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:882)
+       [1] _apply_config (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:260)
+       [2] _migrate_atlas (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1110)
+       [3] restore (res://modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd:100)
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpArrayLength is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpArrayLength is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpArrayLength is not supported yet.
+
+Process exit: 0

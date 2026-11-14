@@ -53,49 +53,47 @@ func get_vertex(index: int) -> Dictionary:
 func is_valid() -> bool:
 	return document != null and size > 0 and error_message.is_empty()
 
-static func pack_chunk(values: PackedFloat32Array, property_count: int, mapping: Dictionary, instance_id: int, creation_time: float = -2.0) -> Dictionary:
-	var count := values.size() / property_count
-	var packed := PackedFloat32Array()
-	packed.resize(count * GSConstants.SPLAT_STRUCT_FLOATS)
-	var bounds := AABB()
-	var sum := Vector3.ZERO
-	var ys := PackedFloat32Array()
+static func pack_chunk(values:PackedFloat32Array,property_count:int,mapping:Dictionary,instance_id:int,creation_time:float=-2.0,collect_y_samples:bool=true)->Dictionary:
+	var count:=int(values.size()/property_count)
+	var packed:=PackedFloat32Array();packed.resize(count*GSConstants.SPLAT_STRUCT_FLOATS)
+	var bounds:=AABB();var sum:=Vector3.ZERO;var ys:=PackedFloat32Array()
+	# Resolve schema once per block; no dictionaries or temporary arrays in the row loop.
+	var px:int=mapping.x;var py:int=mapping.y;var pz:int=mapping.z
+	var sx:int=mapping.sx;var sy:int=mapping.sy;var sz:int=mapping.sz
+	var rw:int=mapping.rw;var rx:int=mapping.rx;var ry:int=mapping.ry;var rz:int=mapping.rz
+	var opacity:int=mapping.opacity
+	var dc:=PackedInt32Array(mapping.dc);var rgb:=PackedInt32Array(mapping.rgb)
+	var divisors:=PackedFloat64Array(mapping.rgb_divisors);var rest:=PackedInt32Array(mapping.rest)
+	var has_dc:=not -1 in dc;var coefficients:=int(rest.size()/3)
 	for i in range(count):
-		var v := i * property_count
-		var b := i * GSConstants.SPLAT_STRUCT_FLOATS
-		var position := Vector3(values[v + mapping.x], values[v + mapping.y], values[v + mapping.z])
-		var scales := Vector3(values[v + mapping.sx], values[v + mapping.sy], values[v + mapping.sz])
-		# Negative log-scales are valid, including almost planar Gaussians.
-		# Only reject a positive scale whose squared magnitude cannot fit float32 covariance.
-		if scales.x > 44.0 or scales.y > 44.0 or scales.z > 44.0:
-			return {"error": "Gaussian covariance exceeds float32 representation"}
-		var q := Quaternion(values[v + mapping.rx], values[v + mapping.ry], values[v + mapping.rz], values[v + mapping.rw])
-		if q.length_squared() < 0.00000001:
-			return {"error": "Gaussian rotation is a zero quaternion"}
-		var matrix := Basis(q.normalized()) * Basis.from_scale(Vector3(exp(scales.x), exp(scales.y), exp(scales.z)))
-		var cov := matrix * matrix.transposed()
-		packed[b] = position.x
-		packed[b + 1] = position.y
-		packed[b + 2] = position.z
-		packed[b + 3] = creation_time
-		var covariance := [cov.x.x, cov.y.x, cov.z.x, cov.y.y, cov.z.y, cov.z.z]
-		for j in range(6):
-			packed[b + 4 + j] = covariance[j]
-		packed[b + 10] = 1.0 / (1.0 + exp(-clampf(values[v + mapping.opacity], -80.0, 80.0)))
-		packed[b + 11] = float(instance_id)
-		if not -1 in mapping.dc:
-			for channel in range(3):
-				packed[b + 12 + channel] = values[v + mapping.dc[channel]]
+		var v:=i*property_count;var b:=i*GSConstants.SPLAT_STRUCT_FLOATS
+		var position:=Vector3(values[v+px],values[v+py],values[v+pz])
+		var scales:=Vector3(values[v+sx],values[v+sy],values[v+sz])
+		if scales.x>44.0 or scales.y>44.0 or scales.z>44.0:return {"error":"Gaussian covariance exceeds float32 representation"}
+		var q:=Quaternion(values[v+rx],values[v+ry],values[v+rz],values[v+rw])
+		if q.length_squared()<0.00000001:return {"error":"Gaussian rotation is a zero quaternion"}
+		var matrix:=Basis(q.normalized())*Basis.from_scale(Vector3(exp(scales.x),exp(scales.y),exp(scales.z)))
+		var cov:=matrix*matrix.transposed()
+		packed[b]=position.x;packed[b+1]=position.y;packed[b+2]=position.z;packed[b+3]=creation_time
+		packed[b+4]=cov.x.x;packed[b+5]=cov.y.x;packed[b+6]=cov.z.x
+		packed[b+7]=cov.y.y;packed[b+8]=cov.z.y;packed[b+9]=cov.z.z
+		packed[b+10]=1.0/(1.0+exp(-clampf(values[v+opacity],-80.0,80.0)))
+		packed[b+11]=float(instance_id)
+		if has_dc:
+			packed[b+12]=values[v+dc[0]];packed[b+13]=values[v+dc[1]];packed[b+14]=values[v+dc[2]]
 		else:
-			for channel in range(3):
-				var color_value := values[v + mapping.rgb[channel]]
-				packed[b + 12 + channel] = (clampf(color_value / mapping.rgb_divisors[channel], 0.0, 1.0) - 0.5) / 0.28209479177387814
-		var coefficients: int = mapping.rest.size() / 3
+			for channel in range(3):packed[b+12+channel]=(clampf(values[v+rgb[channel]]/divisors[channel],0.0,1.0)-0.5)/0.28209479177387814
 		for coefficient in range(coefficients):
-			for channel in range(3):
-				packed[b + 15 + coefficient * 3 + channel] = values[v + mapping.rest[channel * coefficients + coefficient]]
-		bounds = AABB(position, Vector3.ZERO) if i == 0 else bounds.expand(position)
-		sum += position
-		if i % 16 == 0:
-			ys.append(position.y)
-	return {"data": packed.to_byte_array(), "count": count, "aabb": bounds, "sum": sum, "y_samples": ys}
+			var out:=b+15+coefficient*3
+			packed[out]=values[v+rest[coefficient]]
+			packed[out+1]=values[v+rest[coefficients+coefficient]]
+			packed[out+2]=values[v+rest[coefficients*2+coefficient]]
+		bounds=AABB(position,Vector3.ZERO) if i==0 else bounds.expand(position)
+		sum+=position
+		if collect_y_samples and i%16==0:ys.append(position.y)
+	return {"data":packed.to_byte_array(),"count":count,"aabb":bounds,"sum":sum,"y_samples":ys}
+
+static func validated_pack(values:PackedFloat32Array,property_count:int,mapping:Dictionary,instance_id:int,created:float)->Dictionary:
+	for value in values:
+		if not is_finite(value):return {"error":"PLY contains non-finite or unrepresentable values"}
+	return pack_chunk(values,property_count,mapping,instance_id,created,false)

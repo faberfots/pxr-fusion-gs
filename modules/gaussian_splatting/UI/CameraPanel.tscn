@@ -1,75 +1,79 @@
-[gd_scene load_steps=3 format=3]
-[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
-[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
-[node name="CameraPanel" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+[gd_scene format=3 uid="uid://b14esx2iksrq6"]
+
+[ext_resource type="Script" uid="uid://dsqyn3j7m563r" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b32hafhaxd5yv" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+
+[node name="CameraPanel" type="PanelContainer" unique_id=435869818 node_paths=PackedStringArray("drag_handle")]
 visible = false
-custom_minimum_size = Vector2(340,0)
-script = ExtResource("1")
+custom_minimum_size = Vector2(340, 0)
 theme = ExtResource("2")
-layout_id = "CameraPanel"
+script = ExtResource("1")
 drag_handle = NodePath("Body/Header")
+layout_id = "CameraPanel"
 
-[node name="Body" type="VBoxContainer" parent="."]
+[node name="Body" type="VBoxContainer" parent="." unique_id=570147251]
 unique_name_in_owner = true
+layout_mode = 2
 
-
-[node name="Header" type="HBoxContainer" parent="Body"]
+[node name="Header" type="HBoxContainer" parent="Body" unique_id=2132629122]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 6
 
-[node name="Title" type="Label" parent="Body/Header"]
+[node name="Title" type="Label" parent="Body/Header" unique_id=1864158510]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Camera & navigation"
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 22
+text = "Camera & navigation"
+horizontal_alignment = 1
 
-[node name="Close" type="Button" parent="Body/Header"]
+[node name="Close" type="Button" parent="Body/Header" unique_id=1595000043]
 unique_name_in_owner = true
 layout_mode = 2
-text = "×"
 tooltip_text = "Close panel"
+text = "×"
 
-[node name="Description" type="Label" parent="Body"]
+[node name="Description" type="Label" parent="Body" unique_id=1585631113]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.68, 0.74, 1)
+theme_override_font_sizes/font_size = 13
 text = "A comfortable view, with a protected camera."
 autowrap_mode = 2
-custom_minimum_size = Vector2(300,0)
-theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
 
-[node name="Home" type="Button" parent="Body"]
+[node name="Home" type="Button" parent="Body" unique_id=797909952]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Home view"
 
-[node name="FrameSelected" type="Button" parent="Body"]
+[node name="FrameSelected" type="Button" parent="Body" unique_id=1707299665]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Frame selected"
 
-[node name="FrameAll" type="Button" parent="Body"]
+[node name="FrameAll" type="Button" parent="Body" unique_id=322579682]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Frame all visible models"
 
-[node name="ProtectedFly" type="CheckButton" parent="Body"]
+[node name="ProtectedFly" type="CheckButton" parent="Body" unique_id=2064986023]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Protect camera from floor and colliders"
 button_pressed = true
+text = "Protect camera from floor and colliders"
 
-[node name="OrbitMode" type="CheckButton" parent="Body"]
+[node name="OrbitMode" type="CheckButton" parent="Body" unique_id=318299594]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Orbit camera"
 
-[node name="SafetyNote" type="Label" parent="Body"]
+[node name="SafetyNote" type="Label" parent="Body" unique_id=1802988057]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Floor protection is independent of grid visibility.\nScanned walls need a physical collision proxy."
-autowrap_mode = 2
 theme_override_font_sizes/font_size = 12
+text = "Floor protection is independent of grid visibility.
+Scanned walls need a physical collision proxy."
+autowrap_mode = 2

@@ -28,6 +28,7 @@ func _attach(original:Material,surface:int)->void:
 func apply_shadow(frame:Dictionary,settings:GSLightingSettings)->void:
 	for entry in _passes:
 		var shadow:ShaderMaterial=entry.shadow
+		shadow.set_shader_parameter("receiver_cull_mode",entry.derived.cull_mode)
 		shadow.set_shader_parameter("shadow_enabled",not frame.is_empty() and settings.shadows_enabled)
 		if frame.is_empty():continue
 		shadow.set_shader_parameter("gaussian_shadow_map",frame.texture)

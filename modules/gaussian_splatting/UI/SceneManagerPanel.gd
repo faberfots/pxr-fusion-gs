@@ -62,6 +62,9 @@ var _object_list_item_scene: PackedScene = preload("res://modules/gaussian_splat
 #endregion
 
 
+func _enter_tree()->void:
+	%CompositionFiles.viewer=viewer
+
 func _ready() -> void:
 	add_to_group("gs_scene_managers")
 	# Validate viewer reference
@@ -85,6 +88,10 @@ func _ready() -> void:
 	%ReceiveShadow.toggled.connect(func(value):
 		if not _is_updating_ui and is_instance_valid(selected_node):selected_node.receive_gaussian_shadows=value
 	)
+	%ContentKind.item_selected.connect(func(index):
+		if not _is_updating_ui and is_instance_valid(selected_node):selected_node.import_kind=index as GaussianSplat.ImportKind
+	)
+	%EnterEnvironment.pressed.connect(func():viewer.enter_environment(selected_node))
 	%Search.text_changed.connect(func(_value):_filter_rows())
 	%GPUDetails.pressed.connect(func():info_section.visible=not info_section.visible)
 	# Connect UI signals
@@ -235,6 +242,7 @@ func _update_transform_controls_enabled(enabled: bool) -> void:
 	scale_uniform.editable = enabled
 	reset_button.disabled = not enabled
 	for control in [%ScaleX,%ScaleY,%ScaleZ]:control.editable=enabled
+	%ContentKind.disabled=not enabled;%EnterEnvironment.disabled=not enabled
 	%CastShadow.disabled=not enabled;%ReceiveShadow.disabled=not enabled
 
 
@@ -261,6 +269,8 @@ func _sync_ui_to_node_transform() -> void:
 	# Scale (uniform - use X as reference)
 	scale_uniform.value = t.basis.get_scale().x
 	%ScaleX.value=selected_node.scale.x;%ScaleY.value=selected_node.scale.y;%ScaleZ.value=selected_node.scale.z
+	%ContentKind.select(int(selected_node.import_kind))
+	%EnterEnvironment.disabled=viewer.resolve_import_kind(selected_node)!=GaussianSplat.ImportKind.ENVIRONMENT
 	%CastShadow.button_pressed=selected_node.cast_gaussian_shadows
 	%ReceiveShadow.button_pressed=selected_node.receive_gaussian_shadows
 	

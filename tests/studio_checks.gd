@@ -99,7 +99,7 @@ func run()->void:
 	check(not dock.get_node("%Actions").visible,"command dock collapses to its compact launcher")
 	dock.set_expanded(true)
 	dock.position=Vector2(-9000,9000);dock._fit()
-	check(dock.position.x>=0 and dock.position.y+dock.size.y<=root.get_visible_rect().size.y,"floating dock remains recoverable inside logical viewport bounds")
+	check(dock.position.x>=0 and GSUiScale.screen_rect(dock).end.y<=root.get_visible_rect().size.y,"floating dock remains recoverable inside logical viewport bounds")
 	dock.reset_layout()
 	viewer.select_model_id(a.model_id);var survivor:=a.global_transform
 	navigator.pos_y.value+=0.2

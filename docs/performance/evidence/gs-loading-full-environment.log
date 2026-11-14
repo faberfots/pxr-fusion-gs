@@ -1,0 +1,36 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-loading-f
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS full Bali enters the default Auto import route
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (-2.481818, 0.225, 1.431885)
+[CameraController] Camera transform set to: (-2.481818, 0.225, 1.431885)
+PASS all 7,739,833 Bali splats load without entering object placement
+PASS Bali retains its exact original source transform
+PASS Bali starts in the environment walkthrough camera
+PASS Suzuki can still be placed as an object inside Bali
+PASS full Suzuki reaches a valid placement preview
+PASS Bali plus Suzuki retain all 7,959,786 splats after confirmation
+PASS object placement preserves Bali and its walkthrough view
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (-2.481818, 0.225, 1.431885)
+[CameraController] Camera transform set to: (-2.481818, 0.225, 1.431885)
+PASS Home restores Bali entry even with Suzuki selected
+REAL ENVIRONMENT EVIDENCE {"bali_pose":[1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0],"camera_pose":[1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,-2.48181819915771,0.224999994039536,1.43188524246216],"load_and_review_ms":33616,"splats":7959786}
+REAL ENVIRONMENT COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "qualified_contract": "Godot 4.6.2, Windows x86_64, local NVIDIA Vulkan; optimized unsigned template and real main-scene startup. Broader P.X.Y platform/account/provenance boundaries remain separate.",
+  "measurement_method": "Elapsed profiles emitted inside Godot by GDScript; Windows filesystem cache available. Empty preparation cache does not mean uncached physical disk. No source downsampling.",
+  "phases": {
+    "A": {
+      "status": "fully implemented",
+      "title": "GDScript profiling and baseline",
+      "evidence": {
+        "bali_splats": 7739833,
+        "complete_us": 91561298,
+        "pack_us": 69919986,
+        "read_validate_us": 13415099,
+        "source_hash_us": 6260774,
+        "queue_wait_us": 1354919,
+        "first_frame_us": 91614998
+      }
+    },
+    "B": {
+      "status": "fully implemented",
+      "title": "Bounded upload scheduling",
+      "evidence": "loading_scheduler_checks: complete blocks, source SHA, render errors/backpressure, quality independence, clear/cancel"
+    },
+    "C": {
+      "status": "fully implemented",
+      "title": "CPU conversion and binary path",
+      "evidence": {
+        "bali_complete_us": 41040433,
+        "pack_us": 22408196,
+        "core_checks": "pass"
+      }
+    },
+    "D": {
+      "status": "fully implemented",
+      "title": "Validated preparation cache",
+      "evidence": {
+        "bali_cold_cache_build_us": 59461295,
+        "bali_repeat_us": 31862246,
+        "cache_checks": "pass: corrupt data, source edit, unowned folder, cancellation"
+      }
+    },
+    "E": {
+      "status": "fully implemented",
+      "title": "Bounded parallel and GLSL conversion",
+      "evidence": {
+        "bali_cold_us": 11540021,
+        "bali_repeat_us": [
+          7483124,
+          6812165
+        ],
+        "final_confirmation": {
+          "empty_preparation_cache_us": 7925910,
+          "verified_repeat_us": [7148533, 7000883],
+          "evidence": "final-bali.log"
+        },
+        "baseline_us": 91561298,
+        "checks": [
+          "loading_gpu_checks: numeric and SHA parity",
+          "loading_parallel_checks",
+          "loading_scheduler_checks",
+          "loading_cache_checks"
+        ],
+        "backend": "GDScript with bounded GLSL conversion/validation and SHA-256 leaves; no new native module"
+      }
+    },
+    "F": {
+      "status": "fully implemented",
+      "title": "Composition throughput and progressive residency",
+      "evidence": {
+        "combined_splats": 7959786,
+        "save_us": 6605273,
+        "occupied_open_us": 32782904,
+        "checkpoint_us": 18169506,
+        "checkpoint_backend": "prepared_exact",
+        "checks": [
+          "loading_checkpoint_checks: exact GPU-byte equality and corrupt-cache GPU fallback",
+          "loading_progressive_checks: opt-in prefix, honest residency/commit counts and cancellation",
+          "composition_checks",
+          "composition_lifecycle_checks",
+          "migration_recovery_checks"
+        ],
+        "qualification": "Preservation suites, 1908x960 full Bali/Suzuki visual review, real-main optimized startup and full optimized-template qualification pass",
+        "optimized_template_population": 7959786,
+        "optimized_template_load_ms": 8404,
+        "report": "LOADING.md",
+        "receipt": "loading-receipt.json"
+      }
+    }
+  }
+}

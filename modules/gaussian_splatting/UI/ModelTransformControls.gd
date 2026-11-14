@@ -7,7 +7,7 @@ const COLORS:=[Color("ff6b78"),Color("74dda4"),Color("6aaeff")]
 var viewer:GaussianSplattingViewer
 var layout_host:Node
 var mode:Mode=Mode.SELECT
-var toolbar:PanelContainer
+var toolbar:GSFloatingPanel
 var selection_label:Label
 var buttons:Array[Button]=[]
 var dragging:=false
@@ -28,6 +28,7 @@ var _group_node:Dictionary={}
 func _ready()->void:
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
 	toolbar=%Toolbar;selection_label=%SelectionLabel
+	toolbar.drag_changed.connect(func(active):viewer.set_camera_blocker("model_toolbar",active))
 	buttons.assign([%Select,%Move,%Rotate,%Scale])
 	for i in range(4):buttons[i].pressed.connect(set_mode.bind(i))
 	buttons[0].button_pressed=true
@@ -60,13 +61,17 @@ func _place_toolbar()->void:
 	if not is_instance_valid(toolbar):return
 	%Row.columns=6 if get_viewport_rect().size.x>=850 else 3
 	toolbar.reset_size()
-	toolbar.scale=Vector2.ONE
+	GSUiScale.apply(toolbar)
+	if toolbar._placed or toolbar._dragging:
+		toolbar._fit()
+		return
 	var viewport:=get_viewport_rect().size
-	var y:=viewport.y-toolbar.size.y-58
+	var toolbar_size:=GSUiScale.extent(toolbar)
+	var y:=viewport.y-toolbar_size.y-38
 	var spaces:Array[Vector2]=[Vector2(12,viewport.x-12)]
 	if is_instance_valid(layout_host):
 		for obstacle in layout_host.get_ui_obstacles():
-			if obstacle.end.y<y or obstacle.position.y>y+toolbar.size.y:continue
+			if obstacle.end.y<y or obstacle.position.y>y+toolbar_size.y:continue
 			var next:Array[Vector2]=[]
 			for space in spaces:
 				if obstacle.end.x+12<=space.x or obstacle.position.x-12>=space.y:next.append(space);continue
@@ -75,20 +80,29 @@ func _place_toolbar()->void:
 			spaces=next
 	var best:=Vector2.ZERO
 	for space in spaces:
-		if space.y-space.x>=toolbar.size.x and space.y-space.x>best.y-best.x:best=space
-	if best.y>best.x:toolbar.position=Vector2((best.x+best.y-toolbar.size.x)*0.5,y)
-	else:toolbar.position=Vector2(maxf(12,(viewport.x-toolbar.size.x)*0.5),24)
+		if space.y-space.x>=toolbar_size.x and space.y-space.x>best.y-best.x:best=space
+	if best.y>best.x:toolbar.position=Vector2((best.x+best.y-toolbar_size.x)*0.5,y)
+	else:toolbar.position=Vector2(maxf(12,(viewport.x-toolbar_size.x)*0.5),24)
 func set_mode(value:int)->void:
 	if dragging:finish_drag(true)
 	mode=value as Mode
 	for i in range(buttons.size()):buttons[i].set_pressed_no_signal(i==value)
 	queue_redraw()
+func reset_toolbar_layout()->void:
+	toolbar._placed=false
+	var file:=ConfigFile.new();file.load(GSFloatingPanel.LAYOUT_PATH)
+	if file.has_section(toolbar.layout_id):file.erase_section(toolbar.layout_id)
+	file.save(GSFloatingPanel.LAYOUT_PATH)
+	_place_toolbar()
 func _on_model_clicked(id:String,point:Vector3)->void:
 	var model:=viewer.get_selected_model()
 	if model and point.is_finite():
 		_anchor_model=id
 		_anchor_local=viewer.get_model_edit_transform(model).affine_inverse()*point
 func _process(_delta:float)->void:
+	if is_instance_valid(viewer) and viewer.placement_active:
+		if dragging:finish_drag(true)
+		toolbar.hide();_can_draw=false;queue_redraw();return
 	var model:=viewer.get_selected_model() if is_instance_valid(viewer) else null
 	if dragging and (not is_visible_in_tree() or not model or not model.is_visible_in_tree() or viewer._atlas_migration):finish_drag(true)
 	selection_label.text=model.file_path.get_file() if model else "Click a model"
@@ -98,7 +112,7 @@ func _process(_delta:float)->void:
 	_place_toolbar()
 	_can_draw=false
 	queue_redraw()
-	if not model or not model.is_visible_in_tree() or mode==Mode.SELECT or viewer._atlas_migration:return
+	if not model or not model.is_visible_in_tree() or mode==Mode.SELECT or viewer._atlas_migration or viewer.composition_busy:return
 	var camera:=viewer.get_camera()
 	if not camera:return
 	if not dragging:
@@ -115,38 +129,39 @@ func _process(_delta:float)->void:
 	_ends.clear()
 	for axis in range(3):
 		var direction:Vector3=viewer.get_model_edit_transform(model).basis[axis].normalized() if mode==Mode.SCALE else AXES[axis]
-		var projected:=camera.unproject_position(visible_pivot+direction*maxf(0.1,_units*80))-_center
+		var projected:=camera.unproject_position(visible_pivot+direction*maxf(0.1,_units*80*GSUiScale.FACTOR))-_center
 		var fallback:Vector2=[Vector2.RIGHT,Vector2.UP,Vector2(-0.7,0.7)][axis]
-		_ends.append(_center+(projected.normalized() if projected.length()>5 else fallback.normalized())*80)
+		_ends.append(_center+(projected.normalized() if projected.length()>5 else fallback.normalized())*80*GSUiScale.FACTOR)
 	_can_draw=true
 	queue_redraw()
 func _draw()->void:
 	if not _can_draw:return
 	if mode==Mode.ROTATE:
 		for axis in range(3):
-			var radius:=38.0+axis*12
-			draw_arc(_center,radius,0,TAU,72,COLORS[axis],2,true)
-			draw_string(ThemeDB.fallback_font,_center+Vector2(radius+4,0),["X","Y","Z"][axis],HORIZONTAL_ALIGNMENT_LEFT,-1,13,COLORS[axis])
+			var radius:=(38.0+axis*12)*GSUiScale.FACTOR
+			draw_arc(_center,radius,0,TAU,72,COLORS[axis],2*GSUiScale.FACTOR,true)
+			draw_string(ThemeDB.fallback_font,_center+Vector2(radius+4*GSUiScale.FACTOR,0),["X","Y","Z"][axis],HORIZONTAL_ALIGNMENT_LEFT,-1,roundi(13*GSUiScale.FACTOR),COLORS[axis])
 	else:
 		for axis in range(3):
-			draw_line(_center,_ends[axis],Color(0,0,0,0.65),5,true)
-			draw_line(_center,_ends[axis],COLORS[axis],2.5,true)
-			draw_circle(_ends[axis],5,COLORS[axis],true,-1,true)
-			draw_string(ThemeDB.fallback_font,_ends[axis]+Vector2(8,-5),["X","Y","Z"][axis],HORIZONTAL_ALIGNMENT_LEFT,-1,14,COLORS[axis])
-	draw_circle(_center,8,Color("18222f"),true,-1,true)
-	draw_arc(_center,8,0,TAU,24,Color.WHITE,1.5,true)
+			draw_line(_center,_ends[axis],Color(0,0,0,0.65),5*GSUiScale.FACTOR,true)
+			draw_line(_center,_ends[axis],COLORS[axis],2.5*GSUiScale.FACTOR,true)
+			draw_circle(_ends[axis],5*GSUiScale.FACTOR,COLORS[axis],true,-1,true)
+			draw_string(ThemeDB.fallback_font,_ends[axis]+Vector2(8,-5)*GSUiScale.FACTOR,["X","Y","Z"][axis],HORIZONTAL_ALIGNMENT_LEFT,-1,roundi(14*GSUiScale.FACTOR),COLORS[axis])
+	draw_circle(_center,8*GSUiScale.FACTOR,Color("18222f"),true,-1,true)
+	draw_arc(_center,8*GSUiScale.FACTOR,0,TAU,24,Color.WHITE,1.5*GSUiScale.FACTOR,true)
 func handle_at(point:Vector2)->int:
 	if not _can_draw:return -2
-	if point.distance_to(_center)<12:return -1
+	if point.distance_to(_center)<12*GSUiScale.FACTOR:return -1
 	if mode==Mode.ROTATE:
 		for axis in range(3):
-			if absf(point.distance_to(_center)-(38+axis*12))<6:return axis
+			if absf(point.distance_to(_center)-(38+axis*12)*GSUiScale.FACTOR)<6*GSUiScale.FACTOR:return axis
 	else:
 		for axis in range(3):
-			if point.distance_to(Geometry2D.get_closest_point_to_segment(point,_center.lerp(_ends[axis],0.2),_ends[axis]))<8:return axis
+			if point.distance_to(Geometry2D.get_closest_point_to_segment(point,_center.lerp(_ends[axis],0.2),_ends[axis]))<8*GSUiScale.FACTOR:return axis
 	return -2
 func _input(event:InputEvent)->void:
 	if not is_instance_valid(viewer) or not is_visible_in_tree():return
+	if viewer.placement_active:return
 	if dragging:
 		if event is InputEventMouseMotion:update_drag(event.position);get_viewport().set_input_as_handled()
 		elif event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT and not event.pressed:finish_drag(false);get_viewport().set_input_as_handled()
@@ -158,6 +173,7 @@ func _input(event:InputEvent)->void:
 		var hit:=handle_at(event.position)
 		if hit!=-2 and begin_drag(hit,event.position):get_viewport().set_input_as_handled()
 func _unhandled_key_input(event:InputEvent)->void:
+	if is_instance_valid(viewer) and viewer.placement_active:return
 	if event is InputEventKey and event.pressed and not event.echo and (event.ctrl_pressed or event.meta_pressed) and event.keycode==KEY_Z:
 		var focus:=get_viewport().gui_get_focus_owner()
 		if focus is LineEdit or focus is TextEdit:return
@@ -167,7 +183,7 @@ func _unhandled_key_input(event:InputEvent)->void:
 		set_mode(event.keycode-KEY_1);get_viewport().set_input_as_handled()
 func begin_drag(axis:int,point:Vector2)->bool:
 	var model:=viewer.get_selected_model()
-	if not model or not model.is_loaded or viewer._atlas_migration or mode==Mode.SELECT:return false
+	if not model or not model.is_loaded or viewer._atlas_migration or viewer.composition_busy or mode==Mode.SELECT:return false
 	if absf(model.global_basis.determinant())<0.000001:return false
 	_axis=axis;_start=point;_initial=viewer.get_model_edit_transform(model);_initial_node=model.global_transform;_drag_model=weakref(model);dragging=true
 	_group_edit.clear();_group_node.clear()
@@ -220,4 +236,6 @@ func finish_drag(cancelled:bool)->void:
 func _notification(what:int)->void:
 	if what==NOTIFICATION_WM_WINDOW_FOCUS_OUT and dragging:finish_drag(true)
 func _exit_tree()->void:
-	if is_instance_valid(viewer):finish_drag(true)
+	if is_instance_valid(viewer):
+		finish_drag(true)
+		viewer.set_camera_blocker("model_toolbar",false)

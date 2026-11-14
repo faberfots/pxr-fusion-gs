@@ -128,8 +128,185 @@ var _hybrid_nodes: Array[GSAlphaMesh3D] = []
 var _hybrid_signature := 0
 var _hybrid_error := ""
 signal model_clicked(model_id:String,world_position:Vector3)
+signal composition_operation_changed(active:bool)
+signal composition_progress(message:String)
+var _composition:GSComposition
+var _composition_restoring:=false
+var _composition_protecting:=false
+var _closing:=false
+var composition_busy:bool:
+	get:return _composition!=null
+signal composition_profile_ready(profile:Dictionary)
+var last_composition_profile:Dictionary={}
+signal load_profile_ready(path:String,profile:Dictionary)
+var _load_profiles:Array[Dictionary]=[]
+func get_load_profiles()->Array[Dictionary]:return _load_profiles.duplicate(true)
+
+func _profile_preview_frame(id:int,epoch:int)->void:
+	if epoch!=_generation or not _records.has(id):return
+	var record:Dictionary=_records[id]
+	record.profile["first_preview_us"]=Time.get_ticks_usec()-int(record.profile.started_us)
+func get_loading_state()->Dictionary:
+	var uploaded:=0;var complete:=0;var total:=0;var preview:=false
+	for record in _records.values():
+		if record.status=="failed":continue
+		total+=int(record.count);uploaded+=int(record.uploaded)
+		if record.status=="loaded":complete+=int(record.count)
+		else:preview=preview or record.get("preview",false)
+	return {"active":is_loading(),"resident_splats":uploaded,"complete_splats":complete,"total_splats":total,"preview":preview}
+func _profile_first_frame(id:int,epoch:int)->void:
+	if epoch!=_generation or not _records.has(id):return
+	var record:Dictionary=_records[id]
+	var model:GaussianSplat=record.node.get_ref()
+	if not is_instance_valid(model) or not model.is_visible_in_tree():return
+	record.profile["first_frame_us"]=Time.get_ticks_usec()-int(record.profile.started_us)
+	load_profile_ready.emit(record.path,record.profile.duplicate(true))
+
+signal placement_changed(active:bool)
+var _placement:GSPlacementSession
+var _placement_pick_id:=-1
+var _placement_left_press:=Vector2.INF
+var placement_active:bool:
+	get:return _placement!=null
+
+func begin_model_placement(path:String,screen_position:Vector2=Vector2.INF,kind:int=GaussianSplat.ImportKind.AUTO)->Error:
+	if kind not in GaussianSplat.ImportKind.values():return ERR_INVALID_PARAMETER
+	if placement_active or composition_busy or is_loading() or _atlas_migration or _applying_config:
+		_report_error("Finish or cancel the current operation before placing another model.",ERR_BUSY);return ERR_BUSY
+	var session:=GSPlacementSession.new(self)
+	session.previous_initial_framing=_initial_framing;session.was_rendering=is_rendering()
+	_initial_framing=false
+	var model:=_load_new_splat_from_path(path,LoadMode.APPEND)
+	if not model:_initial_framing=session.previous_initial_framing;return FAILED
+	model.import_kind=kind as GaussianSplat.ImportKind
+	if config.loading_progressive_preview and kind==GaussianSplat.ImportKind.ENVIRONMENT:model.show()
+	else:model.hide()
+	session.model=model
+	var viewport_rect:=get_viewport().get_visible_rect()
+	session.set_cursor(screen_position if screen_position.is_finite() and viewport_rect.has_point(screen_position) else viewport_rect.get_center())
+	_placement=session;_selection_pick_request=-1;rasterizer.cancel_pick()
+	placement_changed.emit(true);_force_redraw=true
+	return OK
+func get_placement_state()->Dictionary:
+	return _placement.snapshot() if placement_active else {}
+func resolve_import_kind(model:GaussianSplat)->GaussianSplat.ImportKind:
+	if model.import_kind!=GaussianSplat.ImportKind.AUTO:return model.import_kind
+	return GaussianSplat.ImportKind.ENVIRONMENT if _auto_scene_mode(get_model_world_bounds(model))==SceneMode.ENVIRONMENT_MODE else GaussianSplat.ImportKind.OBJECT
+func set_placement_kind(value:int)->void:
+	if placement_active and is_instance_valid(_placement.model) and value in GaussianSplat.ImportKind.values():
+		_placement.model.import_kind=value as GaussianSplat.ImportKind
+		_placement.invalidate_pick()
+func finish_environment_import()->void:
+	if not placement_active or not _placement.ready:return
+	var model:=_placement.model
+	model.global_transform=_placement.initial_node
+	model.show();_placement=null;_placement_left_press=Vector2.INF;_placement_pick_id=-1
+	rasterizer.cancel_pick();select_model_id(model.model_id)
+	enter_environment(model)
+	placement_changed.emit(false);model_registry_changed.emit();_force_redraw=true
+	_apply_queued_configuration.call_deferred()
+func enter_environment(model:GaussianSplat)->bool:
+	if placement_active or composition_busy or not is_instance_valid(model) or not model.is_loaded or not model.is_visible_in_tree():return false
+	if resolve_import_kind(model)!=GaussianSplat.ImportKind.ENVIRONMENT:return false
+	var record:Dictionary=_records.get(model.get_instance_id(),{})
+	if record.is_empty():return false
+	var free_camera:=camera_controller.get_node_or_null("FreeLookCamera") as CameraInterface
+	if free_camera:camera_controller.set_camera(free_camera)
+	set_scene_mode(SceneMode.ENVIRONMENT_MODE,false)
+	_position_environment_camera([record],get_model_world_bounds(model))
+	if event_bus:event_bus.emit_event(GSEventBus.EVENT_CAMERA_POSITIONED,{"position":get_camera().global_position,"mode":current_scene_mode,"model_id":model.model_id})
+	return true
+func home_view()->void:
+	if placement_active or composition_busy:return
+	var selected:=get_selected_model()
+	if selected and enter_environment(selected):return
+	# The last visible environment is the current walkthrough, even with an object selected.
+	var records:=_records.values()
+	records.reverse()
+	for record in records:
+		var model:GaussianSplat=record.node.get_ref()
+		if record.status=="loaded" and is_instance_valid(model) and enter_environment(model):return
+	camera_controller.go_home()
+func set_placement_anchor(value:int)->void:
+	if placement_active:_placement.set_anchor(value)
+func request_model_placement()->void:
+	if placement_active:_placement.request_confirmation()
+func request_placement_pick(point:Vector2)->int:
+	_request_serial+=1;_placement_pick_id=_request_serial
+	_dispatch_placement_pick.call_deferred(point,_placement_pick_id)
+	return _placement_pick_id
+func _dispatch_placement_pick(point:Vector2,request_id:int)->void:
+	if not placement_active or request_id!=_placement_pick_id or not rasterizer:return
+	var scale:=Vector2(get_viewport().size)/get_viewport().get_visible_rect().size
+	rasterizer.request_pick(point*scale,request_id)
+	_force_redraw=true;_last_activity=0.0
+func confirm_model_placement(use_original:bool=false)->bool:
+	if not placement_active or not _placement.ready or not is_instance_valid(_placement.model):return false
+	if not use_original and not _placement.target.is_finite():return false
+	var model:=_placement.model
+	var frame_original:=use_original and _placement.previous_initial_framing
+	if use_original:model.global_transform=_placement.initial_node
+	model.show();_placement=null;_placement_left_press=Vector2.INF
+	rasterizer.cancel_pick();select_model_id(model.model_id)
+	if frame_original:
+		set_scene_mode(SceneMode.OBJECT_MODE,false);recenter_camera(false)
+	elif current_scene_mode==SceneMode.UNKNOWN:set_scene_mode(SceneMode.OBJECT_MODE,false)
+	placement_changed.emit(false);model_registry_changed.emit();_force_redraw=true
+	_apply_queued_configuration.call_deferred()
+	return true
+func cancel_model_placement()->void:
+	if not placement_active:return
+	var session:=_placement;_placement=null;_placement_left_press=Vector2.INF
+	_initial_framing=session.previous_initial_framing
+	if rasterizer:rasterizer.cancel_pick()
+	var was_clearing:=_clearing;_clearing=true
+	if is_instance_valid(session.model):
+		unregister_splat(session.model);session.model.queue_free()
+	_clearing=was_clearing
+	if not _clearing and not _active_job and is_loading():_start_next_job()
+	placement_changed.emit(false);_force_redraw=true
+	_apply_queued_configuration.call_deferred()
+
+func _physics_process(_delta:float)->void:
+	if placement_active and not _closing:_placement.physics_update()
+
+func save_composition(path:String)->Error:
+	return await _run_composition(path,false)
+func open_composition(path:String)->Error:
+	return await _run_composition(path,true)
+func import_path(path:String)->Error:
+	if path.get_extension().to_lower()=="pxrscene":return await open_composition(path)
+	return OK if load_new_splat_from_path(path) else FAILED
+func _run_composition(path:String,opening:bool)->Error:
+	if composition_busy or placement_active or is_loading() or _atlas_migration or _applying_config:
+		_report_error("Finish the current load or settings operation first.",ERR_BUSY);return ERR_BUSY
+	if _applied_config and config.gpu_signature()!=_applied_config.gpu_signature():
+		_report_error("Wait for the pending quality settings to finish.",ERR_BUSY);return ERR_BUSY
+	if not rasterizer or not rasterizer.gpu_init_complete:
+		_report_error("Renderer is not ready.",ERR_UNAVAILABLE);return ERR_UNAVAILABLE
+	var operation_started:=Time.get_ticks_usec()
+	var operation:=GSComposition.new()
+	_composition=operation
+	set_camera_blocker("composition",true);composition_operation_changed.emit(true)
+	# The operation runs independently, so freeing the viewer cannot orphan its IO.
+	operation.begin.call_deferred(self,path,opening)
+	var result:Dictionary=await operation.completed
+	if _closing or not is_inside_tree():return ERR_SKIP
+	last_composition_profile=operation.profile.duplicate(true);last_composition_profile["total_us"]=Time.get_ticks_usec()-operation_started
+	composition_profile_ready.emit(last_composition_profile.duplicate(true))
+	_composition=null;set_camera_blocker("composition",false)
+	composition_operation_changed.emit(false)
+	_apply_queued_configuration.call_deferred()
+	if result.has("error"):
+		_report_error(result.error,result.get("code",ERR_FILE_CORRUPT));return result.get("code",ERR_FILE_CORRUPT)
+	composition_progress.emit(("Scene opened: " if opening else "Scene saved: ")+path.get_file())
+	return OK
+
+func _input(_event:InputEvent)->void:
+	if composition_busy:get_viewport().set_input_as_handled()
 
 func _enter_tree() -> void:
+	_closing=false
 	add_to_group("gaussian_splat_viewers")
 
 func _ready() -> void:
@@ -138,6 +315,7 @@ func _ready() -> void:
 		_force_redraw = true
 		_selection_pick_request=-1
 		if rasterizer:rasterizer.cancel_pick()
+		if placement_active:_placement.invalidate_pick()
 	)
 	if not config:
 		config = GaussianSplattingConfig.create_default()
@@ -226,6 +404,12 @@ func _queue_config_application() -> void:
 
 func _apply_config() -> void:
 	if not _ready_complete: return
+	if placement_active and not _only_color_changed():
+		_queued_configuration=config.duplicate(true)
+		return
+	if composition_busy:
+		_queued_configuration=config.duplicate(true)
+		return
 	if _applying_config:
 		_queued_configuration = config.duplicate(true)
 		return
@@ -340,6 +524,7 @@ func register_splat(node: GaussianSplat) -> void:
 	if not rasterizer or not rasterizer.gpu_init_complete:
 		_report_error("Renderer is unavailable", ERR_UNAVAILABLE)
 		return
+	var admitted:=Time.get_ticks_usec()
 	var metadata := PlyConverter.inspect(node.file_path, config.max_vertices)
 	if metadata.has("error"):
 		_report_error(metadata.error, metadata.get("code", ERR_FILE_CORRUPT))
@@ -359,7 +544,7 @@ func register_splat(node: GaussianSplat) -> void:
 	var resource := GaussianSplatResource.new()
 	resource.splat_count = count
 	resource.source_file = node.file_path
-	_records[id] = {"node": weakref(node), "path": node.file_path, "revision": node.revision, "count": count, "status": "queued", "instance_id": 0, "offset": -1, "uploaded": 0, "resource": resource, "samples": PackedVector3Array(), "sum": Vector3.ZERO, "transform": Transform3D.IDENTITY, "visible": false}
+	_records[id] = {"node": weakref(node), "path": node.file_path, "revision": node.revision, "count": count, "status": "queued", "instance_id": 0, "offset": -1, "uploaded": 0,"profile":{"started_us":admitted,"admission_us":Time.get_ticks_usec()-admitted,"upload_enqueue_us":0,"pump_calls":0,"peak_pump_us":0}, "resource": resource, "samples": PackedVector3Array(), "sum": Vector3.ZERO, "transform": Transform3D.IDENTITY, "visible": false}
 	_pending.append(id)
 	if _active_job:
 		_batch_total += count
@@ -369,6 +554,11 @@ func register_splat(node: GaussianSplat) -> void:
 		_start_next_job()
 
 func load_new_splat_from_path(path: String, mode: LoadMode = LoadMode.SMART, transform: Transform3D = Transform3D.IDENTITY) -> GaussianSplat:
+	if composition_busy:
+		_report_error("A scene save/open operation is in progress.",ERR_BUSY);return null
+	return _load_new_splat_from_path(path,mode,transform)
+
+func _load_new_splat_from_path(path: String, mode: LoadMode = LoadMode.SMART, transform: Transform3D = Transform3D.IDENTITY) -> GaussianSplat:
 	if _atlas_migration:
 		_report_error("Atlas configuration is being applied; retry loading when it completes.", ERR_BUSY)
 		return null
@@ -434,6 +624,7 @@ func _start_next_job() -> void:
 		record.offset = offset
 		record.instance_id = _free_instance_ids.pop_back()
 		record.status = "loading"
+		if config.loading_progressive_preview:rasterizer.clear_splat_data(offset,int(record.count)*240)
 		rasterizer.update_instance_transform(record.instance_id, node.global_transform, false)
 		_active_job = GSLoadJob.new()
 		_request_serial += 1
@@ -444,10 +635,19 @@ func _start_next_job() -> void:
 		_active_job.expected_count = record.count
 		_active_job.max_vertices = config.max_vertices
 		_active_job.chunk_size = config.loading_batch_size
+		_active_job.gpu_block_splats=config.loading_gpu_block_splats
+		_active_job.gpu_enabled=config.loading_gpu_conversion_enabled
+		if _active_job.gpu_enabled:_active_job.gpu_scratch_bytes=rasterizer.reserve_import_scratch()
+		_active_job.cpu_workers=config.loading_cpu_workers
+		_active_job.staging_budget_mb=config.loading_staging_budget_mb
+		_active_job.cache_enabled=config.loading_cache_enabled
+		_active_job.cache_directory=config.loading_cache_directory
+		_active_job.cache_budget_mb=config.loading_cache_budget_mb
 		_active_node_id = id
 		var result := _active_job.start()
 		if result != OK:
 			_active_job = null
+			rasterizer.release_import_scratch()
 			_fail_record(id, "Cannot start decoding worker", result)
 			continue
 		loading_started.emit(record.path)
@@ -463,36 +663,86 @@ func _pump_job() -> void:
 		_start_next_job()
 		return
 	var record: Dictionary = _records[id]
-	for _i in range(2):
-		var chunk := _active_job.take_chunk()
+	var pumping:=Time.get_ticks_usec()
+	record.profile.pump_calls+=1
+	var submitted:=0
+	var interactive:=_count_loaded_models()>0
+	var budget_ms:=config.loading_schedule_budget_ms if interactive else maxf(config.loading_schedule_budget_ms,8.0)
+	var deadline:=pumping+int(budget_ms*1000.0)
+	while submitted<config.loading_upload_budget_mb*1048576 and Time.get_ticks_usec()<deadline:
+		if rasterizer.queued_upload_bytes()>=config.loading_staging_budget_mb*1048576:break
+		var chunk:Dictionary=record.get("pending_upload",{})
+		if chunk.is_empty():chunk=_active_job.take_chunk()
 		if chunk.is_empty():
 			break
-		var result := rasterizer.upload_splat_data(chunk.data, int(record.offset) + int(chunk.start) * GSConstants.SPLAT_STRUCT_BYTES)
+		if chunk.get("reset",false):
+			_batch_loaded-=int(record.uploaded);record.uploaded=0;record["preview"]=false
+			rasterizer.update_instance_transform(record.instance_id,record.node.get_ref().global_transform,false)
+			rasterizer.clear_splat_data(int(record.offset),int(record.count)*GSConstants.SPLAT_STRUCT_BYTES)
+			continue
+		var cursor:=int(chunk.get("cursor",0))
+		var amount:=mini(32768,int(chunk.count)-cursor)
+		var bytes:PackedByteArray=chunk.data.slice(cursor*240,(cursor+amount)*240)
+		var uploading:=Time.get_ticks_usec()
+		var result := rasterizer.upload_splat_data(bytes,int(record.offset)+(int(chunk.start)+cursor)*240)
+		record.profile.upload_enqueue_us+=Time.get_ticks_usec()-uploading
 		if result != OK:
 			_cancel_job()
 			_fail_record(id, "GPU upload admission failed", result)
 			_start_next_job()
 			return
-		record.uploaded += int(chunk.count)
-		_batch_loaded += int(chunk.count)
+		submitted+=bytes.size()
+		chunk["cursor"]=cursor+amount
+		record["pending_upload"]=chunk if cursor+amount<int(chunk.count) else {}
+		record.profile["upload_submissions"]=int(record.profile.get("upload_submissions",0))+1
+		record.uploaded+=amount
+		_batch_loaded+=amount
+		var node:GaussianSplat=record.node.get_ref()
+		if config.loading_progressive_preview and not composition_busy and is_instance_valid(node) and node.is_visible_in_tree():
+			record["preview"]=true;_force_redraw=true
+			rasterizer.update_instance_transform(record.instance_id,node.global_transform,true)
+			if not record.profile.has("preview_scheduled"):
+				record.profile["preview_scheduled"]=true
+				RenderingServer.frame_post_draw.connect(_profile_preview_frame.bind(id,_generation),CONNECT_ONE_SHOT)
 		splat_progress_counter[0] = _batch_loaded
+	record.profile.peak_pump_us=maxi(record.profile.peak_pump_us,Time.get_ticks_usec()-pumping)
 	var snapshot := _active_job.result()
 	var denominator := maxi(_batch_total, _batch_loaded)
 	splat_loading_progress.emit(float(_batch_loaded) / maxi(1, denominator), _batch_loaded, denominator)
 	if loading_bar:
 		loading_bar.update_progress(float(_batch_loaded) / maxi(1, denominator))
-	if not snapshot.done or not snapshot.empty:
+	var upload_error:=rasterizer.take_upload_error()
+	if upload_error!=OK:
+		_cancel_job();_fail_record(id,"GPU upload failed",upload_error);_start_next_job();return
+	if not snapshot.done or not snapshot.empty or not record.get("pending_upload",{}).is_empty():
 		return
 	_active_job.join()
+	rasterizer.release_import_scratch();_shadow_signature=0;_hybrid_signature=0
 	_active_job = null
 	_active_node_id = 0
 	if not snapshot.error.is_empty() or snapshot.cancelled or int(record.uploaded) != int(record.count):
 		_fail_record(id, snapshot.error if not snapshot.error.is_empty() else "Load cancelled or incomplete", ERR_FILE_CORRUPT)
 	else:
+		var flushing:=Time.get_ticks_usec()
 		rasterizer._sync(func(): return OK)
+		var final_upload_error:=rasterizer.take_upload_error()
+		if final_upload_error!=OK:
+			_fail_record(id,"GPU upload failed",final_upload_error);_start_next_job();return
+		record.profile["render_thread_flush_us"]=Time.get_ticks_usec()-flushing
+		record.profile.merge(snapshot.profile)
+		record.profile["complete_us"]=Time.get_ticks_usec()-int(record.profile.started_us)
+		record.profile["path"]=record.path;record.profile["splats"]=int(record.count)
+		_load_profiles.append(record.profile)
+		if _load_profiles.size()>16:_load_profiles.pop_front()
+		load_profile_ready.emit(record.path,record.profile.duplicate(true))
+		RenderingServer.frame_post_draw.connect(_profile_first_frame.bind(id,_generation),CONNECT_ONE_SHOT)
+		record["prepared_reference"]=snapshot.prepared_reference
+		record["runtime_spans"]=snapshot.runtime_spans
+		if not snapshot.prepared_reference.is_empty():record["cache_lease"]=GSPreparedCache.hold(snapshot.prepared_reference)
 		record.resource.aabb = snapshot.aabb
 		record.resource.position_sum = snapshot.sum
 		record.samples = snapshot.samples
+		record["source_fingerprint"]=snapshot.source_fingerprint
 		record.sum = snapshot.sum
 		record.status = "loaded"
 		var node = record.node.get_ref()
@@ -539,6 +789,7 @@ func _cancel_job() -> void:
 	if _active_job:
 		_active_job.cancel()
 		_active_job.join()
+	if rasterizer:rasterizer.release_import_scratch()
 	_active_job = null
 	_active_node_id = 0
 
@@ -582,6 +833,10 @@ func unregister_splat(node: GaussianSplat) -> void:
 		call_deferred("_start_next_job")
 
 func _clear_scene_and_reset_atlas() -> void:
+	if placement_active:
+		_clearing=true;cancel_model_placement();_clearing=false
+	if composition_busy:
+		_report_error("A scene save/open operation is in progress.",ERR_BUSY);return
 	if _atlas_migration:
 		_clear_after_migration = true
 		return
@@ -624,9 +879,10 @@ func _ensure_scene_splats_loaded() -> void:
 	_discover_owned_splats(self)
 
 func _process(delta: float) -> void:
-	if not _ready_complete or _atlas_migration or not rasterizer or not rasterizer.gpu_init_complete:
+	if not _ready_complete or _atlas_migration or _composition_restoring or not rasterizer or not rasterizer.gpu_init_complete:
 		return
 	_pump_job()
+	if placement_active:_placement.update()
 	_prepare_transparency()
 	_prepare_shadows()
 	var changed := rasterizer.update_camera_matrices()
@@ -651,7 +907,11 @@ func _process(delta: float) -> void:
 	_last_activity = 0.0 if changed else _last_activity + delta
 	_idle_elapsed += delta
 	var due := _last_activity < config.pause_delay_seconds or _idle_elapsed >= 1.0 / config.paused_fps_limit
-	rasterizer.rendering_enabled = (current_state == ViewerState.RENDERING and due) or _force_redraw
+	var progressive:=false
+	if config.loading_progressive_preview and is_loading() and not composition_busy:
+		for record in _records.values():progressive=progressive or record.get("preview",false)
+	var placement_loading:=placement_active and is_loading() and _placement.was_rendering and _placement.needs_gs_pick()
+	rasterizer.rendering_enabled = not _composition_protecting and (((current_state == ViewerState.RENDERING or placement_loading or progressive) and due) or _force_redraw)
 	if due:
 		_idle_elapsed = 0.0
 	rasterizer.selected_instance_id = _selected_instance_id()
@@ -689,6 +949,7 @@ func is_loading() -> bool:
 	return current_state == ViewerState.LOADING
 
 func _on_viewport_resized() -> void:
+	if placement_active:_placement.invalidate_pick()
 	if rasterizer:
 		var result := rasterizer.resize(get_viewport().size)
 		if result == OK:
@@ -760,46 +1021,57 @@ func get_scene_bounds() -> AABB:
 		first = false
 	return result
 
+func _auto_scene_mode(bounds:AABB)->SceneMode:
+	return SceneMode.ENVIRONMENT_MODE if maxf(bounds.get_longest_axis_size(),0.1)>=environment_size_threshold else SceneMode.OBJECT_MODE
+
 func recenter_camera(auto_mode: bool = true) -> void:
 	var camera := get_camera()
 	if not camera or total_splats_to_load == 0:
 		return
 	var bounds := get_scene_bounds()
 	var size := maxf(bounds.get_longest_axis_size(), 0.1)
-	if auto_mode: current_scene_mode = SceneMode.ENVIRONMENT_MODE if size >= environment_size_threshold else SceneMode.OBJECT_MODE
+	if auto_mode: current_scene_mode = _auto_scene_mode(bounds)
 	scene_mode_changed.emit(current_scene_mode, SceneMode.keys()[current_scene_mode])
 	var center := bounds.get_center()
 	if current_scene_mode == SceneMode.ENVIRONMENT_MODE:
-		var ys: Array = []
-		var sum := Vector3.ZERO
-		var total_weight := 0.0
-		for record in _records.values():
-			var node = record.node.get_ref()
-			if record.status != "loaded" or not is_instance_valid(node) or not node.is_visible_in_tree() or record.samples.is_empty(): continue
-			var transform := _world_transform(node)
-			var take := mini(record.samples.size(), maxi(1, int(40000.0 * record.count / total_splats_to_load)))
-			var weight := float(record.count) / take
-			for i in range(take):
-				var point: Vector3 = transform * record.samples[int(i * float(record.samples.size()) / take)]
-				ys.append([point.y, weight])
-				sum += point * weight
-				total_weight += weight
-		ys.sort_custom(func(a, b): return a[0] < b[0])
-		var floor := bounds.position.y
-		var cumulative := 0.0
-		for sample in ys:
-			cumulative += sample[1]
-			if cumulative >= total_weight * 0.1:
-				floor = sample[0]
-				break
-		var nexus := sum / total_weight if total_weight > 0 else center
-		var position := Vector3(nexus.x, floor + GSConstants.STANDARD_EYE_HEIGHT_M, nexus.z)
-		camera_controller.position_camera_at(position, position + Vector3.FORWARD)
+		_position_environment_camera(_records.values(),bounds)
 	else:
 		var distance := maxf(1.0, size * 0.75 / tan(deg_to_rad(camera.fov * 0.5)))
 		camera_controller.position_camera_at(center + Vector3(0.75, 0.5, 1).normalized() * distance, center)
 	if event_bus:
 		event_bus.emit_event(GSEventBus.EVENT_CAMERA_POSITIONED, {"position": camera.global_position, "mode": current_scene_mode})
+
+func _position_environment_camera(records:Array,bounds:AABB)->void:
+	var population:=0
+	for record in records:
+		var node=record.node.get_ref()
+		if record.status=="loaded" and is_instance_valid(node) and node.is_visible_in_tree():population+=int(record.count)
+	var ys: Array = []
+	var sum := Vector3.ZERO
+	var total_weight := 0.0
+	for record in records:
+		var node = record.node.get_ref()
+		if record.status != "loaded" or not is_instance_valid(node) or not node.is_visible_in_tree() or record.samples.is_empty(): continue
+		var transform := _world_transform(node)
+		var take := mini(record.samples.size(), maxi(1, int(40000.0 * record.count / maxf(population,1.0))))
+		var weight := float(record.count) / take
+		for i in range(take):
+			var point: Vector3 = transform * record.samples[int(i * float(record.samples.size()) / take)]
+			ys.append([point.y, weight])
+			sum += point * weight
+			total_weight += weight
+	ys.sort_custom(func(a, b): return a[0] < b[0])
+	var floor := bounds.position.y
+	var cumulative := 0.0
+	for sample in ys:
+		cumulative += sample[1]
+		if cumulative >= total_weight * 0.1:
+			floor = sample[0]
+			break
+	var nexus := sum / total_weight if total_weight > 0 else bounds.get_center()
+	var position := Vector3(nexus.x, floor + GSConstants.STANDARD_EYE_HEIGHT_M, nexus.z)
+	camera_controller.position_camera_at(position, position + Vector3.FORWARD)
+	_force_redraw=true
 
 func set_scene_mode(mode: SceneMode, reposition_camera: bool = true) -> void:
 	current_scene_mode = mode
@@ -808,6 +1080,18 @@ func set_scene_mode(mode: SceneMode, reposition_camera: bool = true) -> void:
 		recenter_camera(false)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if placement_active:
+		if event is InputEventMouseMotion:_placement.set_cursor(event.position)
+		elif event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT:
+			_placement.set_cursor(event.position)
+			if event.pressed:_placement_left_press=event.position
+			elif _placement_left_press.is_finite() and _placement_left_press.distance_to(event.position)<5:request_model_placement()
+			if not event.pressed:_placement_left_press=Vector2.INF
+			get_viewport().set_input_as_handled()
+		elif event is InputEventKey and event.pressed and not event.echo:
+			if event.keycode==KEY_ESCAPE:cancel_model_placement();get_viewport().set_input_as_handled()
+			elif event.keycode in [KEY_ENTER,KEY_KP_ENTER]:request_model_placement();get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("toggle_load_zone"):
 		show_load_zone = not show_load_zone
 		get_viewport().set_input_as_handled()
@@ -826,6 +1110,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			_last_activity = 0.0
 
 func _on_model_pick_completed(request_id:int,instance_id:int,position:Vector3)->void:
+	if request_id==_placement_pick_id:
+		if placement_active:_placement.accept_pick(request_id,instance_id,position)
+		return
 	if request_id!=_selection_pick_request:return
 	_selection_pick_request=-1
 	for record in _records.values():
@@ -838,6 +1125,10 @@ func _on_model_pick_completed(request_id:int,instance_id:int,position:Vector3)->
 	select_model_id("")
 
 func _on_pick_completed(_request_id: int, position: Vector3) -> void:
+	if _request_id==_placement_pick_id:
+		if placement_active:_placement.accept_pick(_request_id,0,Vector3.INF)
+		_placement_pick_id=-1
+		return
 	if position.is_finite():
 		splat_clicked.emit(position)
 		camera_controller.focus_on_position(position)
@@ -858,6 +1149,8 @@ func get_model_snapshot() -> Array[Dictionary]:
 
 func get_stats() -> Dictionary:
 	var result := {"viewer_state": ViewerState.keys()[current_state], "is_loading": is_loading(), "is_rendering": is_rendering(), "loaded_file": "%d models" % _count_loaded_models(), "fps": Engine.get_frames_per_second(), "frame_count": frame_count, "total_splats": total_splats_to_load, "splats_loaded": total_splats_to_load, "scene_mode": SceneMode.keys()[current_scene_mode]}
+	var residency:=get_loading_state()
+	result["splats_loaded"]=residency.complete_splats;result["resident_splats"]=residency.resident_splats
 	if rasterizer:
 		result.merge(rasterizer.get_stats(), true)
 	if camera_controller:
@@ -918,6 +1211,9 @@ func _create_default_camera_system() -> void:
 	camera_controller.set_camera(camera)
 
 func _exit_tree() -> void:
+	_closing=true
+	_placement=null
+	if _composition:_composition.cancel()
 	_apply_shadow_receivers({})
 	for node in _hybrid_nodes:
 		if is_instance_valid(node):node.set_integrated(false)
@@ -1142,6 +1438,9 @@ func set_model_edit_transform(node:GaussianSplat,value:Transform3D)->void:
 	node.global_transform=frame.affine_inverse()*value
 
 func frame_models(ids:Array)->bool:
+	if ids.size()==1:
+		for candidate in managed_splats:
+			if candidate.model_id==ids[0] and enter_environment(candidate):return true
 	var bounds:=AABB()
 	var found:=false
 	for record in _records.values():

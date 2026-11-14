@@ -41,7 +41,7 @@ const PROGRESS_EMIT_THRESHOLD: float = 0.01
 
 ## Default batch size for loading splats (number of splats per GPU upload batch).
 ## Larger = faster but more VRAM spikes. Smaller = smoother but slower.
-const DEFAULT_LOADING_BATCH_SIZE: int = 100000
+const DEFAULT_LOADING_BATCH_SIZE: int = 131072
 
 # ════════════════════════════════════════════════════════════════════════════════
 # MEMORY THRESHOLDS

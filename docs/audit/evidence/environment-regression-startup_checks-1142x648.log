@@ -1,0 +1,28 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-environment-qa
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS saved preferences exist before normal scene startup
+PASS real main scene begins with its original null configuration
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS viewer owns a default configuration after ready
+PASS early UI restores preferences after viewer initialization
+PASS color panel synchronizes the initialized configuration
+PASS color controls remain usable after normal startup
+PASS existing transform and quality controls initialize
+PASS normal scene teardown completes
+STARTUP COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

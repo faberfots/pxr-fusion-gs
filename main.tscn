@@ -22,9 +22,7 @@
 [ext_resource type="Script" uid="uid://cygwv4q436a0t" path="res://modules/gaussian_splatting/core/gs_preloader.gd" id="20_ryguw"]
 [ext_resource type="Script" uid="uid://clw7h5rga4cpb" path="res://modules/gaussian_splatting/core/gs_memory_monitor.gd" id="21_d13ii"]
 [ext_resource type="PackedScene" uid="uid://bkyfbfxl18n7g" path="res://modules/gaussian_splatting/UI/SceneManagerPanel.tscn" id="23_d13ii"]
-
 [ext_resource type="PackedScene" path="res://modules/gaussian_splatting/scenes/gs_shadow_receiver.tscn" id="gs_shadow_receiver"]
-
 [ext_resource type="PackedScene" path="res://modules/gaussian_splatting/UI/DiagnosticsPanel.tscn" id="studio_diagnostics"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e7ec3"]
@@ -148,7 +146,9 @@ script = ExtResource("21_d13ii")
 script = ExtResource("19_facbu")
 viewer = NodePath("../GaussianSplattingViewer")
 
-[node name="Diagnostics" parent="DemoUIController" instance=ExtResource("studio_diagnostics")]
+[node name="Diagnostics" parent="DemoUIController" unique_id=1714778834 instance=ExtResource("studio_diagnostics")]
+offset_right = 360.0
+offset_bottom = 520.0
 
 [node name="ProductionUI" parent="." unique_id=660000552 node_paths=PackedStringArray("viewer") instance=ExtResource("1_cegan")]
 follow_viewport_enabled = true
@@ -196,8 +196,8 @@ use_collision = true
 size = Vector3(10000, 1, 10000)
 
 [node name="CameraController" type="Node" parent="." unique_id=2134470391 node_paths=PackedStringArray("ground")]
-script = ExtResource("13_seu75")
 process_physics_priority = 100
+script = ExtResource("13_seu75")
 ground = NodePath("../CSGBox3D")
 home_on_ready = true
 
@@ -223,20 +223,20 @@ one_shot = true
 [node name="OrbitCamera" type="Camera3D" parent="CameraController" unique_id=427211630]
 script = ExtResource("16_4k2k6")
 
-[node name="GaussianSplattingViewer" parent="." unique_id=1936769038 node_paths=PackedStringArray("event_bus", "preloader", "memory_monitor", "camera_controller", "shadow_light") instance=ExtResource("17_0rl1p")]
+[node name="GaussianSplattingViewer" parent="." unique_id=1936769038 node_paths=PackedStringArray("shadow_light", "event_bus", "preloader", "memory_monitor", "camera_controller") instance=ExtResource("17_0rl1p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 config = null
+shadow_light = NodePath("../Sky3D/SunLight")
 show_loading_ui = true
 enable_debug_stats = true
 event_bus = NodePath("../EventBus")
 preloader = NodePath("../Preloader")
 memory_monitor = NodePath("../MemoryMonitor")
 camera_controller = NodePath("../CameraController")
-shadow_light = NodePath("../Sky3D/SunLight")
 
 [node name="SceneManagerPanel" parent="." unique_id=891684790 node_paths=PackedStringArray("viewer") instance=ExtResource("23_d13ii")]
 visible = false
 viewer = NodePath("../GaussianSplattingViewer")
 
-[node name="GroundShadowReceiver" parent="." node_paths=PackedStringArray("receiver") instance=ExtResource("gs_shadow_receiver")]
+[node name="GroundShadowReceiver" parent="." unique_id=1540279091 node_paths=PackedStringArray("receiver") instance=ExtResource("gs_shadow_receiver")]
 receiver = NodePath("../CSGBox3D")

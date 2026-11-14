@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://d4kthvqwipfg6"
+path="res://.godot/imported/alpha_merge.glsl-ee26d7c5904e821a3322bcbe67c4d233.res"
+
+[deps]
+
+source_file="res://modules/gaussian_splatting/shaders/compute/alpha_merge.glsl"
+dest_files=["res://.godot/imported/alpha_merge.glsl-ee26d7c5904e821a3322bcbe67c4d233.res"]
+
+[params]
+

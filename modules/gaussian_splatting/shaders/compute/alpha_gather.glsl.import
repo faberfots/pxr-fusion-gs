@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dq0jp8anfii38"
+path="res://.godot/imported/alpha_gather.glsl-a1a0399e1104b4cbd0e6c71fe217a980.res"
+
+[deps]
+
+source_file="res://modules/gaussian_splatting/shaders/compute/alpha_gather.glsl"
+dest_files=["res://.godot/imported/alpha_gather.glsl-a1a0399e1104b4cbd0e6c71fe217a980.res"]
+
+[params]
+

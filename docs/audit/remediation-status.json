@@ -62,10 +62,13 @@
       "title": "Worker lifecycle",
       "status": "fully implemented",
       "changes": [
-        "Dedicated CPU jobs with bounded queues, cancellation wakeup and join before destruction"
+        "Dedicated CPU jobs with bounded queues, cancellation wakeup and join before destruction",
+        "2026-11-14: source-file SHA-256 is computed in bounded, cancellable worker chunks and retained with the viewer record. Scene-file fingerprint readers close their handles explicitly on Windows.",
+        "Loading phases A-F: one bounded producer owns concurrent source hashing and private GLSL conversion, with GDScript worker-pool fallback. Workers, local devices, cache leases and temporary files drain on cancellation; no new native loading dependency."
       ],
       "verification": [
-        "core_checks: joined GS and SpatialOS cancellation; lifecycle checks"
+        "core_checks: joined GS and SpatialOS cancellation; lifecycle checks",
+        "loading_parallel_checks, loading_cache_checks, loading_scheduler_checks and composition_lifecycle_checks pass; complete evidence is indexed in docs/performance/loading-phases.json."
       ],
       "remaining": []
     },
@@ -107,10 +110,17 @@
       "title": "Transactional completion",
       "status": "fully implemented",
       "changes": [
-        "Commit loaded state only after full decoding/checksum and upload fence; explicit success/failure batch result"
+        "Commit loaded state only after full decoding/checksum and upload fence; explicit success/failure batch result",
+        "Versioned .pxrscene compositions validate sources and matrices before replacing the scene. A disk-backed resident-atlas checkpoint protects existing nodes/selection/history and restores them after decode/upload failure, without allocating a second full GPU atlas. Documents are written with atomic replacement.",
+        "2026-11-14 placement follow-up: interactive imports stage one complete hidden model in the existing atlas; confirmation commits its Node3D transform and cancel removes only that import. Scene save/open waits for placement to finish; .pxrscene reopen bypasses placement and restores saved matrices.",
+        "2026-11-14 environment/Sky3D follow-up: Environment imports now bypass point placement and preserve their full source transform. Validated optional import-kind and Sky3D atmosphere fields extend version-one .pxrscene documents without changing saved matrices or camera restoration.",
+        "Loading phase F: opt-in progressive residency is explicitly unverified and never reports committed completion early. Composition replacement remains transactional; exact prepared-data checkpoints preserve runtime IDs/timestamps and retain raw GPU recovery when preparation cannot be proven."
       ],
       "verification": [
-        "lifecycle_checks: invalid body plus valid queued model reports 1 success/1 failure and no false all-completed"
+        "lifecycle_checks: invalid body plus valid queued model reports 1 success/1 failure and no false all-completed",
+        "composition_checks: full populations and source identities round-trip; malformed/missing/changed files preserve the current composition; an injected decoder failure restores resident data despite an unavailable old source; failed saves preserve the old file byte-for-byte.",
+        "environment_import_checks and sky_controls_checks cover new/legacy document round trips, exact environment poses and atmosphere restoration.",
+        "loading_progressive_checks and loading_checkpoint_checks pass: raw resident checkpoint bytes equal the GPU atlas; missing originals and corrupt-cache fallback preserve both complete populations. Full Bali + Suzuki occupied reopen retains all 7,959,786 splats, matrices and camera pose in 32.783 seconds locally."
       ],
       "remaining": []
     },
@@ -125,11 +135,17 @@
         "Clear is scoped to owned registry; startup discovers authored children; no global tween/group purge",
         "2026-11-13: Scene-based orbital command HUD, floating tool panels, model toolbar, recent-file rows and diagnostic/consent controls replace runtime UI construction; original vector art and one shared theme own appearance.",
         "Follow-up branding: Polygonics red replaces gold, the exact existing transparent infinite-diamond asset appears in the medallion, and a white/red PXRFusion wordmark remains visible in expanded and compact states.",
-        "User-requested glass treatment: floating panel backgrounds use 33% opacity while text, controls and Polygonics-red borders remain opaque and readable."
+        "User-requested glass treatment: floating panel backgrounds use 33% opacity while text, controls and Polygonics-red borders remain opaque and readable.",
+        "Follow-up: one GSUiScale owner sets application HUD density to 0.67 (33% smaller). Authored scenes, Polygonics branding and 33% panel opacity are preserved; native OS file dialogs retain OS scaling.",
+        "Scene-authored CompositionFiles controls and native Save dialog expose Save Scene in Scene Navigator. The existing Import picker, dropped files and recent-file buttons recognize .pxrscene; PLY/GSRES retain append behavior.",
+        "Added scene-authored PlacementHUD.tscn with its behavior script and shared Polygonics theme/0.67 density. File picker, dropped files and recent models share the placement flow; Keep original preserves the original import-position workflow.",
+        "2026-11-14 environment/Sky3D follow-up: Authored Auto/Object/Environment controls share the existing import routes. SkyControls.tscn/.gd adds a Sky & time tab to the existing lighting panel; the live Sky3D node owns state and GSSkySettings owns the explicit serialization/command whitelist. Shared Polygonics styling, 0.67 scale and 33% floating opacity remain."
       ],
       "verification": [
         "lifecycle_checks: authored startup survives initialization",
-        "Real-main startup and studio_checks pass; hierarchy inspected through Godot-rendered 1142×648 and 1908×960 review captures."
+        "Real-main startup and studio_checks pass; hierarchy inspected through Godot-rendered 1142×648 and 1908×960 review captures.",
+        "ui_scale_checks: actual pointer clicks, preset popup density, floating-panel and scene-navigator dragging, normalized saved position, load-dialog centering, status-strip anchoring and rig collapse pass; rendered review at 1142x648 and 1908x960.",
+        "Rendered Sky & time controls and actual input are checked at 1142x648 and 1908x960; scenes without Sky3D expose an unavailable state."
       ],
       "remaining": []
     },
@@ -156,7 +172,7 @@
       "title": "Rendering thread ownership",
       "status": "fully implemented",
       "changes": [
-        "RD creation, upload, dispatch, resize, readback and teardown use rendering-thread owner"
+        "Global renderer RD creation, upload, dispatch, resize, readback and teardown use the rendering-thread owner; private import/checkpoint RenderingDevices remain exclusively on their owning workers. No RID crosses between devices."
       ],
       "verification": [
         "GPU lifecycle, rendering, resize and source-free PCK suites"
@@ -186,7 +202,7 @@
       "title": "Configuration transactions",
       "status": "fully implemented",
       "changes": [
-        "Populated GPU layout changes queue behind loading, preflight all residency, checkpoint with async chunked readback and per-model SHA-256, verify before release, then restore within the memory budget.",
+        "Populated GPU layout changes queue behind loading, preflight all residency, checkpoint exact resident bytes with per-model SHA-256, verify before release, then restore within the memory budget. A matching verified preparation payload avoids global atlas readback; missing/stale/corrupt preparations fall back to raw GPU checkpointing.",
         "Stable model IDs, independent Transform3D, visibility and selection survive migration; deletions, queued registrations and clear are handled. Progress is visible; initialization failures roll back to the previous layout.",
         "Shadow receivers are detached before their maps are retired during migration, clear and viewer teardown; caches rebuild through the existing atlas transaction."
       ],
@@ -208,7 +224,8 @@
       "changes": [
         "Budget includes atlas, projected records, keys/values, dynamic histograms, palette and targets, plus resize headroom and buffer/dispatch limits",
         "Rebalanced High/Ultra atlas-versus-sort reservation to preserve large-scene capacity without changing SH fidelity or downsampling",
-        "2026-11-13: Optional alpha targets/fragment pools/geometry and directional shadow caches use the existing total GPU budget and deletion queue; opt-out releases caches. No file-size cap or import downsampling is added."
+        "2026-11-13: Optional alpha targets/fragment pools/geometry and directional shadow caches use the existing total GPU budget and deletion queue; opt-out releases caches. No file-size cap or import downsampling is added.",
+        "Loading phases B/E/F: worker-local conversion/checkpoint scratch is reserved against the same tracked renderer budget, capped at 128 MiB and half the remaining headroom. Timestamp tables, bounded producer blocks and queued renderer uploads have explicit ownership budgets; low headroom retains CPU/raw-checkpoint fallback."
       ],
       "verification": [
         "core_checks: complete budget; GPU admission, resize and overflow suites",
@@ -419,7 +436,8 @@
         "Godot 4.6.2 llvmpipe uses qualified native 4x MSAA when 2x or 8x was requested; disabled AA and hardware GPU modes are preserved. No project setting, atlas layout or buffer budget is changed.",
         "2026-11-13: added per-pixel fragment/Gaussian interleaving for explicit rigid unshaded Alpha/Mix participants, linear albedo textures and native fallback; the existing atlas and sort remain authoritative.",
         "Added directional deep-opacity Gaussian shadows from the real atlas, cache invalidation for transforms/visibility, per-model casting, explicit ordinary-material receivers and opt-in Gaussian receiving. Captured radiance is preserved by default.",
-        "Renderer capability metadata now names the supported participant and directional-shadow contracts and explicitly excludes arbitrary shaders and XR. See scene-hud-and-hybrid-rendering.md."
+        "Renderer capability metadata now names the supported participant and directional-shadow contracts and explicitly excludes arbitrary shaders and XR. See scene-hud-and-hybrid-rendering.md.",
+        "Receiver shadow passes now follow the receiving BaseMaterial3D cull mode. The transparent closed reference grid no longer draws a displaced underside silhouette. Explicit double-sided materials retain that policy; scan colors and baked shadows are untouched."
       ],
       "verification": [
         "rendering_checks: opaque green mesh hides Gaussian; perspective and orthographic projection pass",
@@ -430,7 +448,8 @@
         "Actual receiver pixels pass Gaussian cast shadows, shadow movement, cast-off and Gaussian receiving; receiving-off restores source radiance and preserves opacity.",
         "Official optimized Windows template loads all 7,959,786 Bali/Suzuki Gaussians in 67,561 ms, builds a directional shadow cache with 7,956,764 projected casters in 303 ms, and integrates a transparent participant with the unchanged full population. No export warnings/errors.",
         "Godot 4.6.2 Linux software Vulkan (llvmpipe, MSAA disabled) passes the actual transparent texture/intersection/resize/release tests and cast/receive shadow pixel tests. This is software-renderer evidence, not additional physical GPU or XR qualification.",
-        "Combined alpha/shadow quality migration and forced rebuild rollback preserve actual shadow pixels without reopening the source; a surviving ordinary receiver returns to its original appearance after viewer teardown."
+        "Combined alpha/shadow quality migration and forced rebuild rollback preserve actual shadow pixels without reopening the source; a surviving ordinary receiver returns to its original appearance after viewer teardown.",
+        "grid_shadow_checks: actual pixels on a transparent 1m-thick colliding CSG box retain the top shadow and remove the underside duplicate; live cull-mode changes and shadow-off recovery pass. Existing shadow/hybrid/depth tests pass at their fixture dimensions."
       ],
       "remaining": [
         "Arbitrary custom transparent shaders/refraction, skinning/blend shapes/particles and XR multiview remain outside the implemented contract. No headset is available. The supported participant transparency and directional cast/receive shadow features are implemented; the broader P.3.6 finding remains partially implemented.",
@@ -480,7 +499,8 @@
       "status": "fully implemented",
       "changes": [
         "Async metadata readback, distinct projected-splat/pair counts, scoped tracked memory and engine-FPS labeling",
-        "The existing fps field uses Godot Engine.get_frames_per_second rather than averaging viewer process iterations across loading and rendering."
+        "The existing fps field uses Godot Engine.get_frames_per_second rather than averaging viewer process iterations across loading and rendering.",
+        "Loading phases A/F: bounded GDScript stage profiles distinguish worker work sums, wall time, queue wait, render enqueue/flush, first preview and first completed frame. Public metrics distinguish unverified resident splats from committed loaded splats."
       ],
       "verification": [
         "GPU statistics path and memory-plan/lifecycle checks",
@@ -512,12 +532,14 @@
       "status": "fully implemented",
       "changes": [
         "Typed ASCII/LE/BE scalars, payload/schema checks, complete SH degrees and RGB normalization; valid thin Gaussian axes are accepted without arbitrary negative log-scale limits",
-        "Removed file-byte rejection; accepted valid very thin finite log-scales, including all Bali Gaussians."
+        "Removed file-byte rejection; accepted valid very thin finite log-scales, including all Bali Gaussians.",
+        "Loading phases A-E add mapped/unrolled GDScript packing, bulk binary reads, sparse deterministic selection samples, bounded compute conversion and a strongly validated local preparation cache. Original complete source SHA-256 remains required on cache hits."
       ],
       "verification": [
         "core_checks: ASCII Gaussian conversion and mixed float/short/double/uchar big-endian PLY; GPU SH check",
         "Bali numeric regression fixture preserves valid log-scales below -30",
-        "Full 1,919,480,116-byte Bali source loads all 7,739,833 splats; legacy byte-limit argument 1 is ignored and valid thin scales pass."
+        "Full 1,919,480,116-byte Bali source loads all 7,739,833 splats; legacy byte-limit argument 1 is ignored and valid thin scales pass.",
+        "Godot/GDScript measurements: baseline 91.561 s, first cache-building import 11.540 s, verified reloads 7.483/6.812 s with OS cache available. All 60 compute output fields match the reference within declared float32 tolerance; SHA leaves match Godot exactly. See docs/performance/LOADING.md for scope and evidence."
       ],
       "remaining": []
     },
@@ -671,11 +693,15 @@
       "status": "fully implemented",
       "changes": [
         "Named independent blockers compose UI ownership; active-camera switches update compositor/rasterizer",
-        "2026-11-13: Floating panels and dialogs retain camera input ownership; protected flight uses one controller-owned floor and swept sphere against physical colliders, with an explicit unrestricted-flight option."
+        "2026-11-13: Floating panels and dialogs retain camera input ownership; protected flight uses one controller-owned floor and swept sphere against physical colliders, with an explicit unrestricted-flight option.",
+        "Scaled panel drags use incoming pointer-event coordinates for one-to-one movement and retain existing camera blockers; clamps and obstacle bounds use rendered UI extents.",
+        "Held left drag on the main medallion uses the existing named floating-panel camera blocker and releases on mouse-up/focus loss. Placement claims its left-click/Enter/Escape gestures while retaining camera navigation; GS placement readbacks cannot trigger legacy camera focusing.",
+        "2026-11-14 environment/Sky3D follow-up: Environment import, Home, Enter environment and single-environment framing use the established weighted-centre / 10th-percentile floor + eye-height free-look view, scoped to that environment. Object placement preserves this view. Camera protection and overall Frame all behavior remain."
       ],
       "verification": [
         "lifecycle_checks: independent blockers and coordinated camera action; rendered UI review",
-        "studio_checks: below-floor recovery, free-flight opt-out, a high-speed physical wall sweep and orbit-floor protection pass."
+        "studio_checks: below-floor recovery, free-flight opt-out, a high-speed physical wall sweep and orbit-floor protection pass.",
+        "Environment entry, Home with an object selected, orbit-to-free switching, stable camera pose and independent existing-object transforms pass environment_import_checks."
       ],
       "remaining": []
     },
@@ -708,7 +734,11 @@
         "Scaled model rotation controls read global_rotation_degrees, preserving XYZ angles after scale edits.",
         "Simple Select/Move/Rotate/Scale toolbar and screen handles directly edit the existing GaussianSplat Node3D. World translation/rotation, local XYZ and uniform scaling, free drag, Escape/focus-loss cancellation and basis override mapping share viewer-owned selection with Scene Manager.",
         "2026-11-13: Viewer-owned stable multi-selection, group transforms, cancel/undo/redo, active-model numeric XYZ controls, framing and model search preserve independent Node3D transforms.",
-        "Transform edit history follows original model identities across selection changes; deletion prunes obsolete transactions and scene clear releases history. Scene rows use weak references and detach before deferred teardown."
+        "Transform edit history follows original model identities across selection changes; deletion prunes obsolete transactions and scene clear releases history. Scene rows use weak references and detach before deferred teardown.",
+        "Model toolbar and visible gizmo handles follow the shared 0.67 density. The full-viewport overlay stays unscaled so projected pivots and world-transform math remain aligned.",
+        "2026-11-14: model toolbar uses the existing floating-panel owner with an authored dotted drag grip. User placement persists; automatic placement stops overriding it; System layout reset restores automatic placement. Scene persistence stores full Transform3D matrices rather than decomposed Euler/scale values.",
+        "Viewer-owned GSPlacementSession combines real GS GPU picks, ordinary collision queries and a reference-floor fallback. Base-centre/origin anchors update the existing model transform in rendered-world coordinates, preserving its basis under renderer overrides. Cursor/view snapshots reject stale confirmations; the guide floor cannot override visible scan points below it.",
+        "2026-11-14 environment/Sky3D follow-up: Auto classification resolves once for interactive imports so later object scaling cannot reclassify the object as an environment. Explicit Object and Environment overrides handle heuristic exceptions; changing a pending preview to Environment restores its initial source transform before entry."
       ],
       "verification": [
         "World-transform bounds and selection lifecycle checks; UI source/render review",
@@ -716,7 +746,11 @@
         "Actual viewport mouse press/drag/release edits the selected model while camera and other model remain unchanged. All XYZ handles, numeric control synchronization, cancellation and renderer basis override pass.",
         "Follow-up startup/release qualification preserves this feature; normal main-scene startup now runs without a test-injected configuration.",
         "Studio group drag/undo/redo and numeric XYZ scale checks pass; existing actual-input color_transform_checks still pass.",
-        "studio_checks: selection change cancels the whole drag group; numeric undo targets the original model; active deletion preserves the survivor; stale deleted-model history cannot block undo; clear removes undo/redo state. No script errors during teardown."
+        "studio_checks: selection change cancels the whole drag group; numeric undo targets the original model; active deletion preserves the survivor; stale deleted-model history cannot block undo; clear removes undo/redo state. No script errors during teardown.",
+        "Actual-input color_transform_checks and group/numeric studio_checks pass after scaling; ui_scale_checks verifies the visible pivot remains attached to the selected model.",
+        "Actual pointer toolbar dragging, saved position, camera isolation and reset pass at 1142x648 and 1908x960. Composition round trips retain independent world transforms, including nonuniform/reflected scale and repeated sources.",
+        "launcher_drag_checks and placement_checks pass at 1142x648 and 1908x960: fresh layout, drag versus click, both rig states, preference reload, focus/edge behavior, GS/native/floor placement, renderer overrides, view-change/sky rejection, cancellation, saved transforms and existing scene-mode preservation. placement_routes_checks covers picker/drop/recent paths, GSRES, .pxrscene bypass, joint main-rig dragging while pending and Clear.",
+        "Environment/Object overrides, retained full matrices, object scaling, picker/drop behavior and existing placement/transform input checks pass."
       ],
       "remaining": []
     },
@@ -1059,7 +1093,10 @@
         "Fixed normal main-scene startup: the color panel waits for the viewer owner to initialize its configuration. No UI-owned configuration is introduced.",
         "Fixed camera add-on export-time orphan nodes with lazy owned visualization creation. Packaging now rejects every export error and ObjectDB leak instead of ignoring known RID warnings.",
         "Dedicated optimized-template qualification scene and real-main startup helper cover official templates that disable --script/--path overrides. CI adds normal scene startup, camera lifecycle, native software MSAA and optimized Windows template packaging/startup.",
-        "2026-11-13: Added scene HUD, transparent-material and directional-shadow GPU checks to CI, plus optimized-template checks for new pipelines and complete-data shadow/transparency residency. Preserved the earlier working release."
+        "2026-11-13: Added scene HUD, transparent-material and directional-shadow GPU checks to CI, plus optimized-template checks for new pipelines and complete-data shadow/transparency residency. Preserved the earlier working release.",
+        "Added composition round-trip/import-route and operation-lifecycle checks to local verification and the existing CI workflow. Scene operations retain independent IO lifetime until cancellation drains; stopping during hashing/checkpointing releases handles and temporary checkpoints.",
+        "Added launcher drag, world placement and interactive-route suites to CI definitions. Preserved prior qualified builds while preparing a separate unsigned placement build.",
+        "2026-11-14 environment/Sky3D follow-up: Added environment regression and Sky3D controls suites to local checks and CI definitions; previous qualified builds are preserved. Separate environment-sky-final package uses the official optimized Windows template."
       ],
       "verification": [
         "Local native, source-free GPU/native inference and Windows rendering checks pass; full Bali + Suzuki and 2-million-point SpatialOS performance observations recorded.",
@@ -1072,7 +1109,12 @@
         "Source commit 06e68b1 passes GitHub Actions run 43351577832: Linux disabled/native-4x rendering and all source/input/lifecycle suites; Windows native build, real inference, optimized-template package and real-main startup.",
         "The optimized template also encodes a real non-square RGB image and decodes a prompt-conditioned full-size mask. Final normal-main package has 119 receipt files, all hashes verified, zero export warnings/errors; installed separately at build/startup-depth-release-candidate.",
         "Local core/source/startup/camera/color/selection/GPU/depth/lifecycle/migration/SpatialOS/native/provider suites pass. Optimized release passes actual new pipelines, full 7,959,786-splat population, independent transforms and real native image inference.",
-        "Final runtime commit aa9edb9 passes both GitHub Actions jobs in run 43416837577, including the new combined migration/rollback/teardown checks. The final optimized real-main package starts successfully; all 119 receipt files are SHA-256 verified. Complete Bali/Suzuki qualification: 7,959,786 resident splats, 79,405 ms load; 7,956,764 projected shadow casters, 304 ms cache build. See hud-delivery-receipt.json."
+        "Final runtime commit aa9edb9 passes both GitHub Actions jobs in run 43416837577, including the new combined migration/rollback/teardown checks. The final optimized real-main package starts successfully; all 119 receipt files are SHA-256 verified. Complete Bali/Suzuki qualification: 7,959,786 resident splats, 79,405 ms load; 7,956,764 projected shadow casters, 304 ms cache build. See hud-delivery-receipt.json.",
+        "Shadow/UI-scale follow-up: Godot 4.6.2 NVIDIA Vulkan suites pass for UI pointer input, studio, color/transform, shadow, hybrid, depth, startup and lifecycle; optimized real-main Windows template starts with zero export warnings and all 119 package hashes verified. Girl_A + Suzuki load 447,877 splats across two models with a live shadow cache. No additional platform or current CI-run claim; see evidence/shadow-scale-receipt.json.",
+        "2026-11-14 local Godot 4.6.2 NVIDIA Vulkan: composition, actual-input toolbar/color/XYZ, studio, startup, lifecycle, migration, shadow and depth checks pass; headless core checks pass in their intended mode. Girl_A + Suzuki reopen all 447877 splats with matching transforms and sampled mean RGB drift 0.00000007782603. Optimized main-scene package startup passes. See evidence/composition-receipt.json; no new remote CI run or platform qualification is claimed.",
+        "Local full-asset placement: Girl_A is placed on a real Suzuki scan point; all 447877 splats remain resident, base contact error is 0.00000011920929 world units, camera pose is preserved, and saving/reopening restores the exact placed transform. Windows Vulkan input/scene regression and optimized-template startup checks pass; see evidence/placement-receipt.json. No new remote CI/platform claim.",
+        "See evidence/environment-* for before/after reproduction, full-data Bali review, regression logs, source/package receipts and real-main optimized startup. No new commit, remote CI run, signing or cross-platform/device claim is made.",
+        "Loading A-F qualification: local source/core and preservation suites pass, including full 1908x960 Bali/object placement and 1142/1908 input checks. The optimized template loads all 7,959,786 Bali/Suzuki splats in 8,404 ms, preserves independent transforms, composes transparency, builds directional Gaussian shadows and completes real native inference. Real-main startup and all 119 delivery-package hashes pass; the previous 119-file qualified build is unchanged. Details: docs/performance/loading-receipt.json. CI definitions include the new loading suites; no new remote CI run or signing/platform claim is made."
       ],
       "remaining": [
         "Unsigned Windows Vulkan/CPU qualification does not provide a Windows signing identity or certify additional GPU vendors, operating systems or XR devices. These release qualification boundaries remain open; the reproduced startup crash, export RID leak and software-MSAA depth failure are addressed."
@@ -1102,7 +1144,7 @@
   ],
   "current_work_order": [
     "P.1.1: user reconfirmed key not revoked; provider-account action outstanding",
-    "P.3.6: native 4x software-MSAA mitigation and existing opaque-depth checks pass; arbitrary transparency, Gaussian shadows and XR remain unimplemented",
+    "P.3.6: supported participant transparency and directional Gaussian cast/receive shadows are implemented and qualified locally. Arbitrary custom transparent shaders/refraction, skinning/blend shapes/particles and XR multiview remain outside that contract; no headset is available.",
     "P.5.7: authenticated provider qualification still needs a valid replacement credential",
     "P.7.2: main startup/release-template crash and camera export leak fixed; source CI, unsigned optimized package and GPU/native checks pass. Signing and broader physical-platform qualification remain pending.",
     "P.7.3: ownership/license uncertainty remains unresolved; no rights assertions fabricated"

@@ -12,6 +12,7 @@ var _placed := false
 var _reveal:Tween
 const LAYOUT_PATH := "user://viewer-layout.cfg"
 func _ready() -> void:
+	GSUiScale.apply(self)
 	add_to_group("gs_floating_panels")
 	if drag_handle: drag_handle.gui_input.connect(_on_header_input)
 	get_viewport().size_changed.connect(_fit)
@@ -20,14 +21,14 @@ func _ready() -> void:
 func _on_header_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		_dragging = event.pressed
-		_drag_offset = get_global_mouse_position() - global_position
+		_drag_offset = drag_handle.get_global_transform()*event.position - global_position
 		drag_changed.emit(_dragging)
 		drag_handle.accept_event()
 		if not _dragging: save_layout()
 func _input(event: InputEvent) -> void:
 	if not _dragging: return
 	if event is InputEventMouseMotion:
-		global_position = get_global_mouse_position() - _drag_offset
+		global_position = get_canvas_transform().affine_inverse()*event.position - _drag_offset
 		_fit();get_viewport().set_input_as_handled()
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		_dragging = false;drag_changed.emit(false);save_layout()
@@ -36,7 +37,7 @@ func _notification(what: int) -> void:
 		_dragging = false;drag_changed.emit(false);save_layout()
 func _fit() -> void:
 	var viewport := get_viewport_rect().size
-	position = position.clamp(Vector2(12,12), (viewport-size-Vector2(12,30)).max(Vector2(12,12)))
+	position = position.clamp(Vector2(12,12), (viewport-GSUiScale.extent(self)-Vector2(12,30)).max(Vector2(12,12)))
 func _load_layout() -> void:
 	var file := ConfigFile.new()
 	if file.load(LAYOUT_PATH) == OK and file.has_section_key(layout_id,"position"):
@@ -72,4 +73,4 @@ func _reflow()->void:
 	_fit()
 
 func _default_position()->Vector2:
-	return Vector2(maxf(12,get_viewport_rect().size.x-size.x-24) if default_position.x<0 else default_position.x,default_position.y)
+	return Vector2(maxf(12,get_viewport_rect().size.x-GSUiScale.extent(self).x-24) if default_position.x<0 else default_position.x,default_position.y)

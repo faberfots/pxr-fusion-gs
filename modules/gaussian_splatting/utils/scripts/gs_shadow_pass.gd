@@ -34,7 +34,7 @@ func initialize(renderer:GaussianSplattingRasterizer,width:int)->Error:
 	context=renderer.context;resolution=width
 	var rd:=context.device
 	var bytes:=width*width*16*8*2+((width+renderer.config.tile_size-1)/renderer.config.tile_size)**2*8+(renderer.config.memory_max_instances+1)*4+176
-	if bytes>renderer.config.memory_max_vram_budget_mb*1048576-context.deletion_queue.get_tracked_memory():return ERR_OUT_OF_MEMORY
+	if bytes>renderer.config.memory_max_vram_budget_mb*1048576-renderer.tracked_gpu_bytes():return ERR_OUT_OF_MEMORY
 	if width*16>rd.limit_get(RenderingDevice.LIMIT_MAX_TEXTURE_SIZE_2D):return ERR_PARAMETER_RANGE_ERROR
 	projection_shader=context.load_shader("res://modules/gaussian_splatting/shaders/compute/gs_shadow_projection.glsl",renderer.config)
 	render_shader=context.load_shader("res://modules/gaussian_splatting/shaders/compute/gs_shadow_render.glsl",renderer.config)

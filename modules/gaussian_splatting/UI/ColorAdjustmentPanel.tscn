@@ -1,283 +1,284 @@
-[gd_scene load_steps=3 format=3]
-[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/ColorAdjustmentPanel.gd" id="1"]
-[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
-[node name="ColorAdjustmentPanel" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+[gd_scene format=3 uid="uid://bbpegdsfnp7qw"]
+
+[ext_resource type="Script" uid="uid://bve7mknhbmlkd" path="res://modules/gaussian_splatting/UI/ColorAdjustmentPanel.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b32hafhaxd5yv" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+
+[node name="ColorAdjustmentPanel" type="PanelContainer" unique_id=377784767 node_paths=PackedStringArray("drag_handle")]
 visible = false
-custom_minimum_size = Vector2(344,0)
-size = Vector2(344,480)
+custom_minimum_size = Vector2(344, 0)
+offset_right = 344.0
+offset_bottom = 480.0
 theme = ExtResource("2")
 script = ExtResource("1")
+drag_handle = NodePath("Frame/Header")
 layout_id = "image"
 fit_content_height = false
-drag_handle = NodePath("Frame/Header")
 
-[node name="Frame" type="VBoxContainer" parent="."]
+[node name="Frame" type="VBoxContainer" parent="." unique_id=1333082062]
 layout_mode = 2
 
-[node name="Header" type="HBoxContainer" parent="Frame"]
+[node name="Header" type="HBoxContainer" parent="Frame" unique_id=1448630185]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 6
 
-[node name="Title" type="Label" parent="Frame/Header"]
+[node name="Title" type="Label" parent="Frame/Header" unique_id=290275938]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Image studio"
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 22
+text = "Image studio"
+horizontal_alignment = 1
 
-[node name="Close" type="Button" parent="Frame/Header"]
+[node name="Close" type="Button" parent="Frame/Header" unique_id=1881577346]
 unique_name_in_owner = true
 layout_mode = 2
-text = "×"
 tooltip_text = "Close image studio"
+text = "×"
 
-[node name="Description" type="Label" parent="Frame"]
+[node name="Description" type="Label" parent="Frame" unique_id=1303200801]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Shape the image. Preserve the source."
-theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
+theme_override_colors/font_color = Color(0.55, 0.68, 0.74, 1)
 theme_override_font_sizes/font_size = 13
+text = "Shape the image. Preserve the source."
 
-[node name="Preset" type="OptionButton" parent="Frame"]
+[node name="Preset" type="OptionButton" parent="Frame" unique_id=1580613548]
 unique_name_in_owner = true
 layout_mode = 2
 item_count = 6
 popup/item_0/text = "Custom"
+popup/item_0/id = 0
 popup/item_1/text = "Natural"
+popup/item_1/id = 1
 popup/item_2/text = "Warm daylight"
+popup/item_2/id = 2
 popup/item_3/text = "Soft"
+popup/item_3/id = 3
 popup/item_4/text = "Vivid"
+popup/item_4/id = 4
 popup/item_5/text = "Architectural"
+popup/item_5/id = 5
 
-[node name="Scroll" type="ScrollContainer" parent="Frame"]
+[node name="Scroll" type="ScrollContainer" parent="Frame" unique_id=388850798]
 unique_name_in_owner = true
+layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="Body" type="VBoxContainer" parent="Frame/Scroll"]
+[node name="Body" type="VBoxContainer" parent="Frame/Scroll" unique_id=1827633481]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="post_exposureRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+[node name="post_exposureRow" type="HBoxContainer" parent="Frame/Scroll/Body" unique_id=1056293736]
 unique_name_in_owner = true
 layout_mode = 2
 
-
-[node name="post_exposureLabel" type="Label" parent="Frame/Scroll/Body/post_exposureRow"]
+[node name="post_exposureLabel" type="Label" parent="Frame/Scroll/Body/post_exposureRow" unique_id=1406926578]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Exposure"
-size_flags_horizontal = 3
 
-[node name="post_exposureValue" type="Label" parent="Frame/Scroll/Body/post_exposureRow"]
+[node name="post_exposureValue" type="Label" parent="Frame/Scroll/Body/post_exposureRow" unique_id=1059317078]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1.00"
 horizontal_alignment = 2
 
-[node name="post_exposure" type="HSlider" parent="Frame/Scroll/Body"]
+[node name="post_exposure" type="HSlider" parent="Frame/Scroll/Body" unique_id=1807424359]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-min_value = 0.0
+tooltip_text = "Exposure"
 max_value = 5.0
 step = 0.01
-custom_minimum_size = Vector2(0,20)
-tooltip_text = "Exposure"
 
-[node name="post_contrastRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+[node name="post_contrastRow" type="HBoxContainer" parent="Frame/Scroll/Body" unique_id=1279541258]
 unique_name_in_owner = true
 layout_mode = 2
 
-
-[node name="post_contrastLabel" type="Label" parent="Frame/Scroll/Body/post_contrastRow"]
+[node name="post_contrastLabel" type="Label" parent="Frame/Scroll/Body/post_contrastRow" unique_id=214597908]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Contrast"
 size_flags_horizontal = 3
+text = "Contrast"
 
-[node name="post_contrastValue" type="Label" parent="Frame/Scroll/Body/post_contrastRow"]
+[node name="post_contrastValue" type="Label" parent="Frame/Scroll/Body/post_contrastRow" unique_id=569828712]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1.00"
 horizontal_alignment = 2
 
-[node name="post_contrast" type="HSlider" parent="Frame/Scroll/Body"]
+[node name="post_contrast" type="HSlider" parent="Frame/Scroll/Body" unique_id=1416873968]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+tooltip_text = "Contrast"
 min_value = 0.5
 max_value = 2.0
 step = 0.01
-custom_minimum_size = Vector2(0,20)
-tooltip_text = "Contrast"
+value = 0.5
 
-[node name="post_saturationRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+[node name="post_saturationRow" type="HBoxContainer" parent="Frame/Scroll/Body" unique_id=277724532]
 unique_name_in_owner = true
 layout_mode = 2
 
-
-[node name="post_saturationLabel" type="Label" parent="Frame/Scroll/Body/post_saturationRow"]
+[node name="post_saturationLabel" type="Label" parent="Frame/Scroll/Body/post_saturationRow" unique_id=924392422]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Saturation"
 size_flags_horizontal = 3
+text = "Saturation"
 
-[node name="post_saturationValue" type="Label" parent="Frame/Scroll/Body/post_saturationRow"]
+[node name="post_saturationValue" type="Label" parent="Frame/Scroll/Body/post_saturationRow" unique_id=566174375]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1.00"
 horizontal_alignment = 2
 
-[node name="post_saturation" type="HSlider" parent="Frame/Scroll/Body"]
+[node name="post_saturation" type="HSlider" parent="Frame/Scroll/Body" unique_id=1846261031]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-min_value = 0.0
+tooltip_text = "Saturation"
 max_value = 2.0
 step = 0.01
-custom_minimum_size = Vector2(0,20)
-tooltip_text = "Saturation"
 
-[node name="post_temperatureRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+[node name="post_temperatureRow" type="HBoxContainer" parent="Frame/Scroll/Body" unique_id=1934033231]
 unique_name_in_owner = true
 layout_mode = 2
 
-
-[node name="post_temperatureLabel" type="Label" parent="Frame/Scroll/Body/post_temperatureRow"]
+[node name="post_temperatureLabel" type="Label" parent="Frame/Scroll/Body/post_temperatureRow" unique_id=74838523]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Warmth"
 size_flags_horizontal = 3
+text = "Warmth"
 
-[node name="post_temperatureValue" type="Label" parent="Frame/Scroll/Body/post_temperatureRow"]
+[node name="post_temperatureValue" type="Label" parent="Frame/Scroll/Body/post_temperatureRow" unique_id=379146593]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1.00"
 horizontal_alignment = 2
 
-[node name="post_temperature" type="HSlider" parent="Frame/Scroll/Body"]
+[node name="post_temperature" type="HSlider" parent="Frame/Scroll/Body" unique_id=1474352809]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+tooltip_text = "Warmth"
 min_value = -1.0
 max_value = 1.0
 step = 0.01
-custom_minimum_size = Vector2(0,20)
-tooltip_text = "Warmth"
 
-[node name="post_black_pointRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+[node name="post_black_pointRow" type="HBoxContainer" parent="Frame/Scroll/Body" unique_id=317770868]
 unique_name_in_owner = true
 layout_mode = 2
 
-
-[node name="post_black_pointLabel" type="Label" parent="Frame/Scroll/Body/post_black_pointRow"]
+[node name="post_black_pointLabel" type="Label" parent="Frame/Scroll/Body/post_black_pointRow" unique_id=1103405468]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Black point"
 size_flags_horizontal = 3
+text = "Black point"
 
-[node name="post_black_pointValue" type="Label" parent="Frame/Scroll/Body/post_black_pointRow"]
+[node name="post_black_pointValue" type="Label" parent="Frame/Scroll/Body/post_black_pointRow" unique_id=1820642269]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1.00"
 horizontal_alignment = 2
 
-[node name="post_black_point" type="HSlider" parent="Frame/Scroll/Body"]
+[node name="post_black_point" type="HSlider" parent="Frame/Scroll/Body" unique_id=1892260643]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-min_value = 0.0
+tooltip_text = "Black point"
 max_value = 0.5
 step = 0.01
-custom_minimum_size = Vector2(0,20)
-tooltip_text = "Black point"
 
-[node name="post_white_pointRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+[node name="post_white_pointRow" type="HBoxContainer" parent="Frame/Scroll/Body" unique_id=1405821622]
 unique_name_in_owner = true
 layout_mode = 2
 
-
-[node name="post_white_pointLabel" type="Label" parent="Frame/Scroll/Body/post_white_pointRow"]
+[node name="post_white_pointLabel" type="Label" parent="Frame/Scroll/Body/post_white_pointRow" unique_id=1100316682]
 unique_name_in_owner = true
 layout_mode = 2
-text = "White point"
 size_flags_horizontal = 3
+text = "White point"
 
-[node name="post_white_pointValue" type="Label" parent="Frame/Scroll/Body/post_white_pointRow"]
+[node name="post_white_pointValue" type="Label" parent="Frame/Scroll/Body/post_white_pointRow" unique_id=186427795]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1.00"
 horizontal_alignment = 2
 
-[node name="post_white_point" type="HSlider" parent="Frame/Scroll/Body"]
+[node name="post_white_point" type="HSlider" parent="Frame/Scroll/Body" unique_id=16027489]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+tooltip_text = "White point"
 min_value = 0.5
 max_value = 2.0
 step = 0.01
-custom_minimum_size = Vector2(0,20)
-tooltip_text = "White point"
+value = 0.5
 
-[node name="post_sharpnessRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+[node name="post_sharpnessRow" type="HBoxContainer" parent="Frame/Scroll/Body" unique_id=1815472410]
 unique_name_in_owner = true
 layout_mode = 2
 
-
-[node name="post_sharpnessLabel" type="Label" parent="Frame/Scroll/Body/post_sharpnessRow"]
+[node name="post_sharpnessLabel" type="Label" parent="Frame/Scroll/Body/post_sharpnessRow" unique_id=1573237938]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Sharpness"
 size_flags_horizontal = 3
+text = "Sharpness"
 
-[node name="post_sharpnessValue" type="Label" parent="Frame/Scroll/Body/post_sharpnessRow"]
+[node name="post_sharpnessValue" type="Label" parent="Frame/Scroll/Body/post_sharpnessRow" unique_id=58494680]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1.00"
 horizontal_alignment = 2
 
-[node name="post_sharpness" type="HSlider" parent="Frame/Scroll/Body"]
+[node name="post_sharpness" type="HSlider" parent="Frame/Scroll/Body" unique_id=91153133]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-min_value = 0.0
+tooltip_text = "Sharpness"
 max_value = 1.0
 step = 0.01
-custom_minimum_size = Vector2(0,20)
-tooltip_text = "Sharpness"
 
-[node name="TintRow" type="HBoxContainer" parent="Frame/Scroll/Body"]
+[node name="TintRow" type="HBoxContainer" parent="Frame/Scroll/Body" unique_id=1289739121]
 unique_name_in_owner = true
 layout_mode = 2
 
-
-[node name="TintLabel" type="Label" parent="Frame/Scroll/Body/TintRow"]
+[node name="TintLabel" type="Label" parent="Frame/Scroll/Body/TintRow" unique_id=1924809726]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Color tint"
 size_flags_horizontal = 3
+text = "Color tint"
 
-[node name="Tint" type="ColorPickerButton" parent="Frame/Scroll/Body/TintRow"]
+[node name="Tint" type="ColorPickerButton" parent="Frame/Scroll/Body/TintRow" unique_id=32796395]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 28)
 layout_mode = 2
-custom_minimum_size = Vector2(84,28)
 edit_alpha = false
 
-[node name="Compare" type="CheckButton" parent="Frame/Scroll/Body"]
+[node name="Compare" type="CheckButton" parent="Frame/Scroll/Body" unique_id=1570691821]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Compare original"
 
-[node name="Reset" type="Button" parent="Frame/Scroll/Body"]
+[node name="Reset" type="Button" parent="Frame/Scroll/Body" unique_id=1468644699]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Reset to Natural"
 
-[node name="Note" type="Label" parent="Frame/Scroll/Body"]
+[node name="Note" type="Label" parent="Frame/Scroll/Body" unique_id=338500069]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Saved automatically · independent of quality"
+theme_override_colors/font_color = Color(0.55, 0.68, 0.74, 1)
 theme_override_font_sizes/font_size = 12
-theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
+text = "Saved automatically · independent of quality"
 
-[node name="SaveTimer" type="Timer" parent="."]
+[node name="SaveTimer" type="Timer" parent="." unique_id=165169853]
 unique_name_in_owner = true
-one_shot = true
 wait_time = 0.4
+one_shot = true

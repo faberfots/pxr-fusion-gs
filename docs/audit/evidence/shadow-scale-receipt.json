@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-13",
+  "baseline_commit": "e3d030f2058e494d962ad1dcac0e7bf6a8eb362e",
+  "delivery": "Applied to the active working checkout, including preserved pre-existing user scene/theme customizations; no source commit or new remote CI run is claimed.",
+  "scope": "Godot 4.6.2 Windows x86_64 NVIDIA RTX 4070 Laptop Vulkan; official unsigned optimized Windows template.",
+  "ui_scale": 0.67,
+  "panel_background_opacity": 0.33,
+  "shadow_fix": "Shadow receiver follows native material culling; hidden underside adds no duplicate. Baked shadows remain captured radiance.",
+  "checks": {
+    "grid_shadow_checks": "960x648, passed",
+    "ui_scale_checks": "1142x648 and 1908x960, passed; legacy scene navigator drag additionally covered at 1142x648",
+    "studio_checks": "1142x648, passed",
+    "color_transform_checks": "1142x648, passed",
+    "shadow_checks": "fixture launch 64x64, passed",
+    "hybrid_checks": "fixture launch 64x64, passed",
+    "rendering_checks": "fixture launch 64x64, passed",
+    "startup_checks": "fixture launch 64x64, passed",
+    "lifecycle_checks": "fixture launch 64x64, passed",
+    "optimized_real_main_startup": "1142x648, passed",
+    "real_models": "447877 full splats, Girl_A + Suzuki, 2 models, directional shadow cache built, 1908x960"
+  },
+  "engine_sha256": "3b2d3f99bd640961aad1a1a200f0f7233b7de45b02801ce22d3224dc294d93d1",
+  "pck_sha256": "b039b3c5718a26d8685715e8204969c5d8c7fc0eefb9ca26ce9f6f03bfbe2463",
+  "verified_package_files": 119,
+  "export_warning_lines": 0,
+  "runtime_file_sha256": {
+    "modules/gaussian_splatting/UI/ui_scale.gd": "50131a1d95bf03e4a3aa6d8a27c651910a2fff5df69c56ebab1e96e578f4569a",
+    "modules/gaussian_splatting/UI/FloatingPanel.gd": "6c7a665b9f94e5b3795045f76972a0661e6baed77e50b091af46dcabe221201f",
+    "modules/gaussian_splatting/UI/DraggableContainer.gd": "8fb04526ab8d4094ed86cfefe1c7b95c4d75b7d5ab5829636041487f3289d3f0",
+    "modules/gaussian_splatting/UI/CommandDock.gd": "c1fe2701091821337b577ba0d5d430f32b9524c7845f138f80496e48da7c1f8e",
+    "modules/gaussian_splatting/UI/ColorAdjustmentPanel.gd": "6d79c53a8783597aec4fd6e03f9c37a958fd2a0126d96c0adb67ca5272d3e8bf",
+    "modules/gaussian_splatting/UI/ProductionUI.gd": "465cdc35b4d9ce0a55d8d1c58cebba406f9027d4abd6e80cb67cfc7c9b09f24b",
+    "modules/gaussian_splatting/UI/ModelTransformControls.gd": "04437c637559ece2ee720201632a58d87727605a4756d2bb9a4aaafd343566b5",
+    "modules/gaussian_splatting/shaders/spatial/gaussian_shadow_receiver.gdshader": "3a1b00e8d1eec0464c650f57aae1dd9c9e11672f633c0a00745e4db45990a35f",
+    "modules/gaussian_splatting/utils/scripts/gs_shadow_receiver.gd": "9354a0c3a11da3d3104e826523b44eb8bffbb1b6ace12e9504129dbeee694277"
+  },
+  "remaining_boundaries": [
+    "Native OS file dialogs use OS scaling.",
+    "No new XR, additional GPU vendor or current remote CI qualification.",
+    "No baked-shadow removal or physical relighting."
+  ],
+  "status_counts": {
+    "fully implemented": 61,
+    "partially implemented": 5,
+    "not yet implemented": 0
+  }
+}

@@ -1,78 +1,99 @@
-[gd_scene load_steps=3 format=3]
-[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
-[ext_resource type="Theme" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
-[node name="LightingPanel" type="PanelContainer" node_paths=PackedStringArray("drag_handle")]
+[gd_scene format=3 uid="uid://bvcd8qkkoe1o1"]
+
+[ext_resource type="Script" uid="uid://dsqyn3j7m563r" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b32hafhaxd5yv" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+
+[ext_resource type="PackedScene" path="res://modules/gaussian_splatting/UI/SkyControls.tscn" id="3"]
+
+[node name="LightingPanel" type="PanelContainer" unique_id=799274680 node_paths=PackedStringArray("drag_handle")]
 visible = false
-custom_minimum_size = Vector2(340,0)
-script = ExtResource("1")
+custom_minimum_size = Vector2(340, 0)
 theme = ExtResource("2")
-layout_id = "LightingPanel"
+script = ExtResource("1")
 drag_handle = NodePath("Body/Header")
+layout_id = "LightingPanel"
 
-[node name="Body" type="VBoxContainer" parent="."]
+[node name="Body" type="VBoxContainer" parent="." unique_id=1420719335]
 unique_name_in_owner = true
+layout_mode = 2
 
-
-[node name="Header" type="HBoxContainer" parent="Body"]
+[node name="Header" type="HBoxContainer" parent="Body" unique_id=92707172]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 6
 
-[node name="Title" type="Label" parent="Body/Header"]
+[node name="Title" type="Label" parent="Body/Header" unique_id=1252098359]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Light & integration"
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 22
+text = "Light & integration"
+horizontal_alignment = 1
 
-[node name="Close" type="Button" parent="Body/Header"]
+[node name="Close" type="Button" parent="Body/Header" unique_id=1611198635]
 unique_name_in_owner = true
 layout_mode = 2
-text = "×"
 tooltip_text = "Close panel"
+text = "×"
 
-[node name="Description" type="Label" parent="Body"]
+[node name="Tabs" type="TabContainer" parent="Body"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(340, 450)
 layout_mode = 2
+size_flags_vertical = 3
+[node name="Gaussian" type="VBoxContainer" parent="Body/Tabs"]
+layout_mode = 2
+
+[node name="Description" type="Label" parent="Body/Tabs/Gaussian" unique_id=1899304840]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.68, 0.74, 1)
+theme_override_font_sizes/font_size = 13
 text = "Directional Gaussian shadows and participating transparent meshes."
 autowrap_mode = 2
-custom_minimum_size = Vector2(300,0)
-theme_override_font_sizes/font_size = 13
-theme_override_colors/font_color = Color(0.55,0.68,0.74,1)
 
-[node name="Shadows" type="CheckButton" parent="Body"]
+[node name="Shadows" type="CheckButton" parent="Body/Tabs/Gaussian" unique_id=264776919]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Gaussian shadows"
 
-[node name="ShadowStrength" type="HSlider" parent="Body"]
+[node name="ShadowStrength" type="HSlider" parent="Body/Tabs/Gaussian" unique_id=239819034]
 unique_name_in_owner = true
 layout_mode = 2
-min_value = 0.0
+tooltip_text = "Dynamic shadow strength"
 max_value = 1.0
 step = 0.01
 value = 0.65
-tooltip_text = "Dynamic shadow strength"
 
-[node name="ShadowStatus" type="Label" parent="Body"]
+[node name="ShadowStatus" type="Label" parent="Body/Tabs/Gaussian" unique_id=651006524]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Original captured radiance is preserved when off."
 autowrap_mode = 2
 
-[node name="IntegrationNote" type="Label" parent="Body"]
+[node name="IntegrationNote" type="Label" parent="Body/Tabs/Gaussian" unique_id=89820567]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "Choose which models cast and receive shadows in Scene navigator. Receiving stays off until you enable it."
 autowrap_mode = 2
-theme_override_font_sizes/font_size = 12
 
-[node name="ShadowResolution" type="OptionButton" parent="Body"]
+[node name="ShadowResolution" type="OptionButton" parent="Body/Tabs/Gaussian" unique_id=118981707]
 unique_name_in_owner = true
+layout_mode = 2
 tooltip_text = "Directional shadow resolution · uses the existing total GPU budget"
-item_count = 3
 selected = 1
+item_count = 3
 popup/item_0/text = "Draft · 256 × 256"
+popup/item_0/id = 0
 popup/item_1/text = "Balanced · 512 × 512"
+popup/item_1/id = 1
 popup/item_2/text = "Fine · 1024 × 1024"
+popup/item_2/id = 2
+
+[node name="SkyControls" parent="Body/Tabs" instance=ExtResource("3")]
+unique_name_in_owner = true
+layout_mode = 2
+metadata/_tab_name = "Sky & time"

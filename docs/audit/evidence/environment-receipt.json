@@ -1,0 +1,72 @@
+{
+  "scope": "Windows x86_64 Godot 4.6.2 NVIDIA Vulkan; local qualification; no new remote CI run",
+  "package": "build/environment-sky-final",
+  "source_receipt": "environment-source-receipt.json",
+  "full_dataset_review": {
+    "bali_pose": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "camera_pose": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -2.48181819915771,
+      0.224999994039536,
+      1.43188524246216
+    ],
+    "load_and_review_ms": 90353,
+    "splats": 7959786
+  },
+  "regression_reproduced_before_fix": {
+    "failures": 3,
+    "log": "environment-before.log"
+  },
+  "passing_checks": [
+    "environment_import_checks: 1142x648,1908x960, public camera-positioned event",
+    "sky_controls_checks: 1142x648,1908x960, saved atmosphere and invalid-data rejection",
+    "placement_checks: current object placement and source transform preservation",
+    "placement_routes_checks: picker, drop, recent, GSRES and pxrscene",
+    "composition_checks",
+    "composition_lifecycle_checks",
+    "color_transform_checks",
+    "studio_checks",
+    "launcher_drag_checks: 1142x648,1908x960",
+    "ui_scale_checks: 1142x648,1908x960",
+    "startup_checks",
+    "lifecycle_checks",
+    "camera_lifecycle_checks",
+    "rendering_checks",
+    "shadow_checks",
+    "core_checks: headless",
+    "check_source: tracked source, zero findings",
+    "Official optimized Windows template: real main-scene Vulkan startup, exit 0; zero export warning/error lines"
+  ],
+  "status_counts": {
+    "partially implemented": 5,
+    "fully implemented": 61
+  },
+  "remaining_scope": "Existing five partial findings retain their explicit external/device/platform/provenance boundaries. Auto detection is a per-scan size heuristic with overrides. Sky3D cannot remove baked scan lighting.",
+  "review_images": {
+    "environment-bali-and-object.png": "673af498f5108bd813bc131dd96f31d3c4893e4e974ee941fd29d72197441567",
+    "environment-bali-entry.png": "87e4312ab3b28b87ed59f28100f8354e619c476a6b1abdfb28c92dea346e746b",
+    "environment-bali-sky-panel.png": "b2b5dbff0a690cbfd04f68ece85d30ef718b8bb8bac43f0773d7979916dd0583",
+    "environment-import-selector.png": "067705d42b7dd3e43aa1f8b681731ae6aedddf35084f7499a3c156c1aa02c992"
+  }
+}

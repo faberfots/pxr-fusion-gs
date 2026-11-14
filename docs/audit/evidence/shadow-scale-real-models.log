@@ -1,0 +1,103 @@
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (2.684338, 1.692196, 3.35852)
+[CameraController] Camera transform set to: (2.684338, 1.692196, 3.35852)
+[FreeLookCamera] Movement state reset. Position: (5.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (5.0, 3.0, 7.0)
+REAL MODEL REVIEW PASS population 447877 models 2 shadow cache true
+WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:3 - ext_resource, invalid UID: uid://h5f2ildmbs1h - using text path instead: res://modules/gaussian_splatting/UI/art/button_hover.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:4 - ext_resource, invalid UID: uid://dlfvu6u6eaoh2 - using text path instead: res://modules/gaussian_splatting/UI/art/button_normal.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:5 - ext_resource, invalid UID: uid://4n6ae5yv86xa - using text path instead: res://modules/gaussian_splatting/UI/art/button_pressed.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:6 - ext_resource, invalid UID: uid://bo1ggjab3f1qb - using text path instead: res://modules/gaussian_splatting/UI/art/panel_frame.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ViewerTheme.tres:7 - ext_resource, invalid UID: uid://b4vipovlru5nj - using text path instead: res://modules/gaussian_splatting/UI/art/slider_gem.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/OrbitalButton.tscn:4 - ext_resource, invalid UID: uid://icfoxdocq8ws - using text path instead: res://modules/gaussian_splatting/UI/art/orb_plate.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/OrbitalButton.tscn:5 - ext_resource, invalid UID: uid://bjc8xpjgufan8 - using text path instead: res://modules/gaussian_splatting/UI/art/orb_hover.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/CommandDock.tscn:7 - ext_resource, invalid UID: uid://nf5vwvbxjrps - using text path instead: res://modules/gaussian_splatting/UI/art/core.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/CommandDock.tscn:8 - ext_resource, invalid UID: uid://cjifaurgdtngf - using text path instead: res://modules/gaussian_splatting/UI/art/camera.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/CommandDock.tscn:9 - ext_resource, invalid UID: uid://cqstb001tk5dp - using text path instead: res://modules/gaussian_splatting/UI/art/image.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/CommandDock.tscn:10 - ext_resource, invalid UID: uid://b2j8bsyx1rgol - using text path instead: res://modules/gaussian_splatting/UI/art/load.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/CommandDock.tscn:11 - ext_resource, invalid UID: uid://80bdnvntmqjv - using text path instead: res://modules/gaussian_splatting/UI/art/scene.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/CommandDock.tscn:12 - ext_resource, invalid UID: uid://bl6nncoepvyvo - using text path instead: res://modules/gaussian_splatting/UI/art/settings.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/CommandDock.tscn:13 - ext_resource, invalid UID: uid://bhn2cfep3ccyy - using text path instead: res://modules/gaussian_splatting/UI/art/spark.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/CommandDock.tscn:14 - ext_resource, invalid UID: uid://q7payxduev7m - using text path instead: res://modules/gaussian_splatting/UI/art/sun.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/CommandDock.tscn:15 - ext_resource, invalid UID: uid://guyx2d4bhx5f - using text path instead: res://modules/gaussian_splatting/UI/art/orbit.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ModelTools.tscn:5 - ext_resource, invalid UID: uid://snam28vljrs6 - using text path instead: res://modules/gaussian_splatting/UI/icons/select.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ModelTools.tscn:6 - ext_resource, invalid UID: uid://c56e2cpypfbkq - using text path instead: res://modules/gaussian_splatting/UI/icons/move.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ModelTools.tscn:7 - ext_resource, invalid UID: uid://bhm6naf82pb5h - using text path instead: res://modules/gaussian_splatting/UI/icons/rotate.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ModelTools.tscn:8 - ext_resource, invalid UID: uid://cu2io8uoftl0f - using text path instead: res://modules/gaussian_splatting/UI/icons/scale.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+WARNING: res://modules/gaussian_splatting/UI/ModelTools.tscn:9 - ext_resource, invalid UID: uid://biwy116kajf3k - using text path instead: res://modules/gaussian_splatting/UI/icons/focus.svg
+   at: load (scene/resources/resource_format_text.cpp:500)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/shadow_ui_review.gd:4)
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpArrayLength is not supported yet.

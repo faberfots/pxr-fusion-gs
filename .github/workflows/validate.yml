@@ -35,6 +35,23 @@ jobs:
           for suite in startup_checks camera_lifecycle_checks gpu_checks lifecycle_checks rendering_checks migration_recovery_checks spatial_checks selection_color_checks color_transform_checks studio_checks hybrid_checks shadow_checks; do
             xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --timeout 300 --script "res://tests/$suite.gd"
           done
+          for suite in loading_gpu_checks loading_checkpoint_checks loading_parallel_checks loading_scheduler_checks loading_cache_checks; do
+            xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --timeout 300 --script "res://tests/$suite.gd"
+          done
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/loading_progressive_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/composition_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/composition_lifecycle_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 960x648 --script res://tests/grid_shadow_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/ui_scale_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1908x960 --script res://tests/ui_scale_checks.gd
+          for resolution in 1142x648 1908x960; do
+            for suite in launcher_drag_checks placement_checks; do
+              xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution "$resolution" --script "res://tests/$suite.gd"
+            done
+          done
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/placement_routes_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/environment_import_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/sky_controls_checks.gd
           python tools/make_spatial_fixture.py /tmp/spatial-ci.ply --count 40000
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --script res://tests/spatial_async_checks.gd --test-arg /tmp/spatial-ci.ply --test-arg 40000
       - name: Native software MSAA depth (runtime selects supported 4x)

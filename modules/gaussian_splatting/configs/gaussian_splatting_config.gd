@@ -140,13 +140,18 @@ var max_file_size_mb: float = 0.0
 
 #region Loading Parameters
 @export_group("Loading", "")
-## Number of splats to process per batch during async loading
-## Higher = faster loading but longer stalls per batch
-## Lower = smoother loading but takes more time overall
-@export_range(100, 5000, 100) var loading_batch_size : int = 1000 :
-	set(value):
-		loading_batch_size = clampi(value, 100, 5000)
-		_mark_dirty()
+## CPU block size, independent of render quality. Legacy serialized values remain valid.
+@export_range(100, 131072, 1) var loading_batch_size:int=GSConstants.DEFAULT_LOADING_BATCH_SIZE
+@export_range(4096,131072,1) var loading_gpu_block_splats:int=GSConstants.DEFAULT_LOADING_BATCH_SIZE
+@export var loading_progressive_preview:=false
+@export var loading_gpu_conversion_enabled:=true
+@export_range(1,4,1) var loading_cpu_workers:int=2
+@export var loading_cache_enabled:=true
+@export var loading_cache_directory:=GSPreparedCache.DEFAULT_ROOT
+@export_range(256,32768,256) var loading_cache_budget_mb:int=8192
+@export_range(8,512,1) var loading_staging_budget_mb:int=256
+@export_range(1, 64, 1) var loading_upload_budget_mb:int=32
+@export_range(0.25, 8.0, 0.25) var loading_schedule_budget_ms:float=2.0
 
 ## Delay in seconds after cleanup before initializing new scene
 ## Gives GPU time to complete pending operations
@@ -348,7 +353,6 @@ func _apply_low_preset() -> void:
 	# ---------------------------------------------------------------
 	
 	# Smaller batches for smoother loading on slower systems
-	loading_batch_size = 500	# Prevent UI freezing on weak CPUs
 	
 	# 2. Rendering Quality
 	# Lower quality defaults
@@ -379,7 +383,6 @@ func _apply_medium_preset() -> void:
 	# ---------------------------------------------------------------
 	
 	# Standard batches
-	loading_batch_size = 1000
 	
 	# 2. Rendering Quality
 	# Native resolution
@@ -410,7 +413,6 @@ func _apply_high_preset() -> void:
 	# ---------------------------------------------------------------
 	
 	# Larger batches for faster loading
-	loading_batch_size = 2000
 	
 	# 2. Rendering Quality
 	# High quality rendering
@@ -441,7 +443,6 @@ func _apply_ultra_preset() -> void:
 	# ---------------------------------------------------------------
 	
 	# Very large batches
-	loading_batch_size = 3000     # Fast loading
 	
 	# 2. Rendering Quality
 	# Supersampling enabled
@@ -469,6 +470,12 @@ func validate() -> bool:
 
 func validation_errors() -> PackedStringArray:
 	var errors := PackedStringArray()
+	if loading_gpu_block_splats<4096 or loading_gpu_block_splats>131072:errors.append("GPU import block must be 4096..131072 splats")
+	if loading_cpu_workers<1 or loading_cpu_workers>4:errors.append("CPU preparation workers must be 1..4")
+	if loading_cache_budget_mb<256 or loading_cache_budget_mb>32768:errors.append("Invalid prepared cache quota")
+	if loading_batch_size<100 or loading_batch_size>131072:errors.append("Loading block must be 100..131072 splats")
+	if loading_staging_budget_mb<8 or loading_staging_budget_mb>512 or loading_upload_budget_mb<1 or loading_upload_budget_mb>64:errors.append("Invalid bounded loading budget")
+	if not is_finite(loading_schedule_budget_ms) or loading_schedule_budget_ms<0.25 or loading_schedule_budget_ms>8:errors.append("Invalid loading scheduling budget")
 	if tile_size not in [8, 16, 32]: errors.append("Tile size must be 8, 16 or 32")
 	if shader_projection_workgroup_size not in [64, 128, 256]: errors.append("Projection workgroup must be 64, 128 or 256")
 	if shader_radix_sort_workgroup_size not in [64, 128, 256]: errors.append("Sort workgroup must be 64, 128 or 256")
