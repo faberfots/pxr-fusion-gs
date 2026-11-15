@@ -22,7 +22,11 @@ jobs:
           python tools/check_source.py
           python tools/audit_status.py --check
       - name: Headless source qualification
-        run: python tools/run_checks.py --godot godot --candidate /tmp/gs-ci
+        run: |
+          python tools/run_checks.py --godot godot --candidate /tmp/gs-ci
+          python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --script res://tests/cortex_settings_checks.gd
+          python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --script res://tests/cortex_presets_checks.gd
+          python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --script res://tests/cortex_transport_checks.gd
       - name: Provider transport lifecycle (local synthetic server)
         run: python tools/check_provider_network.py --godot godot --project /tmp/gs-ci
       - name: Install software Vulkan and display
@@ -52,6 +56,8 @@ jobs:
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/placement_routes_checks.gd
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/environment_import_checks.gd
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/sky_controls_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/cortex_ui_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/cortex_presets_ui_checks.gd
           python tools/make_spatial_fixture.py /tmp/spatial-ci.ply --count 40000
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --script res://tests/spatial_async_checks.gd --test-arg /tmp/spatial-ci.ply --test-arg 40000
       - name: Native software MSAA depth (runtime selects supported 4x)
@@ -98,6 +104,8 @@ jobs:
         run: python tools/setup_native_ml.py --build
       - name: Real GDScript native inference
         run: python tools/run_checks.py --godot godot --script res://tests/native_inference_checks.gd
+      - name: Native CLIP token contract
+        run: python tools/run_checks.py --godot godot --script res://tests/cortex_tokenizer_checks.gd
       - name: Package and start the official optimized Windows template
         shell: pwsh
         run: |

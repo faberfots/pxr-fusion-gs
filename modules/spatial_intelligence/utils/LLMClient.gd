@@ -14,6 +14,9 @@ var policy: AIAccessPolicy
 var _provider := ""
 var _model := ""
 var _request_id := 0
+var _profile:Dictionary={}
+var _started_us:=0
+var last_result:Dictionary={}
 signal tool_calls_received(calls: Array)
 
 func _make_http_request() -> HTTPRequest:
@@ -21,6 +24,9 @@ func _make_http_request() -> HTTPRequest:
 	request.timeout = 45.0
 	request.body_size_limit = 2097152
 	request.max_redirects = 0
+	if not _profile.is_empty():
+		request.timeout=float(_profile.timeout)
+		request.body_size_limit=int(_profile.response_limit_mb)*1048576
 	return request
 
 func _ready() -> void:
@@ -32,24 +38,28 @@ static func _decode_json(value: String) -> Variant:
 	return parser.data if parser.parse(value) == OK else null
 
 ## Sends a vision request to the configured provider
-func send_request(prompt: String, context_json: Dictionary, base64_image: String = "") -> void:
+func send_request(prompt: String, context_json: Dictionary, base64_image: String = "", profile_override:Dictionary={}) -> void:
 	if _is_busy:
 		push_warning("[LLMClient] Busy. Request ignored.")
 		return
 		
-	if not policy or not policy.cloud_enabled:
-		error_occurred.emit("Cloud transmission is disabled.")
+	_profile=SIConfig.settings().active() if profile_override.is_empty() else profile_override.duplicate(true)
+	var document:={"version":1,"active":_profile.get("id",""),"profiles":[_profile],"segmentation":SIConfig.settings().segmentation()}
+	var invalid:=CortexSettings.validate(document)
+	if not invalid.is_empty():error_occurred.emit(invalid);return
+	if not policy or not policy.allows_connection(_profile):
+		error_occurred.emit("Enable transmission to this connection before requesting analysis.")
 		return
-	var api_key = SIConfig.get_api_key()
-	if api_key.is_empty():
-		error_occurred.emit("Missing process credential: set GS_AI_API_KEY or the provider environment key.")
+	var api_key:=CortexCredentials.resolve(_profile)
+	if api_key.is_empty() and _profile.credential_source!="none":
+		error_occurred.emit("This connection has no credential. Configure it in Cortex Setup.")
 		return
 
 	_is_busy = true
-	var provider = SIConfig.get_provider()
-	_provider = provider
-	_model = SIConfig.get_model_name()
-	if _model.is_empty() or not _model.is_valid_filename():
+	var provider:String=_profile.provider
+	_provider=CortexProviders.protocol(_profile)
+	_model=str(_profile.model)
+	if _model.is_empty():
 		_is_busy = false
 		error_occurred.emit("Invalid provider model name.")
 		return
@@ -57,9 +67,11 @@ func send_request(prompt: String, context_json: Dictionary, base64_image: String
 	print("[LLMClient] Sending request to %s..." % provider)
 	
 	# Get tool definitions from ActionController (Motor Cortex)
-	var tools = ActionController.get_tool_definitions() if policy.allows_action() else []
+	var tools=ActionController.get_tool_definitions() if policy.allows_action() and _profile.tools else []
+	if not base64_image.is_empty() and not _profile.vision:
+		_is_busy=false;error_occurred.emit("The selected model is not configured for image input.");return
 	
-	match provider:
+	match _provider:
 		"openai":
 			_send_openai_request(api_key, prompt, context_json, base64_image, tools)
 		"google", "gemini":
@@ -73,11 +85,12 @@ func send_request(prompt: String, context_json: Dictionary, base64_image: String
 # --- Provider Implementations ---
 
 func _send_openai_request(key: String, prompt: String, context: Dictionary, img: String, tools: Array) -> void:
-	var url = "https://api.openai.com/v1/chat/completions"
+	var url:String=_profile.endpoint+"/chat/completions"
 	var headers = [
 		"Content-Type: application/json",
 		"Authorization: Bearer %s" % key
 	]
+	if key.is_empty():headers=["Content-Type: application/json"]
 	
 	var system_msg = _build_system_prompt(context)
 	var user_content = [{"type": "text", "text": prompt}]
@@ -96,17 +109,19 @@ func _send_openai_request(key: String, prompt: String, context: Dictionary, img:
 			{"role": "system", "content": system_msg},
 			{"role": "user", "content": user_content}
 		],
-		"max_tokens": 1024,
 		"tools": tools,
 		"tool_choice": "auto"
 	}
+	body["max_completion_tokens" if _profile.provider=="openai" else "max_tokens"]=int(_profile.max_tokens)
+	if _profile.temperature_enabled:body.temperature=float(_profile.temperature)
+	if _profile.provider=="qwen":body["chat_template_kwargs"]={"enable_thinking":false}
 	
 	_begin_request(url, headers, body)
 
 func _send_gemini_request(key: String, prompt: String, context: Dictionary, img: String, tools: Array) -> void:
 	# Gemini URL format includes the model and key
 	var model = _model # e.g. "gemini-1.5-pro"
-	var url = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % model.uri_encode()
+	var url:String=_profile.endpoint+"/models/%s:generateContent" % model.trim_prefix("models/").uri_encode()
 	var headers = ["Content-Type: application/json", "x-goog-api-key: " + key]
 	
 	var system_msg = _build_system_prompt(context)
@@ -130,13 +145,15 @@ func _send_gemini_request(key: String, prompt: String, context: Dictionary, img:
 
 	var body = {
 		"contents": [{"parts": parts}],
-		"tools": [gemini_tools]
+		"tools": [gemini_tools],
+		"generationConfig":{"maxOutputTokens":int(_profile.max_tokens)}
 	}
+	if _profile.temperature_enabled:body.generationConfig.temperature=float(_profile.temperature)
 	
 	_begin_request(url, headers, body)
 
 func _send_claude_request(key: String, prompt: String, context: Dictionary, img: String, tools: Array) -> void:
-	var url = "https://api.anthropic.com/v1/messages"
+	var url:String=_profile.endpoint+"/messages"
 	var headers = [
 		"x-api-key: %s" % key,
 		"anthropic-version: 2023-06-01",
@@ -168,13 +185,14 @@ func _send_claude_request(key: String, prompt: String, context: Dictionary, img:
 
 	var body = {
 		"model": _model, # e.g. "claude-3-5-sonnet-20240620"
-		"max_tokens": 1024,
+		"max_tokens": int(_profile.max_tokens),
 		"system": system_msg,
 		"messages": [
 			{"role": "user", "content": content}
 		],
 		"tools": claude_tools
 	}
+	if _profile.temperature_enabled:body.temperature=float(_profile.temperature)
 	
 	_begin_request(url, headers, body)
 
@@ -182,6 +200,7 @@ func _send_claude_request(key: String, prompt: String, context: Dictionary, img:
 
 func _begin_request(url: String, headers: PackedStringArray, body: Dictionary) -> void:
 	_request_id += 1
+	_started_us=Time.get_ticks_usec();last_result={}
 	if _http_request:
 		_http_request.cancel_request()
 		_http_request.queue_free()
@@ -264,9 +283,10 @@ static func parse_response(provider: String, data: Variant) -> Dictionary:
 func _on_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray, request_id: int) -> void:
 	if request_id != _request_id or not _is_busy: return
 	_is_busy = false
-	if not policy or not policy.cloud_enabled:
+	if not policy or (not policy.cloud_enabled if _profile.is_empty() else not policy.allows_connection(_profile)):
 		error_occurred.emit("Cloud consent was withdrawn.")
 		return
+	last_result={"http":response_code,"elapsed_ms":(Time.get_ticks_usec()-_started_us)/1000.0,"model":_model,"connection":_profile.get("id","fixture")}
 	if result != HTTPRequest.RESULT_SUCCESS or response_code < 200 or response_code >= 300:
 		error_occurred.emit("Provider request failed (transport %d, HTTP %d)." % [result, response_code])
 		return
@@ -274,6 +294,8 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 	if not parsed.error.is_empty():
 		error_occurred.emit(parsed.error)
 	elif not parsed.calls.is_empty():
+		if not _profile.is_empty() and (not _profile.tools or not policy.allows_action()):
+			error_occurred.emit("Unadvertised scene actions were rejected.");return
 		tool_calls_received.emit(parsed.calls)
 	else:
 		response_received.emit(parsed.text)

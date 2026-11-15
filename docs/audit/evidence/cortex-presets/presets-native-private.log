@@ -1,0 +1,21 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-cortex-presets-native
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS ordinary analysis remains denied without consent even with a private preset selected
+PASS explicit Start & ask privately authorizes only local read-only scene information
+PASS opening plain-language help does not cancel or restart the pending private question
+PASS cancelling during startup cannot send the pending question when the model becomes ready
+[LLMClient] Sending request to qwen...
+GUIDED PRIVATE RESPONSE ready ERROR 
+PASS guided private question completes real bundled Qwen inference without provider or path setup
+PASS private workflow preserves advanced settings and never grants cloud transmission or scene commands
+CORTEX PRIVATE PRESET COMPLETE: 0 failures
+ 
+Process exit: 0

@@ -1,0 +1,17 @@
+{
+  "base_receipt": "docs/performance/loading-receipt.json",
+  "compared_files": 211,
+  "changed_files": [
+    "modules/gaussian_splatting/UI/ProductionUI.gd",
+    "modules/gaussian_splatting/UI/ProductionUI.tscn",
+    "modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd",
+    "modules/spatial_intelligence/autoload/SpatialIntelligence.gd",
+    "modules/spatial_intelligence/configs/ai_access_policy.gd",
+    "modules/spatial_intelligence/configs/SIConfig.gd",
+    "modules/spatial_intelligence/ui/CognitivePanel.gd",
+    "modules/spatial_intelligence/ui/CognitivePanel.tscn",
+    "modules/spatial_intelligence/utils/LLMClient.gd",
+    "modules/spatial_intelligence/utils/NativeMLBridge.gd",
+    "tests/release_checks.gd"
+  ]
+}

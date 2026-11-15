@@ -1,0 +1,38 @@
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS SpatialOS local device
+PASS voxel occupancy and compaction ABI
+PASS large-coordinate averaged voxel position and color
+SpatialIndex: Building GPU index for 3 points...
+SpatialIndex: Build complete in 17.41 ms
+PASS planar grid dimensions stay positive
+PASS exact radius filtering
+PASS maximum boundary indexed
+PASS radius centered outside bounds
+PASS index cleanup preserves source geometry
+PASS strict downsample cap
+PASS missing normals remain unknown
+SpatialIndex: Building GPU index for 1084 points...
+SpatialIndex: Build complete in 1.84 ms
+SpatialGraph: Starting GPU connectivity analysis...
+SpatialGraph: Auto-calculated radius = 0.012m
+SpatialGraph: Converged after 7 iterations
+SpatialGraph: GPU segmentation complete. Found 3 objects in 0.02 s (7 iterations)
+SpatialGraph: Computing segment metadata...
+SpatialGraph: Computed metadata for 3 segments
+SpatialGraph: Inferring spatial relationships...
+SpatialGraph: Found 0 relationships
+PASS connected components preserve remote small segment
+PASS reported graph count matches committed graph
+PASS graph invalidation preserves authoritative points
+Visualizer: Ready and awaiting point cloud data
+Visualizer: Preparing for progressive rendering (3 estimated points)
+Visualizer: Clearing visualization
+Visualizer: Progressive rendering ready (pre-allocated 3 instances)
+Visualizer: Finalizing progressive render (3 points)
+Visualizer: Clearing visualization
+PASS progressive finalization and teardown preserve geometry and colors
+Visualizer: Clearing visualization
+Visualizer: Cleaned up resources
+SPATIAL COMPLETE: 0 failures

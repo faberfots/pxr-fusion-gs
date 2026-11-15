@@ -1,6 +1,6 @@
 {
   "generator": "cargo metadata --offline --locked --format-version 1",
-  "cargo_lock_sha256": "0f32dbec0c4aa4b1b64c3e5b143112b3d1d48b631e1682bd2aff36811fc77505",
+  "cargo_lock_sha256": "5673908df3cb5bb373226e68c8bffc61981a2cfc1c8ba10f2eb27d939263772c",
   "packages": [
     {
       "name": "aho-corasick",
@@ -106,6 +106,13 @@
       "license": "MIT OR Apache-2.0",
       "source": "registry+https://github.com/rust-lang/crates.io-index",
       "repository": "https://github.com/withoutboats/heck"
+    },
+    {
+      "name": "html-escape",
+      "version": "0.2.13",
+      "license": "MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/magiclen/html-escape"
     },
     {
       "name": "image",
@@ -291,7 +298,7 @@
     },
     {
       "name": "spatial_ml",
-      "version": "0.3.0",
+      "version": "0.4.2",
       "license": "MIT",
       "source": null,
       "repository": null
@@ -318,6 +325,13 @@
       "repository": "https://github.com/dtolnay/thiserror"
     },
     {
+      "name": "tinyvec",
+      "version": "1.13.3",
+      "license": "Zlib OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/Lokathor/tinyvec"
+    },
+    {
       "name": "tracing",
       "version": "0.1.44",
       "license": "MIT",
@@ -337,6 +351,20 @@
       "license": "(MIT OR Apache-2.0) AND Unicode-3.0",
       "source": "registry+https://github.com/rust-lang/crates.io-index",
       "repository": "https://github.com/dtolnay/unicode-ident"
+    },
+    {
+      "name": "unicode-normalization",
+      "version": "0.1.24",
+      "license": "MIT/Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/unicode-rs/unicode-normalization"
+    },
+    {
+      "name": "utf8-width",
+      "version": "0.1.9",
+      "license": "MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "repository": "https://github.com/magiclen/utf8-width"
     },
     {
       "name": "venial",

@@ -13,23 +13,28 @@ parser.add_argument('--template', type=Path, required=True)
 parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--dataset', type=Path, action='append', default=[])
 parser.add_argument('--timeout', type=int, default=420)
+parser.add_argument('--include-cortex', action='store_true')
+parser.add_argument('--cortex-image', type=Path)
 args = parser.parse_args()
 if os.name != 'nt':
     parser.error('This helper qualifies Windows x86_64 templates on Windows.')
 output = args.output.resolve()
 subprocess.run([sys.executable, str(ROOT / 'tools/package_candidate.py'),
                 '--godot', str(args.godot.resolve()), '--engine', str(args.template.resolve()),
-                '--output', str(output), '--engine-kind', 'release-template', '--qualification'], check=True)
+                '--output', str(output), '--engine-kind', 'release-template', '--qualification'] +
+               (['--include-cortex'] if args.include_cortex else []), check=True)
 startup = subprocess.STARTUPINFO()
 startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 startup.wShowWindow = 0
 command = [str(output / 'GSViewer.exe'), '--audio-driver', 'Dummy',
            '--rendering-method', 'forward_plus', '--rendering-driver', 'vulkan',
            '--resolution', '1142x648', '--position', '-32000,-32000']
-if args.dataset:
+if args.dataset or args.include_cortex:
     command += ['--']
     for path in args.dataset:
         command += ['--dataset', str(path.resolve())]
+    if args.include_cortex: command += ['--cortex']
+    if args.cortex_image: command += ['--cortex-image', str(args.cortex_image.resolve())]
 result = subprocess.run(command, cwd=output, capture_output=True, text=True,
                         encoding='utf-8', errors='replace', startupinfo=startup, timeout=args.timeout)
 log = result.stdout + result.stderr

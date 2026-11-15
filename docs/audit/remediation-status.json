@@ -15,10 +15,13 @@
       "title": "Embedded provider credential",
       "status": "partially implemented",
       "changes": [
-        "Removed embedded key; process environment credentials; startup never saves project settings"
+        "Removed embedded key; process environment credentials; startup never saves project settings",
+        "2026-11-15: Cortex Setup now offers endpoint-bound session/environment/Windows Credential Manager sources; non-secret profiles persist independently and secrets are rejected from settings documents."
       ],
       "verification": [
-        "Default-denied policy and credential-source inspection"
+        "Default-denied policy and credential-source inspection",
+        "Real Windows vault write/read/delete, session destination binding and non-secret settings restart checks pass.",
+        "Synthetic Windows vault credentials survive a separate Godot process restart and are then deleted; no real vendor secret was used."
       ],
       "remaining": [
         "2026-11-13: user reconfirmed the exposed key is not revoked. Provider-account revocation remains required; application changes cannot revoke it."
@@ -762,11 +765,13 @@
       "title": "AI action capabilities",
       "status": "fully implemented",
       "changes": [
-        "Default analyst/read-only session policy; explicit cloud/actions toggles; tool allowlist and finite/type/size argument validation"
+        "Default analyst/read-only session policy; explicit cloud/actions toggles; tool allowlist and finite/type/size argument validation",
+        "2026-11-15: Separate cloud/local transmission consent, model capability declarations and local operator command consent; managed configuration denial also prevents launching the bundled runner and self-promotion."
       ],
       "verification": [
         "core_checks: denied policy/malformed vectors; lifecycle_checks: authorized valid/invalid actions",
-        "Follow-up startup/release qualification preserves this feature; normal main-scene startup now runs without a test-injected configuration."
+        "Follow-up startup/release qualification preserves this feature; normal main-scene startup now runs without a test-injected configuration.",
+        "Cortex default-deny, denied startup, analyst tool-advertisement suppression and existing denied-action tests pass."
       ],
       "remaining": []
     },
@@ -778,13 +783,17 @@
       "title": "Provider request lifecycle",
       "status": "partially implemented",
       "changes": [
-        "One HTTP factory owns timeout/body/redirect policy; immutable request snapshots, generation-based cancellation, role/consent enforcement and quiet malformed-JSON handling preserve the provider lifecycle."
+        "One HTTP factory owns timeout/body/redirect policy; immutable request snapshots, generation-based cancellation, role/consent enforcement and quiet malformed-JSON handling preserve the provider lifecycle.",
+        "2026-11-15: Existing CognitivePanel upgraded with connection profiles, fixed official origins, loopback/HTTPS compatible endpoints, discovery, explicit token/timeout settings and separate text/vision/tool diagnostics. Bundled Qwen3 1.7B runs on CPU only through the existing GDScript adapter.",
+        "2026-11-15: Goal presets and plain-language Help added to the existing Cortex panel; the default local selection and bundled private assistant require no account or manual model-path/server setup. Advanced settings remain intact."
       ],
       "verification": [
-        "Provider fixtures and ten actual Godot HTTPRequest checks against a localhost synthetic server: all three formats, HTTP 401, malformed/oversized bodies, redirects, timeout, cancellation and withdrawn consent. No scene data or vendor credentials transmitted."
+        "Provider fixtures and ten actual Godot HTTPRequest checks against a localhost synthetic server: all three formats, HTTP 401, malformed/oversized bodies, redirects, timeout, cancellation and withdrawn consent. No scene data or vendor credentials transmitted.",
+        "Provider request envelopes for six connection types and real localhost HTTP lifecycle pass; real Qwen requests pass in source and optimized source-free Windows packages. Discovering a model is not labelled as proof of vision/tool capability.",
+        "Preset preservation, reopening, denied configuration, startup cancellation, two-resolution UI and actual guided Qwen/SAM3 optimized export checks pass; evidence owner cortex-presets-qualification.json. Authenticated cloud boundary remains open."
       ],
       "remaining": [
-        "2026-11-13: no GS_AI_API_KEY, ANTHROPIC_API_KEY, OPENAI_API_KEY or GEMINI_API_KEY is configured in the process. Authenticated provider behavior remains unqualified; no live vendor request was sent."
+        "Authenticated OpenAI/Anthropic/Gemini provider/model qualification still needs valid replacement credentials; none were supplied or used. Local Qwen success and synthetic HTTP transport do not close this boundary."
       ]
     },
     {
@@ -795,10 +804,12 @@
       "title": "Truthful tool outcomes",
       "status": "fully implemented",
       "changes": [
-        "Stable viewer-owned selection and renderer highlight; missing models fail; camera actions return only after coordinated transform"
+        "Stable viewer-owned selection and renderer highlight; missing models fail; camera actions return only after coordinated transform",
+        "2026-11-15: Diagnostics validate tool schema without executing commands; stale segmentation/picking results cannot change the current scene."
       ],
       "verification": [
-        "lifecycle_checks: missing/real selection, malformed vectors and actual camera position"
+        "lifecycle_checks: missing/real selection, malformed vectors and actual camera position",
+        "Real GPU model probe resolves stable identity without camera/model-transform changes; cancellation restores usable controls and truthful status."
       ],
       "remaining": []
     },
@@ -810,10 +821,12 @@
       "title": "Authoritative scene context",
       "status": "fully implemented",
       "changes": [
-        "Frame-stamped schema-versioned context from viewer snapshots, stable IDs, effective visibility/frustum and spatial provider snapshots"
+        "Frame-stamped schema-versioned context from viewer snapshots, stable IDs, effective visibility/frustum and spatial provider snapshots",
+        "2026-11-15: Cortex Ask supports visible/selected context scope; segmentation selection requires the captured camera/scene signature to remain valid."
       ],
       "verification": [
-        "rendering_checks: visible model uses the same stable identity as registry"
+        "rendering_checks: visible model uses the same stable identity as registry",
+        "Read-only GPU identity probing, original input/selection workflows and responsive Cortex interaction pass at 1142x648 and 1908x960."
       ],
       "remaining": []
     },
@@ -825,10 +838,12 @@
       "title": "Cloud capture boundary",
       "status": "fully implemented",
       "changes": [
-        "Explicit cloud destination/consent; one scene-only capture shared with preview/provider; overlays restored; BBCode escaped"
+        "Explicit cloud destination/consent; one scene-only capture shared with preview/provider; overlays restored; BBCode escaped",
+        "2026-11-15: Image sharing is a per-connection setting, independent of model vision capability and transmission consent. Local Select uses the existing clean-capture owner and does not transmit images."
       ],
       "verification": [
-        "rendering_checks: excludes/restores UI overlay; rendered consent panel review"
+        "rendering_checks: excludes/restores UI overlay; rendered consent panel review",
+        "Unsupported image input is rejected before a request; explicit synthetic vision diagnostics and unchanged capture/selection checks pass."
       ],
       "remaining": []
     },
@@ -1038,11 +1053,13 @@
       "status": "fully implemented",
       "changes": [
         "Reproducible Windows x86_64 CPU delivery: pinned official MobileSAM source/checkpoint, matching encoder/decoder ONNX exports, SHA-256 manifest, export receipt and retained Apache 2.0 license.",
-        "Verified official ONNX Runtime archive; versioned native 0.3.0 build/descriptor; GDScript bridge verifies/materializes artifacts and passes explicit runtime paths. Runtime telemetry disabled; no startup inference or environment mutation."
+        "Verified official ONNX Runtime archive; versioned native 0.3.0 build/descriptor; GDScript bridge verifies/materializes artifacts and passes explicit runtime paths. Runtime telemetry disabled; no startup inference or environment mutation.",
+        "2026-11-15: Native 0.4.2 adds a separate SAM3 contract and safe app-local ONNX dependency loading. Portable model/runtime versions, hashes, licenses and signed C++ redistributable dependencies are included under resources/cortex."
       ],
       "verification": [
         "Actual release build and Rust tests pass; setup tool verifies existing artifacts/runtime archive.",
-        "Native GDScript and source-free PCK tests initialize the real models/runtime and execute image-dependent inference."
+        "Native GDScript and source-free PCK tests initialize the real models/runtime and execute image-dependent inference.",
+        "74 pinned resources match both copied source-free packages; clean native-process probes resolve Microsoft dependencies from the bundle/cache without installed-runtime fallback. Windows optimized export starts and runs real MobileSAM, SAM3 and Qwen."
       ],
       "remaining": []
     },
@@ -1054,11 +1071,13 @@
       "title": "Actual image inference",
       "status": "fully implemented",
       "changes": [
-        "Actual RGB resize/normalization/padding, complete prompt-decoder inputs, validation, original-size output and best-mask selection operate with real official model exports."
+        "Actual RGB resize/normalization/padding, complete prompt-decoder inputs, validation, original-size output and best-mask selection operate with real official model exports.",
+        "2026-11-15: Existing Cortex Select workspace exposes real MobileSAM point masks and SAM3 concept/box masks, private worker inference, cached embeddings, mask previews, cancellation and engine release/switching."
       ],
       "verification": [
         "Two Rust preprocessing tests pass. Actual GDScript encoder/decoder on the deterministic 640x384 two-object RGB fixture: mask IoU 0.99029946188557 (>0.95), original dimensions restored, different prompts select distinct objects.",
-        "The same inference checks pass using the source-free PCK and external versioned native DLL. This is functional fixture qualification, not a universal quality benchmark."
+        "The same inference checks pass using the source-free PCK and external versioned native DLL. This is functional fixture qualification, not a universal quality benchmark.",
+        "MobileSAM deterministic fixture IoU 0.990299; SAM3 detects a motorcycle in a real GS capture at score 0.930148, preserves 1908x960 output, accepts box conditioning and switches to MobileSAM on the same private worker. These are functional fixtures, not general accuracy calibration."
       ],
       "remaining": []
     },
@@ -1096,7 +1115,8 @@
         "2026-11-13: Added scene HUD, transparent-material and directional-shadow GPU checks to CI, plus optimized-template checks for new pipelines and complete-data shadow/transparency residency. Preserved the earlier working release.",
         "Added composition round-trip/import-route and operation-lifecycle checks to local verification and the existing CI workflow. Scene operations retain independent IO lifetime until cancellation drains; stopping during hashing/checkpointing releases handles and temporary checkpoints.",
         "Added launcher drag, world placement and interactive-route suites to CI definitions. Preserved prior qualified builds while preparing a separate unsigned placement build.",
-        "2026-11-14 environment/Sky3D follow-up: Added environment regression and Sky3D controls suites to local checks and CI definitions; previous qualified builds are preserved. Separate environment-sky-final package uses the official optimized Windows template."
+        "2026-11-14 environment/Sky3D follow-up: Added environment regression and Sky3D controls suites to local checks and CI definitions; previous qualified builds are preserved. Separate environment-sky-final package uses the official optimized Windows template.",
+        "2026-11-15: Separate preserved 0.4.2 optimized Windows main/qualification packages include portable Cortex assets. CI definitions gain Cortex settings, transport, UI and token-reference checks; no new remote CI run is claimed."
       ],
       "verification": [
         "Local native, source-free GPU/native inference and Windows rendering checks pass; full Bali + Suzuki and 2-million-point SpatialOS performance observations recorded.",
@@ -1114,7 +1134,8 @@
         "2026-11-14 local Godot 4.6.2 NVIDIA Vulkan: composition, actual-input toolbar/color/XYZ, studio, startup, lifecycle, migration, shadow and depth checks pass; headless core checks pass in their intended mode. Girl_A + Suzuki reopen all 447877 splats with matching transforms and sampled mean RGB drift 0.00000007782603. Optimized main-scene package startup passes. See evidence/composition-receipt.json; no new remote CI run or platform qualification is claimed.",
         "Local full-asset placement: Girl_A is placed on a real Suzuki scan point; all 447877 splats remain resident, base contact error is 0.00000011920929 world units, camera pose is preserved, and saving/reopening restores the exact placed transform. Windows Vulkan input/scene regression and optimized-template startup checks pass; see evidence/placement-receipt.json. No new remote CI/platform claim.",
         "See evidence/environment-* for before/after reproduction, full-data Bali review, regression logs, source/package receipts and real-main optimized startup. No new commit, remote CI run, signing or cross-platform/device claim is made.",
-        "Loading A-F qualification: local source/core and preservation suites pass, including full 1908x960 Bali/object placement and 1142/1908 input checks. The optimized template loads all 7,959,786 Bali/Suzuki splats in 8,404 ms, preserves independent transforms, composes transparency, builds directional Gaussian shadows and completes real native inference. Real-main startup and all 119 delivery-package hashes pass; the previous 119-file qualified build is unchanged. Details: docs/performance/loading-receipt.json. CI definitions include the new loading suites; no new remote CI run or signing/platform claim is made."
+        "Loading A-F qualification: local source/core and preservation suites pass, including full 1908x960 Bali/object placement and 1142/1908 input checks. The optimized template loads all 7,959,786 Bali/Suzuki splats in 8,404 ms, preserves independent transforms, composes transparency, builds directional Gaussian shadows and completes real native inference. Real-main startup and all 119 delivery-package hashes pass; the previous 119-file qualified build is unchanged. Details: docs/performance/loading-receipt.json. CI definitions include the new loading suites; no new remote CI run or signing/platform claim is made.",
+        "Final source-free release passes full Bali/Suzuki (7,959,786 splats; 7,584–9,912 ms isolated template samples, with a separately recorded 37,200 ms contended repeat), shadows, transparency, independent XYZ transforms and real local AI. Main startup, responsive UI, 26 affected preservation suites including SpatialOS and app-local dependency probes pass at their stated scopes; prior loading-delivery remains intact."
       ],
       "remaining": [
         "Unsigned Windows Vulkan/CPU qualification does not provide a Windows signing identity or certify additional GPU vendors, operating systems or XR devices. These release qualification boundaries remain open; the reproduced startup crash, export RID leak and software-MSAA depth failure are addressed."
@@ -1130,12 +1151,14 @@
       "changes": [
         "Implementation/status/evidence inventory updated; MIT licenses for both POLYGONICS camera add-ons recorded from user confirmation.",
         "Recovered primary licenses for imgui-godot, VirtualJoystick and Source Code Pro; Poco author attribution retained. Pinned MobileSAM/runtime provenance and a 50-package Rust dependency license inventory added. Local datasets excluded from source publication/export.",
-        "2026-11-13: New HUD SVG artwork is original to this change; reference game screenshots are not bundled. Historical asset provenance gaps remain explicitly open."
+        "2026-11-13: New HUD SVG artwork is original to this change; reference game screenshots are not bundled. Historical asset provenance gaps remain explicitly open.",
+        "2026-11-15: Added pinned SAM3 exporter/Meta license, OpenAI CLIP assets, official Qwen GGUF, llama.cpp/OpenMP and Microsoft CRT source/notice evidence. Current Rust metadata lists 54 packages with declared licenses; new dependency notices retained."
       ],
       "verification": [
         "All 66 unique finding IDs generated from one JSON source. Artifact/source hashes and owner confirmation preserved; every Cargo metadata package has a declared license.",
         "2026-11-13: earlier owner/source uncertainty remains unresolved; no licenses or dataset rights were fabricated to change the status.",
-        "New UI assets are repository-native vectors; datasets remain excluded from source/export and dataset-derived review images remain local build artifacts."
+        "New UI assets are repository-native vectors; datasets remain excluded from source/export and dataset-derived review images remain local build artifacts.",
+        "Model/runtime hashes and source-free package equality are recorded in cortex-qualification.json; no source/license claims were invented for historical project assets."
       ],
       "remaining": [
         "User does not remember the original source/license for remaining logos/icons/images/video and Bali/Suzuki datasets. Exact historical provenance for some bundled add-ons/binaries is unavailable. These rights/provenance gaps cannot be asserted closed."
@@ -1145,7 +1168,7 @@
   "current_work_order": [
     "P.1.1: user reconfirmed key not revoked; provider-account action outstanding",
     "P.3.6: supported participant transparency and directional Gaussian cast/receive shadows are implemented and qualified locally. Arbitrary custom transparent shaders/refraction, skinning/blend shapes/particles and XR multiview remain outside that contract; no headset is available.",
-    "P.5.7: authenticated provider qualification still needs a valid replacement credential",
+    "P.5.7: setup, transport and bundled local Qwen inference are qualified; authenticated vendor/model qualification still needs valid replacement credentials.",
     "P.7.2: main startup/release-template crash and camera export leak fixed; source CI, unsigned optimized package and GPU/native checks pass. Signing and broader physical-platform qualification remain pending.",
     "P.7.3: ownership/license uncertainty remains unresolved; no rights assertions fabricated"
   ]

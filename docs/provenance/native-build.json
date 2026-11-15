@@ -1,11 +1,19 @@
 {
-  "native_version": "0.3.0",
+  "native_version": "0.4.2",
   "platform": "windows.x86_64",
   "configuration": "release",
-  "sha256": "d54d9b23940fa736e3ed267184d5058d2a0dc90ff89099a0059cc558c9f3c54f",
-  "cargo_lock_sha256": "0f32dbec0c4aa4b1b64c3e5b143112b3d1d48b631e1682bd2aff36811fc77505",
+  "features": [
+    "godot/experimental-threads"
+  ],
+  "sha256": "71b96469faa1a980847521b48e0b5efad6d761bf16cadff69e5b727e0ca1643e",
+  "cargo_lock_sha256": "5673908df3cb5bb373226e68c8bffc61981a2cfc1c8ba10f2eb27d939263772c",
   "source_sha256": {
-    "rust/spatial_ml/src/lib.rs": "2f4f2fae73118656681d7207c961cb504f45de0476bc5798a4142ba049065291",
-    "rust/spatial_ml/src/mobile_sam.rs": "6a6aea3ff7b07ad16e427b11df97748ffbe69f89893d5888f7a8689c4453b628"
+    "rust/spatial_ml/src/credential_vault.rs": "d61a0b8f39e67c2c18640a4d66b7d1d2976e073c90dceae7caa76ee1fb7d347f",
+    "rust/spatial_ml/src/lib.rs": "3b985a1cf599acfc8663b1314d1987f16b7264e1f72f7e1a3287f5d45718765d",
+    "rust/spatial_ml/src/local_model_host.rs": "45e1d718de83b9c3be56272e32edbd9d94fc280dc1fdd047604d5b27323e717f",
+    "rust/spatial_ml/src/mobile_sam.rs": "180b9fd46739f14d86978fc27da4c01e52f2f959c2a0a6ed28880dca0798c01d",
+    "rust/spatial_ml/src/runtime_loader.rs": "a359e501528fe8e624b851b61ad44c4d904cb9ae88834e3dcc4aec1841fb052c",
+    "rust/spatial_ml/src/sam3.rs": "194643cc5b8ef5b8736a48d375e6c6df3d1904a92c8d88e66e5d642b7ab4eb4f",
+    "rust/spatial_ml/src/text_tools.rs": "ba371b9ebd0b164e261b5467dab8ea6ee366993cc0b82ed6dbc8595082e6af72"
   }
 }

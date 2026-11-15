@@ -11,7 +11,11 @@ python tools/run_checks.py --godot PATH_TO_GODOT --script res://tests/native_inf
 
 `models/manifest.json` is the single source of truth for artifact paths, upstream revision and trusted SHA-256 values. `models/export-receipt.json` records the official source files, checkpoint, export settings and pinned Python environment. The setup tool verifies existing model files, reproduces them if needed, verifies the official runtime archive and then optionally builds the extension. Model export requires the pinned Windows Python 3.12 environment. The official model license is retained alongside the artifacts; runtime notices are downloaded from its verified official archive.
 
-The installer generates the descriptor only after a successful DLL build. It installs a versioned 0.3.0 DLL so an editor using the previous version can continue running. Restart Godot after installing this version; the extension is deliberately nonreloadable.
+The installer generates the descriptor only after a successful DLL build. The current extension is version 0.4.2, with `godot/experimental-threads` enabled for private inference workers and safe app-local runtime dependency loading. Previous DLLs remain available to an editor already using them. Restart Godot after installing this version; the extension is deliberately nonreloadable.
+
+The existing CognitivePanel now exposes MobileSAM and a separately verified SAM3 image/language/decoder contract. GDScript owns settings, permissions, prompts, cancellation and UI; Rust and ONNX Runtime own native CPU inference. Cortex also has a bounded native Windows Credential Manager bridge and an owned CPU-only llama.cpp process host. There is no Python application dependency. The optional Python scripts above provision/build artifacts only.
+
+The portable asset catalog under `resources/cortex/catalog.json` supplies relative overrides for the packaged MobileSAM artifacts. See `resources/cortex/README.md` for the model tree, local Qwen lifecycle and copying instructions. The original manifest and export receipt continue to define reproducible MobileSAM provisioning.
 
 Call `NativeMLBridge.load_default_segmenter()` from GDScript. It verifies the encoder, decoder and runtime, materializes PCK resources to the user cache and supplies absolute paths to `load_model_with_runtime`. It does not mutate the process environment. The legacy `load_model` API still accepts `ORT_DYLIB_PATH`.
 

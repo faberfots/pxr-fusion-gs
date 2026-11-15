@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "catalog_owner": "../../resources/cortex/catalog.json",
+  "mobile_sam_receipt": "../../rust/spatial_ml/models/export-receipt.json",
+  "sam3": {
+    "supplied_local_source": "C:/Users/User/Downloads/sam3_vit_h",
+    "source_modified": false,
+    "published_manifest": "https://huggingface.co/vietanhdev/segment-anything-3-onnx-models/blob/main/MANIFEST.json",
+    "upstream_revision": "660a5e9e1b8b4c02c0ad97229b88a09a6e4ff5b7",
+    "exporter_revision": "35133ce8670e0d190ac10cc08efba9b9a443fb51",
+    "verified_members": 7,
+    "license": "Meta SAM License"
+  },
+  "clip": {
+    "huggingface_revision": "3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268",
+    "source": "https://huggingface.co/openai/clip-vit-base-patch32",
+    "license_source": "https://github.com/openai/CLIP/blob/a1d071733d7111c9c014f024669f959182114e33/LICENSE",
+    "reference_tokenizer_source": "https://github.com/openai/CLIP/blob/a1d071733d7111c9c014f024669f959182114e33/clip/simple_tokenizer.py",
+    "fixtures": "../../tests/fixtures/clip-reference.json",
+    "files": {
+      "clip_vocab.json": "5047b556ce86ccaf6aa22b3ffccfc52d391ea4accdab9c2f2407da5b742d4363",
+      "clip_merges.txt": "f526393189112391ce6f9795d4695f704121ce452c3aad1f5335cc41337eba85",
+      "LICENSE-CLIP.txt": "987e63b32f6c89ff5160e429458a872ff048e6860b590a3912e938f9da8f14db"
+    }
+  },
+  "qwen": {
+    "source": "https://huggingface.co/Qwen/Qwen3-1.7B-GGUF",
+    "revision": "90862c4b9d2787eaed51d12237eafdfe7c5f6077",
+    "license": "Apache-2.0",
+    "runtime_source": "https://github.com/ggml-org/llama.cpp/releases/tag/b12387",
+    "archive_sha256": "ced8482efac76c5f24398b97a6fe1662109038ec3b880686fd7c7c8f22bc5d99",
+    "runtime_license": "MIT; LLVM OpenMP notice included"
+  },
+  "microsoft_crt": {
+    "source": "Installed Visual Studio 2022 Community/VC/Redist/MSVC/14.44.35112/x64/Microsoft.VC143.CRT",
+    "signature_verification": "All four DLLs had Valid Authenticode signatures with Microsoft signer before copying",
+    "distribution_reference": "https://learn.microsoft.com/en-us/visualstudio/releases/2022/redistribution#visual-c-runtime-files",
+    "license_reference": "https://visualstudio.microsoft.com/license-terms/vs2022-cruntime/",
+    "modifications": false
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "archive": {
+    "filename": "sam3_vit_h.zip",
+    "bytes": 3413511219,
+    "sha256": "1617436f9db7eb9dd69029c2c465d54b316c36c21143f0fde0d1be513f15b7d5"
+  },
+  "license": {
+    "name": "Meta SAM License",
+    "path": "LICENSE",
+    "upstream_url": "https://github.com/facebookresearch/sam3/blob/660a5e9e1b8b4c02c0ad97229b88a09a6e4ff5b7/LICENSE"
+  },
+  "provenance": {
+    "upstream_revision": "660a5e9e1b8b4c02c0ad97229b88a09a6e4ff5b7",
+    "exporter_revision": "35133ce8670e0d190ac10cc08efba9b9a443fb51"
+  },
+  "members": [
+    {
+      "path": "config.yaml",
+      "bytes": 283,
+      "sha256": "24ada0ff70476120a54d106ddf309c8434f26d43c25e5136d84cced67b0a95dd"
+    },
+    {
+      "path": "sam3_decoder.onnx",
+      "bytes": 129858120,
+      "sha256": "aca3109a1bf87d1589bf2a4a61c641fd97624152b21c6e9a5aa85735db398884"
+    },
+    {
+      "path": "sam3_decoder.onnx.data",
+      "bytes": 116523008,
+      "sha256": "afae2f057f4c6e2478589877aa3d361a0d863cdfdb8259f7eee903f529188ac6",
+      "referenced_by_graph": false
+    },
+    {
+      "path": "sam3_image_encoder.onnx",
+      "bytes": 2509348,
+      "sha256": "3dd676271e9c459463f7026d8ab2c6318672cd89511f89c30b34cdf0a2e67a3f"
+    },
+    {
+      "path": "sam3_image_encoder.onnx.data",
+      "bytes": 1828519936,
+      "sha256": "03bd50b0703e2b04e2193ca831b7f9d5ecf40bc5287cc59b1970f56ab800c995",
+      "referenced_by_graph": true
+    },
+    {
+      "path": "sam3_language_encoder.onnx",
+      "bytes": 1396738,
+      "sha256": "af80dffcd8fc369281b0422295244ba22f64e8424e9eefa111ac8966e9ea9ba6"
+    },
+    {
+      "path": "sam3_language_encoder.onnx.data",
+      "bytes": 1615200256,
+      "sha256": "1b03dabc657c1f2887d1b8ce2a3537467d4c033ea1f8c8be141fbca55e4b95f7",
+      "referenced_by_graph": true
+    }
+  ]
+}

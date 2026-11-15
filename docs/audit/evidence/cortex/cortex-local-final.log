@@ -1,0 +1,63 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-cortex-native
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (6 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | CognitivePanel[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | CortexAssets[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | CortexSegmentationWorker[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | NativeMLBridge[39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (3 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | 132130_off_emergency_dismay_siren_anxiety_icon.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-calendar.48.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-user.48 (1).png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS portable MobileSAM and runtime resolve without machine-specific paths
+PASS Windows credential store writes and reads a synthetic secret through the native API
+PASS vault credentials remain bound to the configured destination
+PASS forget removes the actual OS credential
+PASS MobileSAM starts on the private worker using the portable bundle
+PASS real worker inference returns the foreground mask while the main loop continues
+PASS cancelled inference cannot deliver stale masks
+PASS managed roles cannot launch local processes without configuration permission
+PASS verified bundled Qwen starts explicitly through its owned CPU process
+QWEN STARTUP Ready · Qwen3 1.7B Q8 · CPU only · http://127.0.0.1:18081
+PASS bundled Qwen becomes ready on its loopback-only endpoint
+PASS local requests are denied until the user grants local transmission consent
+[LLMClient] Sending request to qwen...
+QWEN RESPONSE ready ERROR 
+PASS real bundled Qwen inference completes through the existing GDScript LLM adapter
+PASS stopping Cortex releases only its owned inference process
+CORTEX LOCAL COMPLETE: 0 failures
+ 
+Process exit: 0

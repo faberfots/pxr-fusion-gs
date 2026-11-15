@@ -1,0 +1,26 @@
+[
+  {
+    "kind": "baseline",
+    "round": 1,
+    "splats": 7959786,
+    "load_ms": 7521
+  },
+  {
+    "kind": "cortex042",
+    "round": 1,
+    "splats": 7959786,
+    "load_ms": 9912
+  },
+  {
+    "kind": "cortex042",
+    "round": 2,
+    "splats": 7959786,
+    "load_ms": 8451
+  },
+  {
+    "kind": "baseline",
+    "round": 2,
+    "splats": 7959786,
+    "load_ms": 7473
+  }
+]

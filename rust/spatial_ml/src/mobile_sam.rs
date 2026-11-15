@@ -62,7 +62,7 @@ impl MobileSamSegmenter {
         if paths.iter().chain(std::iter::once(&runtime)).any(|p| !Path::new(p).is_absolute() || !Path::new(p).is_file()) {
             godot_error!("Supply verified materialized absolute artifact paths."); return false;
         }
-        if ort::init_from(runtime).map(|builder| builder.with_telemetry(false).commit()).is_err() {
+		if crate::runtime_loader::initialize(&runtime).is_err() {
             godot_error!("ONNX Runtime initialization failed.");return false;
         }
         let (encoder,decoder)=match (load_session(&paths[0]),load_session(&paths[1])) {

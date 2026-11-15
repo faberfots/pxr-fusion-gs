@@ -1,0 +1,36 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-cortex-native
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS the supplied verified SAM3 pack starts on a private worker
+SAM3 PHASE Verifying local artifacts elapsed_ms 4120
+SAM3 PHASE Verifying local artifacts elapsed_ms 8260
+SAM3 PHASE Verifying local artifacts elapsed_ms 12400
+SAM3 PHASE Initializing SAM3 CPU sessions elapsed_ms 16540
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 20680
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 24820
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 28960
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 33100
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 37240
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 41380
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 45520
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 49660
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 53800
+SAM3 PHASE Encoding captured image on CPU elapsed_ms 57941
+SAM3 PHASE Decoding segmentation prompt elapsed_ms 62082
+SAM3 PHASE Decoding segmentation prompt elapsed_ms 66222
+PASS SAM3 executes the real image, language encoder and decoder
+PASS text prompting returns at least one real mask at original image dimensions
+PASS the returned mask supplies a visible foreground point
+SAM3 REAL RESULT {"elapsed_ms":66952,"masks":1,"scores":[0.93014794588089],"ui_frames":9698}
+PASS cached SAM3 embeddings support an actual box-conditioned decoder request
+PASS switching engines releases SAM3 sessions and performs real MobileSAM inference on the same private worker
+CORTEX SAM3 COMPLETE: 0 failures
+ 
+Process exit: 0

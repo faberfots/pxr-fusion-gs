@@ -1,0 +1,720 @@
+{
+  "schema_version": 1,
+  "qualified_at_utc": "2026-11-15T01:48:28.403949+00:00",
+  "scope": "Windows x86_64 CPU inference; Godot 4.6.2 Forward+ Vulkan; NVIDIA RTX 4070 Laptop; unsigned optimized release template",
+  "current_task_status": "fully implemented and qualified within this desktop contract",
+  "broader_audit_owner": "remediation-status.json",
+  "native_version": "0.4.2",
+  "native_build_owner": "../provenance/native-build.json",
+  "portable_catalog_owner": "../../resources/cortex/catalog.json",
+  "verified_portable_artifacts": 74,
+  "verified_portable_bytes": 5660341742,
+  "source_free_main_package": "build/cortex-delivery-042",
+  "qualification_package": "C:\\Users\\User\\AppData\\Local\\Temp\\PXRFusion Cortex 042 QA",
+  "matched_export_source_files": 227,
+  "runtime_source_sha256": {
+    "modules/gaussian_splatting/cameras/camera_controller.gd": "6fc8a0f3716065b756793cdcf0b793ff227b916825877e79f73f94ddbd26f88d",
+    "modules/gaussian_splatting/cameras/camera_interface.gd": "2be3bcc379ea5c74ed47598cda0c13c9e09eff809950743327da340238b94100",
+    "modules/gaussian_splatting/cameras/camera_safety_settings.gd": "7851c26e5fcb34561acea31b8c8a48220842c9b4893ee199179dd525c7605e20",
+    "modules/gaussian_splatting/cameras/cursor.gd": "8d2706ba970cc488f0a808143e1b0f75bee59241dc8015b3cb89048aed59fb4b",
+    "modules/gaussian_splatting/cameras/freelook_camera.gd": "a6e741cc1d2b730de15b4ba9b144a5d0ff1282828d7f94cf02939393e92a7083",
+    "modules/gaussian_splatting/cameras/orbit_camera.gd": "e1941c3413dfa37cd131d773d9e8fff996af3c8aded5a424113ccc51285cfcb4",
+    "modules/gaussian_splatting/configs/gaussian_splatting_config.gd": "ae6d25e47b3493b4068d9c1c7986a6f8a0a19129b15e477c9c202b983ccff7ae",
+    "modules/gaussian_splatting/configs/gs_color_settings.gd": "e9feeca832f955d38ed0eb3c5596797b93da6f5ac1469ca68a86580d63add354",
+    "modules/gaussian_splatting/configs/gs_lighting_settings.gd": "6a5364cc8b5d7e26dbdc400cd786a535dc248815d25961905abc46a17c9d4553",
+    "modules/gaussian_splatting/configs/gs_sky_settings.gd": "d666a7535194c5f31dc2fc63fa8952af9446a82a21f8902465336dbd45de50ab",
+    "modules/gaussian_splatting/configs/high.tres": "c0cc89909d4f00c23c754f4dfa549d51736d8f3e5f1fe266f1483cf92645cec4",
+    "modules/gaussian_splatting/core/gs_constants.gd": "52beb42d3b169259c207da7ecd503b6780152d17684af159f21a9d332d4de311",
+    "modules/gaussian_splatting/core/gs_event_bus.gd": "1a9d47079d3f89e531ef605a5b5aae938826f968d45dd478c6cb8a20550613ae",
+    "modules/gaussian_splatting/core/gs_memory_monitor.gd": "78cba580ed04b5f53a1f76aa366f8f1900364eb195bc1531d19f7fbdde4bd3a1",
+    "modules/gaussian_splatting/core/gs_preloader.gd": "9488cee8af61627765789d9dbd067b3e846d2887f4799d8cc9aac638bbdd1f21",
+    "modules/gaussian_splatting/core/gs_state_machine.gd": "f1567d3f31479df1b77efcdbc6af8dd19d6d3976a3b144ee3303e5af06534653",
+    "modules/gaussian_splatting/loaders/gaussian_splat_import_plugin.gd": "88823e451d8e50e9a37f0d1da5d4e44b8f25ee3bd3d48f9ef71cd0a815c31adf",
+    "modules/gaussian_splatting/loaders/gaussian_splat_resource.gd": "0adc7df2619ee552b0f8729ca4c86bf1255ee5a950e98137166beee9742928bc",
+    "modules/gaussian_splatting/loaders/gs_checkpoint_writer.gd": "c212d9ec77a3a435d0d85f4d186e017e8518804d6d29f994ce456fd586f67dd6",
+    "modules/gaussian_splatting/loaders/gs_disk_checkpoint_job.gd": "775277a157f2685eb3a7f770b20dc34d139d58f480d23274bbf20785db0023b0",
+    "modules/gaussian_splatting/loaders/gs_file_hash_job.gd": "fb4061269434bb6eec5f584561b70228cc5784b3b4b6cbb464e116bd560344fd",
+    "modules/gaussian_splatting/loaders/gs_gpu_decoder.gd": "a65b30040b615e505a51af91f627f38daf3f07f75a4fc4440a76c6ba1bded86e",
+    "modules/gaussian_splatting/loaders/gs_load_job.gd": "d18c4574817e57192ea8de13b732f2470afe3d3cd04e58b3d66e68fd9f2a4ff5",
+    "modules/gaussian_splatting/loaders/gs_prepared_cache.gd": "f7c9f62444fc251e12c903398bce009ec7e6d17fbde55f152336691aa3bd922e",
+    "modules/gaussian_splatting/loaders/ply_converter.gd": "0ba152545a3f857428bf6752c3534c98d471026a09a6809c8829e2ab1632e5a0",
+    "modules/gaussian_splatting/loaders/ply_document.gd": "ce8ba77bfe6994134a268adb987cf725d6229cae3c97f4fe88424edcc391c5d3",
+    "modules/gaussian_splatting/loaders/ply_file.gd": "0ea938fd39c4d2c5ba2c18e18dc541785dffc25ae15713dc155f7ac392d10667",
+    "modules/gaussian_splatting/scenes/gaussian_splatting_viewer.tscn": "fbd62d3350f31a3381656fdde9fa62d74d3dd8a51f0397c3e6f19b87d97259de",
+    "modules/gaussian_splatting/scenes/gs_shadow_receiver.tscn": "e6b2edc9a3128bb101f38074d1609664b4bbca42ef2f84a3a03ae61f2a424bb8",
+    "modules/gaussian_splatting/shaders/compute/alpha_gather.glsl": "f558c9fcc7b3eb9ce9ad85bf1983e6b51018eb01cc4a7ca4127e41ce48cdf402",
+    "modules/gaussian_splatting/shaders/compute/alpha_merge.glsl": "f6151bc12272090acfd68c8d5f43301f9c17529838532258cd523eb14216ecd2",
+    "modules/gaussian_splatting/shaders/compute/gs_cache_sha256.glsl": "e7a5ed4301bb7c4c82400de44d09098f806f28303a13a5a4fb4fbc175f6ca366",
+    "modules/gaussian_splatting/shaders/compute/gs_import.glsl": "c0458ab36088d0c56d538c8597d750722023f4d8a750141e36668c0a492be489",
+    "modules/gaussian_splatting/shaders/compute/gs_shadow_projection.glsl": "1fd777929c9d43b370ab73d96676d497f7ad61338eae3d15f56234ade7a4e5af",
+    "modules/gaussian_splatting/shaders/compute/gs_shadow_receive.glsl": "2796ed150b13884fe9ea0bd47d4e5fee35c437eae664d22e4389a511ec74840e",
+    "modules/gaussian_splatting/shaders/compute/gs_shadow_render.glsl": "2b8489b3783647c380c787d34faa438a9d225ce81c9b3e50afbdd5d3cca6e623",
+    "modules/gaussian_splatting/shaders/compute/gsplat_boundaries.glsl": "399849631027228e742634207d060367c2e25207950bce0a45c37400249bb38d",
+    "modules/gaussian_splatting/shaders/compute/gsplat_projection.glsl": "4b372d95ca2771fbf68635f118d8cfc948a6f5cb5bd9122c21979366a8570acb",
+    "modules/gaussian_splatting/shaders/compute/gsplat_render.glsl": "b905f89c1e7cf71c9a1ddfbb2573e4fda25f4c4685ee1c63e40268aac84a6284",
+    "modules/gaussian_splatting/shaders/compute/radix_sort_downsweep.glsl": "2ff5a72fdfa87b3f6fdec11ea8e58b565acceb4a15ce8008308ab29c19e49cb8",
+    "modules/gaussian_splatting/shaders/compute/radix_sort_spine.glsl": "ffb9e12c0a29a156a4b9e9574d8bc4b6568847c75ec34cf7cc45626c047c4acb",
+    "modules/gaussian_splatting/shaders/compute/radix_sort_upsweep.glsl": "78c4a821418e699931f1f82189173f308e5459fbc14f4e2de4b5c307a065bf65",
+    "modules/gaussian_splatting/UI/BrandMark.gd": "cae5b7274f217a4a18da887ffed5345882d015ad45dc584adf13900d461c168f",
+    "modules/gaussian_splatting/UI/BrandMark.tscn": "a893cf23ed87b1b0ca4d589dc512c38398b4521737b699dc6d65237912dca90d",
+    "modules/gaussian_splatting/UI/CameraPanel.tscn": "f61c2d86a20696bbc1b3b057218f81dc0386aba6dd5ea8ecebd3f0b15427a7eb",
+    "modules/gaussian_splatting/UI/ColorAdjustmentPanel.gd": "6d79c53a8783597aec4fd6e03f9c37a958fd2a0126d96c0adb67ca5272d3e8bf",
+    "modules/gaussian_splatting/UI/ColorAdjustmentPanel.tscn": "509bf38d2059a859e7c332d9546f9aad66e804268a58951c98fceae0a366a22f",
+    "modules/gaussian_splatting/UI/CommandDock.gd": "bd6940e0244d6829663d47cc28b94fb6442fd465d6d9f4a3fb890354aeeb14c3",
+    "modules/gaussian_splatting/UI/CommandDock.tscn": "f4fddc8605b98716b54284074cad09eef6ae50ebad5a5483e5693de0eb6b56a5",
+    "modules/gaussian_splatting/UI/CompositionFiles.gd": "48a2f9cf248d7a48a6499687edc9b5df3174e486777eb99f289366e0ded16896",
+    "modules/gaussian_splatting/UI/CompositionFiles.tscn": "6dfb0af6111a582f3e1a57025b2bbd332ec50bc6aabfc5077f544f37fe6f270f",
+    "modules/gaussian_splatting/UI/demo_ui_controller.gd": "8e8f3b85589d2cc1582d43956a66723468be7d8b0502329b31767d21cd817272",
+    "modules/gaussian_splatting/UI/DiagnosticsPanel.gd": "3ea4a591e5c996d0ec22b0e4ad0b847670d289f8face411234f77e2accb3e767",
+    "modules/gaussian_splatting/UI/DiagnosticsPanel.tscn": "68adf4b4b1556721e7e7d09a58d89dd73a1acda7dbc2122378f3bca2cfcfb45a",
+    "modules/gaussian_splatting/UI/DraggableContainer.gd": "8fb04526ab8d4094ed86cfefe1c7b95c4d75b7d5ab5829636041487f3289d3f0",
+    "modules/gaussian_splatting/UI/EmptyRecentLabel.tscn": "c45e373ac20526047a316980812861c2abb6872ecae26343e0e443a7f06e458c",
+    "modules/gaussian_splatting/UI/FloatingPanel.gd": "6c7a665b9f94e5b3795045f76972a0661e6baed77e50b091af46dcabe221201f",
+    "modules/gaussian_splatting/UI/HistoryManager.gd": "8a06c47e4955d7fe1f33f0b7829965de6026571bc0372fa113878dc9450c189b",
+    "modules/gaussian_splatting/UI/HudButton.gd": "ea04333e0b64e46e22d59db8a623aba9ef7a5638c07907aa67b1d62e31151d9f",
+    "modules/gaussian_splatting/UI/LightingPanel.tscn": "93fa4a69df789dd5f984a5f592ba06dd880795c659e14580d55ab303c8f6d650",
+    "modules/gaussian_splatting/UI/loading_bar.gd": "d591889021d34344ee3688af82711850e06e8382ba6d9e9da69889219eacc624",
+    "modules/gaussian_splatting/UI/ModelTools.tscn": "9b43ffe210721b5ceeb3ea40b06fa4f20f764a57adfbf77935cd9d96308208c2",
+    "modules/gaussian_splatting/UI/ModelTransformControls.gd": "f9d6ce14079e46e1f69637f09862c1d5ef5604b68824b7238e4bd13d893a99b4",
+    "modules/gaussian_splatting/UI/ObjectListItem.tscn": "a0c613636ca433c568a405c7627178f676f2792cf97d1d62f7ec24cbcec46e7f",
+    "modules/gaussian_splatting/UI/OrbitalButton.tscn": "e85e5af5e94071a8f26f5793c81c76d0469e0701ea929658b6e4a224fb72d624",
+    "modules/gaussian_splatting/UI/PlacementHUD.gd": "e13611b343a8d250de0ee6657f4f768fb2c1c75565462c6fa1d3b23b03f33121",
+    "modules/gaussian_splatting/UI/PlacementHUD.tscn": "209db97e40846aad31007005bf32d99fbaa86046b9b5d057ce490c4bc65f91f8",
+    "modules/gaussian_splatting/UI/PolygonicsDiamond.tres": "ab5141aba45f2ff0846994712ba85054e72a4336dbf9962c79a0df159be83d7e",
+    "modules/gaussian_splatting/UI/ProductionUI.gd": "98a3ffe4602925470d7c5f3e1b9da3fb1a18c6939a5802dda4d3afea0a17d06c",
+    "modules/gaussian_splatting/UI/ProductionUI.tscn": "09dc84a629006526d1de6def8a770a24b3785d79fda0c746f95f3a7d40439d46",
+    "modules/gaussian_splatting/UI/RecentFileButton.tscn": "585c280488671abc4970093255057172c1d409d045e17f6d60c4cc9655bccc67",
+    "modules/gaussian_splatting/UI/SceneManagerPanel.gd": "96f6ee1e031111dcb336305accfb305cbe72cfd81fa2de3c77290bb1a83a5c0e",
+    "modules/gaussian_splatting/UI/SceneManagerPanel.tscn": "5bda7e6446cca494741a98b58a675861beb947b737dfa0d52a60c07f1827f517",
+    "modules/gaussian_splatting/UI/SettingsPanel.tscn": "08a61e17b331f9b1467a58aec3908eb4d7d9e7c3e2f3f917d401b7d6d58ac9c1",
+    "modules/gaussian_splatting/UI/SkyControls.gd": "6183a168f8f252442e7dee91c3fb510062d80a9ea0e2ef97adeb93658e212ab5",
+    "modules/gaussian_splatting/UI/SkyControls.tscn": "4e0edeb8fc70007e2bda2615e9624005016b5057601904cb702a44b2ad427f30",
+    "modules/gaussian_splatting/UI/ui_scale.gd": "50131a1d95bf03e4a3aa6d8a27c651910a2fff5df69c56ebab1e96e578f4569a",
+    "modules/gaussian_splatting/UI/ViewerTheme.tres": "6ba497b3722e46919f440339b7f3e2df67361829d7feb753fe56db5971b9b3bd",
+    "modules/gaussian_splatting/utils/scripts/gaussian_splat.gd": "92bd5b5b9690951e30bf35f4881c15ec7970c67ed7bbdccaa3a8e0f263e4db10",
+    "modules/gaussian_splatting/utils/scripts/gaussian_splatting_rasterizer.gd": "29205c904e4442e4537ba2b554b8684fa7609c3591e97f61844d60a712b5d2b9",
+    "modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd": "8c13d0d86136554138285f03e22458db1b8190ddfb5352a4c1a34c7a411cfc8e",
+    "modules/gaussian_splatting/utils/scripts/gpu_pipeline_manager.gd": "e7361b8ccf119c262145b5ecdabeb9bcecfabf29e20e9b3f6c509ff276e63484",
+    "modules/gaussian_splatting/utils/scripts/gs_alpha_mesh.gd": "ce52633249c92c85bee2107b4b0bcf3e87036358e982cc2bfe6edd6bdfb30f9c",
+    "modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd": "3ac4c2f56de73c68a7db60520ce7ab8fbdf7fbd7831d11c03d3aa34d1835e375",
+    "modules/gaussian_splatting/utils/scripts/gs_composition.gd": "706d67d5b1df6b7c22f5cbafbc81b9d90e2424873ef2639f7c5cfcdee1325d46",
+    "modules/gaussian_splatting/utils/scripts/gs_compositor_effect.gd": "e593c86fba4970106392156c6184f3363962d650c8f8bbbf06e2d16d0c51e7bc",
+    "modules/gaussian_splatting/utils/scripts/gs_placement_session.gd": "9fe87b3bda0fcafaea5623ddd31c7be2291e6e7a0d6b0c6e24d90712a820816c",
+    "modules/gaussian_splatting/utils/scripts/gs_shadow_pass.gd": "f5f245cb84644c0a9c52b97dabb95d559f7c8e1ed54a24a1db48932fe861b57f",
+    "modules/gaussian_splatting/utils/scripts/gs_shadow_receiver.gd": "9354a0c3a11da3d3104e826523b44eb8bffbb1b6ace12e9504129dbeee694277",
+    "modules/gaussian_splatting/utils/scripts/gs_transparency_pass.gd": "939a9e4c7e5ccd7b48b6e838e550f0ad49de7bd2b10fe9a5bd697d299e318f5e",
+    "modules/gaussian_splatting/utils/scripts/render_context.gd": "81110ea0904763bdabdf2b6bde18659039f1fe20cad5cce5347df1f5f469dc6b",
+    "modules/gaussian_splatting/utils/scripts/splat_block_allocator.gd": "c6c5b5e1d7431a7237ae19942da21cf109a72aa916322ae91c79f6e19195fa48",
+    "modules/spatial_intelligence/autoload/ActionController.gd": "09b650d0231ba30116f97a8679870188c43e0a59273d2d17e74bf5fa4b134221",
+    "modules/spatial_intelligence/autoload/SceneContext.gd": "21a2eb161d6db9a1a2d1e744ddb894eed60e25a258055bf161c1aecdd0a77061",
+    "modules/spatial_intelligence/autoload/SpatialIntelligence.gd": "c50732217c6f79678b5b1632e66b700cac1c41ea1691d0132aa20d1353b72147",
+    "modules/spatial_intelligence/autoload/ViewportCapture.gd": "4320f45042b00bbbf3b4a9d92aa64c291ed3d60bee316d38f5ccb48123d15de6",
+    "modules/spatial_intelligence/configs/ai_access_policy.gd": "7ac84e80ad99484d132694601cb95fc7ab8978ef391a0a07d5a2fc4ef5900eb0",
+    "modules/spatial_intelligence/configs/cortex_credentials.gd": "14df09d4db1e9faac21649ab83ddc8ea7efb32a9c5b2f52d1a644c3c46f5b17e",
+    "modules/spatial_intelligence/configs/cortex_providers.gd": "cdcf54504ff869226b4d0dbfc1556bbe6ee30f4e57c055d1a39183c1de1d7465",
+    "modules/spatial_intelligence/configs/cortex_settings.gd": "10c7414f09de2be6ad3d603d9dba2d1cc1b346eb776806bb1e178b748432e28f",
+    "modules/spatial_intelligence/configs/SIConfig.gd": "84476105fc5b786bf077ae964d7f4a8fc885c8f5d10b41be6a9f7ed70541f67a",
+    "modules/spatial_intelligence/models/clip_merges.txt": "f526393189112391ce6f9795d4695f704121ce452c3aad1f5335cc41337eba85",
+    "modules/spatial_intelligence/models/clip_vocab.json": "5047b556ce86ccaf6aa22b3ffccfc52d391ea4accdab9c2f2407da5b742d4363",
+    "modules/spatial_intelligence/models/LICENSE-CLIP.txt": "987e63b32f6c89ff5160e429458a872ff048e6860b590a3912e938f9da8f14db",
+    "modules/spatial_intelligence/models/LICENSE-SAM3.txt": "4dea99bfaa016e21bc860d73f344236bd1e5c4977d1a9a8fd32f822b500ae1be",
+    "modules/spatial_intelligence/models/sam3-pack-manifest.json": "454d45b3ce0c67a136ffe306cd5665b51e4dc9463be2bca98ae5b3836d8a39c7",
+    "modules/spatial_intelligence/ui/CognitivePanel.gd": "1865ec0dd347e723974649236229498fc075fa8ad288702ef0b8a1d86a5f6dc5",
+    "modules/spatial_intelligence/ui/CognitivePanel.tscn": "6d9b5d6595d1a909083478dcf6f14c3c2a3fead45f32dee74e3ca960f189bbd2",
+    "modules/spatial_intelligence/ui/segmentation_canvas.gd": "14041e64d2eb6a370c1e21a3b596ed73a40a8131e52ca895983f5a7f9a9efd9c",
+    "modules/spatial_intelligence/utils/clip_tokenizer.gd": "1dddfdbf456af24c6e4d41d59a73aad07ddc0c24e2171a33b993d13f47c34906",
+    "modules/spatial_intelligence/utils/cortex_assets.gd": "433d10aaf5e2604d0d0bfa5a53736af12b6b7593b3c67ac881541baa721f8eab",
+    "modules/spatial_intelligence/utils/cortex_connection_probe.gd": "1e2d0eb2dbffcef4739fb0ae0b247384722242167d9e87ad2b0418fae49e7cfa",
+    "modules/spatial_intelligence/utils/cortex_local_runtime.gd": "f2dd9f5e530e0288aa5d75ca23bcdc920c8f9918dd91d37309f52956548f0f91",
+    "modules/spatial_intelligence/utils/cortex_model_pack.gd": "d27ede130363296d09e0c27d3a3f2dd9acc72612beb12ebcd3732e786b67c1ec",
+    "modules/spatial_intelligence/utils/cortex_segmentation_service.gd": "5e0416a8132bce907c9edf0077ac32164a9274095132d9a2b46d2c08abcfb257",
+    "modules/spatial_intelligence/utils/cortex_segmentation_worker.gd": "bfd64668e5d73a6d76ca29faafa8e04a3e4a7f6b69b5a7059044bc08526fe013",
+    "modules/spatial_intelligence/utils/LLMClient.gd": "69bcf5e1655cb39f5256a07482c126a0744e6116df73268565f61307f8b9290f",
+    "modules/spatial_intelligence/utils/NativeMLBridge.gd": "9f8ec0305ce71d93bf1c7770d7a6388fc21c4d505ce103df5c929e5f16d46004",
+    "modules/gaussian_splatting/shaders/spatial/gaussian_shadow_receiver.gdshader": "3a1b00e8d1eec0464c650f57aae1dd9c9e11672f633c0a00745e4db45990a35f",
+    "modules/gaussian_splatting/shaders/spatial/main.gdshader": "6ffa8f643151ee9a1c243b25f59ee396fecb717cc969de2bbfc8113d18cd8f36",
+    "modules/SpatialOS/core/AsyncPLYLoader.gd": "5e45d62221d1212d8eba2e6db8b32105a12ad7b63f22140dc3885e58acfbfa42",
+    "modules/SpatialOS/core/ply_loader.gd": "33ca0fc789ec57af18cec9f74c388bdda3d4b6807d2a97a70319bb8de0cd15bc",
+    "modules/SpatialOS/core/spatial_config.gd": "ed26129773cc9f81d766172ef974a9ca8c224f220a125eab4ccbaa00b5ca8472",
+    "modules/SpatialOS/core/spatial_pipeline.gd": "f257b21d1560221debbdb7b4625d3145f53561685a77c307a92526e8194e5f10",
+    "modules/SpatialOS/core/spatial_ply_job.gd": "262bd9c60ac57e43827d14831b3d1755ed73c862c5a8c0d69f68aabcb7f84703",
+    "modules/SpatialOS/core/spatial_processing_job.gd": "e476da31e4af427f260dde9bfc60c9dbbbf6ed49a916c2dcf3a25480d4c48202",
+    "modules/SpatialOS/core/SpatialGraph.gd": "63fccb0d8e2ced144443babd62d020edfdadfa92af7c48cfe3d1d31700fd7391",
+    "modules/SpatialOS/core/SpatialIndex.gd": "ee1a511acd534244fac2167d50a61b3b5e2e595d30e80b21cccf2d48b1545805",
+    "modules/SpatialOS/core/types/point_cloud_resource.gd": "49be4927cafc670015f108a37e8c05729e1c6781d367e64fb22f1a0debba71e3",
+    "modules/SpatialOS/core/types/segment_data.gd": "b77d7cc7a73d9845d548dadcf6578ff0813c52a8082742b18c6085ef47620c53",
+    "modules/SpatialOS/core/types/spatial_relationship.gd": "f1f62f517cfb746addea3aac435ccdd37fce4dc988a3314e7b9e325ed4533105",
+    "modules/SpatialOS/scenes/Foundation1Demo.gd": "72da03ba0b0884d87a527ba0747f53c274293958b4b94890555f800969e1420d",
+    "modules/SpatialOS/scenes/Foundation1Demo.tscn": "907f6100b4841fe7ff4eb2b4ea1060b264c6d69954c064223526fe93bb24a488",
+    "modules/SpatialOS/scenes/PointVisualizer.gd": "1455fbe426d2d095fc9bbc80ad4613d94e454a5e8f5429840e3536d08729d1ea",
+    "modules/SpatialOS/scenes/PointVisualizer.tscn": "f5b8ce43ecb34ed517c8e4ff44d42396d6197022e2581ad089a8fb6a5b7e8543",
+    "modules/SpatialOS/scenes/debug/SpatialIndexDebug.gd": "90ad9bd4b23423159b10569e9761ae833bebabbc775b3a5e202e3182669f5d36",
+    "modules/SpatialOS/scenes/debug/SpatialIndexDebug.tscn": "48561fad4aa89f5d7238aa7bff65f75f33bbb8d5228c65de4a605c0456072a38",
+    "modules/SpatialOS/shaders/geometric_analysis.glsl": "520c34f553a9a3557e70d8aeb4761d4230bb96dae41474779d43c8aac6e4b070",
+    "modules/SpatialOS/shaders/graph_segmentation.glsl": "e1b8ee2af54d146bd7b721b8d61f653021a68fe09306e7c553a2f28bd079bbf1",
+    "modules/SpatialOS/shaders/spatial_index.glsl": "3468e6efcc2e14ee63794d1429eb39bde4c28d7e05fb93ae1c156a1582b45c4f",
+    "modules/SpatialOS/shaders/compute/compactor.glsl": "d1cc7a7fe27171e8f072ee609288bdbf6628f651768af4ea344f5889fcd9a90f",
+    "modules/SpatialOS/shaders/compute/voxelizer.glsl": "c86b93ac8f0138e901e7647e84d0d9c7d515d25601cbfd14389c8cc6f7a79fb8",
+    "modules/SpatialOS/shaders/visual/point_material.tres": "deae19d7ea9385414cb1be55ffdc04f0c74a91e6382bf016161764cb47d306eb",
+    "addons/AdvancedFreeFlyCamera/advanced_free_fly_camera.gd": "57d81c4a2f225302be57f3b27050cf420b664045c36063586a6329f99a8a6641",
+    "addons/AdvancedFreeFlyCamera/Src/advanced_free_fly_startup.gd": "81501d3843f76cdbdfeef56e246cb6d8fb4b1bbdd9a89a289089bdb371c47eea",
+    "addons/advanced_control_camera3d/advanced_control_camera3d_plugin.gd": "9ae4a6cd2461477a9d5a982aaf3c92fbf754eb254bf4727adc71042375cdfbe3",
+    "addons/advanced_control_camera3d/nodes/advanced_control_camera_3d.gd": "8bcec2f70da78f0cf39f7f1e11bdbfbf116f0f9bab121a3536142fe59bdcefa4",
+    "addons/imgui-godot/imgui-godot-native.gdextension": "359a55d9b10cfaa4fa125f21b2d49b73738795f4101b0c57200e0b7c56aecd7f",
+    "addons/imgui-godot/data/ImGuiRoot.tscn": "394366741f0b7298b779f114b4cc3bde356f4d3fc19f0eb870b01de7f576736d",
+    "addons/imgui-godot/data/ImGuiShader.glsl": "d8a4e1ed4fd56936c529462c2777ad51208ca4e2284e6fb653abdb829edf0db2",
+    "addons/imgui-godot/scripts/ImGuiConfig.gd": "b89b7cf86dd7d15f35b3601af6a5d79829c5b66d514a842cd0f04cf78cd6067f",
+    "addons/imgui-godot/scripts/ImGuiFont.gd": "9af097823ef724ca6d71d71f4a1c78482eb5097a461069f5d42a81f9dc853c86",
+    "addons/imgui-godot/scripts/ImGuiPlugin.gd": "2a7e0968ef912d0bff552a8a3719c2ab320b9e35768aa58ccbf623c5bcc1e80b",
+    "addons/imgui-godot/scripts/ImGuiRoot.gd": "c90abaddd313d869935671d7f4294a3d580457c2457c472033ff2e2df8f3187e",
+    "addons/sky_3d/assets/resources/MoonRender.tscn": "c455c7f630e5a0a33752dea8e8f0e780d9cc90e9a5777631722e5d6d74889894",
+    "addons/sky_3d/assets/resources/SNoise.tres": "3449626d36d2541afb3dab6cfb38c51fd32531297521b7a11a4868fe4b13aef5",
+    "addons/sky_3d/assets/resources/SunMoonLightFade.tres": "c2661ed74885e6491fdb92d528451948f12aad7a19732c65158ebca0d85a559c",
+    "addons/sky_3d/shaders/AtmFog.gdshader": "5b38b718fcb5fa27e04174d88928dba2853059fbc8d4b154ca44147b6ccb2196",
+    "addons/sky_3d/shaders/SkyMaterial.gdshader": "43c618b2a2e0a455a685c61b6db9c83e4673cb0a46299180c8024f863aa66be7",
+    "addons/sky_3d/src/DateTimeUtil.gd": "a1ec1e1335898247c71c99c434789eac1158bd73d538b60509deff769558fd28",
+    "addons/sky_3d/src/OrbitalElements.gd": "5b4f059b6d5b1eafc13398b67196c6c4006072a33788c1dfeb49f3b74e3842d1",
+    "addons/sky_3d/src/Plugin.gd": "35707e498b297f104726068e39fc417ca32768b02dd22ef917acb2d05eb65018",
+    "addons/sky_3d/src/ScatterLib.gd": "ed1a63c347ebb2c2c131b954a7bc0f1e7ae32c3c91d5dd786913156c180db3fd",
+    "addons/sky_3d/src/Sky3D.gd": "ea56a483f67beb73eaf958fa49740ab790b78c87a46dceeeae8ec3a90cbf54e1",
+    "addons/sky_3d/src/Skydome.gd": "f3659af7680089f38721565fd9782eec22f8b490d468387f1dcfbe452693667e",
+    "addons/sky_3d/src/TimeOfDay.gd": "c5cea8d6f29d4568aeba2e2c86cadefbf249fdd3213365bd1774aceddd42a92f",
+    "addons/sky_3d/src/TOD_Math.gd": "7e4e8f77f8ff4eff4c5c7f2cd9906ddaf4f91f6efaede729f406d8748d1ff259",
+    "addons/smart_camera_switcher/plugin.gd": "1cd88415f4749b18e3858339b15635246ba73e0892fd2e1c8b4038bb4c32707c",
+    "addons/smart_camera_switcher/autoload/camera_manager.gd": "a3d5a983d632286fd1a6ef9f82122e9e41ef9ef184d9e2f542801fa9feb60d77",
+    "addons/smart_camera_switcher/resources/camera_profile.gd": "c101bc3d3befa2e4435de84fa110b755a79690aa28d59f09097e774420b6262d",
+    "addons/smart_camera_switcher/scenes/camera_button.tscn": "5b2f651e9f8beb5d2caad01759d26ceabc6cb72e744bfc7744eeb4b1fc3916a3",
+    "addons/smart_camera_switcher/scenes/camera_selector_ui.tscn": "aa3caa10cebb7b9119ccb35e191b7967c4906f7a7bd52eaa36e49a749042147d",
+    "addons/smart_camera_switcher/scripts/camera_button.gd": "054bdb487d1e019bae098c7ae3530f7db9f9b97697659a2b3a3415ab3e064c3c",
+    "addons/smart_camera_switcher/scripts/camera_registrar.gd": "4bb473c65475d7a0047fbc0ec1f111575d168eaf83332c2853e4b95af5f59f68",
+    "addons/smart_camera_switcher/scripts/camera_registration_helper.gd": "2502e71b08d5517b6b610c9af4f8799e4e9e90c2b56dcade2236d9799eb6858f",
+    "addons/smart_camera_switcher/scripts/camera_selector_ui.gd": "65ed11bf6c8ae38ff4abcaa96c6e93f169532b7c532755c18d83e44dde0efba7",
+    "addons/virtual_joystick/plugin.gd": "62a941aab0c140ac06bc8be6c3c7a6fd91a89fdf41bdaba22b92813e166e6d76",
+    "addons/virtual_joystick/virtual_joystick.gd": "d69a572f2f919695f216f6077720c203c3d96557111062894b713e79459eefa1",
+    "assets/materials/material_basic_blue.tres": "e7d130d7f2523a7c1ac9104bc76ec1f7819dd92b38729226cf2db7357c1c07f3",
+    "assets/materials/material_basic_orange.tres": "9ed79d92c1473dd4128ea9a433464a588260858a1c56ccd85c3ba7713cc6db78",
+    "tests/bali_color_review.gd": "52fcd366417f12e4da7c5ae2b387ddccfd1e48dbbbf7bed86af13d0148d239ea",
+    "tests/camera_lifecycle_checks.gd": "ec6c2aa091f68f8786e35028ecffcb580045153180ce9dc399ec1c4073fd7bb4",
+    "tests/color_transform_checks.gd": "e5da2148bec809f269d037dbf1eeb279749e616e90d5d5e27d1fa84ee7ffccde",
+    "tests/composition_checks.gd": "8b6695e6e6213954c3f76e3f601f5a214ddcf5a262bb7c2b3b59813f6dad3451",
+    "tests/composition_lifecycle_checks.gd": "6d597c9c0c9a88ba0c16c93e4c4dd6d3b6bdfd2216d1ac02f4c9df4f089528bf",
+    "tests/core_checks.gd": "06d04000c7ce34abbec37cec9fbd0a08720ed139fdb507caa09ae88dfc8dd15b",
+    "tests/environment_import_checks.gd": "4b9f2a0db7ad214000868cf4a54c50f180fdf704d0e5e6dbe67fdd277db40f29",
+    "tests/environment_real_review.gd": "7b9cd3ed2eb7423f77e651674bc6ef0ac7f2aa7b22a81aea85cbc1fc9d3a15a2",
+    "tests/gpu_checks.gd": "770d2741b56132b464bf0ed8af6e641a618d28c0a4c84dccaa1158f13076895e",
+    "tests/grid_shadow_checks.gd": "cfad530600b7f2b98474e04b34baffef7473a1a7b8bd9338710cb4239d9349b3",
+    "tests/hybrid_checks.gd": "f0e593e787ee3b95c6fedece64b6906e3ff0d937570092e255876d6032fe1bb3",
+    "tests/large_scene_checks.gd": "c4a5ed19d892b0823fdbbc07a0883d8441a264f2763b5bb21436f107976616af",
+    "tests/launcher_drag_checks.gd": "6a5ffa6ba5f606da177fc82584f2d32a0cedca29ba6b22d41b52fa587c8ecf8f",
+    "tests/lifecycle_checks.gd": "364a68228b5c5bcd868c39c2d4257ae55cd634ef42fa1011fedb5c943c96b8e0",
+    "tests/loading_benchmark.gd": "9439411b3d088ffb6f0b3767a5168649008ed8a838714cb529128d23bda20939",
+    "tests/loading_cache_checks.gd": "af2217b997205004e5f6550523bcc018f5aa10f51a597d71e848d67343a4c417",
+    "tests/loading_checkpoint_checks.gd": "576e8585aa6382905951a2dfdb37b8303f197e479d0f2b6e0418a9b7089b95b9",
+    "tests/loading_composition_benchmark.gd": "56604259395cba9b95e19f3bd43d482db6d61fc2a70172c7a5cd55568aa9ab85",
+    "tests/loading_gpu_checks.gd": "7c53393d0b39aa4ea9b54cbb8865cb5689e16bfbb4274b689ccdb48144236f4f",
+    "tests/loading_parallel_checks.gd": "449b0350785eade8be63417b29e40504ff2af9358878b49c8d838cd000c62544",
+    "tests/loading_progressive_checks.gd": "315b6b16ccb9fa7a3b7ff30f9d7d00485c09a486e1a270bc6b3ef600eab36dc5",
+    "tests/loading_scheduler_checks.gd": "f25d6ce07c6a7eda6002e5d3b1b7b016a81cb709f7d4dbea2cad84f61091ee89",
+    "tests/migration_recovery_checks.gd": "1a9e8c7d41b55aa4818d6eecd41a051732e8f78c8df86795bde21a06a5bc548c",
+    "tests/native_inference_checks.gd": "bbf9773fcf8a18e2fbfd5cabe96dd3f360b8596b157dd78c10518a9e1bb98046",
+    "tests/placement_checks.gd": "0016920850cbb618152f67e23a9ab2c770eb1b787d6966d36bc62173f5790d31",
+    "tests/placement_routes_checks.gd": "35d5c71c4b5dc8a2271ba5bbbc44db0e756a3207c0c3f668a3a5af996f7f5f99",
+    "tests/provider_network_checks.gd": "1e0bf5e8637ee00e5b354b5eea392b976052cbfcdfd4a617ffce67e7f2372389",
+    "tests/real_scene_review.gd": "63eea06d9b7cb683c376b4faddf87e0e1c2eb49831b6645083bbee3608d42cd6",
+    "tests/release_checks.gd": "9a05d20e97e5750e27d56f17296b3354afbf8fe64ddb4d4037a8ff0993a6e193",
+    "tests/release_checks.tscn": "359c5ed4cfdffc396d597e0213cdeaa9467f8941630c9e6d367a2b803f007f24",
+    "tests/rendering_checks.gd": "dffaa66976719e065e820cb1bec125ab21a40461320aa774053915e2182c80d5",
+    "tests/script_checks.gd": "e007ea6800f3eb6ebb0928493a3a808ef9c75e1443bf88ab039bfd3bc3e92310",
+    "tests/selection_color_checks.gd": "1affc666e95e60b84ddc545b3294a9a97c15cc16765ad10dd89f763524c7590e",
+    "tests/shadow_checks.gd": "504ab4062c32901c6a9e97984d613a9423db7bb620482dca58e7e7e531919f79",
+    "tests/sky_controls_checks.gd": "b92b03aa5f2e70320236cdd42fb88b6525e477e238a4b38f59e7bad46f47b019",
+    "tests/spatial_async_checks.gd": "3ca919ec3f654e992191edb30c7f04bdc4e7757a9603881b54fcb6454853e50e",
+    "tests/spatial_checks.gd": "eb7d0ee0f9787bb2236d028701803c297484b91c2ccb93392c787305765e8db1",
+    "tests/startup_checks.gd": "a15d605d92470195cfd3275379e314785297b69bd02f7d278d2cd088df9ebbd8",
+    "tests/studio_checks.gd": "874114ed0393f3bff8f41018bea4d4f01960bfec071aa3bb1b1e9b94d91e114f",
+    "tests/ui_scale_checks.gd": "a59e3663450bb75cc2afe536fd7778627425b20ef5c7f4e1a96afdbfe21dfb2f",
+    "tests/visual_review.gd": "1e227d6acf9e7d602a82c55dfb1549ca0893204922808df0e1e8f52c7e7d9234",
+    "tests/scenes/camera_collision_lab.tscn": "7706adb06b67d7b36954cde8f5947be4df20ce8571f71d30dd3d306ff2e5042e",
+    "tests/scenes/grid_shadow_lab.tscn": "11bce2c3dbf103395be10db5be9c3b41d93e1e8abe01b2775fe7cfa1f6a35d4a",
+    "tests/scenes/hybrid_lab.tscn": "0b989c3b004e40329ba021b64816f524a3ff3a77ddd2b16dc803a98325764794",
+    "tests/scenes/placement_lab.tscn": "3bb12323eaf4b673d88a8a45f61d8cf52bf77a49c413cd65bf796f987baca50d",
+    "tests/scenes/shadow_lab.tscn": "153ad5ccad6c0b5522995f9fe38c1825e6f230f365a53b22afb488db2bfd0e28",
+    "main.tscn": "1b6cad2a47514c14d2c1108c09d653dade2cc08be2bb82520b325170788d8a66"
+  },
+  "full_scene": {
+    "splats": 7959786,
+    "load_ms": 37200,
+    "downsampled": false,
+    "measurement": "Godot/GDScript engine timer, ordinary warm OS filesystem cache; host tooling only launches the process",
+    "steady_runs": [
+      {
+        "kind": "baseline",
+        "round": 2,
+        "splats": 7959786,
+        "load_ms": 9553
+      },
+      {
+        "kind": "cortex",
+        "round": 2,
+        "splats": 7959786,
+        "load_ms": 7634
+      },
+      {
+        "kind": "cortex",
+        "round": 3,
+        "splats": 7959786,
+        "load_ms": 8679
+      },
+      {
+        "kind": "baseline",
+        "round": 3,
+        "splats": 7959786,
+        "load_ms": 7399
+      },
+      {
+        "kind": "cortex",
+        "round": 4,
+        "splats": 7959786,
+        "load_ms": 8084
+      },
+      {
+        "kind": "baseline",
+        "round": 4,
+        "splats": 7959786,
+        "load_ms": 8440
+      }
+    ],
+    "baseline_median_ms": 8440,
+    "cortex_041_median_ms": 8084,
+    "interpretation": "All functional release checks passed. The 37.2 s repeat overlapped application startup/packaging activity; it is retained, not used as a steady-state speed claim. Separate combined and single-Bali timings are recorded below. These samples do not establish an exact zero-delta latency guarantee.",
+    "previous_042_load_ms": 7584,
+    "final_isolated_combined_runs": [
+      {
+        "kind": "baseline",
+        "round": 1,
+        "splats": 7959786,
+        "load_ms": 7521
+      },
+      {
+        "kind": "cortex042",
+        "round": 1,
+        "splats": 7959786,
+        "load_ms": 9912
+      },
+      {
+        "kind": "cortex042",
+        "round": 2,
+        "splats": 7959786,
+        "load_ms": 8451
+      },
+      {
+        "kind": "baseline",
+        "round": 2,
+        "splats": 7959786,
+        "load_ms": 7473
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Existing scene-authored Cortex UI and responsive interaction",
+      "status": "fully implemented",
+      "qualification": "passed locally"
+    },
+    {
+      "name": "Non-secret settings persistence and endpoint-bound credentials",
+      "status": "fully implemented",
+      "qualification": "passed locally"
+    },
+    {
+      "name": "Local role and transmission controls",
+      "status": "fully implemented",
+      "qualification": "passed locally"
+    },
+    {
+      "name": "Provider request contracts and synthetic HTTP lifecycle",
+      "status": "fully implemented",
+      "qualification": "passed locally"
+    },
+    {
+      "name": "MobileSAM worker inference and cancellation",
+      "status": "fully implemented",
+      "qualification": "passed locally"
+    },
+    {
+      "name": "SAM3 text, box prompts and engine switching",
+      "status": "fully implemented",
+      "qualification": "passed locally"
+    },
+    {
+      "name": "Bundled Qwen CPU process and real inference",
+      "status": "fully implemented",
+      "qualification": "passed locally"
+    },
+    {
+      "name": "Portable assets, safe local C++ dependencies and source-free Windows startup",
+      "status": "fully implemented",
+      "qualification": "passed locally"
+    }
+  ],
+  "untested_boundaries": [
+    "Authenticated OpenAI/Anthropic/Gemini accounts and model capabilities",
+    "A second physical computer or other OS/CPU/GPU platforms",
+    "Provider-side revocation of the previously exposed key",
+    "Universal segmentation accuracy or inference latency",
+    "XR, arbitrary custom transparent shaders, Windows signing and historical asset rights"
+  ],
+  "evidence": {
+    "camera_lifecycle_checks.log": {
+      "sha256": "7246826905a4e60dc2c22d36e7912d4fc5a334b507fdc187f4f605f73757f4b8",
+      "bytes": 462
+    },
+    "clip-042-reference.log": {
+      "sha256": "39d6ac30a0cef20b79c643871e330652b1c4539a4ab52474bff4f297329df3a0",
+      "bytes": 558
+    },
+    "color_transform_checks.log": {
+      "sha256": "dde5d9188e967106916c039c6ea52daa16be010943d69904d5d7889080787103",
+      "bytes": 3160
+    },
+    "composition_checks.log": {
+      "sha256": "48fdbe5a0f9fd87446aefc00a24b8cb8ca0128f5007bc9b78fe5e957962d6940",
+      "bytes": 9473
+    },
+    "composition_lifecycle_checks.log": {
+      "sha256": "47e1615a5b1c33f1b12b91f573e16272511418183023bc0348eec9b7acbb66f8",
+      "bytes": 1593
+    },
+    "core_checks-final.log": {
+      "sha256": "2b03e6c1a988e2e73d4fd7aedd7481c1e254ec7a505aacd5f8a4491dca297b25",
+      "bytes": 1358
+    },
+    "cortex-local-final.log": {
+      "sha256": "964130acd67e03b3e4d37a54efa34b1b183dc118031a82cd6370972ca3ff6b61",
+      "bytes": 3819
+    },
+    "cortex-sam3-final.log": {
+      "sha256": "b80716c44a3626219418316c0e9fe43254948ef800cbf5bd66896ff7faa0c62a",
+      "bytes": 2037
+    },
+    "cortex-ui-final-1142.log": {
+      "sha256": "ed7bf5caa3f983ba7a55bfef74a924adc4739333f8cc1a8e010251e99e16dfe3",
+      "bytes": 2075
+    },
+    "cortex-ui-final-1908.log": {
+      "sha256": "ed7bf5caa3f983ba7a55bfef74a924adc4739333f8cc1a8e010251e99e16dfe3",
+      "bytes": 2075
+    },
+    "cortex_settings_checks-final.log": {
+      "sha256": "41177f8c2a6b5e2c64b62964a92010ff9176b99de459f80b2f2ca9813f05d83f",
+      "bytes": 1100
+    },
+    "cortex_transport_checks-final.log": {
+      "sha256": "762e036837e8e117e5ec9644d22a9c711b3411a77fd48b52e1d01a1833455041",
+      "bytes": 1744
+    },
+    "cortex_ui_checks.log": {
+      "sha256": "25e473ff007158e2c356c298c142fe1614300cd62e786815651e4707b45bbea9",
+      "bytes": 1783
+    },
+    "crt-llama-probe.log": {
+      "sha256": "882aaa84271d4e8bc02facc3a860efb22f1baa2f085b7c27f32c25353c8b0c2a",
+      "bytes": 516
+    },
+    "crt-ort-probe.log": {
+      "sha256": "2d124619ce9583b637ab214cedc52da2b9241640a49fde9b8aa92e0652e5dbaa",
+      "bytes": 785
+    },
+    "environment_import_checks.log": {
+      "sha256": "1fc4c69e03ca84946b6b02c2d978627fe7bfd376c4d4797c333de4fd4052e014",
+      "bytes": 4570
+    },
+    "final-isolated-baseline-1.log": {
+      "sha256": "78914a9a52646b9b09f5081d8631fd75d780f97ec9f0f1d75ea5800b04c17bb5",
+      "bytes": 2418
+    },
+    "final-isolated-baseline-2.log": {
+      "sha256": "9169fa64024a0e1a0d93de844d8493cd32fa6dfa893a92fc61f5cb02fd0913ee",
+      "bytes": 2418
+    },
+    "final-isolated-cortex042-1.log": {
+      "sha256": "4263da065eb52efe697376e949f1f930f42bcace458f3c702a71e7fcb0fe5725",
+      "bytes": 2418
+    },
+    "final-isolated-cortex042-2.log": {
+      "sha256": "950b63ccb9b750d9b990ee022d3e45e9c05d6b1668327eaa78ca7c8d4fe7cf09",
+      "bytes": 2418
+    },
+    "final-isolated-performance.json": {
+      "sha256": "47229bdb40be333538e4c6576f41a18b6666bf31898575c2cf3f873d46880b2b",
+      "bytes": 399
+    },
+    "gs-source-preservation.json": {
+      "sha256": "308a241bcbb4fe57c449606eb8acab23f9110a730711816bd2779d757fa7f249",
+      "bytes": 764
+    },
+    "hybrid_checks-64.log": {
+      "sha256": "0b274853954c4cabd49ccf2a4494bbacd156f984d02c515f74ea72dfd6415ef7",
+      "bytes": 2118
+    },
+    "invocation-corrections.json": {
+      "sha256": "04bd483a0313ca727b8484cdbc700312f245e95be77a521876577ca7cbc34cda",
+      "bytes": 797
+    },
+    "launcher_drag_checks.log": {
+      "sha256": "ba8de04a57d59f44b46e288d8ad85074daf80c08d81a4576a652f7b8570bc5ac",
+      "bytes": 1550
+    },
+    "lifecycle_checks.log": {
+      "sha256": "05cedd5615a766498b243e4a29c18a8c9301deac05741d8ac74c206383d3d9aa",
+      "bytes": 3152
+    },
+    "load-profile-baseline.log": {
+      "sha256": "ad21c12e7d5efe627db5548d4cc14384d1c6e292894cea73f720ae1d4449692f",
+      "bytes": 2503
+    },
+    "load-profile-cortex042.log": {
+      "sha256": "b45989effca2aaefb4cda4392cb4d6a0a4e6dbc9d96c1b408762c5a023743fa9",
+      "bytes": 2503
+    },
+    "loading_cache_checks.log": {
+      "sha256": "57103d68c8d1297d1c4128b5241e9600887292b770ffa64c6a4f47e11cefa844",
+      "bytes": 1811
+    },
+    "loading_checkpoint_checks.log": {
+      "sha256": "7751e8d430fd91dd0b5d285ae6c309b87e0f63d63ac15e209efaf8e8557c45c2",
+      "bytes": 1159
+    },
+    "loading_gpu_checks.log": {
+      "sha256": "20214695bdf0b35b5ae9b0dabfc4a49ee140c47f41b5d465e939d9b76a921b10",
+      "bytes": 922
+    },
+    "loading_parallel_checks.log": {
+      "sha256": "eab91d0a73bab056fd57502293b872f90ee0e6020e7fe5a1212b90d57de7dae1",
+      "bytes": 1078
+    },
+    "loading_progressive_checks.log": {
+      "sha256": "400a11c3adf0cdc2abdb7aeeab39a77bd8721c4f8bda6a23a32c2dcaf09c8cf8",
+      "bytes": 1327
+    },
+    "loading_scheduler_checks.log": {
+      "sha256": "9952348c63f8d0de1797fb9fcc84336944fbd1ad784248f990f978e33075f4ee",
+      "bytes": 1472
+    },
+    "main-startup-042.log": {
+      "sha256": "02727b8c0b4bed674799f0c04f74cedeff4dfeedd3ad05ef832f74f1145b6a84",
+      "bytes": 611
+    },
+    "migration_recovery_checks.log": {
+      "sha256": "355b8cc3c8a3b7db4878bd7e00e74c672e51e553ea1f51649abc68172f96a245",
+      "bytes": 2918
+    },
+    "native-042-fixture.log": {
+      "sha256": "bc543473c2debe5eda8a828765bc4a11e65a09b40a5396d9ccd02878390d4aa6",
+      "bytes": 977
+    },
+    "optimized-release-042-before-eof.log": {
+      "sha256": "b1bb28e46458df4d3555f72efa07fe6f28188bdb38ede29efea0f6fb528d30ba",
+      "bytes": 3045
+    },
+    "optimized-release-042.json": {
+      "sha256": "09b3e471ea975f61866842a8e7b835796ddeb5cc22b9459600c6a9d4a9c4e30e",
+      "bytes": 514
+    },
+    "optimized-release-042.log": {
+      "sha256": "02f8305bceefa46315e0a652056dc0be9a8256ba4525043d21e916c05c7a8923",
+      "bytes": 3047
+    },
+    "performance-ab.json": {
+      "sha256": "66e3f0832f8a45b15e1be33022aea3bb934787b7c6b51fd417cd48732adc49ba",
+      "bytes": 783
+    },
+    "placement_checks.log": {
+      "sha256": "9fca9d835188bbbe8d9cfe0a37747a71d95192c197193a5792a1b4e4fdd421bd",
+      "bytes": 5265
+    },
+    "placement_routes_checks.log": {
+      "sha256": "b23b08c8d33f6061600b60b1d25e4294b2c3871a118689d5014a2ce521c4d111",
+      "bytes": 2293
+    },
+    "provider-network-final.log": {
+      "sha256": "d40d14197def6d1679ee9fc59ccb48f380e663f02bfc10be10253535d75c4fbc",
+      "bytes": 686
+    },
+    "selection_color_checks.log": {
+      "sha256": "1a5a707215fb2c35a2f4c48592f68a19a209745b0b76891a7554a885f8828fbe",
+      "bytes": 863
+    },
+    "shadow_checks-64.log": {
+      "sha256": "40f53805bad40cfb1c28b6eb8f6cdddfc092deec61f327dfe8b859b4c388ce1f",
+      "bytes": 4086
+    },
+    "sky_controls_checks.log": {
+      "sha256": "75908f9fc6c24e4bc7a28125e614ac5622925366a3b3fcae7a696c844d1366eb",
+      "bytes": 2192
+    },
+    "spatial_async_checks-final.log": {
+      "sha256": "bd54d331e0587c652364cc15bbcd07e4b8454477d6c0f284f6b6915f44c26e23",
+      "bytes": 3624
+    },
+    "spatial_checks-final.log": {
+      "sha256": "8f8084f7c6922215d2eac4f6374cb9cd8f9efbb1b70ec34017d34bf3e234bcd1",
+      "bytes": 1787
+    },
+    "startup_checks.log": {
+      "sha256": "94b761a7de1cf55d06e738a87e24fefec80662cbfe009e0613e9e83f9ea36731",
+      "bytes": 1058
+    },
+    "studio_checks.log": {
+      "sha256": "5433bd8f6e5a557c2ad34e3da362729f88b115f35c1ea1fd73212e61a3c5a40e",
+      "bytes": 3087
+    },
+    "ui_scale_checks.log": {
+      "sha256": "d81ea1b12d1b5c727fead891d7bedc4bb63846bebdd3b3604071471f6a2d4a1d",
+      "bytes": 2181
+    },
+    "vault-restart-read.log": {
+      "sha256": "2188eeb3bb4bb825eec8b73c7995edf6b411cc53fc1ee2773936a3c63c403cc5",
+      "bytes": 534
+    },
+    "vault-restart-write.log": {
+      "sha256": "66d580489b7540cf388f98c48dbd2ae236cdb7abb24c6efc889ad75c26ff9e47",
+      "bytes": 535
+    }
+  },
+  "portable_catalog_sha256": "55c794e97dcae7dc2a123848f7a2f5a95cfde2c3653372abff5f300a17a6b9dd",
+  "native_dll_sha256": "71b96469faa1a980847521b48e0b5efad6d761bf16cadff69e5b727e0ca1643e",
+  "main_package_receipt_sha256": "b445101edcc7b7ebefda57ba9d2f7c2466eb458020062733519827799eb38306",
+  "single_bali_stage_profiles": {
+    "baseline": [
+      {
+        "admission_us": 2117,
+        "backend": "glsl",
+        "batch_splats": 131072,
+        "block_splats": 111848,
+        "bytes": 1857559920,
+        "cache_commit_us": 16,
+        "cache_hit": true,
+        "cache_write_error": "",
+        "cache_written": false,
+        "chunks": 72,
+        "complete_us": 7447485,
+        "cpu_workers": 2,
+        "engine": "4.6.2-stable (official)",
+        "first_frame_us": 7478170,
+        "gpu_validate_patch_us": 2320195,
+        "path": "C:/Users/User/Downloads/3DModels_n_3DG_SAssets/GS_Samples/Bali_Ressort.ply",
+        "peak_pump_us": 16040,
+        "preparation_work_us": 2320195,
+        "pump_calls": 2643,
+        "queue_wait_us": 167568,
+        "render_thread_flush_us": 25,
+        "repeat": 0,
+        "request_to_ready_us": 7541405,
+        "source_hash_us": 7377660,
+        "splats": 7739833,
+        "started_us": 7259611,
+        "upload_enqueue_us": 209632,
+        "upload_submissions": 286,
+        "worker_wall_us": 7438083
+      },
+      {
+        "admission_us": 1386,
+        "backend": "glsl",
+        "batch_splats": 131072,
+        "block_splats": 111848,
+        "bytes": 1857559920,
+        "cache_commit_us": 16,
+        "cache_hit": true,
+        "cache_write_error": "",
+        "cache_written": false,
+        "chunks": 72,
+        "complete_us": 7278284,
+        "cpu_workers": 2,
+        "engine": "4.6.2-stable (official)",
+        "first_frame_us": 7320646,
+        "gpu_validate_patch_us": 2225366,
+        "path": "C:/Users/User/Downloads/3DModels_n_3DG_SAssets/GS_Samples/Bali_Ressort.ply",
+        "peak_pump_us": 12269,
+        "preparation_work_us": 2225366,
+        "pump_calls": 3066,
+        "queue_wait_us": 83,
+        "render_thread_flush_us": 30,
+        "repeat": 1,
+        "request_to_ready_us": 7381252,
+        "source_hash_us": 7215811,
+        "splats": 7739833,
+        "started_us": 15036232,
+        "upload_enqueue_us": 190844,
+        "upload_submissions": 286,
+        "worker_wall_us": 7270410
+      }
+    ],
+    "cortex042": [
+      {
+        "admission_us": 1203,
+        "backend": "glsl",
+        "batch_splats": 131072,
+        "block_splats": 111848,
+        "bytes": 1857559920,
+        "cache_commit_us": 18,
+        "cache_hit": true,
+        "cache_write_error": "",
+        "cache_written": false,
+        "chunks": 72,
+        "complete_us": 7288431,
+        "cpu_workers": 2,
+        "engine": "4.6.2-stable (official)",
+        "first_frame_us": 7405419,
+        "gpu_validate_patch_us": 2320421,
+        "path": "C:/Users/User/Downloads/3DModels_n_3DG_SAssets/GS_Samples/Bali_Ressort.ply",
+        "peak_pump_us": 14457,
+        "preparation_work_us": 2320421,
+        "pump_calls": 2956,
+        "queue_wait_us": 132011,
+        "render_thread_flush_us": 31,
+        "repeat": 0,
+        "request_to_ready_us": 7464577,
+        "source_hash_us": 7224893,
+        "splats": 7739833,
+        "started_us": 2011337,
+        "upload_enqueue_us": 205248,
+        "upload_submissions": 286,
+        "worker_wall_us": 7279748
+      },
+      {
+        "admission_us": 2121,
+        "backend": "glsl",
+        "batch_splats": 131072,
+        "block_splats": 111848,
+        "bytes": 1857559920,
+        "cache_commit_us": 15,
+        "cache_hit": true,
+        "cache_write_error": "",
+        "cache_written": false,
+        "chunks": 72,
+        "complete_us": 7699113,
+        "cpu_workers": 2,
+        "engine": "4.6.2-stable (official)",
+        "first_frame_us": 7729742,
+        "gpu_validate_patch_us": 2257554,
+        "path": "C:/Users/User/Downloads/3DModels_n_3DG_SAssets/GS_Samples/Bali_Ressort.ply",
+        "peak_pump_us": 18371,
+        "preparation_work_us": 2257554,
+        "pump_calls": 2945,
+        "queue_wait_us": 120,
+        "render_thread_flush_us": 26,
+        "repeat": 1,
+        "request_to_ready_us": 7790026,
+        "source_hash_us": 7628472,
+        "splats": 7739833,
+        "started_us": 9713161,
+        "upload_enqueue_us": 254240,
+        "upload_submissions": 286,
+        "worker_wall_us": 7688638
+      }
+    ]
+  },
+  "performance_assessment": "GS loading/cache/conversion/sorting source is unchanged. Direct Godot source profiles: baseline 7.381\u20137.541 s, current 7.465\u20137.790 s for all 7,739,833 Bali splats; GPU validation/preparation remains approximately 2.23\u20132.32 s and source hashing dominates. Full combined template samples range from 7.584 to 9.912 s outside the recorded contended run. Latency depends on system load/cache; functional preservation and model population pass.",
+  "spatialos_preservation": "spatial_checks and spatial_async_checks pass; the latter uses 40,000 real generated fixture points and verifies cancellation, graph/geometry handling and stale-result protection."
+}

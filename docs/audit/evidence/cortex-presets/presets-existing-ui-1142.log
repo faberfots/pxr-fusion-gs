@@ -1,0 +1,72 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-cortex-presets
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (7 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | CortexPresets[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | CortexSettings[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | CognitivePanel[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (3 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | 132130_off_emergency_dismay_siren_anxiety_icon.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-calendar.48.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | Tonev-Windows-7-Windows-7-user.48 (1).png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[ProductionUI] Cognitive Panel instantiated.
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS existing Cortex launcher opens the enhanced Ask/Select/Setup panel
+PASS Cortex preserves the existing compact HUD density
+PASS opening Cortex starts no segmentation or background inference
+PASS actual pointer input opens Setup inside the existing panel
+PASS model names with runtime namespaces are configurable from the existing panel
+[FreeLookCamera] Movement state reset. Position: (0.557086, 0.371391, 0.742781)
+[CameraController] Camera transform set to: (0.557086, 0.371391, 0.742781)
+[FreeLookCamera] Movement state reset. Position: (0.0, 1.0, 3.0)
+[CameraController] Camera transform set to: (0.0, 1.0, 3.0)
+PASS Select captures the clean scene without starting inference
+PASS letterboxed preview coordinates map to the original image independently of HUD scaling
+PASS actual pointer input adds a foreground prompt to the captured image
+PASS cancellation restores usable controls and a truthful final status
+PASS Cortex's read-only probe resolves the actual existing GPU model identity
+PASS Cortex model probing leaves the camera and model transform unchanged
+PASS the original close control still closes Cortex
+PASS viewer teardown releases the lazily created Cortex panel
+CORTEX UI COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

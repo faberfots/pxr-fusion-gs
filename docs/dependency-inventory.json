@@ -13,7 +13,7 @@
       "snapshot": {
         "files": 83,
         "sha256": "d71b510ec971e9e43e657c21a2c8d54f8434e3153603db380a0530ee0476bb0e",
-        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
+        "scope": "Historical audit snapshot; current qualified source/artifacts are hashed in docs/audit/cortex-qualification.json and docs/provenance/native-build.json"
       }
     },
     {
@@ -287,7 +287,7 @@
         "docs/provenance/rust-license-origins.json",
         "docs/provenance/rust-licenses"
       ],
-      "status": "50 pinned package license declarations; dependency notice files and shared-license origins retained; redistribution evidence remains bounded by the wider asset inventory"
+      "status": "54 locked package license declarations; original and newly added dependency notices retained; wider asset rights gaps remain open"
     },
     {
       "component": "MobileSAM model artifacts",
@@ -303,18 +303,18 @@
       "snapshot": {
         "files": 6,
         "sha256": "f2bbfabc116909d50624321ba994b98489c129bd8b298cb0e752eaa85d4f9e5f",
-        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
+        "scope": "Historical audit snapshot; current qualified source/artifacts are hashed in docs/audit/cortex-qualification.json and docs/provenance/native-build.json"
       }
     },
     {
       "component": "local sample datasets",
-      "path": "resources",
+      "path": "resources/*.ply",
       "evidence": [],
       "status": "not exported or pushed; user does not remember source/license; rights evidence unresolved",
       "snapshot": {
         "files": 5,
         "sha256": "a531820d89b110f36db3b4b86f37b5920c8fd5d73ae9a9c1c456ef5a5da97f2c",
-        "scope": "qualified Windows source/artifact directory; generated build targets and temporary files excluded"
+        "scope": "Historical snapshot of the five local root PLY datasets only; Cortex model resources are inventoried separately."
       }
     },
     {
@@ -338,6 +338,47 @@
       "status": "Original source/license not remembered by user; ownership and redistribution evidence unresolved",
       "evidence": [
         "docs/provenance/owner-confirmation.json"
+      ]
+    },
+    {
+      "component": "SAM3 ONNX pack",
+      "path": "resources/cortex/models/segmentation/sam3/vit_h_20260220",
+      "status": "All seven user-supplied files match the pinned published exporter manifest; local source preserved; separate Meta SAM license retained",
+      "evidence": [
+        "modules/spatial_intelligence/models/sam3-pack-manifest.json",
+        "modules/spatial_intelligence/models/LICENSE-SAM3.txt",
+        "docs/provenance/cortex-assets.json"
+      ]
+    },
+    {
+      "component": "OpenAI CLIP tokenizer assets",
+      "path": "modules/spatial_intelligence/models",
+      "status": "Pinned vocabulary/merges and MIT license; ten independent primary-reference token fixtures pass",
+      "evidence": [
+        "modules/spatial_intelligence/models/LICENSE-CLIP.txt",
+        "tests/fixtures/clip-reference.json",
+        "docs/provenance/cortex-assets.json"
+      ]
+    },
+    {
+      "component": "Qwen3 1.7B Q8 and llama.cpp CPU",
+      "path": "resources/cortex",
+      "status": "Official pinned GGUF and Windows CPU release archive verified; Apache-2.0 model and MIT/LLVM runtime notices copied; actual inference qualified",
+      "evidence": [
+        "resources/cortex/catalog.json",
+        "docs/provenance/cortex-assets.json",
+        "docs/audit/cortex-qualification.json"
+      ]
+    },
+    {
+      "component": "Microsoft app-local x64 CRT",
+      "path": "resources/cortex/runtimes",
+      "status": "Unmodified signed Visual Studio VC/Redist 14.44.35112 x64 DLLs; original Microsoft redistribution references and notices retained; clean-process local resolution passes",
+      "evidence": [
+        "resources/cortex/catalog.json",
+        "docs/provenance/cortex-assets.json",
+        "docs/audit/evidence/cortex/crt-ort-probe.log",
+        "docs/audit/evidence/cortex/crt-llama-probe.log"
       ]
     }
   ]

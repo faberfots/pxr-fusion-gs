@@ -116,7 +116,57 @@ func run() -> void:
 		var mask:PackedByteArray=segmenter.call("segment_with_points",PackedVector2Array([Vector2(180,190)]),PackedInt32Array([1]))
 		check(mask.size()==640*384 and mask[190*640+180]>0 and mask[20*640+20]==0,"optimized release decodes a real prompt-conditioned mask at original image dimensions")
 	segmenter = null
+	if args.has("--cortex"):await cortex_checks(args)
 	finish()
+func cortex_checks(args:PackedStringArray)->void:
+	var brain:Node=get_node("/root/SpatialIntelligence")
+	var previous:=SIConfig.settings().experience()
+	var saved_connections:=SIConfig.settings().snapshot()
+	var ui=scene.get_node("ProductionUI")
+	ui._on_cognitive_button_pressed();await settle()
+	var panel:CognitivePanel=ui.cognitive_panel
+	check(panel.visible and panel.get_node("%WorkspaceTabs").get_tab_count()==3,"optimized release opens the enhanced existing Cortex panel")
+	check(panel.get_node("%GoalPicker").item_count==CortexPresets.ORDER.size(),"optimized release exposes the complete guided preset catalog")
+	check(not brain.segmentation.is_busy() and not brain.local_runtime.is_running(),"opening packaged Cortex starts no inference")
+	var result:Dictionary={};brain.segmentation.completed.connect(func(value):result.assign(value))
+	var picture:Image
+	for index in range(args.size()-1):
+		if args[index]=="--cortex-image":picture=Image.load_from_file(args[index+1])
+	if picture:
+		picture.convert(Image.FORMAT_RGB8)
+		panel.choose_preset("find")
+		panel._captured({"image":picture,"id":"release-preset-sam3-fixture","signature":brain.scene_signature(viewer),"viewport_size":Vector2(get_viewport().size)})
+		panel.get_node("%ConceptPrompt").text="motorcycle";panel.get_node("%SegmentButton").pressed.emit()
+		check(brain.segmentation.is_busy(),"guided SAM3 preset starts from its authored Find object button without model-path setup")
+		var started:=Time.get_ticks_msec()
+		while result.is_empty() and Time.get_ticks_msec()-started<180000:await get_tree().process_frame
+		if result.has("error"):print("RELEASE SAM3 ERROR ",result.error)
+		check(not result.get("masks",[]).is_empty() and result.get("size",Vector2i.ZERO)==picture.get_size(),"optimized release performs real SAM3 concept inference at original capture dimensions")
+		if result.has("preview"):result.preview.save_png("user://release-sam3-mask.png")
+	brain.segmentation.release()
+	check(brain.local_runtime.start_bundled()==OK,"exported Qwen starts the verified bundled CPU runner")
+	var deadline:=Time.get_ticks_msec()+120000
+	while brain.local_runtime.is_starting() and Time.get_ticks_msec()<deadline:await get_tree().process_frame
+	check(brain.local_runtime.is_running() and brain.local_runtime.message.begins_with("Ready"),"exported Qwen reaches readiness using executable-relative resources")
+	var client:=LLMClient.new();client.policy=brain.policy;client.policy.local_enabled=true;add_child(client)
+	var reply:={"text":"","error":""}
+	client.response_received.connect(func(value):reply.text=value);client.error_occurred.connect(func(value):reply.error=value)
+	var profile:=CortexProviders.profile("qwen");profile.max_tokens=24
+	client.send_request("Reply with the single word ready.",{},"",profile)
+	deadline=Time.get_ticks_msec()+100000
+	while client._is_busy and Time.get_ticks_msec()<deadline:await get_tree().process_frame
+	check(not reply.text.is_empty() and reply.error.is_empty(),"optimized release executes real local Qwen inference through the GDScript adapter")
+	reply.text="";reply.error=""
+	brain.analysis_completed.connect(func(value):reply.text=value);brain.analysis_failed.connect(func(value):reply.error=value)
+	panel.choose_preset("scene");panel.input_field.text="Reply with the single word ready.";panel.analyze_button.pressed.emit()
+	deadline=Time.get_ticks_msec()+100000
+	while brain._is_analyzing and Time.get_ticks_msec()<deadline:await get_tree().process_frame
+	check(not reply.text.is_empty() and reply.error.is_empty() and not brain.policy.cloud_enabled,"exported private preset answers through one Ask button without cloud consent or technical setup")
+	check(SIConfig.settings().snapshot()==saved_connections,"exported guided presets preserve all saved advanced connection and model settings")
+	client.queue_free();brain.policy.local_enabled=false;brain.local_runtime.stop()
+	check(not brain.local_runtime.is_running(),"exported local runner releases its owned process")
+	panel.hide_panel()
+	SIConfig.settings().update_experience(previous.preset,previous.help_open)
 func finish() -> void:
 	if is_instance_valid(scene): scene.queue_free()
 	for i in range(5): await get_tree().process_frame

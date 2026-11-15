@@ -1,0 +1,19 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (-2.481818, 0.225, 1.431885)
+[CameraController] Camera transform set to: (-2.481818, 0.225, 1.431885)
+GDSCRIPT LOAD PROFILE {"admission_us":2117,"backend":"glsl","batch_splats":131072,"block_splats":111848,"bytes":1857559920,"cache_commit_us":16,"cache_hit":true,"cache_write_error":"","cache_written":false,"chunks":72,"complete_us":7447485,"cpu_workers":2,"engine":"4.6.2-stable (official)","first_frame_us":7478170,"gpu_validate_patch_us":2320195,"path":"C:/Users/User/Downloads/3DModels_n_3DG_SAssets/GS_Samples/Bali_Ressort.ply","peak_pump_us":16040,"preparation_work_us":2320195,"pump_calls":2643,"queue_wait_us":167568,"render_thread_flush_us":25,"repeat":0,"request_to_ready_us":7541405,"source_hash_us":7377660,"splats":7739833,"started_us":7259611,"upload_enqueue_us":209632,"upload_submissions":286,"worker_wall_us":7438083}
+[FreeLookCamera] Movement state reset. Position: (-2.481818, 0.225, 1.431885)
+[CameraController] Camera transform set to: (-2.481818, 0.225, 1.431885)
+GDSCRIPT LOAD PROFILE {"admission_us":1386,"backend":"glsl","batch_splats":131072,"block_splats":111848,"bytes":1857559920,"cache_commit_us":16,"cache_hit":true,"cache_write_error":"","cache_written":false,"chunks":72,"complete_us":7278284,"cpu_workers":2,"engine":"4.6.2-stable (official)","first_frame_us":7320646,"gpu_validate_patch_us":2225366,"path":"C:/Users/User/Downloads/3DModels_n_3DG_SAssets/GS_Samples/Bali_Ressort.ply","peak_pump_us":12269,"preparation_work_us":2225366,"pump_calls":3066,"queue_wait_us":83,"render_thread_flush_us":30,"repeat":1,"request_to_ready_us":7381252,"source_hash_us":7215811,"splats":7739833,"started_us":15036232,"upload_enqueue_us":190844,"upload_submissions":286,"worker_wall_us":7270410}
+LOADING BENCHMARK COMPLETE: 2 successful full loads
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

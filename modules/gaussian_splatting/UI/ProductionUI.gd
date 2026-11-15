@@ -386,6 +386,7 @@ func _process(_delta: float) -> void:
 	viewer.set_camera_blocker("godot_ui", get_viewport().gui_get_hovered_control() != null or editing or _dialog_open or file_dialog.visible)
 
 func _exit_tree() -> void:
+	if is_instance_valid(cognitive_panel):cognitive_panel.queue_free()
 	if is_instance_valid(viewer): viewer.set_camera_blocker("godot_ui", false)
 
 func _on_configuration_migration_changed(active: bool) -> void:

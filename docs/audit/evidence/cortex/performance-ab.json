@@ -1,0 +1,50 @@
+[
+  {
+    "kind": "baseline",
+    "round": 1,
+    "splats": 7959786,
+    "load_ms": 23830
+  },
+  {
+    "kind": "cortex",
+    "round": 1,
+    "splats": 7959786,
+    "load_ms": 10324
+  },
+  {
+    "kind": "baseline",
+    "round": 2,
+    "splats": 7959786,
+    "load_ms": 9553
+  },
+  {
+    "kind": "cortex",
+    "round": 2,
+    "splats": 7959786,
+    "load_ms": 7634
+  },
+  {
+    "kind": "cortex",
+    "round": 3,
+    "splats": 7959786,
+    "load_ms": 8679
+  },
+  {
+    "kind": "baseline",
+    "round": 3,
+    "splats": 7959786,
+    "load_ms": 7399
+  },
+  {
+    "kind": "cortex",
+    "round": 4,
+    "splats": 7959786,
+    "load_ms": 8084
+  },
+  {
+    "kind": "baseline",
+    "round": 4,
+    "splats": 7959786,
+    "load_ms": 8440
+  }
+]

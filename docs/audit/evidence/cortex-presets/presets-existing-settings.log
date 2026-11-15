@@ -1,0 +1,26 @@
+Isolated project: C:\Users\User\AppData\Local\Temp\gs-cortex-presets-owner
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS Cortex startup never persists settings or credentials
+PASS local model identifiers accept runtime namespaces and quantization tags
+PASS non-secret profile selection round-trips across restart
+PASS session credential can be entered without a native extension
+PASS saved settings contain credential references rather than credentials
+PASS changing the destination cannot reuse a session credential
+PASS unknown or secret fields are rejected without overwriting valid settings
+PASS unencrypted remote API destinations are rejected
+PASS official provider credentials cannot be routed to another origin
+PASS new Cortex sessions start with transmission and scene commands disabled
+PASS local endpoint transmission does not grant cloud consent
+PASS clearing session credentials removes the in-memory key
+PASS pinned CLIP vocabulary and merge table initialize
+PASS SAM3 prompts produce the exact fixed-length CLIP token contract
+PASS CLIP tokenization normalizes prompt case
+CORTEX SETTINGS COMPLETE: 0 failures
+ 
+Process exit: 0

@@ -1,9 +1,9 @@
 [package]
 name = "spatial_ml"
-version = "0.3.0"
+version = "0.4.2"
 edition = "2021"
 authors = ["SpatialOS Team"]
-description = "MobileSAM segmentation via ONNX Runtime for SpatialOS"
+description = "Cortex local segmentation and Windows credential storage for SpatialOS"
 license = "MIT"
 
 [lib]
@@ -11,7 +11,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 # Godot bindings (gdext)
-godot = { git = "https://github.com/godot-rust/gdext", rev = "07901620" }
+godot = { git = "https://github.com/godot-rust/gdext", rev = "07901620", features = ["experimental-threads"] }
 
 # ONNX Runtime for ML inference
 ort = { version = "=2.0.0-rc.11", default-features = false, features = ["std", "ndarray", "load-dynamic"] }
@@ -24,6 +24,8 @@ image = { version = "0.25", default-features = false }
 
 # Error handling
 thiserror = "2.0"
+unicode-normalization = "=0.1.24"
+html-escape = "=0.2.13"
 
 [build-dependencies]
 # None needed for now

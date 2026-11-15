@@ -128,6 +128,20 @@ var _hybrid_nodes: Array[GSAlphaMesh3D] = []
 var _hybrid_signature := 0
 var _hybrid_error := ""
 signal model_clicked(model_id:String,world_position:Vector3)
+signal model_probe_completed(request_id:int,model_id:String,world_position:Vector3)
+var _model_probe_request:=-1
+var _model_probe_ignore:=-1
+func request_model_probe(screen_position:Vector2)->int:
+	# A read-only pick uses the existing GPU path without invoking camera focus.
+	if is_loading() or composition_busy or placement_active or _atlas_migration or not rasterizer:return -1
+	cancel_model_probe(_model_probe_request)
+	_request_serial+=1;_model_probe_request=_request_serial
+	rasterizer.request_pick(screen_position,_request_serial);_force_redraw=true;_last_activity=0.0
+	return _request_serial
+func cancel_model_probe(request_id:int)->void:
+	if request_id<0 or request_id!=_model_probe_request:return
+	if rasterizer:rasterizer.cancel_pick()
+	_model_probe_request=-1
 signal composition_operation_changed(active:bool)
 signal composition_progress(message:String)
 var _composition:GSComposition
@@ -1104,12 +1118,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		var clicked:bool=_left_press.is_finite() and ((_left_press-event.position)*input_scale).length()<5
 		_left_press=Vector2.INF
 		if clicked and not is_loading() and not _atlas_migration and rasterizer and camera_controller and not camera_controller.is_movement_blocked():
+			cancel_model_probe(_model_probe_request)
 			_request_serial += 1
 			_selection_pick_request=_request_serial
 			rasterizer.request_pick(event.position*input_scale, _request_serial)
 			_last_activity = 0.0
 
 func _on_model_pick_completed(request_id:int,instance_id:int,position:Vector3)->void:
+	if request_id==_model_probe_request:
+		_model_probe_request=-1;_model_probe_ignore=request_id
+		var identity:=""
+		for record in _records.values():
+			var node:GaussianSplat=record.node.get_ref()
+			if is_instance_valid(node) and record.status=="loaded" and record.instance_id==instance_id:identity=node.model_id;break
+		model_probe_completed.emit(request_id,identity,position);return
 	if request_id==_placement_pick_id:
 		if placement_active:_placement.accept_pick(request_id,instance_id,position)
 		return
@@ -1125,6 +1147,9 @@ func _on_model_pick_completed(request_id:int,instance_id:int,position:Vector3)->
 	select_model_id("")
 
 func _on_pick_completed(_request_id: int, position: Vector3) -> void:
+	if _request_id==_model_probe_ignore:_model_probe_ignore=-1;return
+	if _request_id==_model_probe_request:
+		_model_probe_request=-1;model_probe_completed.emit(_request_id,"",Vector3.INF);return
 	if _request_id==_placement_pick_id:
 		if placement_active:_placement.accept_pick(_request_id,0,Vector3.INF)
 		_placement_pick_id=-1

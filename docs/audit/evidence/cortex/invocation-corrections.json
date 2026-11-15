@@ -1,0 +1,9 @@
+{
+  "excluded_runs": {
+    "hybrid_checks.log": "1142x648 exceeded this fixture's fixed 64 MiB budget; unchanged fixture passes at its intended 64x64 viewport.",
+    "shadow_checks.log": "1142x648 exceeded this fixture's fixed 128 MiB migration budget; unchanged fixture passes at its intended 64x64 viewport.",
+    "performance-ab.json / baseline round 1": "Overlapped the incorrectly launched task-owned warm-up helper; excluded from steady-state comparison.",
+    "optimized-release-042.log / load timing": "Functional checks pass. Its 37.2 s load sample overlapped the separate main startup/packaging work; compare the separately recorded sequential runs and stage profiles. The raw sample is retained."
+  },
+  "scope": "No renderer source was changed to make these fixtures pass."
+}

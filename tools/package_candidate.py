@@ -9,7 +9,13 @@ parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--engine', type=Path, help='Optional official Windows engine executable to copy as GSViewer.exe.')
 parser.add_argument('--engine-kind', choices=('ordinary', 'release-template'), default='ordinary')
 parser.add_argument('--qualification', action='store_true', help='Export the dedicated release-check scene instead of the application entry point.')
+parser.add_argument('--include-cortex', action='store_true', help='Verify and copy the external portable Cortex models and CPU runtimes beside the executable.')
 args = parser.parse_args()
+def sha256(path):
+    with path.open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+if args.include_cortex:
+    subprocess.run(['powershell.exe', '-NoProfile', '-File', str(ROOT / 'tools/verify_cortex_bundle.ps1')], check=True)
 native_descriptor = ROOT / 'rust/spatial_ml/spatial_ml.gdextension'
 if (ROOT / 'rust/spatial_ml/bin/windows').exists() and not native_descriptor.is_file():
     raise SystemExit('Native binaries exist without their generated GDExtension descriptor. Run tools/setup_native_ml.py before packaging.')
@@ -59,7 +65,7 @@ for descriptor in work.rglob('*.gdextension'):
         destination = output / source.relative_to(work)
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
-for folder in ('addons', 'assets', 'rust/spatial_ml/models', 'rust/spatial_ml/bin/windows/runtime'):
+for folder in ('addons', 'assets', 'rust/spatial_ml/models', 'rust/spatial_ml/bin/windows/runtime', 'modules/spatial_intelligence/models'):
     for source in (ROOT / folder).rglob('*'):
         if source.is_file() and any(word in source.name.lower() for word in ('license', 'notices', 'attribution', 'ofl.')):
             destination = output / 'licenses' / source.relative_to(ROOT)
@@ -73,13 +79,16 @@ if (ROOT / 'docs/provenance/Godot-LICENSE.txt').exists():
     shutil.copy2(ROOT / 'docs/provenance/Godot-LICENSE.txt', output / 'licenses/Godot-LICENSE.txt')
 if args.engine:
     shutil.copy2(args.engine.resolve(), output / 'GSViewer.exe')
+if args.include_cortex:
+    shutil.copytree(ROOT / 'resources/cortex', output / 'resources/cortex', dirs_exist_ok=True)
 (output / 'export.log').write_text('\n'.join(logs), encoding='utf-8')
 receipt = {'type': 'unsigned optimized-template candidate' if args.engine_kind == 'release-template' else 'unsigned development candidate', 'source_free': True,
            'engine_kind': args.engine_kind,
            'entry_point': entry,
-           'engine_sha256': hashlib.sha256(args.engine.read_bytes()).hexdigest() if args.engine else None,
+           'engine_sha256': sha256(args.engine) if args.engine else None,
+           'portable_cortex': args.include_cortex,
            'known_export_warnings': [line for log in logs for line in log.splitlines() if 'ERROR:' in line or 'WARNING:' in line],
-           'files': {str(path.relative_to(output)).replace('\\', '/'): hashlib.sha256(path.read_bytes()).hexdigest()
+           'files': {str(path.relative_to(output)).replace('\\', '/'): sha256(path)
                      for path in sorted(output.rglob('*')) if path.is_file() and path.name != 'package-receipt.json'}}
 (output / 'package-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
 print('Development package:', output)

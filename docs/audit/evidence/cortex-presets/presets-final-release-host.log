@@ -1,0 +1,58 @@
+Verified 74 pinned model/runtime files; 5,27 GiB. No inference started.
+Development package: C:\Users\User\AppData\Local\Temp\PXRFusion Cortex Presets Final QA
+Export warning lines: 0
+Isolated export source retained for diagnostics: C:\Users\User\AppData\Local\Temp\gs-package-source-hrxub3kh
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS packaged real main begins without an injected configuration
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS optimized release initializes the real viewer renderer
+PASS packaged color panel opens and applies a preset
+PASS packaged color sliders synchronize with the authoritative configuration
+[CameraController] Camera transform set to: (0.557086, 1.371391, 0.742781)
+[CameraController] Camera transform set to: (0.0, 1.0, 2.0)
+PASS optimized release composes participating transparency with actual Gaussian pixels
+PASS optimized release builds Gaussian opacity shadows and dispatches opt-in receiving
+[CameraController] Camera transform set to: (-2.41283, 0.225, 1.386286)
+PASS packaged loader retains every source Gaussian: Bali_Ressort.ply
+PASS packaged loader retains every source Gaussian: suzuki-bike-ply.ply
+PASS packaged atlas contains the full combined population
+RELEASE POPULATION 7959786 load_ms 6779
+PASS optimized release casts shadows from the complete loaded scene within the shared GPU budget
+RELEASE SHADOW projected 7956764 cache_ms 303
+PASS optimized release interleaves a transparent participant with the full unchanged Gaussian population
+PASS packaged model retains independent XYZ translation, rotation and scale
+PASS packaged edits preserve the other model
+PASS qualification runs in a true export template
+PASS optimized release verifies native models and CPU runtime
+PASS optimized release initializes the real native ML bridge
+PASS optimized release encodes an actual non-square RGB image
+PASS optimized release decodes a real prompt-conditioned mask at original image dimensions
+[ProductionUI] Cognitive Panel instantiated.
+PASS optimized release opens the enhanced existing Cortex panel
+PASS optimized release exposes the complete guided preset catalog
+PASS opening packaged Cortex starts no inference
+PASS guided SAM3 preset starts from its authored Find object button without model-path setup
+PASS optimized release performs real SAM3 concept inference at original capture dimensions
+PASS exported Qwen starts the verified bundled CPU runner
+PASS exported Qwen reaches readiness using executable-relative resources
+[LLMClient] Sending request to qwen...
+PASS optimized release executes real local Qwen inference through the GDScript adapter
+[LLMClient] Sending request to qwen...
+PASS exported private preset answers through one Ask button without cloud consent or technical setup
+PASS exported guided presets preserve all saved advanced connection and model settings
+PASS exported local runner releases its owned process
+RELEASE CHECKS COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpArrayLength is not supported yet.
+

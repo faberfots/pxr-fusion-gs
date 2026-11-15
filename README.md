@@ -19,11 +19,15 @@ The complete finding-by-finding implementation status is in [REMEDIATION_STATUS.
 
 ## Optional AI and native ML
 
+Open **Cortex Intelligence** and choose your goal. **Select with a click** is the default; local selection and private scene questions need no account. **How it works** explains each preset in plain language. Your advanced settings remain available through the gear button. See [the preset guide](docs/CORTEX.md#start-with-your-goal).
+
 Cloud analysis is off by default. The panel identifies the destination and requires an explicit session toggle before sending the 3D image, prompt and model context. Camera/selection actions have a separate local operator capability. This desktop policy does not provide multi-user authentication.
 
-Set `GS_AI_API_KEY`, or the matching `OPENAI_API_KEY`, `GEMINI_API_KEY` or `ANTHROPIC_API_KEY`, in the Godot process environment. Keys are never saved by the application. **The previously embedded credential must still be revoked in its provider account.**
+Use the existing **Cortex → Setup** panel to configure OpenAI, Anthropic, Gemini, Ollama, bundled Qwen or an OpenAI-compatible connection. Keys can stay in memory, refer to an environment variable or use Windows Credential Manager. Non-secret settings persist separately. **The previously embedded credential must still be revoked in its provider account.**
 
 Native MobileSAM is optional. See [native setup](rust/spatial_ml/README.md). Pinned official MobileSAM weights are exported to verified ONNX models in this repository. `python tools/setup_native_ml.py --build` installs the verified Windows CPU runtime and builds the optional extension. Actual GDScript inference and source-free PCK inference pass the deterministic image test.
+
+The portable local model tree now contains MobileSAM, the verified SAM3 pack and official Qwen3 1.7B Q8, with their Windows CPU runtimes and licenses. **Copy the whole project folder, including ignored `resources/cortex/models` and `resources/cortex/runtimes`; Git alone does not carry those large files.** See [portable Cortex instructions](resources/cortex/README.md). Models start on request, preserving the existing GS loading/rendering path. Cortex **Select** captures a clean view and supports local masks and selection of existing models without altering their transforms.
 
 ## Qualification
 
