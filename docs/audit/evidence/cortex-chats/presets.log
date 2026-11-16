@@ -1,0 +1,31 @@
+Isolated project: build\cortex-chats-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS fresh Cortex offers a useful local default without writing preferences or starting a model
+PASS description preset supplies the portable SAM3 configuration without manual paths
+PASS presets preserve saved provider, credentials references and advanced model settings byte for byte
+PASS private scene preset derives a local read-only request without copying a cloud credential
+PASS selected-model preset limits its context to the selected models
+PASS goal selection survives reopening while legacy settings stay compatible
+PASS connected-assistant preset uses the chosen destination and keeps guided requests read-only
+PASS Advanced restores the original settings and capabilities without reconstructing them
+PASS invalid presets cannot replace working preferences
+PASS pick has plain-language purpose, steps, privacy and capability limits
+PASS find has plain-language purpose, steps, privacy and capability limits
+PASS scene has plain-language purpose, steps, privacy and capability limits
+PASS selection has plain-language purpose, steps, privacy and capability limits
+PASS connected has plain-language purpose, steps, privacy and capability limits
+PASS custom has plain-language purpose, steps, privacy and capability limits
+PASS managed roles cannot switch configuration through a preset
+PASS selecting a private preset grants no consent, scene actions, model startup or background inference
+PASS guided use leaves the original connection settings intact
+CORTEX PRESETS COMPLETE: 0 failures
+ 
+Process exit: 0

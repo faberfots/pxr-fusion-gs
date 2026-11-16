@@ -1,0 +1,40 @@
+Isolated project: build\mesh-physics-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (-18.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-18.0, 1.7, 0.0)
+PASS cold import publishes a complete prepared cache
+[FreeLookCamera] Movement state reset. Position: (-18.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-18.0, 1.7, 0.0)
+PASS repeat import verifies and uses the prepared payload
+PASS cache preserves exact population and rendered bounds
+[FreeLookCamera] Movement state reset. Position: (-18.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-18.0, 1.7, 0.0)
+PASS corrupt payload falls back to original data without duplicating uploaded counts
+PASS corrupt cache cannot alter committed source geometry
+[FreeLookCamera] Movement state reset. Position: (-18.97297, 1.7, 0.0)
+[CameraController] Camera transform set to: (-18.97297, 1.7, 0.0)
+PASS source SHA rejects a stale cache after a same-length source edit
+[FreeLookCamera] Movement state reset. Position: (-18.97297, 1.7, 0.0)
+[CameraController] Camera transform set to: (-18.97297, 1.7, 0.0)
+PASS cache writes cannot claim a populated, unowned directory
+PASS cancelled preparation closes handles and removes unpublished cache files
+LOADING CACHE COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

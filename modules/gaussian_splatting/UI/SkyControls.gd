@@ -15,6 +15,7 @@ func _bind()->void:
 		if index>0:GSSkySettings.preset(sky,%Preset.get_item_text(index))
 	)
 	%Reset.pressed.connect(func():GSSkySettings.apply(sky,_original))
+	%MeshLight.pressed.connect(func():GSSkySettings.soft_mesh_lighting(sky);_sync())
 	%Advanced.toggled.connect(func(value):%AdvancedFields.visible=value)
 	_sync()
 func _collect(parent:Node)->void:

@@ -1,0 +1,36 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS visible command rig is 33 percent smaller
+PASS scaled Image button receives pointer clicks and collapses the rig
+PASS scaled floating panel drag follows the pointer without amplified movement
+PASS reopening restores the scaled panel's normalized saved position
+PASS scaled exposure slider updates the authoritative color settings through pointer input
+SCALED PRESET POPUP factor 0.6700000166893 size (203, 94) position (980, 190)
+PASS scaled preset menu opens at its button and inherits HUD density
+PASS scaled scene navigator drag follows the same pointer coordinates
+PASS scene navigator follows the shared HUD density
+[FreeLookCamera] Movement state reset. Position: (0.557086, 1.371391, 0.742781)
+[CameraController] Camera transform set to: (0.557086, 1.371391, 0.742781)
+[FreeLookCamera] Movement state reset. Position: (0.105238, 1.070159, 0.140317)
+[CameraController] Camera transform set to: (0.105238, 1.070159, 0.140317)
+PASS smaller transform handles stay attached to the model's projected 3D pivot
+PASS model toolbar follows the same shared scale
+PASS model toolbar moves one-to-one using its authored drag grip
+PASS automatic placement no longer overrides the user's toolbar position
+PASS model toolbar position restores from saved layout
+PASS dragging model controls does not move the camera
+PASS reset layout returns model controls to automatic placement
+PASS scaled load dialog remains centered
+PASS scaled status strip stays centered on the lower viewport edge
+PASS collapsing the scaled rig preserves its right screen edge
+UI SCALE CHECKS COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

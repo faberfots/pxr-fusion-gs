@@ -1,0 +1,176 @@
+Isolated project: build\mixed-scene-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (1.182011, 1.75093, 1.55169)
+[CameraController] Camera transform set to: (1.182011, 1.75093, 1.55169)
+PASS GLB uses native geometry and shared asset identity without allocating a splat record
+[FreeLookCamera] Movement state reset. Position: (0.0, 1.4, 5.0)
+[CameraController] Camera transform set to: (0.0, 1.4, 5.0)
+PASS selecting GLB attaches the existing transform toolbar and gizmo
+PASS the existing X-axis gizmo starts a native mesh edit
+PASS shared gizmo moves the mesh and preserves the other GS asset
+PASS existing undo and redo restore mesh transforms
+PASS mixed multi-selection uses one world-space gizmo delta across GS coordinate conversion and native mesh roots
+PASS asset lock blocks shared gizmo edits without changing selection
+PASS shared visible-model probe resolves a native mesh to its imported root identity
+PASS actual left click selects the imported GLB root
+PASS actual pointer gizmo edit works for native mode 1
+PASS actual pointer gizmo edit works for native mode 2
+PASS actual pointer gizmo edit works for native mode 3
+PASS mixed composition saves through the existing scene command
+PASS mixed schema records explicit mesh type without counting vertices as splats
+[FreeLookCamera] Movement state reset. Position: (0.0, 1.4, 5.0)
+[CameraController] Camera transform set to: (0.0, 1.4, 5.0)
+[FreeLookCamera] Movement state reset. Position: (0.0, 1.4, 5.0)
+[CameraController] Camera transform set to: (0.0, 1.4, 5.0)
+PASS mixed composition reopens through the existing protected transaction
+PASS reopening preserves stable identities, full GS count, exact nonuniform mesh transform and mixed selection
+PASS adding a mixed composition preserves existing assets and remaps duplicate identities
+PASS the existing Import dialog exposes native mesh formats
+PASS the existing Scene navigator manages mixed asset selection
+PASS mixed asset details and portable-save controls fit the existing responsive Scene navigator
+[FreeLookCamera] Movement state reset. Position: (117.754, 117.1502, 171.6317)
+[CameraController] Camera transform set to: (117.754, 117.1502, 171.6317)
+PASS provided city environment imports at its source pose with frame/home navigation
+PASS native city glass is preserved and accurately identified as native fallback
+PASS existing Clear removes mesh and GS assets together
+PASS GLB enters the existing interactive placement workflow
+[FreeLookCamera] Movement state reset. Position: (1.182011, 1.75093, 1.55169)
+[CameraController] Camera transform set to: (1.182011, 1.75093, 1.55169)
+PASS native placement supports Keep original through the existing HUD
+PASS cancelling an import prevents a late native result from reappearing
+[FreeLookCamera] Movement state reset. Position: (2.976583, 2.984394, 3.968777)
+[CameraController] Camera transform set to: (2.976583, 2.984394, 3.968777)
+PASS external glTF resolves and fingerprints geometry plus texture dependencies
+PASS first mesh balances factory-default sky lighting through the existing owner
+PASS automatic mesh lighting preserves customized atmosphere controls
+PASS authored Soft mesh lighting command reuses Sky3D fields without changing GS grading
+PASS existing protected camera sweeps against imported native geometry
+[FreeLookCamera] Movement state reset. Position: (0.0, 5.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 5.0, 5.0)
+PASS visible GS in front of an imported opaque mesh remains selectable
+PASS opaque imported geometry wins selection over a GS hidden behind it
+PASS mixed selection rejects a result captured under a stale camera lens
+PASS the shared placement workflow places GS on native mesh surfaces
+PASS the same placement workflow places a native mesh on a GS surface
+[FreeLookCamera] Movement state reset. Position: (2.976583, 2.984394, 3.968777)
+[CameraController] Camera transform set to: (2.976583, 2.984394, 3.968777)
+[FreeLookCamera] Movement state reset. Position: (0.0, 5.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 5.0, 5.0)
+PASS existing numeric controls honor the same native transform lock
+PASS Include asset files creates a portable scene through the existing save command
+[FreeLookCamera] Movement state reset. Position: (0.0, 5.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 5.0, 5.0)
+[FreeLookCamera] Movement state reset. Position: (0.0, 5.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 5.0, 5.0)
+PASS portable scene reopens using only bundled relative files with original absolute locations unavailable
+PASS portable reload preserves dependencies, transform and lock
+PASS Cortex context identifies native geometry and invalidates captured selection after its transform changes
+PASS portable copy cancellation completes the user operation
+PASS cancelled portable save preserves the previous scene byte-for-byte
+PASS existing Cortex read-only policy denies native selection actions
+[FreeLookCamera] Movement state reset. Position: (2.976583, 2.984394, 3.968777)
+[CameraController] Camera transform set to: (2.976583, 2.984394, 3.968777)
+PASS authorized Cortex tools reuse native selection and frame commands
+PASS failed mixed replacement restores the exact native root and resident GS atlas
+PASS failed mixed append removes only new assets and retains the original composition
+[FreeLookCamera] Movement state reset. Position: (2.976583, 2.984394, 3.968777)
+[CameraController] Camera transform set to: (2.976583, 2.984394, 3.968777)
+PASS checked native environment import replaces once at its authored pose
+PASS malformed glTF rejects a replacement without touching the current scene
+PASS missing mesh dependencies fail before starting or clearing a scene
+PASS final pending native placement can be cancelled
+PASS teardown during a native import drains work without retaining the viewer
+PASS teardown during mixed composition staging also drains its transaction
+MIXED SCENE COMPLETE: 0 failures
+ WARNING: [GSViewer] Scene operation cancelled.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1267)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:369)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:39)
+       [3] cancel (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:44)
+       [4] <anonymous lambda> (res://tests/mixed_scene_checks.gd:203)
+       [5] copy_assets (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:186)
+       [6] save (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:134)
+       [7] fingerprint (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:115)
+WARNING: [GSViewer] Invalid ASCII scalar
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1267)
+       [1] _fail_record (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:838)
+       [2] _pump_job (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:792)
+       [3] _process (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:958)
+WARNING: [GSViewer] Scene could not load completely; the previous composition was restored.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1267)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:369)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:39)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:26)
+       [4] open (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:484)
+       [5] restore (res://modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd:141)
+WARNING: [GSViewer] Invalid ASCII scalar
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1267)
+       [1] _fail_record (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:838)
+       [2] _pump_job (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:792)
+       [3] _process (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:958)
+WARNING: [GSViewer] The added scene could not load completely. Your existing models were preserved.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1267)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:369)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:39)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:26)
+       [4] append (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:393)
+WARNING: [GSViewer] Expected glTF 2.0.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1267)
+       [1] load_mesh_from_path (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1603)
+       [2] stage_mesh_asset (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1581)
+       [3] _pump_mesh_import (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1589)
+       [4] _process (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:955)
+WARNING: [GSViewer] Missing mesh dependency: missing.bin
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1267)
+       [1] _begin_mesh_placement (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1619)
+       [2] begin_model_placement (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:210)
+       [3] contract_checks (res://tests/mixed_scene_checks.gd:236)
+       [4] load_mesh_from_path (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1604)
+       [5] stage_mesh_asset (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1581)
+       [6] _pump_mesh_import (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1589)
+       [7] _process (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:955)
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

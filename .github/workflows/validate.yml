@@ -27,6 +27,7 @@ jobs:
           python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --script res://tests/cortex_settings_checks.gd
           python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --script res://tests/cortex_presets_checks.gd
           python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --script res://tests/cortex_transport_checks.gd
+          python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --script res://tests/cortex_conversation_checks.gd
       - name: Provider transport lifecycle (local synthetic server)
         run: python tools/check_provider_network.py --godot godot --project /tmp/gs-ci
       - name: Install software Vulkan and display
@@ -58,6 +59,16 @@ jobs:
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/sky_controls_checks.gd
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/cortex_ui_checks.gd
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/cortex_presets_ui_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/cortex_chat_ui_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1908x960 --script res://tests/cortex_layout_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/import_mode_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/mixed_scene_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/mesh_debug_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/model_navigation_checks.gd
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/solid_edit_checks.gd
+          python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --script res://tests/motion_preparation_checks.gd
+          python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --script res://tests/motion_preparation_checks.gd --test-arg=--warm
+          xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --resolution 1142x648 --script res://tests/mixed_occlusion_checks.gd
           python tools/make_spatial_fixture.py /tmp/spatial-ci.ply --count 40000
           xvfb-run -a python tools/run_checks.py --godot godot --candidate /tmp/gs-ci --skip-import --disable-msaa --gpu --script res://tests/spatial_async_checks.gd --test-arg /tmp/spatial-ci.ply --test-arg 40000
       - name: Native software MSAA depth (runtime selects supported 4x)

@@ -1,0 +1,74 @@
+[
+  {
+    "test": "sky_controls_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 12.06
+  },
+  {
+    "test": "studio_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 12.39
+  },
+  {
+    "test": "composition_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 11.92
+  },
+  {
+    "test": "placement_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 14.33
+  },
+  {
+    "test": "environment_import_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 23.23
+  },
+  {
+    "test": "color_transform_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 14.75
+  },
+  {
+    "test": "ui_scale_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 18.41
+  },
+  {
+    "test": "hybrid_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 27.03
+  },
+  {
+    "test": "shadow_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 34.48
+  },
+  {
+    "test": "ui_scale_checks-1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 18.45
+  },
+  {
+    "test": "mixed_scene_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 54.72
+  },
+  {
+    "test": "mixed_scene_checks-1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 50.84
+  }
+]

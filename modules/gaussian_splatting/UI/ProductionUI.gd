@@ -52,6 +52,9 @@ func _ready() -> void:
 	transform_controls=%ModelTransformControls
 	status_label.visibility_changed.connect(func():status_label.get_parent().visible=status_label.visible)
 	_connect_signals();_initialize_ui_state()
+	%ClearBeforeImport.toggled.connect(func(enabled):
+		%ImportModeHelp.text="Start fresh · current models will be replaced." if enabled else "Add to this scene · existing models stay in place."
+	)
 	%LightingPanel.get_node("%Tabs").set_tab_title(1,"Sky & time")
 	var dock:GSCommandDock=%MainControls
 	dock.get_node("%ColorButton").pressed.connect(func():_toggle_panel(color_panel))
@@ -66,6 +69,13 @@ func _ready() -> void:
 	%CameraPanel.get_node("%Home").pressed.connect(func():viewer.home_view())
 	%CameraPanel.get_node("%FrameSelected").pressed.connect(func():viewer.frame_models(viewer.selected_model_ids))
 	%CameraPanel.get_node("%FrameAll").pressed.connect(func():viewer.frame_models([]))
+	%CameraPanel.get_node("%DriveModel").toggled.connect(func(enabled):
+		if enabled:
+			if viewer.start_model_navigation()!=OK:%CameraPanel.get_node("%DriveModel").set_pressed_no_signal(false)
+			else:%CameraPanel.hide()
+		else:viewer.stop_model_navigation()
+	)
+	%CameraPanel.get_node("%DriveSpeed").value_changed.connect(viewer.set_model_navigation_speed)
 	%CameraPanel.get_node("%ProtectedFly").toggled.connect(func(value):viewer.camera_controller.set_protection(value))
 	%CameraPanel.get_node("%OrbitMode").toggled.connect(_on_camera_mode)
 	%SettingsPanel.get_node("%ResetLayout").pressed.connect(func():
@@ -115,11 +125,11 @@ func _on_camera_mode(orbit:bool)->void:
 	if not camera:return
 	var pose:=controller.get_camera().global_transform
 	if camera is OrbitCamera:
-		var model:=viewer.get_selected_model()
-		if model:camera.orbit_point=viewer.get_model_world_bounds(model).get_center()
+		var model:=viewer.get_selected_asset()
+		if model:camera.orbit_point=viewer.get_asset_world_bounds(model).get_center()
 	controller.set_camera(camera);controller.set_camera_transform(pose)
 func _update_population()->void:
-	%MainControls.update_population(viewer.get_model_snapshot().size(),viewer.total_splats_to_load)
+	%MainControls.update_population(viewer.get_asset_snapshot().size(),viewer.total_splats_to_load)
 func _layout_top_bar()->void:
 	%MainControls._layout()
 func _connect_signals() -> void:
@@ -133,6 +143,7 @@ func _connect_signals() -> void:
 	viewer.loading_completed.connect(_on_viewer_loading_completed)
 	viewer.error_occurred.connect(_on_viewer_error)
 	viewer.load_zone_visibility_changed.connect(_on_viewer_load_zone_visibility_changed)
+	viewer.import_requested.connect(func(replace_scene):%ClearBeforeImport.button_pressed=replace_scene)
 
 	# --- Connect to internal UI element signals ---
 	load_file_button.pressed.connect(_on_load_button_pressed)
@@ -230,7 +241,7 @@ func _on_viewer_error(error_message: String, _error_code: int) -> void:
 
 # --- UI Action Handlers ---
 func _on_load_button_pressed() -> void:
-	viewer.show_load_zone = true
+	viewer.request_import()
 	
 func _on_close_button_pressed() -> void:
 	viewer.show_load_zone = false
@@ -296,8 +307,12 @@ func _on_file_dialog_selected(path: String) -> void:
 	await _import_interactive(path)
 
 func _import_interactive(path:String,point:Vector2=Vector2.INF)->void:
-	if path.get_extension().to_lower()=="pxrscene":await viewer.import_path(path)
-	else:viewer.begin_model_placement(path,point,%ImportKind.selected)
+	var replace_scene:bool=%ClearBeforeImport.button_pressed
+	var result:Error
+	if path.get_extension().to_lower()=="pxrscene":result=await viewer.open_composition(path) if replace_scene else await viewer.add_composition(path)
+	else:result=viewer.begin_model_placement(path,point,%ImportKind.selected,replace_scene)
+	# Replacement is an explicit, one-import choice; the safe default returns afterward.
+	if result==OK:%ClearBeforeImport.button_pressed=false
 
 func _on_file_dialog_canceled() -> void:
 	_dialog_open = false
@@ -309,8 +324,8 @@ func _on_files_dropped(files: PackedStringArray) -> void:
 		return
 		
 	var file_path := files[0]
-	if file_path.get_extension().to_lower() not in ['ply', 'gsres', 'pxrscene']:
-		status_label.text = "ERROR: Expected a PLY, GSRES or PXRSCENE file"
+	if file_path.get_extension().to_lower() not in ['ply', 'gsres', 'glb', 'gltf', 'pxrscene']:
+		status_label.text = "ERROR: Expected PLY, GSRES, GLB, glTF or PXRSCENE"
 		status_label.show()
 		status_timer.start(5.0)
 		return
@@ -372,11 +387,24 @@ func _apply_universal_shielding() -> void:
 
 func _process(_delta: float) -> void:
 	if not is_instance_valid(viewer): return
+	var navigation:=viewer.get_model_navigation_state()
+	var native:=viewer.get_selected_asset() as GSSceneMesh
+	var drive:CheckButton=%CameraPanel.get_node_or_null("%DriveModel")
+	# An already-running editor instance can hot-reload this script before its
+	# authored panel is reinstanced. Keep that existing session usable until restart.
+	if drive:
+		drive.set_pressed_no_signal(navigation.active)
+		drive.disabled=not navigation.active and (not native or native.transform_locked or viewer.resolve_import_kind(native)==GaussianSplat.ImportKind.ENVIRONMENT or viewer.is_loading() or viewer.placement_active or viewer.composition_busy)
+		%CameraPanel.get_node("%DriveHelp").text=navigation.status
+		%CameraPanel.get_node("%DriveSpeed").set_value_no_signal(navigation.speed)
+		%CameraPanel.get_node("%DriveSpeed").visible=navigation.active
+	for action in ["Home","FrameSelected","FrameAll","OrbitMode"]:%CameraPanel.get_node("%"+action).disabled=navigation.active
+	if navigation.active:status_label.text=navigation.status;status_label.show();status_timer.start(1.0)
 	if viewer.config:%SettingsPanel.get_node("%ProgressivePreview").set_pressed_no_signal(viewer.config.loading_progressive_preview)
 	if viewer.camera_controller:
 		%CameraPanel.get_node("%ProtectedFly").set_pressed_no_signal(viewer.camera_controller.safety.protected_fly)
 		%CameraPanel.get_node("%OrbitMode").set_pressed_no_signal(viewer.camera_controller.active_camera is OrbitCamera)
-	%CameraPanel.get_node("%FrameSelected").disabled=viewer.selected_model_ids.is_empty()
+	%CameraPanel.get_node("%FrameSelected").disabled=navigation.active or viewer.selected_model_ids.is_empty()
 	%LightingPanel.get_node("%Shadows").set_pressed_no_signal(viewer.lighting.shadows_enabled)
 	%LightingPanel.get_node("%ShadowStrength").set_value_no_signal(viewer.lighting.shadow_strength)
 	%LightingPanel.get_node("%ShadowResolution").select([256,512,1024].find(viewer.lighting.shadow_resolution))

@@ -1,0 +1,45 @@
+Isolated project: C:\Users\User\Documents\pxr-fusion-gs-enhanced-ssot-fsm-vbs-godot-integration-new-plus\build\mixed-scene-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS software Vulkan selects native 4x depth rather than an unsupported sample count
+PASS scene depth policy preserves disabled AA and existing hardware GPU settings
+PASS allocator admission
+PASS allocator coalescing
+PASS allocator reset high water
+PASS complete GPU budget
+PASS unterminated PLY rejected
+PASS mixed scalar big-endian PLY
+PASS ASCII Gaussian schema
+PASS source file size is not an admission gate
+PASS valid thin Bali Gaussians retain full source population
+PASS High atlas fits Bali plus another full-resolution model
+PASS Gaussian CPU conversion
+PASS binary save
+PASS binary checksum round trip
+PASS binary corruption rejected
+PASS shared SpatialOS decoding
+PASS AI vector validation
+PASS AI default read-only policy
+PASS denied AI action
+PASS malformed provider response
+PASS multiple provider tools decoded
+PASS derived point count and bounds
+PASS geometry invalidates derived graph
+PASS indexed geometry edit invalidates bounds
+PASS retained geometry snapshot cannot mutate source
+PASS CPU worker start
+PASS bounded worker cancellation joins
+PASS bounded floor samples span the complete source
+PASS SpatialOS async start
+PASS SpatialOS async cancellation joins
+PASS failed initialization releases lock
+CHECKS COMPLETE: 0 failures
+ 
+Process exit: 0

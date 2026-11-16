@@ -2,7 +2,7 @@ class_name GSComposition
 extends RefCounted
 ## Versioned data-only composition codec. The viewer owns live state and transactions.
 const FORMAT := "PXRFusion GS scene"
-const VERSION := 1
+const VERSION := 2
 const HASH_CHUNK := 4 * 1024 * 1024
 var cancelled := false
 var checkpoint:GSAtlasMigration
@@ -10,19 +10,32 @@ var _hash_job:GSFileHashJob
 var profile:Dictionary={}
 signal completed(result:Dictionary)
 var _completed:=false
+var _staged_meshes:Array[GSSceneMesh]=[]
+var _copied_files:Array[String]=[]
 # Keep asynchronous IO alive until cancellation drains, even after its viewer exits.
 static var _active:Dictionary={}
 
-func begin(viewer:Node,path:String,opening:bool)->void:
+func begin(viewer:Node,path:String,opening:bool,adding:bool=false,include_assets:bool=false)->void:
 	if cancelled or not is_instance_valid(viewer):
 		finish(failure("Scene operation cancelled.",ERR_SKIP));return
 	var identity:=get_instance_id()
 	_active[identity]=self
-	var result:Dictionary=await open(viewer,path) if opening else await save(viewer,path)
+	var result:Dictionary
+	if adding:result=await append(viewer,path)
+	else:result=await open(viewer,path) if opening else await save(viewer,path,include_assets)
 	finish(result)
 	_active.erase(identity)
 func finish(result:Dictionary)->void:
+	if result.has("error"):
+		var open_files:Array[String]=[]
+		for path in _copied_files:
+			if FileAccess.file_exists(path) and DirAccess.remove_absolute(path)!=OK:open_files.append(path)
+		_copied_files=open_files # Retry after a cancelled copy closes its file handles.
+	else:_copied_files.clear()
 	if _completed:return
+	for mesh in _staged_meshes:
+		if is_instance_valid(mesh) and not mesh.is_inside_tree():mesh.free()
+	_staged_meshes.clear()
 	_completed=true;completed.emit(result)
 func cancel()->void:
 	cancelled=true
@@ -64,7 +77,7 @@ static func view(viewer:Node)->Dictionary:
 	if is_instance_valid(viewer.shadow_light):
 		var color:Color=viewer.shadow_light.light_color
 		sun={"pose":matrix(viewer.shadow_light.global_transform),"color":[color.r,color.g,color.b,color.a],"energy":viewer.shadow_light.light_energy}
-	return {"sky":GSSkySettings.snapshot(GSSkySettings.node(viewer)),"color":grade,"renderer":{"basis":matrix(Transform3D(viewer.rasterizer.basis_override,Vector3.ZERO)),"scale":float(viewer.rasterizer.model_scale[0]),"heatmap":float(viewer.rasterizer.should_enable_heatmap[0]),"render_scale":viewer.config.default_render_scale},"camera":{"pose":matrix(camera.global_transform),"mode":"orbit" if camera is OrbitCamera else "free","orbit_point":[point.x,point.y,point.z],"protected":viewer.camera_controller.safety.protected_fly,"fov":camera.fov,"projection":camera.projection,"size":camera.size,"near":camera.near,"far":camera.far,"keep_aspect":camera.keep_aspect,"frustum_offset":[camera.frustum_offset.x,camera.frustum_offset.y]},"lighting":{"enabled":viewer.lighting.shadows_enabled,"strength":viewer.lighting.shadow_strength,"bias":viewer.lighting.shadow_bias,"resolution":viewer.lighting.shadow_resolution},"sun":sun}
+	return {"sky":GSSkySettings.snapshot(GSSkySettings.node(viewer)),"color":grade,"renderer":{"basis":matrix(Transform3D(viewer.rasterizer.basis_override,Vector3.ZERO)),"scale":float(viewer.rasterizer.model_scale[0]),"heatmap":float(viewer.rasterizer.should_enable_heatmap[0]),"render_scale":viewer.config.default_render_scale},"camera":{"pose":matrix(camera.global_transform),"mode":"orbit" if camera is OrbitCamera else "free","orbit_point":[point.x,point.y,point.z],"protected":viewer.camera_controller.safety.protected_fly,"fov":camera.fov,"projection":camera.projection,"size":camera.size,"near":camera.near,"far":camera.far,"keep_aspect":camera.keep_aspect,"frustum_offset":[camera.frustum_offset.x,camera.frustum_offset.y]},"lighting":{"enabled":viewer.lighting.shadows_enabled,"strength":viewer.lighting.shadow_strength,"bias":viewer.lighting.shadow_bias,"resolution":viewer.lighting.shadow_resolution},"sun":sun,"editing":{"solid_meshes":viewer.mesh_edit_collisions_enabled,"shape_quality":"detailed" if viewer.mesh_edit_shape_quality==GSMeshMotionJob.Quality.DETAILED else "fast"}}
 static func capture(viewer:Node,path:String)->Dictionary:
 	var models:Array=[]
 	var base:=ProjectSettings.globalize_path(path).get_base_dir()
@@ -76,7 +89,18 @@ static func capture(viewer:Node,path:String)->Dictionary:
 		if not node.global_transform.is_finite():return failure("A model transform is not finite.",ERR_INVALID_DATA)
 		models.append({"id":node.model_id,"name":str(node.name),"source":source,"relative_source":relative_path(base,source),"transform":matrix(node.global_transform),"import_kind":int(node.import_kind),"visible":node.visible,"cast_shadow":node.cast_gaussian_shadows,"receive_shadow":node.receive_gaussian_shadows,"splats":int(record.count)})
 		models.back().merge(record.get("source_fingerprint",{}))
-	return {"format":FORMAT,"version":VERSION,"models":models,"selection":Array(viewer.selected_model_ids),"view":view(viewer)}
+	for ref in viewer._mesh_models.values():
+		var node:GSSceneMesh=ref.get_ref()
+		if not is_instance_valid(node) or not node.is_loaded:return failure("Finish mesh loading before saving.",ERR_BUSY)
+		var source:=ProjectSettings.globalize_path(node.file_path).simplify_path()
+		if node.fingerprints.is_empty():return failure("Mesh source fingerprint is unavailable.",ERR_FILE_CORRUPT)
+		var entry:={"id":node.model_id,"name":str(node.name),"source":source,"relative_source":relative_path(base,source),"transform":matrix(node.global_transform),"import_kind":int(node.import_kind),"visible":node.visible,"cast_shadow":false,"receive_shadow":false,"splats":0,"asset_type":"mesh","vertices":node.vertex_count,"bytes":node.fingerprints[0].bytes,"sha256":node.fingerprints[0].sha256,"dependencies":[],"locked":node.transform_locked}
+		for item in node.fingerprints.slice(1):entry.dependencies.append({"source":item.source,"relative_source":relative_path(base,item.source),"sha256":item.sha256,"bytes":item.bytes})
+		models.append(entry)
+	for entry in models:
+		var node:Node3D=viewer.get_asset_by_id(entry.id)
+		entry["locked"]=node.transform_locked
+	return {"format":FORMAT,"version":VERSION if not viewer._mesh_models.is_empty() else 1,"models":models,"selection":Array(viewer.selected_model_ids),"view":view(viewer)}
 func fingerprint(path:String,tree:SceneTree)->Dictionary:
 	var job:=GSFileHashJob.new();_hash_job=job
 	var result:=job.start(path)
@@ -90,7 +114,7 @@ func fingerprint(path:String,tree:SceneTree)->Dictionary:
 	profile["source_verify_us"]=int(profile.get("source_verify_us",0))+int(metadata.elapsed_us)
 	return {"bytes":metadata.bytes,"sha256":metadata.sha256}
 
-func save(viewer:Node,path:String)->Dictionary:
+func save(viewer:Node,path:String,include_assets:bool=false)->Dictionary:
 	if path.get_extension().to_lower()!="pxrscene":return failure("Choose a .pxrscene file.",ERR_INVALID_PARAMETER)
 	var document:=capture(viewer,path)
 	if document.has("error"):return document
@@ -101,6 +125,14 @@ func save(viewer:Node,path:String)->Dictionary:
 		if hashes[entry.source].has("error"):return hashes[entry.source]
 		if entry.has("sha256") and hashes[entry.source].sha256!=entry.sha256:return failure("Original source changed since import. Reload the model before saving: "+entry.source)
 		entry.merge(hashes[entry.source])
+		for dependency in entry.get("dependencies",[]):
+			var metadata:=await fingerprint(dependency.source,viewer.get_tree())
+			if metadata.has("error"):return metadata
+			if metadata.sha256!=dependency.sha256 or metadata.bytes!=dependency.bytes:return failure("A mesh dependency changed since import. Reload before saving.",ERR_FILE_CORRUPT)
+	if cancelled or not is_instance_valid(viewer):return failure("Scene operation cancelled.",ERR_SKIP)
+	if include_assets:
+		var copied:=await copy_assets(viewer,path,document)
+		if copied.has("error"):return copied
 	if cancelled or not is_instance_valid(viewer):return failure("Scene operation cancelled.",ERR_SKIP)
 	var validated:=validate(document)
 	if validated.has("error"):return validated
@@ -114,14 +146,63 @@ func save(viewer:Node,path:String)->Dictionary:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
 		return failure("Scene could not be saved; the previous file was preserved.",result)
 	return {}
+func copy_assets(viewer:Node,path:String,document:Dictionary)->Dictionary:
+	var base:=ProjectSettings.globalize_path(path).get_base_dir()
+	var bundle:=ProjectSettings.globalize_path(path)+".assets-"+Crypto.new().generate_random_bytes(8).hex_encode()
+	var tree:SceneTree=viewer.get_tree()
+	for entry in document.models:
+		if cancelled or not is_instance_valid(viewer):return failure("Scene operation cancelled.",ERR_SKIP)
+		if entry.get("asset_type","")=="mesh":
+			var dependencies:=GSSceneImportJob.source_files(entry.source)
+			if dependencies.has("error"):return dependencies
+			if not dependencies.portable:return failure("This glTF uses absolute dependency paths. Export a GLB or relative glTF before making a portable scene.",ERR_UNAVAILABLE)
+		var files:Array=[{"source":entry.source,"bytes":entry.bytes,"sha256":entry.sha256}]
+		files.append_array(entry.get("dependencies",[]))
+		var common:String=entry.source.get_base_dir()
+		for item in files:
+			while not item.source.begins_with(common+"/"):
+				var parent:=common.get_base_dir()
+				if parent==common or parent.is_empty():return failure("Portable mesh dependencies need a shared local source folder.",ERR_UNAVAILABLE)
+				common=parent
+		var destinations:Array[String]=[]
+		for item in files:
+			if cancelled or not is_instance_valid(viewer):return failure("Scene operation cancelled.",ERR_SKIP)
+			var relative:String=item.source.trim_prefix(common+"/")
+			var destination:=bundle.path_join(str(entry.id).sha256_text()).path_join(relative)
+			if DirAccess.make_dir_recursive_absolute(destination.get_base_dir())!=OK:return failure("Cannot create the portable asset folder.",ERR_CANT_CREATE)
+			var source:=FileAccess.open(item.source,FileAccess.READ)
+			if not source:return failure("Original asset is unavailable.",ERR_FILE_CANT_READ)
+			var target:=FileAccess.open(destination,FileAccess.WRITE)
+			if not target:source.close();return failure("Cannot write portable asset.",ERR_FILE_CANT_WRITE)
+			_copied_files.append(destination)
+			var hashing:=HashingContext.new();hashing.start(HashingContext.HASH_SHA256)
+			var amount:=0
+			while source.get_position()<source.get_length():
+				if cancelled or not is_instance_valid(viewer):source.close();target.close();return failure("Scene operation cancelled.",ERR_SKIP)
+				var bytes:=source.get_buffer(HASH_CHUNK)
+				if bytes.is_empty():source.close();target.close();return failure("Original asset could not be read completely.",ERR_FILE_CANT_READ)
+				hashing.update(bytes);target.store_buffer(bytes);amount+=bytes.size()
+				if target.get_error()!=OK:source.close();target.close();return failure("Portable asset could not be written completely.",ERR_FILE_CANT_WRITE)
+				viewer.composition_progress.emit("Including "+item.source.get_file()+" · %d / %d MiB" % [amount/1048576,int(item.bytes)/1048576])
+				await tree.process_frame
+			target.flush();var error:=target.get_error();source.close();target.close()
+			if error!=OK or amount!=int(item.bytes) or hashing.finish().hex_encode()!=item.sha256:return failure("Source changed while copying; the previous saved scene was preserved.",ERR_FILE_CORRUPT)
+			destinations.append(destination)
+		entry.source=destinations[0];entry.relative_source=relative_path(base,destinations[0])
+		var dependencies:Array=entry.get("dependencies",[])
+		for i in range(dependencies.size()):dependencies[i].source=destinations[i+1];dependencies[i].relative_source=relative_path(base,destinations[i+1])
+	return {}
 static func validate(document:Variant)->Dictionary:
-	if not document is Dictionary or document.get("format")!=FORMAT or document.get("version")!=VERSION:return failure("Unsupported or invalid PXRFusion scene.")
+	if not document is Dictionary or document.get("format")!=FORMAT or (document.get("version")!=1 and document.get("version")!=VERSION):return failure("Unsupported or invalid PXRFusion scene.")
 	if not document.get("models") is Array or not document.get("selection") is Array or not document.get("view") is Dictionary:return failure("Scene models, selection or view are missing.")
 	var ids:Dictionary={}
 	for entry in document.models:
 		if not entry is Dictionary:return failure("Invalid scene model entry.")
 		if not entry.get("id") is String or entry.id.is_empty() or ids.has(entry.id):return failure("Scene model identities must be unique.")
 		ids[entry.id]=true
+		var mesh:bool=entry.get("asset_type","splat")=="mesh"
+		if entry.get("asset_type","splat") not in ["splat","mesh"] or (mesh and document.version<2):return failure("Unsupported scene asset type.")
+		if entry.has("locked") and not entry.locked is bool:return failure("Invalid asset lock.")
 		if not entry.get("source") is String or not entry.get("relative_source") is String or not entry.get("name") is String or not numbers(entry.get("transform"),12):return failure("A model source or transform is invalid.")
 		var kind:Variant=entry.get("import_kind",GaussianSplat.ImportKind.AUTO)
 		if not numbers([kind],1) or kind!=floor(kind) or int(kind) not in GaussianSplat.ImportKind.values():return failure("Invalid model import kind.")
@@ -130,12 +211,18 @@ static func validate(document:Variant)->Dictionary:
 		for character in entry.sha256:
 			if character not in "0123456789abcdefABCDEF":return failure("A model fingerprint is invalid.")
 		for key in ["splats","bytes"]:
-			if typeof(entry.get(key)) not in [TYPE_INT,TYPE_FLOAT] or entry[key]<1 or entry[key]!=floor(entry[key]):return failure("A model population or file length is invalid.")
+			if typeof(entry.get(key)) not in [TYPE_INT,TYPE_FLOAT] or entry[key]<(0 if mesh and key=="splats" else 1) or entry[key]!=floor(entry[key]):return failure("A model population or file length is invalid.")
+		if mesh:
+			if entry.splats!=0 or not numbers([entry.get("vertices")],1) or entry.vertices<1 or entry.vertices!=floor(entry.vertices) or not entry.get("dependencies") is Array:return failure("Invalid mesh metadata.")
+			for dependency in entry.dependencies:
+				if not dependency is Dictionary or not dependency.get("source") is String or not dependency.get("relative_source") is String or not dependency.get("sha256") is String or not RegEx.create_from_string("^[0-9a-fA-F]{64}$").search(dependency.sha256) or not numbers([dependency.get("bytes")],1) or dependency.bytes<1 or dependency.bytes!=floor(dependency.bytes):return failure("Invalid mesh dependency.")
 		for key in ["visible","cast_shadow","receive_shadow"]:
 			if not entry.get(key) is bool:return failure("Invalid model visibility or shadow settings.")
 	for id in document.selection:
 		if not id is String or not ids.has(id):return failure("Selection references an unknown model.")
 	var settings:Dictionary=document.view
+	if settings.has("editing") and (not settings.editing is Dictionary or not settings.editing.get("solid_meshes") is bool):return failure("Invalid saved editing policy.")
+	if settings.get("editing",{}).get("shape_quality","fast") not in ["fast","detailed"]:return failure("Invalid saved solid-shape quality.")
 	for key in ["camera","color","renderer","lighting","sun"]:
 		if not settings.get(key) is Dictionary:return failure("Incomplete saved view.")
 	if settings.has("sky") and not GSSkySettings.valid(settings.sky):return failure("Invalid saved Sky3D atmosphere.")
@@ -172,23 +259,67 @@ func read(path:String,viewer:Node)->Dictionary:
 	if parser.parse(content)!=OK:return failure("Scene JSON is invalid at line %d." % parser.get_error_line())
 	var document:=validate(parser.data)
 	if document.has("error"):return document
-	if document.models.size()>viewer.config.memory_max_instances:return failure("Scene exceeds the current atlas instance capacity.",ERR_OUT_OF_MEMORY)
+	var splat_instances:=0
+	for entry in document.models:
+		if entry.get("asset_type","splat")=="splat":splat_instances+=1
+	if splat_instances>viewer.config.memory_max_instances:return failure("Scene exceeds the current atlas instance capacity.",ERR_OUT_OF_MEMORY)
 	var count:=0;var hashes:Dictionary={}
 	for entry in document.models:
 		var relative:String=entry.relative_source if entry.relative_source.is_absolute_path() else ProjectSettings.globalize_path(path).get_base_dir().path_join(entry.relative_source).simplify_path()
 		var source:String=relative if FileAccess.file_exists(relative) else entry.source
-		if source.get_extension().to_lower() not in ["ply","gsres"]:return failure("A composition must reference original PLY or GSRES files.")
+		var mesh:bool=entry.get("asset_type","splat")=="mesh"
+		if source.get_extension().to_lower() not in (["glb","gltf"] if mesh else ["ply","gsres"]):return failure("Unsupported source for this asset type.")
 		viewer.composition_progress.emit("Verifying original "+source.get_file())
 		if not hashes.has(source):hashes[source]=await fingerprint(source,viewer.get_tree())
 		if hashes[source].has("error"):return hashes[source]
 		if hashes[source].bytes!=entry.bytes or hashes[source].sha256!=entry.sha256:return failure("Original PLY differs from the saved scene: "+source)
-		var metadata:=PlyConverter.inspect(source,viewer.config.max_vertices)
-		if metadata.has("error"):return metadata
-		if metadata.vertex_count!=entry.splats:return failure("Original PLY population differs from the saved scene: "+source)
+		if not mesh:
+			var metadata:=PlyConverter.inspect(source,viewer.config.max_vertices)
+			if metadata.has("error"):return metadata
+			if metadata.vertex_count!=entry.splats:return failure("Original PLY population differs from the saved scene: "+source)
+		else:
+			for dependency in entry.dependencies:
+				var resolved:String=dependency.relative_source if dependency.relative_source.is_absolute_path() else ProjectSettings.globalize_path(path).get_base_dir().path_join(dependency.relative_source).simplify_path()
+				if not FileAccess.file_exists(resolved):resolved=dependency.source
+				var metadata:=await fingerprint(resolved,viewer.get_tree())
+				if metadata.has("error"):return metadata
+				if metadata.sha256!=dependency.sha256 or metadata.bytes!=dependency.bytes:return failure("A mesh dependency differs from the saved scene.")
 		entry["resolved_source"]=source;count+=int(entry.splats)
 	if count>viewer.rasterizer.atlas_capacity_splats:return failure("Scene needs %d splats; current atlas holds %d. Increase the quality/atlas budget first; the current scene is preserved." % [count,viewer.rasterizer.atlas_capacity_splats],ERR_OUT_OF_MEMORY)
 	return document
+func stage_meshes(viewer:Node,document:Dictionary)->Dictionary:
+	for entry in document.models:
+		if entry.get("asset_type","splat")!="mesh":continue
+		viewer.composition_progress.emit("Preparing mesh "+entry.source.get_file())
+		var result:Dictionary=await viewer.stage_mesh_asset(entry.resolved_source)
+		if result.has("error"):return result
+		var mesh:GSSceneMesh=result.asset
+		if cancelled:mesh.free();return failure("Scene operation cancelled.",ERR_SKIP)
+		_staged_meshes.append(mesh)
+		if mesh.vertex_count!=int(entry.vertices) or mesh.fingerprints[0].sha256!=entry.sha256:return failure("Mesh content changed during scene import.")
+		var expected:Array=[];var actual:Array=[]
+		for dependency in entry.dependencies:expected.append(dependency.sha256)
+		for dependency in mesh.fingerprints.slice(1):actual.append(dependency.sha256)
+		expected.sort();actual.sort()
+		if expected!=actual:return failure("Mesh dependency content changed during scene import.")
+		entry["prepared_mesh"]=mesh
+	return {}
+func instantiate(viewer:Node,entry:Dictionary,id:String)->Node3D:
+	var node:Node3D
+	if entry.get("asset_type","splat")=="mesh":
+		node=entry.prepared_mesh;node.model_id=id
+		viewer.adopt_mesh(node,transform(entry.transform))
+	else:
+		var pose:Transform3D=viewer.global_transform.affine_inverse()*transform(entry.transform)
+		node=viewer._load_new_splat_from_path(entry.resolved_source,GaussianSplattingViewer.LoadMode.APPEND,pose)
+		if not node:return null
+		node.model_id=id;node.cast_gaussian_shadows=entry.cast_shadow;node.receive_gaussian_shadows=entry.receive_shadow
+	node.import_kind=int(entry.get("import_kind",GaussianSplat.ImportKind.AUTO)) as GaussianSplat.ImportKind
+	node.visible=entry.visible;node.transform_locked=entry.get("locked",false)
+	return node
 static func apply_view(viewer:Node,settings:Dictionary)->void:
+	viewer.mesh_edit_collisions_enabled=settings.get("editing",{}).get("solid_meshes",true)
+	viewer.set_mesh_edit_shape_quality(GSMeshMotionJob.Quality.DETAILED if settings.get("editing",{}).get("shape_quality","fast")=="detailed" else GSMeshMotionJob.Quality.FAST)
 	if settings.has("sky"):GSSkySettings.apply(GSSkySettings.node(viewer),settings.sky)
 	var grade:Dictionary=settings.color.duplicate()
 	var tint:Array=grade.post_tint;grade.post_tint=Color(tint[0],tint[1],tint[2],tint[3])
@@ -217,10 +348,72 @@ static func apply_view(viewer:Node,settings:Dictionary)->void:
 	for field in ["fov","size","near","far"]:camera.set(field,settings.camera[field])
 	camera.projection=int(settings.camera.projection);camera.keep_aspect=int(settings.camera.keep_aspect)
 	camera.frustum_offset=Vector2(settings.camera.frustum_offset[0],settings.camera.frustum_offset[1])
-func open(viewer:Node,path:String)->Dictionary:
+func append(viewer:Node,path:String)->Dictionary:
 	var document:=await read(path,viewer)
 	if document.has("error"):return document
 	if cancelled:return failure("Scene operation cancelled.",ERR_SKIP)
+	if viewer.managed_assets.is_empty():return await open(viewer,path,document)
+	var count:int=viewer.total_splats_to_load;var instances:int=viewer._records.size();var has_splats:=false
+	for entry in document.models:
+		if entry.get("asset_type","splat")=="splat":count+=int(entry.splats);instances+=1;has_splats=true
+	if count>viewer.rasterizer.atlas_capacity_splats or instances>viewer.config.memory_max_instances:
+		return failure("The combined scene exceeds the current atlas budget. Existing models were kept. Increase the atlas budget or choose Clear scene before importing.",ERR_OUT_OF_MEMORY)
+	var current:Dictionary=view(viewer).renderer
+	if has_splats and (not transform(current.basis).basis.is_equal_approx(transform(document.view.renderer.basis).basis) or not is_equal_approx(current.scale,document.view.renderer.scale)):
+		return failure("This scene uses a different render orientation or scale. Open it with Clear scene before importing to preserve its appearance.",ERR_INVALID_DATA)
+	var staged:=await stage_meshes(viewer,document)
+	if staged.has("error"):return staged
+	var selection:Array=viewer.selected_model_ids.duplicate()
+	var initial:bool=viewer._initial_framing;var scene_mode:int=viewer.current_scene_mode
+	var was_rendering:bool=viewer.is_rendering()
+	var undo:Array[Dictionary]=viewer._transform_undo.duplicate();var redo:Array[Dictionary]=viewer._transform_redo.duplicate()
+	var added:Array[Node3D]=[];var remap:Dictionary={};var result:=OK;var identities:Dictionary={}
+	for item in viewer.get_asset_snapshot():identities[item.model_id]=true
+	viewer._initial_framing=false
+	for entry in document.models:
+		var id:String=entry.id
+		if identities.has(id):id=Crypto.new().generate_random_bytes(16).hex_encode()
+		identities[id]=true;remap[entry.id]=id
+		var node:=instantiate(viewer,entry,id)
+		if not node:result=ERR_CANT_CREATE;break
+		node.name=entry.name.validate_node_name();added.append(node)
+	while not cancelled and is_instance_valid(viewer) and viewer.is_loading():await viewer.get_tree().process_frame
+	if cancelled or not is_instance_valid(viewer):return failure("Scene operation cancelled.",ERR_SKIP)
+	for entry in document.models:
+		var node:Node3D=viewer.get_asset_by_id(remap.get(entry.id,""))
+		if not node:result=ERR_FILE_CORRUPT;continue
+		if node is GaussianSplat:
+			var record:Dictionary=viewer._records.get(node.get_instance_id(),{})
+			if record.get("status","")!="loaded" or record.get("source_fingerprint",{}).get("sha256","")!=entry.sha256:result=ERR_FILE_CORRUPT
+	viewer._initial_framing=initial;viewer.current_scene_mode=scene_mode
+	if result!=OK:
+		for node in added:
+			if node is GSSceneMesh:viewer.unregister_mesh(node)
+			else:viewer.unregister_splat(node)
+			node.queue_free()
+		viewer._transform_undo=undo;viewer._transform_redo=redo;viewer.select_model_ids(selection)
+		viewer.current_state=GaussianSplattingViewer.ViewerState.READY
+		if was_rendering:viewer.start_rendering()
+		return failure("The added scene could not load completely. Your existing models were preserved.",result)
+	var selected:Array=[]
+	for id in document.selection:selected.append(remap[id])
+	viewer.select_model_ids(selected if not selected.is_empty() else selection)
+	viewer._shadow_signature=0;viewer._hybrid_signature=0;viewer._force_redraw=true;viewer.model_registry_changed.emit()
+	var history:=viewer.get_node_or_null("/root/HistoryManager")
+	if history:history.add_file(path)
+	return {}
+
+func open(viewer:Node,path:String,verified:Dictionary={})->Dictionary:
+	var document:Dictionary=await read(path,viewer) if verified.is_empty() else verified
+	if document.has("error"):return document
+	if cancelled:return failure("Scene operation cancelled.",ERR_SKIP)
+	var prepared:=await stage_meshes(viewer,document)
+	if prepared.has("error"):return prepared
+	var old_meshes:Dictionary=viewer._mesh_models
+	var mesh_visibility:Dictionary={}
+	for ref in old_meshes.values():
+		var mesh:GSSceneMesh=ref.get_ref()
+		if is_instance_valid(mesh):mesh_visibility[mesh.get_instance_id()]=mesh.visible
 	var records:Dictionary=viewer._records
 	var free_ids:Array[int]=viewer._free_instance_ids.duplicate()
 	var selection:Array=viewer.selected_model_ids.duplicate()
@@ -239,24 +432,22 @@ func open(viewer:Node,path:String)->Dictionary:
 	if result!=OK or cancelled:
 		if is_instance_valid(viewer) and not viewer._closing and was_rendering:viewer.start_rendering()
 		checkpoint.dispose();return failure("Cannot protect current composition; it was preserved.",result if result!=OK else ERR_SKIP)
-	viewer._records={};viewer.select_model_id("");viewer._transform_undo.clear();viewer._transform_redo.clear()
+	viewer._records={};viewer._mesh_models={};viewer.select_model_id("");viewer._transform_undo.clear();viewer._transform_redo.clear()
+	for ref in old_meshes.values():
+		var mesh:Node3D=ref.get_ref()
+		if is_instance_valid(mesh):mesh.hide()
 	viewer.rasterizer.clear_gpu_memory();viewer._free_instance_ids.clear()
 	for id in range(viewer.config.memory_max_instances,0,-1):viewer._free_instance_ids.append(id)
 	viewer._initial_framing=false
 	for entry in document.models:
-		var pose:Transform3D=viewer.global_transform.affine_inverse()*transform(entry.transform)
-		var node:GaussianSplat=viewer._load_new_splat_from_path(entry.resolved_source,GaussianSplattingViewer.LoadMode.APPEND,pose)
-		if not node:result=ERR_CANT_CREATE;break
-		node.model_id=entry.id;node.visible=entry.visible
-		node.import_kind=int(entry.get("import_kind",GaussianSplat.ImportKind.AUTO)) as GaussianSplat.ImportKind
-		node.cast_gaussian_shadows=entry.cast_shadow;node.receive_gaussian_shadows=entry.receive_shadow
+		if not instantiate(viewer,entry,entry.id):result=ERR_CANT_CREATE;break
 	while not cancelled and is_instance_valid(viewer) and viewer.is_loading():await viewer.get_tree().process_frame
 	if cancelled:return failure("Scene operation cancelled.",ERR_SKIP)
 	for record in viewer._records.values():
 		if record.status!="loaded":result=ERR_FILE_CORRUPT
 		for entry in document.models:
 			if record.node.get_ref().model_id==entry.id and record.get("source_fingerprint",{}).get("sha256","")!=entry.sha256:result=ERR_FILE_CORRUPT
-	if viewer._records.size()!=document.models.size():result=ERR_FILE_CORRUPT
+	if viewer.managed_assets.size()!=document.models.size():result=ERR_FILE_CORRUPT
 	if result==OK:
 		var previous_scale:float=viewer.rasterizer.render_scale[0]
 		viewer.rasterizer.render_scale[0]=document.view.renderer.render_scale
@@ -265,6 +456,10 @@ func open(viewer:Node,path:String)->Dictionary:
 	if result!=OK:
 		viewer._cancel_job();viewer._pending.clear()
 		var failed:Dictionary=viewer._records;viewer._records={}
+		var failed_meshes:Dictionary=viewer._mesh_models;viewer._mesh_models={}
+		for ref in failed_meshes.values():
+			var mesh:Node=ref.get_ref()
+			if is_instance_valid(mesh):mesh.queue_free()
 		for record in failed.values():
 			var node:Node=record.node.get_ref()
 			if is_instance_valid(node):node.queue_free()
@@ -272,7 +467,10 @@ func open(viewer:Node,path:String)->Dictionary:
 		viewer.rasterizer.clear_gpu_memory()
 		var restored:=await checkpoint.restore(viewer.rasterizer,records,viewer.get_tree(),false)
 		if cancelled or not is_instance_valid(viewer):checkpoint.dispose();return failure("Scene operation cancelled.",ERR_SKIP)
-		viewer._records=records;viewer._free_instance_ids=free_ids
+		viewer._records=records;viewer._free_instance_ids=free_ids;viewer._mesh_models=old_meshes
+		for ref in old_meshes.values():
+			var mesh:Node3D=ref.get_ref()
+			if is_instance_valid(mesh):mesh.visible=mesh_visibility[mesh.get_instance_id()]
 		if restored.has("error"):
 			var recovery:=ProjectSettings.globalize_path(checkpoint.path);checkpoint.path=""
 			viewer._composition_restoring=false
@@ -291,13 +489,15 @@ func open(viewer:Node,path:String)->Dictionary:
 	for record in records.values():
 		var node:Node=record.node.get_ref()
 		if is_instance_valid(node):node.queue_free()
+	for ref in old_meshes.values():
+		var mesh:Node=ref.get_ref()
+		if is_instance_valid(mesh):mesh.queue_free()
 	# Restore saved names after old nodes relinquish their names in this parent.
 	await viewer.get_tree().process_frame
 	if cancelled or not is_instance_valid(viewer):checkpoint.dispose();return failure("Scene operation cancelled.",ERR_SKIP)
 	for entry in document.models:
-		for record in viewer._records.values():
-			var node:GaussianSplat=record.node.get_ref()
-			if is_instance_valid(node) and node.model_id==entry.id:node.name=entry.name.validate_node_name()
+		var node:Node3D=viewer.get_asset_by_id(entry.id)
+		if is_instance_valid(node):node.name=entry.name.validate_node_name()
 	# A queued pre-open grade must not overwrite the deliberately restored scene view.
 	viewer._queued_configuration=null
 	apply_view(viewer,document.view)

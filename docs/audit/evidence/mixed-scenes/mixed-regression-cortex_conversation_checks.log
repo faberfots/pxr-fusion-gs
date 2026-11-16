@@ -1,0 +1,32 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS fresh startup creates no history file or request
+PASS new chats have independent context and input drafts
+PASS switching restores each topic and never includes another chat's answers
+PASS a different assistant destination receives no previous history
+PASS reopening restores chat selection, titles, questions, answers and drafts
+PASS restart marks interrupted requests and never replays or forwards them as completed answers
+PASS late completion cannot replace a cancelled turn
+PASS history stays within its bounded text budget
+PASS deleting the last chat leaves a usable fresh conversation
+PASS unreadable saved history is preserved instead of silently overwritten
+[LLMClient] Sending request to compatible...
+PASS compatible carries previous turns in the provider's conversation format
+[LLMClient] Sending request to qwen...
+PASS qwen carries previous turns in the provider's conversation format
+[LLMClient] Sending request to openai...
+PASS openai carries previous turns in the provider's conversation format
+[LLMClient] Sending request to anthropic...
+PASS anthropic carries previous turns in the provider's conversation format
+[LLMClient] Sending request to google...
+PASS google carries previous turns in the provider's conversation format
+PASS chat history cannot inject a system or tool role
+[LLMClient] Sending request to compatible...
+PASS switching during an HTTP request cancels it and rejects its late completion in the new chat
+[LLMClient] Sending request to compatible...
+[LLMClient] Sending request to compatible...
+PASS real request ownership forwards only the active conversation's completed turns
+PASS cancelled first chat and completed second chat remain isolated
+PASS chat requests retain the existing transmission consent gate
+CORTEX CONVERSATIONS COMPLETE: 0 failures

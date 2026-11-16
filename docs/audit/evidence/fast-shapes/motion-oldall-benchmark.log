@@ -1,0 +1,24 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+INVENTORY parts=187 unique=187 vertices=593900 load_ms=14553
+PART 1 name=Object_6 ms=136 hulls_total=1
+PART 2 name=Object_8 ms=368 hulls_total=2
+PART 3 name=Object_11 ms=147 hulls_total=3
+PART 4 name=Object_14 ms=168 hulls_total=4
+PART 5 name=Object_17 ms=18229 hulls_total=12
+PART 6 name=Object_19 ms=1078 hulls_total=26
+PART 7 name=Object_21 ms=33444 hulls_total=32
+PART 8 name=Object_23 ms=1567 hulls_total=45
+PART 9 name=Object_25 ms=2046 hulls_total=61
+PART 10 name=Object_27 ms=28487 hulls_total=67
+PART 11 name=Object_29 ms=1387 hulls_total=81
+PART 12 name=Object_31 ms=2081 hulls_total=97
+PART 13 name=Object_33 ms=136085 hulls_total=105
+PART 14 name=Object_36 ms=881 hulls_total=121
+PART 15 name=Object_39 ms=903 hulls_total=137
+PART 16 name=Object_42 ms=917 hulls_total=153
+PART 17 name=Object_44 ms=1573 hulls_total=169
+PART 18 name=Object_46 ms=305 hulls_total=171
+PART 19 name=Object_48 ms=1313 hulls_total=187
+BASELINE STOPPED after over 3 minutes with only 12 of 187 meshes completed; remaining native call still active. No whole-model completion time claimed.

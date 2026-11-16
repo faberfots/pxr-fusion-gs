@@ -1,0 +1,83 @@
+Isolated project: build\mesh-physics-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS native navigation GLB fixture exports
+PASS native navigation GLB fixture exports
+PASS native navigation GLB fixture exports
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (8.390058, 6.993371, 11.18674)
+[CameraController] Camera transform set to: (8.390058, 6.993371, 11.18674)
+PASS native camera passes a real doorway and stops at its wall using triangle geometry
+PASS native GLB floor collision works even without the prototype ground reference
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 7.0)
+PASS the authored Drive selected GLB control prepares and starts native shape movement
+PASS moving model uses several mesh-derived convex pieces rather than a bounding box
+PASS drive mode isolates physical movement from free transform dragging
+PASS the actual driven geometry collides with the physical camera volume
+PASS existing UI camera blockers also pause Drive input without disabling solid floor contact
+WALK THROUGH DOOR AND POST (0.0, -0.014844, -2.679995)
+PASS the model passes the doorway and a post between its legs, then stops at the back wall
+PASS gravity settles real model geometry on the GLB floor
+PASS shape-based motion slides along the wall rather than tunnelling through it
+PASS physical model navigation preserves GS residency and transforms
+[FreeLookCamera] Movement state reset. Position: (1.018234, 2.961501, 2.320005)
+[CameraController] Camera transform set to: (1.018234, 2.961501, 2.320005)
+PASS Esc exits and a single existing undo restores the complete walk
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 7.0)
+PASS repeat driving reuses prepared collision geometry
+PASS another GLB stops a limb while the open space between limbs remained passable
+[FreeLookCamera] Movement state reset. Position: (0.000074, 2.961154, 4.030062)
+[CameraController] Camera transform set to: (0.000074, 2.961154, 4.030062)
+[FreeLookCamera] Movement state reset. Position: (2.8, 3.5, 7.0)
+[CameraController] Camera transform set to: (2.8, 3.5, 7.0)
+PASS rotated nonuniformly scaled geometry keeps its authored basis and collides with native walls and floors
+PASS focus-loss input release prevents continued movement
+[FreeLookCamera] Movement state reset. Position: (2.8, 2.976111, 2.338001)
+[CameraController] Camera transform set to: (2.8, 2.976111, 2.338001)
+PASS cancelling shape preparation releases the mode and its camera blocker
+PASS denied Cortex camera actions leave physical navigation untouched
+PASS invalid authorized camera arguments cannot interrupt physical navigation
+[FreeLookCamera] Movement state reset. Position: (2.8, 2.936267, 2.338001)
+[CameraController] Camera transform set to: (2.8, 2.936267, 2.338001)
+[FreeLookCamera] Movement state reset. Position: (8.22969, 7.219792, 11.63958)
+[CameraController] Camera transform set to: (8.22969, 7.219792, 11.63958)
+PASS authorized scene framing exits physical navigation before moving the camera
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 7.0)
+PASS transform locks deny model navigation
+PASS an environment cannot accidentally become the driven model
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 7.0)
+PASS saving stops physical movement and commits through the existing scene transaction
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 7.0)
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 7.0)
+PASS the driven pose round-trips exactly without enabling simulation on reopen
+[FreeLookCamera] Movement state reset. Position: (3.0, 0.5, 7.0)
+[CameraController] Camera transform set to: (3.0, 0.5, 7.0)
+PASS native floor navigation remains available below the reference grid
+NATIVE FLOOR BELOW GRID actor (3.0, -2.017222, 2.0) camera (3.0, -0.017222, 7.0)
+PASS the GLB floor controls model height without an invisible reference-plane blocker
+[FreeLookCamera] Movement state reset. Position: (3.0, -0.017222, 7.0)
+[CameraController] Camera transform set to: (3.0, -0.017222, 7.0)
+MODEL NAVIGATION COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

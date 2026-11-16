@@ -10,7 +10,7 @@ static func get_context_payload(camera: Camera3D) -> Dictionary:
 	for viewer in tree.get_nodes_in_group("gaussian_splat_viewers"):
 		if viewer.get_camera() != camera: continue
 		payload.rendering_capabilities = GaussianSplattingRasterizer.get_render_capabilities()
-		for item in viewer.get_model_snapshot():
+		for item in viewer.get_asset_snapshot():
 			if item.status != "loaded" or not item.visible: continue
 			var transform: Transform3D = item.transform
 			var bounds: AABB = transform * item.bounds
@@ -25,7 +25,7 @@ static func get_context_payload(camera: Camera3D) -> Dictionary:
 					outside = true
 					break
 			if outside: continue
-			payload.visible_objects.append({"model_id": item.model_id, "name": item.name, "bounds_world": {"min": vec(bounds.position), "max": vec(bounds.end)}, "splat_count": item.splat_count})
+			payload.visible_objects.append({"model_id": item.model_id, "name": item.name,"asset_type":item.asset_type, "bounds_world": {"min": vec(bounds.position), "max": vec(bounds.end)}, "splat_count": item.splat_count,"vertex_count":item.get("vertex_count",0)})
 	payload.spatial_graph = []
 	for provider in tree.get_nodes_in_group("spatial_context_providers"):
 		if provider.has_method("get_context_snapshot"):

@@ -1,0 +1,73 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 5.0)
+PASS wide environment begins through the normal interactive import route
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (-15.5, 1.7, 0.0)
+[CameraController] Camera transform set to: (-15.5, 1.7, 0.0)
+PASS Auto environment bypasses point placement and becomes visible
+PASS environment source pose remains unchanged despite the chosen drop point
+PASS environment entry restores the sample-centred eye-level camera
+PASS environment framing preserves the public camera-positioned event contract
+PASS Auto retains interactive surface placement for small objects
+PASS small object remains pending for placement
+PASS Auto classification remains Object after later scaling
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (-15.5, 1.7, 0.0)
+[CameraController] Camera transform set to: (-15.5, 1.7, 0.0)
+PASS Home returns inside the environment even when an object is selected
+PASS environment navigation preserves existing object placement
+[FreeLookCamera] Movement state reset. Position: (-15.5, 1.7, 0.0)
+[CameraController] Camera transform set to: (-15.5, 1.7, 0.0)
+PASS Enter environment selects the walkthrough camera
+PASS environment view remains stable after orbit-to-free switching
+[FreeLookCamera] Movement state reset. Position: (-15.5, 1.7, 0.0)
+[CameraController] Camera transform set to: (-15.5, 1.7, 0.0)
+PASS Frame selected enters an environment instead of framing its underside
+PASS a large object can override automatic environment detection
+PASS explicit large Object still waits for chosen placement
+PASS a small environment can override automatic object detection
+[FreeLookCamera] Movement state reset. Position: (-1.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-1.0, 1.7, 0.0)
+PASS explicit Environment bypasses placement regardless of size
+PASS each environment entry uses its own samples instead of distant objects or other environments
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 5.0)
+PASS a pending object can be reclassified without reloading
+PASS object preview has moved before its type is changed
+[FreeLookCamera] Movement state reset. Position: (-1.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-1.0, 1.7, 0.0)
+PASS switching preview to Environment restores its initial source pose
+PASS Scene Navigator edits the selected node's import intent
+PASS combined scene saves import intent alongside exact model transforms
+[FreeLookCamera] Movement state reset. Position: (-1.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-1.0, 1.7, 0.0)
+[FreeLookCamera] Movement state reset. Position: (-1.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-1.0, 1.7, 0.0)
+PASS new scene document reopens successfully
+PASS environment type and original full matrix survive reopening
+PASS saved scenes restore their camera exactly without triggering import reframing
+[FreeLookCamera] Movement state reset. Position: (-1.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-1.0, 1.7, 0.0)
+[FreeLookCamera] Movement state reset. Position: (-1.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-1.0, 1.7, 0.0)
+PASS older version-one documents without import intent remain compatible
+[FreeLookCamera] Movement state reset. Position: (-1.0, 1.7, 0.0)
+[CameraController] Camera transform set to: (-1.0, 1.7, 0.0)
+PASS file picker honors the authored Environment import selector
+PASS file drop honors the same Object override
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS empty-scene Home retains the established elevated studio view
+ENVIRONMENT IMPORT COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

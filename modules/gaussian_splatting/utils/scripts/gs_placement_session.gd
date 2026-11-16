@@ -3,7 +3,7 @@ extends RefCounted
 ## One pending import transaction. Live geometry/transform/residency stay viewer-owned.
 enum Anchor { BASE_CENTRE, ORIGIN }
 var viewer:Node
-var model:GaussianSplat
+var model:Node3D
 var anchor:Anchor=Anchor.BASE_CENTRE
 var cursor:=Vector2.ZERO
 var target:=Vector3.INF
@@ -101,10 +101,10 @@ func accept_pick(request_id:int,instance_id:int,point:Vector3)->void:
 func update()->void:
 	if not is_instance_valid(model):viewer.cancel_model_placement();return
 	var record:Dictionary=viewer._records.get(model.get_instance_id(),{})
-	if record.is_empty() or record.status=="failed":viewer.cancel_model_placement();return
+	if model is GaussianSplat and (record.is_empty() or record.status=="failed"):viewer.cancel_model_placement();return
 	if model.is_loaded and not ready:
 		ready=true;initial_node=model.global_transform
-		_initial_edit=viewer.get_model_edit_transform(model);_initial_bounds=viewer.get_model_world_bounds(model)
+		_initial_edit=viewer.get_asset_edit_transform(model);_initial_bounds=viewer.get_asset_world_bounds(model)
 		if model.import_kind==GaussianSplat.ImportKind.AUTO:model.import_kind=viewer.resolve_import_kind(model)
 	if ready and viewer.resolve_import_kind(model)==GaussianSplat.ImportKind.ENVIRONMENT:
 		viewer.finish_environment_import();return
@@ -128,9 +128,9 @@ func update()->void:
 		contact.y=_initial_bounds.position.y
 		if anchor==Anchor.ORIGIN:contact=_initial_edit.origin
 		var pose:=_initial_edit;pose.origin+=target-contact
-		viewer.set_model_edit_transform(model,pose)
+		viewer.set_asset_edit_transform(model,pose)
 	if _confirm and _resolved and ready and target.is_finite():viewer.confirm_model_placement()
 func snapshot()->Dictionary:
 	var valid:=target.is_finite()
-	var bounds:AABB=viewer.get_model_world_bounds(model) if ready and is_instance_valid(model) else AABB()
+	var bounds:AABB=viewer.get_asset_world_bounds(model) if ready and is_instance_valid(model) else AABB()
 	return {"active":true,"kind":int(model.import_kind),"ready":ready,"valid":valid,"target":target,"surface":surface,"anchor":int(anchor),"bounds":bounds,"name":model.file_path.get_file() if is_instance_valid(model) else "Model","status":"Loading model…" if not ready else ("Point at a surface or reference floor" if not valid else ("Resolving surface…" if _confirm else "Click to place · Enter confirms · Esc cancels"))}

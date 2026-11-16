@@ -17,6 +17,7 @@ var _request_id := 0
 var _profile:Dictionary={}
 var _started_us:=0
 var last_result:Dictionary={}
+var _history:Array=[]
 signal tool_calls_received(calls: Array)
 
 func _make_http_request() -> HTTPRequest:
@@ -38,11 +39,19 @@ static func _decode_json(value: String) -> Variant:
 	return parser.data if parser.parse(value) == OK else null
 
 ## Sends a vision request to the configured provider
-func send_request(prompt: String, context_json: Dictionary, base64_image: String = "", profile_override:Dictionary={}) -> void:
+func send_request(prompt: String, context_json: Dictionary, base64_image: String = "", profile_override:Dictionary={},history:Array=[]) -> void:
 	if _is_busy:
 		push_warning("[LLMClient] Busy. Request ignored.")
 		return
 		
+	# Text-only, complete pairs supplied by the conversation owner; never accept injected system/tool roles.
+	_history=[]
+	if history.size()>12 or history.size()%2!=0:error_occurred.emit("Invalid conversation history.");return
+	for index in range(history.size()):
+		var message:Variant=history[index]
+		if not message is Dictionary or message.size()!=2 or message.get("role")!=("user" if index%2==0 else "assistant") or not message.get("content") is String:
+			error_occurred.emit("Invalid conversation history.");return
+		_history.append(message.duplicate())
 	_profile=SIConfig.settings().active() if profile_override.is_empty() else profile_override.duplicate(true)
 	var document:={"version":1,"active":_profile.get("id",""),"profiles":[_profile],"segmentation":SIConfig.settings().segmentation()}
 	var invalid:=CortexSettings.validate(document)
@@ -103,12 +112,11 @@ func _send_openai_request(key: String, prompt: String, context: Dictionary, img:
 			}
 		})
 		
+	var messages:Array=[{"role":"system","content":system_msg}]
+	messages.append_array(_history);messages.append({"role":"user","content":user_content})
 	var body = {
 		"model": _model, # e.g. "gpt-4o"
-		"messages": [
-			{"role": "system", "content": system_msg},
-			{"role": "user", "content": user_content}
-		],
+		"messages": messages,
 		"tools": tools,
 		"tool_choice": "auto"
 	}
@@ -143,8 +151,11 @@ func _send_gemini_request(key: String, prompt: String, context: Dictionary, img:
 	for t in tools:
 		gemini_tools.function_declarations.append(t.function)
 
+	var contents:Array=[]
+	for message in _history:contents.append({"role":"model" if message.role=="assistant" else "user","parts":[{"text":message.content}]})
+	contents.append({"role":"user","parts":parts})
 	var body = {
-		"contents": [{"parts": parts}],
+		"contents": contents,
 		"tools": [gemini_tools],
 		"generationConfig":{"maxOutputTokens":int(_profile.max_tokens)}
 	}
@@ -183,13 +194,13 @@ func _send_claude_request(key: String, prompt: String, context: Dictionary, img:
 			"input_schema": t.function.parameters
 		})
 
+	var messages:Array=_history.duplicate(true)
+	messages.append({"role":"user","content":content})
 	var body = {
 		"model": _model, # e.g. "claude-3-5-sonnet-20240620"
 		"max_tokens": int(_profile.max_tokens),
 		"system": system_msg,
-		"messages": [
-			{"role": "user", "content": content}
-		],
+		"messages": messages,
 		"tools": claude_tools
 	}
 	if _profile.temperature_enabled:body.temperature=float(_profile.temperature)

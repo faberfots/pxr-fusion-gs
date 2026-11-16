@@ -7,6 +7,10 @@ func check(value:bool,label:String)->void:
 	print("PASS " if value else "FAIL ",label)
 	if not value:failures.append(label)
 func click(control:Control)->void:
+	var parent:=control.get_parent()
+	while parent:
+		if parent is ScrollContainer:parent.ensure_control_visible(control)
+		parent=parent.get_parent()
 	await process_frame;await process_frame
 	var position:=control.get_global_transform_with_canvas()*(control.size*0.5)
 	var move:=InputEventMouseMotion.new();move.position=position;root.push_input(move,true)

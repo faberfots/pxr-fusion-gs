@@ -97,17 +97,20 @@ func run()->void:
 	Checks.fixture(source_b,2)
 	var picker:FileDialog=ui.file_dialog
 	check("*.pxrscene" in str(picker.filters),"the existing Import file picker exposes the .pxrscene extension")
+	ui.get_node("%ClearBeforeImport").button_pressed=true
 	picker.file_selected.emit(path)
 	while viewer.composition_busy:await process_frame
-	check(viewer.total_splats_to_load==8 and viewer.get_selected_model().model_id==saved.selection.back(),"normal Import picker signal restores a composition without duplicating models")
+	check(viewer.total_splats_to_load==8 and viewer.get_selected_model().model_id==saved.selection.back(),"checked Import picker restores a composition without duplicating models")
+	ui.get_node("%ClearBeforeImport").button_pressed=true
 	await ui._on_files_dropped(PackedStringArray([path]))
-	check(viewer.total_splats_to_load==8,"drag-and-drop uses the same scene dispatcher")
+	check(viewer.total_splats_to_load==8,"checked drag-and-drop uses the same replacement scene dispatcher")
 	ui._rebuild_recent_files_list()
 	var recent:Button
 	for child in ui.recent_files_list.get_children():
 		if child is Button and child.tooltip_text==path:recent=child
 	check(recent!=null,"opened compositions appear in the existing recent-files list")
 	if recent:
+		ui.get_node("%ClearBeforeImport").button_pressed=true
 		recent.pressed.emit()
 		while viewer.composition_busy:await process_frame
 		check(viewer.total_splats_to_load==8,"recent-file button reopens a composition through the same dispatcher")

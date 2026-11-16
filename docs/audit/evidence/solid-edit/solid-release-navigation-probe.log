@@ -1,0 +1,30 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS optimized native collision fixture exports
+PASS optimized native collision fixture exports
+[FreeLookCamera] Movement state reset. Position: (8.390058, 6.993371, 11.18674)
+[CameraController] Camera transform set to: (8.390058, 6.993371, 11.18674)
+[FreeLookCamera] Movement state reset. Position: (0.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (0.0, 3.0, 7.0)
+PASS optimized template provides real native convex decomposition and Drive mode
+PASS optimized driven geometry passes the doorway, stops at its wall and rests on its GLB floor
+[FreeLookCamera] Movement state reset. Position: (0.000034, 2.967266, 2.320037)
+[CameraController] Camera transform set to: (0.000034, 2.967266, 2.320037)
+PASS optimized Drive exit joins the existing single-transaction transform undo
+PASS optimized ordinary numeric editing uses solid native-floor contact without Drive
+RELEASE SOLID GIZMO STOP (0.0, 0.025, -2.699955)
+PASS optimized ordinary gizmo movement passes the doorway and stops at its back wall
+[FreeLookCamera] Movement state reset. Position: (0.0, 2.0, 7.0)
+[CameraController] Camera transform set to: (0.0, 2.0, 7.0)
+PASS optimized grid and its shadow overlay preserve native pixels below Y=0
+RELEASE NAVIGATION PROBE COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

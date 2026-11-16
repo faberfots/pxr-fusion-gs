@@ -1,0 +1,41 @@
+Isolated project: build\cortex-chats-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[ProductionUI] Cognitive Panel instantiated.
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS opening Cortex presents the ready-to-use click-selection preset without technical setup tabs
+PASS opening or choosing a preset starts no inference
+PASS actual Help click displays natural-language steps, privacy and capability limits
+[FreeLookCamera] Movement state reset. Position: (0.557086, 0.371391, 0.742781)
+[CameraController] Camera transform set to: (0.557086, 0.371391, 0.742781)
+[FreeLookCamera] Movement state reset. Position: (0.0, 1.0, 3.0)
+[CameraController] Camera transform set to: (0.0, 1.0, 3.0)
+PASS default preset captures the scene through the existing clean-capture action
+PASS description preset configures SAM3 and its optional box without asking for a model path
+PASS private assistant preset removes provider setup and scene-command switches from the guided path
+PASS example question fills the input without sending data or starting a model
+PASS selected-model guide explains missing selection before loading a model
+PASS connected preset keeps destination selection visible and does not grant cloud consent
+PASS Advanced keeps all original Ask, Select and Setup controls reachable
+PASS all preset changes preserve saved settings, camera and model transforms
+PASS managed users can inspect Advanced without changing their permitted preset
+PASS reselecting the same goal restores its guided workspace after inspecting Advanced
+PASS reopening retains the selected goal
+CORTEX PRESETS UI COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

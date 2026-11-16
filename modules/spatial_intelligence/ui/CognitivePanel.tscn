@@ -6,6 +6,19 @@
 [ext_resource type="Script" path="res://modules/spatial_intelligence/ui/segmentation_canvas.gd" id="canvas"]
 [ext_resource type="Texture2D" path="res://modules/gaussian_splatting/UI/PolygonicsDiamond.tres" id="diamond"]
 
+[sub_resource type="StyleBoxFlat" id="chat_background"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.025, 0.04, 0.06, 0.33)
+border_width_left = 2
+border_color = Color(0.8, 0.13, 0.16, 0.7)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+
 [node name="CognitivePanel" type="CanvasLayer"]
 layer = 20
 script = ExtResource("logic")
@@ -21,6 +34,30 @@ grow_vertical = 2
 mouse_filter = 0
 script = ExtResource("canvas")
 
+[node name="RenameChatDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "Rename conversation"
+size = Vector2i(420, 150)
+ok_button_text = "Save name"
+theme = ExtResource("theme")
+
+[node name="ChatName" type="LineEdit" parent="RenameChatDialog"]
+unique_name_in_owner = true
+offset_left = 12.0
+offset_top = 16.0
+offset_right = 408.0
+offset_bottom = 60.0
+placeholder_text = "Name this conversation"
+max_length = 100
+
+[node name="DeleteChatDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "Delete this conversation?"
+size = Vector2i(440, 170)
+ok_button_text = "Delete chat"
+dialog_autowrap = true
+theme = ExtResource("theme")
+
 [node name="DraggableContainer" type="Control" parent="." node_paths=PackedStringArray("drag_handle")]
 unique_name_in_owner = true
 theme = ExtResource("theme")
@@ -33,6 +70,7 @@ mouse_filter = 0
 script = ExtResource("drag")
 drag_handle = NodePath("Panel/MainLayout/HeaderBar")
 layout_id = "assistant"
+fit_viewport_size = true
 
 [node name="Panel" type="PanelContainer" parent="DraggableContainer"]
 unique_name_in_owner = true
@@ -40,8 +78,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_horizontal = 1
+grow_vertical = 1
 mouse_filter = 0
 
 [node name="MainLayout" type="VBoxContainer" parent="DraggableContainer/Panel"]
@@ -76,6 +114,7 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "CORTEX INTELLIGENCE"
 size_flags_horizontal = 3
+clip_text = true
 theme_override_font_sizes/font_size = 23
 
 [node name="StatusLight" type="ColorRect" parent="DraggableContainer/Panel/MainLayout/HeaderBar"]
@@ -92,13 +131,32 @@ layout_mode = 2
 text = "⚙"
 tooltip_text = "Connections, local engines and privacy"
 
+[node name="OpenChats" type="Button" parent="DraggableContainer/Panel/MainLayout/HeaderBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Chats"
+tooltip_text = "Your separate conversations. Start with the included private assistant; no account or key needed."
+
 [node name="CloseButton" type="Button" parent="DraggableContainer/Panel/MainLayout/HeaderBar"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "×"
 tooltip_text = "Close Cortex and cancel pending requests"
 
-[node name="EngineStatus" type="Label" parent="DraggableContainer/Panel/MainLayout"]
+[node name="BodyScroll" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 1
+follow_focus = true
+
+[node name="Body" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="EngineStatus" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "YOUR SCENE. YOUR INTELLIGENCE."
@@ -106,38 +164,40 @@ theme_override_font_sizes/font_size = 15
 theme_override_colors/font_color = Color(0.62, 0.76, 0.8, 1)
 autowrap_mode = 2
 
-[node name="GoalCard" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout"]
+[node name="GoalCard" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body"]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="GoalHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/GoalCard"]
+[node name="GoalHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/GoalCard"]
 layout_mode = 2
 text = "WHAT WOULD YOU LIKE TO DO?"
 theme_override_font_sizes/font_size = 16
 
-[node name="GoalRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/GoalCard"]
+[node name="GoalRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/GoalCard"]
 layout_mode = 2
 
-[node name="GoalPicker" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/GoalCard/GoalRow"]
+[node name="GoalPicker" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/GoalCard/GoalRow"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+fit_to_longest_item = false
+clip_text = true
 tooltip_text = "Choose your goal. Local tools are already configured; models load only when you use them."
 
-[node name="GoalHelpButton" type="Button" parent="DraggableContainer/Panel/MainLayout/GoalCard/GoalRow"]
+[node name="GoalHelpButton" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/GoalCard/GoalRow"]
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
 text = "How it works"
 tooltip_text = "Show simple steps, what stays private, and what this preset can do."
 
-[node name="GoalSummary" type="Label" parent="DraggableContainer/Panel/MainLayout/GoalCard"]
+[node name="GoalSummary" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/GoalCard"]
 unique_name_in_owner = true
 layout_mode = 2
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 17
 
-[node name="GoalReadiness" type="Label" parent="DraggableContainer/Panel/MainLayout/GoalCard"]
+[node name="GoalReadiness" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/GoalCard"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -145,14 +205,14 @@ autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(1, 0.76, 0.55, 1)
 
-[node name="GoalHelpScroll" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/GoalCard"]
+[node name="GoalHelpScroll" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/GoalCard"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 custom_minimum_size = Vector2(0, 146)
 horizontal_scroll_mode = 0
 
-[node name="GoalHelp" type="RichTextLabel" parent="DraggableContainer/Panel/MainLayout/GoalCard/GoalHelpScroll"]
+[node name="GoalHelp" type="RichTextLabel" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/GoalCard/GoalHelpScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -160,41 +220,90 @@ fit_content = true
 scroll_active = false
 theme_override_font_sizes/normal_font_size = 17
 
-[node name="WorkspaceTabs" type="TabContainer" parent="DraggableContainer/Panel/MainLayout"]
+[node name="WorkspaceTabs" type="TabContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 clip_contents = true
+custom_minimum_size = Vector2(0, 280)
 
-[node name="Ask" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs"]
+[node name="Ask" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs"]
 unique_name_in_owner = true
 layout_mode = 2
-horizontal_scroll_mode = 0
-follow_focus = true
 
-[node name="Content" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask"]
+[node name="Content" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 9
 
-[node name="AskConnection" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content"]
+[node name="ChatBar" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content"]
+layout_mode = 2
+
+[node name="ChatSelector" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/ChatBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false
+clip_text = true
+tooltip_text = "Switch topic without losing your other chats. Switching stops a pending answer."
+
+[node name="NewChat" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/ChatBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+ New"
+tooltip_text = "Start a separate conversation. Other chats and their drafts are kept."
+
+[node name="RenameChat" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/ChatBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "✎"
+tooltip_text = "Rename this chat"
+
+[node name="DeleteChat" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/ChatBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "×"
+tooltip_text = "Delete this chat and its saved local history"
+
+[node name="ChatContext" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.66, 0.76, 0.8, 1)
+autowrap_mode = 2
+
+[node name="SharingToggle" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+alignment = 0
+clip_text = true
+text = "Assistant & sharing"
+
+[node name="SharingDetails" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="AskConnection" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/SharingDetails"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Active connection; switching cancels stale requests"
 
-[node name="VisionSection" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content"]
+[node name="VisionSection" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/SharingDetails"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VisionPreview" type="TextureRect" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content/VisionSection"]
+[node name="VisionPreview" type="TextureRect" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/SharingDetails/VisionSection"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(144, 84)
 expand_mode = 1
 stretch_mode = 5
 
-[node name="VisionLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content/VisionSection"]
+[node name="VisionLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/SharingDetails/VisionSection"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Capture shared with the selected connection."
@@ -202,110 +311,74 @@ size_flags_horizontal = 3
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="ChatScroll" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="ChatFeed" type="RichTextLabel" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content/ChatScroll"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_minimum_size = Vector2(0, 100)
-bbcode_enabled = true
-fit_content = true
-scroll_following = true
-theme_override_font_sizes/normal_font_size = 18
-
-[node name="CloudConsent" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content"]
+[node name="CloudConsent" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/SharingDetails"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Allow remote analysis"
-tooltip_text = "Sends only the configured image and scene context."
+tooltip_text = "Allows this connection to receive your question, its configured scene input, and recent text from this chat for the same assistant and scope."
 
-[node name="LocalConsent" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content"]
+[node name="LocalConsent" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/SharingDetails"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Allow local endpoint analysis"
 tooltip_text = "A loopback runtime can forward to a cloud service. Check its configuration."
 
-[node name="ActionConsent" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content"]
+[node name="ActionConsent" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/SharingDetails"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Allow AI camera and selection commands"
 tooltip_text = "Local-owner authorization; an application host may deny it."
 
-[node name="GuidedAskActions" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content"]
+[node name="ChatScroll" type="PanelContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("chat_background")
 
-[node name="ExampleQuestion" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content/GuidedAskActions"]
+[node name="ChatFeed" type="RichTextLabel" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Ask/Content/ChatScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Try an example question"
+size_flags_vertical = 3
+custom_minimum_size = Vector2(0, 140)
+bbcode_enabled = true
+selection_enabled = true
+scroll_following = true
+theme_override_font_sizes/normal_font_size = 18
 
-[node name="GuidedSetup" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content/GuidedAskActions"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Advanced settings"
-tooltip_text = "Your saved connections and all advanced controls stay available."
-
-[node name="InputField" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-placeholder_text = "Ask Cortex about the scene…"
-max_length = 16000
-
-[node name="AskButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="AnalyzeButton" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content/AskButtons"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Analyze"
-size_flags_horizontal = 3
-
-[node name="CancelAnalysis" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Ask/Content/AskButtons"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Cancel"
-
-[node name="Select" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs"]
+[node name="Select" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="Content" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select"]
+[node name="Content" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="SelectDescription" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content"]
+[node name="SelectDescription" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Capture → prompt → inspect → select an existing model."
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="CaptureButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content"]
+[node name="CaptureButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="CaptureButton" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content/CaptureButtons"]
+[node name="CaptureButton" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content/CaptureButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Capture view"
 size_flags_horizontal = 3
 
-[node name="FullViewToggle" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content/CaptureButtons"]
+[node name="FullViewToggle" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content/CaptureButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Pick in view"
 
-[node name="SnapshotCanvas" type="Control" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content"]
+[node name="SnapshotCanvas" type="Control" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(320, 196)
@@ -313,223 +386,223 @@ size_flags_vertical = 3
 mouse_filter = 0
 script = ExtResource("canvas")
 
-[node name="PromptHelp" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content"]
+[node name="PromptHelp" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "MobileSAM · left click adds foreground; right/Shift-click excludes."
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="PromptControls" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content"]
+[node name="PromptControls" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content"]
 unique_name_in_owner = true
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PromptMode" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content/PromptControls"]
+[node name="PromptMode" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content/PromptControls"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ClearPrompts" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content/PromptControls"]
+[node name="ClearPrompts" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content/PromptControls"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Clear prompts"
 
-[node name="ConceptPrompt" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content"]
+[node name="ConceptPrompt" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "SAM3 concept: motorcycle, person…"
 max_length = 4096
 
-[node name="SegmentButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content"]
+[node name="SegmentButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SegmentButton" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content/SegmentButtons"]
+[node name="SegmentButton" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content/SegmentButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Segment"
 size_flags_horizontal = 3
 
-[node name="CancelSegmentation" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content/SegmentButtons"]
+[node name="CancelSegmentation" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content/SegmentButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Cancel"
 
-[node name="ReleaseEngine" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content/SegmentButtons"]
+[node name="ReleaseEngine" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content/SegmentButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Release memory"
 
-[node name="MaskControls" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content"]
+[node name="MaskControls" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MaskSelector" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content/MaskControls"]
+[node name="MaskSelector" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content/MaskControls"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AcceptSelection" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content/MaskControls"]
+[node name="AcceptSelection" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content/MaskControls"]
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
 text = "Select model at mask point"
 tooltip_text = "Selects a whole existing model at a visible foreground point; does not extract Gaussians."
 
-[node name="SegmentationStatus" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Select/Content"]
+[node name="SegmentationStatus" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Select/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Start with Capture my view. No account is needed for local selection."
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="Setup" type="TabContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs"]
+[node name="Setup" type="TabContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Connections" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup"]
+[node name="Connections" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="ConnectionFields" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections"]
+[node name="ConnectionFields" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ConnectionHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="ConnectionHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "CONNECT YOUR INTELLIGENCE"
 
-[node name="SetupConnection" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="SetupConnection" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AddConnectionRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="AddConnectionRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="NewProvider" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/AddConnectionRow"]
+[node name="NewProvider" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/AddConnectionRow"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AddConnection" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/AddConnectionRow"]
+[node name="AddConnection" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/AddConnectionRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "+ Connection"
 
-[node name="ConnectionName" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="ConnectionName" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Connection name"
 
-[node name="EndpointLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="EndpointLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "API endpoint"
 
-[node name="Endpoint" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="Endpoint" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "https://… or loopback HTTP"
 
-[node name="ModelLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="ModelLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Exact model ID · declare and test its capabilities"
 
-[node name="ModelName" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="ModelName" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Model identifier"
 
-[node name="DiscoveredModels" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="DiscoveredModels" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Capabilities" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="Capabilities" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VisionCapability" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/Capabilities"]
+[node name="VisionCapability" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/Capabilities"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Vision"
 
-[node name="ToolsCapability" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/Capabilities"]
+[node name="ToolsCapability" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/Capabilities"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Tools"
 
-[node name="IncludeImage" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="IncludeImage" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Include a clean scene image"
 
-[node name="ContextScope" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="ContextScope" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="CredentialsLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="CredentialsLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Credential source · secret stays outside settings"
 
-[node name="CredentialSource" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="CredentialSource" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="EnvironmentName" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="EnvironmentName" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "OPENAI_API_KEY"
 
-[node name="SecretRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="SecretRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SecretInput" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/SecretRow"]
+[node name="SecretInput" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/SecretRow"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Enter a key locally…"
 secret = true
 size_flags_horizontal = 3
 
-[node name="RevealSecret" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/SecretRow"]
+[node name="RevealSecret" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/SecretRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Reveal"
 toggle_mode = true
 
-[node name="CredentialActions" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="CredentialActions" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="CredentialStatus" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/CredentialActions"]
+[node name="CredentialStatus" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/CredentialActions"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "No credential configured"
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 
-[node name="ForgetCredential" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/CredentialActions"]
+[node name="ForgetCredential" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/CredentialActions"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Forget local key"
 
-[node name="GenerationLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="GenerationLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Generation limits"
 
-[node name="GenerationRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="GenerationRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MaxTokens" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/GenerationRow"]
+[node name="MaxTokens" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/GenerationRow"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 16.0
@@ -539,7 +612,7 @@ value = 1024.0
 prefix = "Tokens "
 size_flags_horizontal = 3
 
-[node name="RequestTimeout" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/GenerationRow"]
+[node name="RequestTimeout" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/GenerationRow"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 1.0
@@ -547,16 +620,16 @@ max_value = 180.0
 value = 45.0
 suffix = " s"
 
-[node name="TemperatureRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="TemperatureRow" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="TemperatureEnabled" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/TemperatureRow"]
+[node name="TemperatureEnabled" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/TemperatureRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Temperature"
 
-[node name="Temperature" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/TemperatureRow"]
+[node name="Temperature" type="SpinBox" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/TemperatureRow"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 0.0
@@ -564,66 +637,66 @@ max_value = 2.0
 step = 0.05
 value = 0.2
 
-[node name="ApplyConnection" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="ApplyConnection" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Apply connection"
 
-[node name="Vision" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup"]
+[node name="Vision" type="ScrollContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="VisionFields" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision"]
+[node name="VisionFields" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VisionHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="VisionHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "LOCAL SEGMENTATION"
 
-[node name="SegmentationEngine" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="SegmentationEngine" type="OptionButton" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="RuntimeInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="RuntimeInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "On-demand CPU inference. No model runs while Cortex is idle."
 autowrap_mode = 2
 
-[node name="Sam3FolderLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="Sam3FolderLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "SAM3 model-pack directory"
 
-[node name="Sam3Directory" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="Sam3Directory" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Choose the extracted sam3_vit_h folder"
 
-[node name="FolderButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="FolderButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="BrowseModelPack" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields/FolderButtons"]
+[node name="BrowseModelPack" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields/FolderButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Browse folder"
 
-[node name="DetectModelPack" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields/FolderButtons"]
+[node name="DetectModelPack" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields/FolderButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Find in Downloads"
 
-[node name="ThresholdLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="ThresholdLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "SAM3 minimum returned score"
 
-[node name="Confidence" type="HSlider" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="Confidence" type="HSlider" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 0.0
@@ -632,12 +705,12 @@ step = 0.05
 value = 0.5
 tooltip_text = "Post-filter scores returned by this export."
 
-[node name="OpacityLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="OpacityLabel" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Mask display opacity"
 
-[node name="MaskOpacity" type="HSlider" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="MaskOpacity" type="HSlider" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 0.05
@@ -645,115 +718,163 @@ max_value = 1.0
 step = 0.05
 value = 0.45
 
-[node name="ApplyVision" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="ApplyVision" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Apply vision settings"
 
-[node name="TestEngine" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="TestEngine" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Verify and initialize engine"
 
-[node name="EngineVerification" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="EngineVerification" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Not tested in this session."
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="VisionBoundary" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Vision/VisionFields"]
+[node name="VisionBoundary" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Vision/VisionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Masks describe a 2D capture. Extracting an independent object from an environment is a separate workflow."
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="Privacy" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup"]
+[node name="Privacy" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PrivacyHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Privacy"]
+[node name="PrivacyHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Privacy"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "YOU CONTROL THE BOUNDARY"
 autowrap_mode = 2
 
-[node name="PrivacyInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Privacy"]
+[node name="PrivacyInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Privacy"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Transmission and AI commands start disabled. Changing destinations withdraws consent. The application host can deny configuration and operator authority."
 autowrap_mode = 2
 
-[node name="DataInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Privacy"]
+[node name="DataInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Privacy"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Requests contain your prompt, configured context scope and an image only when enabled. Source paths, credentials and Cortex overlays are excluded."
 autowrap_mode = 2
 
-[node name="LocalInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Privacy"]
+[node name="LocalInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Privacy"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "A loopback endpoint does not prove offline inference inside that server."
 autowrap_mode = 2
 
-[node name="RevocationInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Privacy"]
+[node name="RevocationInformation" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Privacy"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "P.1.1 · Forgetting a local key does not revoke it. The previously exposed key requires provider-account revocation."
 autowrap_mode = 2
 
-[node name="ProviderKeysPortal" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Privacy"]
+[node name="ProviderKeysPortal" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Privacy"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Open provider credential management"
 
-[node name="ClearSessionKeys" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Privacy"]
+[node name="ClearSessionKeys" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Privacy"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Clear all session credentials"
 
-[node name="Diagnostics" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup"]
+[node name="Diagnostics" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="DiagnosticsHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Diagnostics"]
+[node name="DiagnosticsHeading" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Diagnostics"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "VERIFY EACH CAPABILITY"
 
-[node name="DiagnosticsHelp" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Diagnostics"]
+[node name="DiagnosticsHelp" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Diagnostics"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Tests use synthetic inputs, never the scene. Inference tests may incur charges. Apply settings and enable transmission first."
 autowrap_mode = 2
 
-[node name="DiscoverModels" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Diagnostics"]
+[node name="DiscoverModels" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Diagnostics"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Discover models"
 
-[node name="TestText" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Diagnostics"]
+[node name="TestText" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Diagnostics"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Test text inference"
 
-[node name="TestVision" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Diagnostics"]
+[node name="TestVision" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Diagnostics"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Test vision · synthetic red image"
 
-[node name="TestTools" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Diagnostics"]
+[node name="TestTools" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Diagnostics"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Test tool calls · execution disabled"
 
-[node name="ConnectionDiagnostics" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Diagnostics"]
+[node name="ConnectionDiagnostics" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Diagnostics"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "No connection test has run."
 autowrap_mode = 2
 size_flags_vertical = 3
+
+[node name="AskComposer" type="VBoxContainer" parent="DraggableContainer/Panel/MainLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="GuidedAskActions" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/AskComposer"]
+layout_mode = 2
+
+[node name="ExampleQuestion" type="Button" parent="DraggableContainer/Panel/MainLayout/AskComposer/GuidedAskActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Try an example question"
+
+[node name="GuidedSetup" type="Button" parent="DraggableContainer/Panel/MainLayout/AskComposer/GuidedAskActions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Advanced settings"
+tooltip_text = "Your saved connections and all advanced controls stay available."
+
+[node name="InputField" type="LineEdit" parent="DraggableContainer/Panel/MainLayout/AskComposer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Ask Cortex about the scene…"
+max_length = 16000
+custom_minimum_size = Vector2(0, 44)
+
+[node name="ComposerHelp" type="Label" parent="DraggableContainer/Panel/MainLayout/AskComposer"]
+layout_mode = 2
+text = "Enter to send · + New for another topic"
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.66, 0.76, 0.8, 1)
+
+[node name="AskButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/AskComposer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AnalyzeButton" type="Button" parent="DraggableContainer/Panel/MainLayout/AskComposer/AskButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Analyze"
+size_flags_horizontal = 3
+
+[node name="CancelAnalysis" type="Button" parent="DraggableContainer/Panel/MainLayout/AskComposer/AskButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel"
 
 [node name="WorkspaceStatus" type="Label" parent="DraggableContainer/Panel/MainLayout"]
 unique_name_in_owner = true
@@ -761,6 +882,8 @@ layout_mode = 2
 text = "Analysis and scene commands remain under your control."
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 15
+max_lines_visible = 2
+text_overrun_behavior = 3
 
 [node name="ModelFolderDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true
@@ -769,28 +892,28 @@ access = 2
 use_native_dialog = true
 title = "Choose the extracted SAM3 model package"
 
-[node name="BundledQwenTitle" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="BundledQwenTitle" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 layout_mode = 2
 text = "PORTABLE QWEN · CPU ONLY"
 
-[node name="BundledQwenStatus" type="Label" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="BundledQwenStatus" type="Label" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Stopped · starts only when you request it."
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 16
 
-[node name="BundledQwenButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields"]
+[node name="BundledQwenButtons" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields"]
 layout_mode = 2
 
-[node name="StartBundledQwen" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/BundledQwenButtons"]
+[node name="StartBundledQwen" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/BundledQwenButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Start bundled Qwen"
 size_flags_horizontal = 3
 tooltip_text = "Verify the included model and runtime; bind only to loopback, use four CPU threads, and disable GPU offload."
 
-[node name="StopBundledQwen" type="Button" parent="DraggableContainer/Panel/MainLayout/WorkspaceTabs/Setup/Connections/ConnectionFields/BundledQwenButtons"]
+[node name="StopBundledQwen" type="Button" parent="DraggableContainer/Panel/MainLayout/BodyScroll/Body/WorkspaceTabs/Setup/Connections/ConnectionFields/BundledQwenButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Stop · release memory"

@@ -74,6 +74,27 @@ text = "Orbit camera"
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Floor protection is independent of grid visibility.
-Scanned walls need a physical collision proxy."
+text = "GLB environments use their actual floor and wall geometry. GS scenes retain the reference-floor protection. Scanned walls need a physical collision proxy."
 autowrap_mode = 2
+
+[node name="DriveModel" type="CheckButton" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Drive selected GLB"
+tooltip_text = "Walk a rigid GLB model through a mesh environment using Detailed collision pieces so openings remain passable. First preparation can take time; the result is cached across runs. Ordinary editing defaults to Fast in the model toolbar."
+
+[node name="DriveHelp" type="Label" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Choose a model, then drive. WASD move · Shift faster · Space jump · Right-drag look · Esc exits. One undo restores the starting pose."
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 12
+
+[node name="DriveSpeed" type="HSlider" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+max_value = 20.0
+step = 0.1
+value = 3.0
+tooltip_text = "Model travel speed in scene units per second"

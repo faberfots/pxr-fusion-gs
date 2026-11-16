@@ -1,0 +1,66 @@
+Isolated project: build\mesh-physics-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[ProductionUI] Cognitive Panel instantiated.
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+LAYOUT logical viewport [P: (0.0, 0.0), S: (1287.0, 648.0)] owner [P: (819.4, 12.0), S: (455.6, 549.4)] frame [P: (819.4, 12.0), S: (455.6, 549.4)] header [P: (832.8, 25.4), S: (428.8, 30.82)]
+PASS Connected assistant with Help and missing setup: frame, drag handle and Close stay on screen
+PASS Connected assistant with Help and missing setup: question and Ask stay on screen
+PASS collapsed assistant section shows its destination and truthful sharing state
+PASS actual disclosure click exposes the saved connection and permissions
+PASS sharing summary follows the existing explicit consent owner
+PASS collapsing the section neither grants permission nor changes the scene
+PASS Guide collapses with pointer input without cancelling a question or changing authority
+PASS the visible header still moves the compact Cortex panel with actual pointer input
+PASS pick Help closed: frame, drag handle and Close stay on screen
+PASS pick Help open: frame, drag handle and Close stay on screen
+PASS find Help closed: frame, drag handle and Close stay on screen
+PASS find Help open: frame, drag handle and Close stay on screen
+PASS scene Help closed: frame, drag handle and Close stay on screen
+PASS scene Help closed: question and Ask stay on screen
+PASS scene Help open: frame, drag handle and Close stay on screen
+PASS scene Help open: question and Ask stay on screen
+PASS selection Help closed: frame, drag handle and Close stay on screen
+PASS selection Help closed: question and Ask stay on screen
+PASS selection Help open: frame, drag handle and Close stay on screen
+PASS selection Help open: question and Ask stay on screen
+PASS connected Help closed: frame, drag handle and Close stay on screen
+PASS connected Help closed: question and Ask stay on screen
+PASS connected Help open: frame, drag handle and Close stay on screen
+PASS connected Help open: question and Ask stay on screen
+PASS custom Help closed: frame, drag handle and Close stay on screen
+PASS custom Help open: frame, drag handle and Close stay on screen
+PASS Advanced tab 0: frame, drag handle and Close stay on screen
+PASS Advanced tab 0: question and Ask stay on screen
+PASS Advanced tab 1: frame, drag handle and Close stay on screen
+PASS Advanced tab 2: frame, drag handle and Close stay on screen
+PASS Resized to a short window: frame, drag handle and Close stay on screen
+PASS Resized to a short window: question and Ask stay on screen
+PASS Dragged to the window edge: frame, drag handle and Close stay on screen
+PASS Dragged to the window edge: question and Ask stay on screen
+[ProductionUI] Cognitive Panel instantiated.
+PASS Reopened with an off-screen saved position: frame, drag handle and Close stay on screen
+PASS Reopened with an off-screen saved position: question and Ask stay on screen
+PASS Restored original window: frame, drag handle and Close stay on screen
+PASS Restored original window: question and Ask stay on screen
+PASS layout changes and reopening preserve the chat history and draft
+PASS layout changes preserve the camera and never grant sharing or scene permissions
+PASS layout and Help changes start no inference
+CORTEX LAYOUT COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

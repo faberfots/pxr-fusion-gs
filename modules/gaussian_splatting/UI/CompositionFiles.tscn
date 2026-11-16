@@ -9,18 +9,23 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Open scene"
-tooltip_text = "Use Import to open a .pxrscene composition or append a PLY model"
+tooltip_text = "Open a composition, scan or GLB/glTF scene through the existing Import workflow"
 [node name="Save" type="Button" parent="Actions"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Save scene"
-tooltip_text = "Save every GS model, exact transforms, camera and image settings"
+tooltip_text = "Save splats, mesh scenes, exact transforms, camera and image settings"
+[node name="IncludeAssets" type="CheckButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Include asset files"
+tooltip_text = "Copy original scans, mesh files and their texture dependencies beside the scene. Keep the scene and its .assets folder together when moving computers."
 [node name="Status" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Linked originals · keep source PLY files available"
+text = "Linked originals · enable Include asset files for a portable copy"
 autowrap_mode = 2
 [node name="SaveDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true

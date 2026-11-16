@@ -16,6 +16,8 @@ extends Control
 ## If true, the container cannot be dragged outside the viewport bounds.
 @export var constrain_to_viewport: bool = true
 @export var layout_id:=""
+@export var fit_viewport_size:=false
+var _preferred_size:=Vector2.ZERO
 
 ## Emitted when dragging starts.
 signal drag_started
@@ -29,6 +31,7 @@ var _drag_offset := Vector2.ZERO
 
 
 func _ready() -> void:
+	_preferred_size=size
 	GSUiScale.apply(self)
 	get_viewport().size_changed.connect(_fit)
 	_restore.call_deferred()
@@ -69,6 +72,7 @@ func _drag_to(pointer:Vector2) -> void:
 	
 	# Apply new position
 	global_position = new_position
+	if fit_viewport_size:_fit()
 
 
 ## Programmatically start dragging (useful for touch interfaces).
@@ -99,6 +103,10 @@ func _notification(what:int)->void:
 func _exit_tree()->void:
 	if _is_dragging:drag_ended.emit()
 func _fit()->void:
+	if fit_viewport_size:
+		# Opt-in panels use bounded scene-authored scroll areas. Other panels keep their sizing.
+		var available:Vector2=(get_viewport_rect().size-Vector2(24,42)).max(Vector2.ONE)
+		size=_preferred_size.min(available/scale.abs().max(Vector2.ONE*0.01))
 	if constrain_to_viewport:position=position.clamp(Vector2(12,12),(get_viewport_rect().size-GSUiScale.extent(self)-Vector2(12,30)).max(Vector2(12,12)))
 func _save()->void:
 	if layout_id.is_empty() or not is_inside_tree():return

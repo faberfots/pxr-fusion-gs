@@ -1,0 +1,26 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS render quality preserves the independent loading policy: 0
+PASS render quality preserves the independent loading policy: 1
+PASS render quality preserves the independent loading policy: 2
+PASS render quality preserves the independent loading policy: 3
+PASS render quality preserves the independent loading policy: 4
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (-19997.42, 1.7, 0.0)
+[CameraController] Camera transform set to: (-19997.42, 1.7, 0.0)
+PASS bounded scheduler loads the complete population
+PASS profiling accounts for exact uploaded bytes and blocks
+PASS GDScript stage timings distinguish preparation, source hash and first frame
+PASS all scheduled render-thread uploads are drained before commit
+PASS profiling and scheduling preserve full source identity
+PASS clear cancels staged blocks and preserves allocator ownership
+LOADING SCHEDULER COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

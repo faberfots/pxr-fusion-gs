@@ -1,0 +1,9 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS export-time camera construction and destruction leave no orphan visualization nodes
+PASS active camera retains its pivot visualization
+PASS active camera retains its raycast visualization
+PASS active camera teardown frees all visualization children
+CAMERA LIFECYCLE COMPLETE: 0 failures

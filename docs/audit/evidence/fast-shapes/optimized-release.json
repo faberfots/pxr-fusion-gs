@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "process_exit": 0,
+  "engine_sha256": "3b2d3f99bd640961aad1a1a200f0f7233b7de45b02801ce22d3224dc294d93d1",
+  "entry_point": "res://tests/release_checks.tscn",
+  "datasets": [],
+  "meshes": [
+    "C:\\Users\\User\\AppData\\Roaming\\Godot\\app_userdata\\AssetBrowerLibrary\\models\\jesus_christ.glb",
+    "C:\\Users\\User\\Downloads\\3DModels_n_3DG_SAssets\\glb_files\\original\\police_ford_raptor.glb"
+  ],
+  "scope": "Windows x86_64, local Vulkan GPU, unsigned optimized-template package"
+}

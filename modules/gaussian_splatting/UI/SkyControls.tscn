@@ -27,6 +27,12 @@ theme_override_font_sizes/font_size = 13
 [node name="ClockRow" type="HBoxContainer" parent="Scroll/Content"]
 layout_mode = 2
 
+[node name="MeshLight" type="Button" parent="Scroll/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Soft mesh lighting"
+tooltip_text = "Lift dark mesh shadows with 30% ambient fill. Uses the existing Sky contribution and Ambient energy controls; original materials and GS color grading stay intact. Applied to the first mesh when those controls still have their defaults."
+
 
 [node name="Clock" type="Label" parent="Scroll/Content/ClockRow"]
 unique_name_in_owner = true

@@ -66,7 +66,9 @@ func _exit_tree()->void:
 	if _dragging:drag_changed.emit(false)
 
 func _reflow()->void:
-	await get_tree().process_frame
+	if not is_inside_tree():return
+	if not get_tree().process_frame.is_connected(_finish_reflow):get_tree().process_frame.connect(_finish_reflow,CONNECT_ONE_SHOT)
+func _finish_reflow()->void:
 	if not is_inside_tree() or not visible:return
 	if fit_content_height:reset_size()
 	if not _placed:position=_default_position()

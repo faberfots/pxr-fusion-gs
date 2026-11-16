@@ -33,6 +33,7 @@ func execute_action(tool_name: String, args: Dictionary) -> Dictionary:
 			if not camera: return _error("No active camera.")
 			var target := Vector3(args.look_at[0], args.look_at[1], args.look_at[2]) if args.has("look_at") else pos - camera.global_basis.z
 			if pos.distance_squared_to(target) < 0.000001: return _error("Camera position and look target must differ.")
+			viewer.stop_model_navigation()
 			viewer.set_camera_blocker("ai_action", true)
 			viewer.camera_controller.position_camera_at(pos, target)
 			viewer.set_camera_blocker("ai_action", false)
@@ -45,8 +46,9 @@ func execute_action(tool_name: String, args: Dictionary) -> Dictionary:
 			return {"status": "success", "message": "Model selected and highlighted.", "model_id": args.model_id}
 		"reset_view":
 			if not args.is_empty(): return _error("reset_view accepts no arguments.")
-			if viewer.total_splats_to_load == 0: return _error("No loaded scene to frame.")
-			viewer.reset_camera()
+			if viewer.managed_assets.is_empty(): return _error("No loaded scene to frame.")
+			if viewer._mesh_models.is_empty():viewer.reset_camera()
+			else:viewer.frame_models([])
 			return {"status": "success", "message": "Loaded scene framed."}
 		_: return _error("Unknown tool.")
 func _error(message: String) -> Dictionary:

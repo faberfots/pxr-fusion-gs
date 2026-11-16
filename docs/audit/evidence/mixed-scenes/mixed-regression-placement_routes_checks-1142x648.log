@@ -1,0 +1,30 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS the normal file picker enters placement mode for PLY models
+PASS the transform toolbar yields pointer ownership to placement
+PASS Scene Navigator cannot save an unfinished placement
+PASS dragging the main control during placement moves UI without dropping the model
+[FreeLookCamera] Movement state reset. Position: (0.089013, 0.726009, 1.452017)
+[CameraController] Camera transform set to: (0.089013, 0.726009, 1.452017)
+PASS Keep original retains the established import workflow
+PASS binary GSRES fixture is valid
+PASS dropped GSRES models use the same placement flow
+PASS the authored Cancel control preserves existing models
+PASS the original model remains available in recent files
+PASS recent PLY imports also enter placement
+PASS confirmed imports can save a combined scene
+PASS unchecked Import adds .pxrscene in its saved layout without entering model placement
+PASS dropped .pxrscene files use the same additive Import choice
+PASS clear fixture is fully pending
+PASS Clear cancels pending placement and clears the owned scene
+PLACEMENT ROUTES COMPLETE: 0 failures
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.

@@ -1,5 +1,8 @@
 class_name CameraController
 extends Node
+const MODEL_CAMERA_LAYER:=1<<19
+var _model_camera_body:StaticBody3D
+var mesh_floor_provider:WeakRef
 ## Orchestrates camera behavior and provides a clean interface between cameras and the viewer
 ## 
 ## Responsibilities:
@@ -195,6 +198,12 @@ func set_movement_blocker(owner_id: StringName, blocked: bool) -> void:
 
 func is_movement_blocked() -> bool:
 	return not _movement_blockers.is_empty()
+func has_movement_blocker(owner_id:StringName)->bool:return _movement_blockers.has(owner_id)
+
+func is_movement_blocked_by_others(owner_id:StringName)->bool:
+	for blocker in _movement_blockers:
+		if blocker!=owner_id:return true
+	return false
 
 func reset_camera() -> void:
 	if not active_camera:
@@ -297,13 +306,35 @@ func set_protection(enabled: bool) -> void:
 		set_camera_transform(active_camera.global_transform)
 
 func ground_height() -> float:
+	if uses_mesh_floor():return -INF
 	if not is_instance_valid(ground): return -INF
 	if ground is CSGBox3D:
 		return ground.to_global(Vector3(0, ground.size.y * 0.5, 0)).y
 	return ground.global_position.y
 
+func uses_mesh_floor()->bool:
+	var provider:Node=mesh_floor_provider.get_ref() if mesh_floor_provider else null
+	return is_instance_valid(provider) and provider.has_native_environment()
+func reference_floor_rid()->RID:
+	if ground is CollisionObject3D:return ground.get_rid()
+	# CSG exposes no collision-body RID in Godot 4.6. Resolve its real body by
+	# a physics ray rather than relying on a nonexistent/private engine API.
+	if ground is CSGBox3D and ground.use_collision and active_camera and Engine.is_in_physics_frame():
+		var extent:float=ground.size.y*0.5+1.0
+		var query:=PhysicsRayQueryParameters3D.create(ground.to_global(Vector3(0,extent,0)),ground.to_global(Vector3(0,-extent,0)),ground.collision_layer)
+		query.hit_from_inside=true
+		var state:=active_camera.get_world_3d().direct_space_state
+		while true:
+			var hit:=state.intersect_ray(query)
+			if hit.is_empty():break
+			if hit.collider==ground:return hit.rid
+			var excluded:Array[RID]=query.exclude
+			if excluded.has(hit.rid):break
+			excluded.append(hit.rid);query.exclude=excluded
+	return RID()
+
 func constrain_pose(previous: Transform3D, desired: Transform3D) -> Transform3D:
-	if not safety.protected_fly or not is_instance_valid(ground): return desired
+	if not safety.protected_fly:return desired
 	var minimum := ground_height() + safety.radius + safety.margin
 	desired.origin.y = maxf(desired.origin.y, minimum)
 	if not Engine.is_in_physics_frame() or not active_camera: return desired
@@ -319,6 +350,11 @@ func constrain_pose(previous: Transform3D, desired: Transform3D) -> Transform3D:
 	query.margin = safety.margin
 	query.collision_mask = safety.collision_mask
 	query.collide_with_areas = false
+	var excluded:Array[RID]=[]
+	if is_instance_valid(_model_camera_body):excluded.append(_model_camera_body.get_rid())
+	var reference:RID=reference_floor_rid() if uses_mesh_floor() else RID()
+	if reference.is_valid():excluded.append(reference)
+	query.exclude=excluded
 	var state := active_camera.get_world_3d().direct_space_state
 	var fractions := state.cast_motion(query)
 	if fractions.size() == 2 and fractions[0] < 1.0:
@@ -350,6 +386,17 @@ func _physics_process(_delta: float) -> void:
 			active_camera.velocity.y = maxf(0, active_camera.velocity.y) if resolved.origin.y <= ground_height() + safety.radius + safety.margin + 0.001 else active_camera.velocity.y
 	_safe_pose = resolved
 	_has_safe_pose = true
+	if is_instance_valid(_model_camera_body):_model_camera_body.global_position=active_camera.global_position
+
+func set_model_camera_collision(enabled:bool)->void:
+	if enabled and not is_instance_valid(_model_camera_body):
+		_model_camera_body=StaticBody3D.new();_model_camera_body.name="ModelCameraCollision";_model_camera_body.collision_mask=0;_model_camera_body.input_ray_pickable=false
+		var collision:=CollisionShape3D.new();collision.debug_color=Color.TRANSPARENT;collision.debug_fill=false;collision.shape=_collision_sphere;_model_camera_body.add_child(collision)
+		add_child(_model_camera_body);_model_camera_body.top_level=true
+	if is_instance_valid(_model_camera_body):
+		_model_camera_body.collision_layer=MODEL_CAMERA_LAYER if enabled else 0
+		_collision_sphere.radius=safety.radius
+		if active_camera:_model_camera_body.global_position=active_camera.global_position
 
 
 ## ============================================================================
@@ -372,6 +419,15 @@ func position_camera_at(position: Vector3, look_at_target: Vector3) -> void:
 	var transform := Transform3D(basis, position)
 	
 	set_camera_transform(transform)
+
+func follow_model_at(position:Vector3,target:Vector3)->void:
+	if not active_camera or position.distance_squared_to(target)<0.000001:return
+	var direction:Vector3=(target-position).normalized()
+	var up:=Vector3.FORWARD if absf(direction.dot(Vector3.UP))>0.99 else Vector3.UP
+	var pose:=Transform3D(Basis.looking_at(direction,up),position)
+	if active_camera.global_transform.is_equal_approx(pose):return
+	active_camera.global_transform=constrain_pose(active_camera.global_transform,pose)
+	_safe_pose=active_camera.global_transform;_has_safe_pose=true
 
 #endregion
 

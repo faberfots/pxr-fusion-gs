@@ -46,7 +46,7 @@ vertical_alignment = 1
 [node name="Row" type="GridContainer" parent="Toolbar/Content" unique_id=1884489527]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 6
+columns = 8
 
 [node name="Models" type="OptionButton" parent="Toolbar/Content/Row" unique_id=1908915832]
 unique_name_in_owner = true
@@ -61,6 +61,25 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "Click a model"
+
+[node name="SolidEdits" type="CheckButton" parent="Toolbar/Content/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Solid"
+button_pressed = true
+tooltip_text = "Solid GLB editing: movement, rotation and scaling stop at floors and other meshes. Turn off for intentional overlaps. Environments remain freely alignable. Drive uses the same prepared model shapes."
+
+[node name="ShapeQuality" type="OptionButton" parent="Toolbar/Content/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 33)
+layout_mode = 2
+tooltip_text = "Fast: native convex shape per mesh part, ready quickly. Small cavities within a part may be filled. Detailed: preserves concavities with slower native decomposition, cached for later use. Drive always uses Detailed to keep openings passable."
+item_count = 2
+selected = 0
+popup/item_0/text = "Fast"
+popup/item_0/id = 0
+popup/item_1/text = "Detailed"
+popup/item_1/id = 1
 
 [node name="Select" type="Button" parent="Toolbar/Content/Row" unique_id=1954353848]
 unique_name_in_owner = true

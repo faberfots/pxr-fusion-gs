@@ -13,11 +13,13 @@ func _ready()->void:
 		for surface in range(receiver.mesh.get_surface_count()):_attach(receiver.get_active_material(surface),surface)
 	else:support_reason="Assign material_override or use a MeshInstance3D receiver."
 func _attach(original:Material,surface:int)->void:
-	if original and not original is BaseMaterial3D:
+	var reference_grid:bool=original is ShaderMaterial and original.shader==preload("res://modules/gaussian_splatting/shaders/spatial/reference_grid.gdshader")
+	if original and not original is BaseMaterial3D and not reference_grid:
 		support_reason="Custom vertex shaders require a matching receiver adapter.";return
 	var derived:Material=original.duplicate(false) if original else StandardMaterial3D.new()
 	var shadow:=ShaderMaterial.new()
 	shadow.shader=preload("res://modules/gaussian_splatting/shaders/spatial/gaussian_shadow_receiver.gdshader")
+	shadow.set_shader_parameter("reference_background",reference_grid)
 	shadow.render_priority=mini(127,derived.render_priority+1)
 	shadow.next_pass=derived.next_pass;derived.next_pass=shadow
 	var previous:Material=receiver.material_override if surface<0 else receiver.get_surface_override_material(surface)
@@ -28,7 +30,7 @@ func _attach(original:Material,surface:int)->void:
 func apply_shadow(frame:Dictionary,settings:GSLightingSettings)->void:
 	for entry in _passes:
 		var shadow:ShaderMaterial=entry.shadow
-		shadow.set_shader_parameter("receiver_cull_mode",entry.derived.cull_mode)
+		shadow.set_shader_parameter("receiver_cull_mode",entry.derived.cull_mode if entry.derived is BaseMaterial3D else BaseMaterial3D.CULL_BACK)
 		shadow.set_shader_parameter("shadow_enabled",not frame.is_empty() and settings.shadows_enabled)
 		if frame.is_empty():continue
 		shadow.set_shader_parameter("gaussian_shadow_map",frame.texture)

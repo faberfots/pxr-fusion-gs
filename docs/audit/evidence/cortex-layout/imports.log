@@ -1,0 +1,74 @@
+Isolated project: build\cortex-layout-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (0.089013, 0.726009, 1.452017)
+[CameraController] Camera transform set to: (0.089013, 0.726009, 1.452017)
+PASS Clear scene before importing is unchecked by default
+PASS unchecked model imports append and preserve existing XYZ transforms
+PASS combined fixture saves exact authored transforms
+PASS unchecked composed-scene import adds models without changing existing models or camera
+PASS adding the same scene remaps identities and preserves the imported transform exactly
+PASS invalid file admission preserves existing models and the explicit import choice
+PASS cancelling the file picker never clears the scene
+[FreeLookCamera] Movement state reset. Position: (0.089013, 0.726009, 1.452017)
+[CameraController] Camera transform set to: (0.089013, 0.726009, 1.452017)
+[FreeLookCamera] Movement state reset. Position: (0.089013, 0.726009, 1.452017)
+[CameraController] Camera transform set to: (0.089013, 0.726009, 1.452017)
+PASS checked composed-scene import replaces and restores the safe default afterward
+PASS checked model import clears once and retains object placement
+[FreeLookCamera] Movement state reset. Position: (0.089013, 0.726009, 1.452017)
+[CameraController] Camera transform set to: (0.089013, 0.726009, 1.452017)
+PASS decoder failure rolls back only the added models and preserves resident identities, transforms and selection
+PASS invalid added composition is rejected without mutating existing content
+PASS Scene navigator Open retains its explicit replacement intent in the shared import panel
+PASS main Import opens with the safe unchecked default
+IMPORT MODES COMPLETE: 0 failures
+ WARNING: [GSViewer] Cannot open PLY file
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1208)
+       [1] _load_new_splat_from_path (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:592)
+       [2] begin_model_placement (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:197)
+       [3] _import_interactive (res://modules/gaussian_splatting/UI/ProductionUI.gd:306)
+       [4] run (res://tests/import_mode_checks.gd:37)
+       [5] ready (res://tests/import_mode_checks.gd:10)
+WARNING: [GSViewer] Invalid ASCII scalar
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1208)
+       [1] _fail_record (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:792)
+       [2] _pump_job (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:746)
+       [3] _process (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:906)
+WARNING: [GSViewer] The added scene could not load completely. Your existing models were preserved.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1208)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:323)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:28)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:24)
+       [4] append (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:271)
+WARNING: [GSViewer] Unsupported or invalid PXRFusion scene.
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1208)
+       [1] _run_composition (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:323)
+       [2] finish (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:28)
+       [3] begin (res://modules/gaussian_splatting/utils/scripts/gs_composition.gd:24)
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

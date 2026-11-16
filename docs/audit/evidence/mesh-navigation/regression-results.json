@@ -1,0 +1,170 @@
+[
+  {
+    "suite": "mesh_debug_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 24.86
+  },
+  {
+    "suite": "mixed_scene_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 78.765
+  },
+  {
+    "suite": "studio_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 16.172
+  },
+  {
+    "suite": "camera_lifecycle_checks",
+    "resolution": "64x64",
+    "exit": 0,
+    "seconds": 9.891
+  },
+  {
+    "suite": "startup_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 11.187
+  },
+  {
+    "suite": "lifecycle_checks",
+    "resolution": "64x64",
+    "exit": 0,
+    "seconds": 12.485
+  },
+  {
+    "suite": "rendering_checks",
+    "resolution": "64x64",
+    "exit": 0,
+    "seconds": 16.89
+  },
+  {
+    "suite": "selection_color_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 14.937
+  },
+  {
+    "suite": "color_transform_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 45.859
+  },
+  {
+    "suite": "placement_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 22.109
+  },
+  {
+    "suite": "placement_routes_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 16.094
+  },
+  {
+    "suite": "environment_import_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 16.172
+  },
+  {
+    "suite": "composition_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 13.969
+  },
+  {
+    "suite": "composition_lifecycle_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 14.437
+  },
+  {
+    "suite": "sky_controls_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 14.61
+  },
+  {
+    "suite": "ui_scale_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 19.25
+  },
+  {
+    "suite": "ui_scale_checks",
+    "resolution": "1908x960",
+    "exit": 0,
+    "seconds": 20.25
+  },
+  {
+    "suite": "cortex_layout_checks",
+    "resolution": "1908x960",
+    "exit": 0,
+    "seconds": 13.406
+  },
+  {
+    "suite": "cortex_ui_checks",
+    "resolution": "1142x648",
+    "exit": 0,
+    "seconds": 11.562
+  },
+  {
+    "suite": "hybrid_checks",
+    "resolution": "64x64",
+    "exit": 0,
+    "seconds": 26.516
+  },
+  {
+    "suite": "shadow_checks",
+    "resolution": "64x64",
+    "exit": 0,
+    "seconds": 38.734
+  },
+  {
+    "suite": "migration_recovery_checks",
+    "resolution": "64x64",
+    "exit": 0,
+    "seconds": 14.594
+  },
+  {
+    "suite": "loading_gpu_checks",
+    "resolution": "64x64",
+    "exit": 0,
+    "seconds": 9.938
+  },
+  {
+    "suite": "loading_parallel_checks",
+    "resolution": "64x64",
+    "exit": 0,
+    "seconds": 11.89
+  },
+  {
+    "suite": "loading_cache_checks",
+    "resolution": "64x64",
+    "exit": 0,
+    "seconds": 11.672
+  },
+  {
+    "suite": "core_checks",
+    "resolution": null,
+    "exit": 0,
+    "seconds": 10.594
+  },
+  {
+    "suite": "cortex_settings_checks",
+    "resolution": null,
+    "exit": 0,
+    "seconds": 9.547
+  },
+  {
+    "suite": "cortex_conversation_checks",
+    "resolution": null,
+    "exit": 0,
+    "seconds": 8.609
+  }
+]

@@ -10,6 +10,13 @@ const RANGES={
 	"auto_exposure_scale":[0.01,16.0],"auto_exposure_min":[0.0,1600.0],"auto_exposure_max":[30.0,64000.0],"auto_exposure_speed":[0.1,64.0],
 	"moon_energy":[0.0,16.0],"moon_shadow_opacity":[0.0,1.0],"night_ambient_min":[0.0,1.0],"ambient_tween_time":[0.0,30.0]}
 const TIMES={"Morning":8.0,"Daylight":12.0,"Sunset":18.0,"Night":23.0}
+static func soft_mesh_lighting(sky:Sky3D,only_defaults:bool=false)->bool:
+	if not is_instance_valid(sky):return false
+	if only_defaults and (not is_equal_approx(sky.sky_contribution,1.0) or not is_equal_approx(sky.ambient_energy,1.0) or not sky.sky_enabled or not sky.lights_enabled):return false
+	# The Sky3D radiance path can leave fully shadowed native materials black.
+	# Blend its existing ambient color through the existing live owner instead.
+	sky.sky_contribution=0.7;sky.ambient_energy=1.0
+	return true
 static func node(viewer:Node)->Sky3D:
 	return viewer.shadow_light.get_parent() as Sky3D if is_instance_valid(viewer.shadow_light) else null
 static func snapshot(sky:Sky3D)->Dictionary:

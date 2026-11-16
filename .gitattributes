@@ -1,2 +1,8 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+
+# Qualification records have byte-level hashes; preserve their original bytes.
+docs/audit/evidence/** -text -whitespace
+
+# Keep the user's unused legacy script verbatim as reference material.
+"main.gd_not used" -text -whitespace

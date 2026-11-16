@@ -40,8 +40,8 @@ extends CanvasLayer
 
 #region State
 ## The currently selected GaussianSplat node (or null)
-var selected_node: GaussianSplat:
-	get: return viewer.get_selected_model() if is_instance_valid(viewer) else null
+var selected_node: Node3D:
+	get: return viewer.get_selected_asset() if is_instance_valid(viewer) else null
 	set(value):
 		if is_instance_valid(viewer): viewer.select_model_id(value.model_id if is_instance_valid(value) else "")
 
@@ -56,6 +56,8 @@ var _user_is_editing := false
 var _numeric_before:Dictionary={}
 var _numeric_model_id:=""
 var _numeric_node:WeakRef
+var _pending_numeric:Dictionary={}
+var _numeric_finish_pending:=false
 
 ## Preloaded ObjectListItem scene for performance
 var _object_list_item_scene: PackedScene = preload("res://modules/gaussian_splatting/UI/ObjectListItem.tscn")
@@ -83,13 +85,16 @@ func _ready() -> void:
 	for axis in range(3):
 		get_node("%Scale"+["X","Y","Z"][axis]).value_changed.connect(_on_axis_scale_changed.bind(axis))
 	%CastShadow.toggled.connect(func(value):
-		if not _is_updating_ui and is_instance_valid(selected_node):selected_node.cast_gaussian_shadows=value
+		if not _is_updating_ui and selected_node is GaussianSplat:selected_node.cast_gaussian_shadows=value
 	)
 	%ReceiveShadow.toggled.connect(func(value):
-		if not _is_updating_ui and is_instance_valid(selected_node):selected_node.receive_gaussian_shadows=value
+		if not _is_updating_ui and selected_node is GaussianSplat:selected_node.receive_gaussian_shadows=value
 	)
 	%ContentKind.item_selected.connect(func(index):
 		if not _is_updating_ui and is_instance_valid(selected_node):selected_node.import_kind=index as GaussianSplat.ImportKind
+	)
+	%LockTransform.toggled.connect(func(value):
+		if not _is_updating_ui and is_instance_valid(selected_node):selected_node.transform_locked=value;_update_transform_controls_enabled(true)
 	)
 	%EnterEnvironment.pressed.connect(func():viewer.enter_environment(selected_node))
 	%Search.text_changed.connect(func(_value):_filter_rows())
@@ -136,6 +141,8 @@ func _connect_signals() -> void:
 
 
 func _process(_delta: float) -> void:
+	if is_instance_valid(viewer):_apply_pending_numeric()
+	if is_instance_valid(viewer):_update_transform_controls_enabled(is_instance_valid(selected_node))
 	# Keep transform UI in sync if a node is selected
 	# This handles external changes (e.g., animation, scripted movement)
 	# [FIX] Skip sync while user is actively editing a spinbox
@@ -153,7 +160,7 @@ func _refresh_object_list() -> void:
 			child.queue_free()
 	
 	# Check if viewer has any managed splats
-	if not is_instance_valid(viewer) or viewer.managed_splats.is_empty():
+	if not is_instance_valid(viewer) or viewer.managed_assets.is_empty():
 		no_objects_label.show()
 		_clear_selection()
 		return
@@ -161,7 +168,7 @@ func _refresh_object_list() -> void:
 	no_objects_label.hide()
 	
 	# Create list items for each managed node
-	for node in viewer.managed_splats.keys():
+	for node in viewer.managed_assets:
 		if not is_instance_valid(node):
 			continue
 		
@@ -191,8 +198,8 @@ func _refresh_object_list() -> void:
 	
 	_filter_rows()
 	# Auto-select first if nothing selected
-	if not is_instance_valid(selected_node) and viewer.managed_splats.size() > 0:
-		for candidate in viewer.managed_splats.keys():
+	if not is_instance_valid(selected_node) and viewer.managed_assets.size() > 0:
+		for candidate in viewer.managed_assets:
 			if is_instance_valid(candidate):
 				_on_object_selected(candidate)
 				break
@@ -206,7 +213,7 @@ func _on_viewer_load_completed(_total_count: int) -> void:
 
 #region Selection & Transform
 ## Called when user clicks an object in the list
-func _on_object_selected(node: GaussianSplat) -> void:
+func _on_object_selected(node: Node3D) -> void:
 	if not is_instance_valid(node) or not node.is_loaded:
 		_clear_selection()
 		return
@@ -233,6 +240,7 @@ func _clear_selection() -> void:
 
 
 func _update_transform_controls_enabled(enabled: bool) -> void:
+	enabled=enabled and not viewer.model_navigation_active and not viewer.camera_controller.has_movement_blocker("model_transform") and (not is_instance_valid(selected_node) or not selected_node.transform_locked)
 	pos_x.editable = enabled
 	pos_y.editable = enabled
 	pos_z.editable = enabled
@@ -243,7 +251,7 @@ func _update_transform_controls_enabled(enabled: bool) -> void:
 	reset_button.disabled = not enabled
 	for control in [%ScaleX,%ScaleY,%ScaleZ]:control.editable=enabled
 	%ContentKind.disabled=not enabled;%EnterEnvironment.disabled=not enabled
-	%CastShadow.disabled=not enabled;%ReceiveShadow.disabled=not enabled
+	%CastShadow.disabled=not enabled or not selected_node is GaussianSplat;%ReceiveShadow.disabled=not enabled or not selected_node is GaussianSplat
 
 
 ## Syncs UI spinbox values to the selected node's current transform
@@ -271,8 +279,9 @@ func _sync_ui_to_node_transform() -> void:
 	%ScaleX.value=selected_node.scale.x;%ScaleY.value=selected_node.scale.y;%ScaleZ.value=selected_node.scale.z
 	%ContentKind.select(int(selected_node.import_kind))
 	%EnterEnvironment.disabled=viewer.resolve_import_kind(selected_node)!=GaussianSplat.ImportKind.ENVIRONMENT
-	%CastShadow.button_pressed=selected_node.cast_gaussian_shadows
-	%ReceiveShadow.button_pressed=selected_node.receive_gaussian_shadows
+	%CastShadow.set_pressed_no_signal(selected_node.cast_gaussian_shadows if selected_node is GaussianSplat else false)
+	%ReceiveShadow.set_pressed_no_signal(selected_node.receive_gaussian_shadows if selected_node is GaussianSplat else false)
+	%LockTransform.set_pressed_no_signal(selected_node.transform_locked)
 	
 	_is_updating_ui = false
 
@@ -288,8 +297,8 @@ func _update_info_labels() -> void:
 		inst_id = viewer._node_to_instance_id[selected_node]
 	
 	instance_id_label.text = "  Instance ID: %d" % inst_id
-	splat_count_label.text = "  Splat Count: %s" % _format_number(selected_node.splat_count)
-	buffer_offset_label.text = "  Buffer Offset: %d" % selected_node.buffer_offset
+	splat_count_label.text = ("  Mesh vertices: %s" % _format_number(selected_node.vertex_count)) if selected_node is GSSceneMesh else "  Splat Count: %s" % _format_number(selected_node.splat_count)
+	buffer_offset_label.text = ("  Native Godot meshes · glass uses native fallback" if selected_node.transparent_surfaces>0 else "  Native Godot opaque meshes") if selected_node is GSSceneMesh else "  Buffer Offset: %d" % selected_node.buffer_offset
 
 
 func _update_list_selection_visuals() -> void:
@@ -298,7 +307,7 @@ func _update_list_selection_visuals() -> void:
 			continue
 		
 		var reference:WeakRef=item.get_meta("splat_node",null)
-		var stored_node:GaussianSplat=reference.get_ref() if reference else null
+		var stored_node:Node3D=reference.get_ref() if reference else null
 		var select_button: Button = item.get_node("%SelectButton")
 		
 		if is_instance_valid(stored_node) and viewer.selected_model_ids.has(stored_node.model_id):
@@ -313,18 +322,38 @@ func _update_list_selection_visuals() -> void:
 #region Transform Handlers (Live Update)
 func _begin_numeric_edit()->void:
 	_user_is_editing=true
+	_numeric_finish_pending=false
+	if not _numeric_before.is_empty():return
 	if is_instance_valid(selected_node):
 		_numeric_node=weakref(selected_node)
 		_numeric_model_id=selected_node.model_id;_numeric_before={_numeric_model_id:selected_node.global_transform}
 func _finish_numeric_edit()->void:
 	_user_is_editing=false
-	var edited:GaussianSplat=_numeric_node.get_ref() if _numeric_node else null
+	if not _pending_numeric.is_empty():_numeric_finish_pending=true;return
+	var edited:Node3D=_numeric_node.get_ref() if _numeric_node else null
 	if not _numeric_before.is_empty() and is_instance_valid(edited) and edited.model_id==_numeric_model_id:
 		viewer.commit_transform_edit(_numeric_before,{_numeric_model_id:edited.global_transform})
 	_numeric_before.clear();_numeric_model_id="";_numeric_node=null
+func _apply_pending_numeric()->void:
+	if _pending_numeric.is_empty():return
+	if viewer.selected_model_id!=_numeric_model_id:_pending_numeric.clear();_finish_numeric_edit();return
+	if viewer.apply_asset_edits(_pending_numeric,true):
+		_pending_numeric.clear()
+		if _numeric_finish_pending:_numeric_finish_pending=false;_finish_numeric_edit()
 func _numeric_edit(kind:String,axis:int,value:float)->void:
-	if _is_updating_ui or not is_instance_valid(selected_node):return
+	if _is_updating_ui or not is_instance_valid(selected_node) or selected_node.transform_locked or viewer.model_navigation_active:return
+	if viewer.camera_controller.has_movement_blocker("model_transform"):return
 	var before:Dictionary={selected_node.model_id:selected_node.global_transform}
+	if selected_node is GSSceneMesh and viewer.mesh_edit_collisions_enabled:
+		if _numeric_before.is_empty():_numeric_before=before;_numeric_node=weakref(selected_node);_numeric_model_id=selected_node.model_id
+		var pose:Transform3D=_pending_numeric.get(selected_node.model_id,selected_node.global_transform)
+		if kind=="position":pose.origin[axis]=value
+		elif kind=="rotation":
+			var rotation:=pose.basis.get_euler();rotation[axis]=deg_to_rad(value);pose.basis=Basis.from_euler(rotation).scaled_local(pose.basis.get_scale())
+		elif kind=="scale":
+			var scaling:=pose.basis.get_scale();scaling[axis]=value;pose.basis=Basis.from_euler(pose.basis.get_euler()).scaled_local(scaling)
+		elif kind=="uniform":pose.basis=Basis.from_euler(pose.basis.get_euler()).scaled_local(Vector3.ONE*value)
+		_pending_numeric={selected_node.model_id:pose};_numeric_finish_pending=not _user_is_editing;_apply_pending_numeric();return
 	if kind=="position":
 		var v:=selected_node.global_position;v[axis]=value;selected_node.global_position=v
 	elif kind=="rotation":
@@ -342,15 +371,18 @@ func _on_rot_z_changed(value:float)->void:_numeric_edit("rotation",2,value)
 func _on_scale_changed(value:float)->void:_numeric_edit("uniform",0,value)
 func _on_axis_scale_changed(value:float,axis:int)->void:_numeric_edit("scale",axis,value)
 func _on_reset_transform_pressed()->void:
-	if not is_instance_valid(selected_node):return
+	if not is_instance_valid(selected_node) or selected_node.transform_locked or viewer.model_navigation_active:return
 	var before:Dictionary={selected_node.model_id:selected_node.global_transform}
+	if selected_node is GSSceneMesh and viewer.mesh_edit_collisions_enabled:
+		_numeric_before=before;_numeric_node=weakref(selected_node);_numeric_model_id=selected_node.model_id
+		_pending_numeric={selected_node.model_id:Transform3D.IDENTITY};_numeric_finish_pending=true;_apply_pending_numeric();return
 	selected_node.global_transform=Transform3D.IDENTITY
 	viewer.commit_transform_edit(before,{selected_node.model_id:selected_node.global_transform});_sync_ui_to_node_transform()
 #endregion
 
 
 #region Visibility & Delete
-func _on_visibility_toggled(node: GaussianSplat, button: Button) -> void:
+func _on_visibility_toggled(node: Node3D, button: Button) -> void:
 	if not is_instance_valid(node):
 		return
 	
@@ -358,7 +390,7 @@ func _on_visibility_toggled(node: GaussianSplat, button: Button) -> void:
 	button.modulate.a=1.0 if node.visible else 0.35
 
 
-func _on_delete_pressed(node: GaussianSplat) -> void:
+func _on_delete_pressed(node: Node3D) -> void:
 	if not is_instance_valid(node):
 		return
 	
@@ -443,7 +475,7 @@ func hide_panel() -> void:
 #endregion
 
 func select_model(identifier: String) -> bool:
-	for node in viewer.managed_splats:
+	for node in viewer.managed_assets:
 		if is_instance_valid(node) and node.model_id == identifier and node.is_loaded:
 			_on_object_selected(node)
 			show_panel()
@@ -461,5 +493,5 @@ func _filter_rows()->void:
 	for item in object_list.get_children():
 		if item==no_objects_label:continue
 		var reference:WeakRef=item.get_meta("splat_node",null)
-		var model:GaussianSplat=reference.get_ref() if reference else null
+		var model:Node3D=reference.get_ref() if reference else null
 		item.visible=is_instance_valid(model) and (query.is_empty() or query in model.file_path.to_lower())

@@ -1,0 +1,24 @@
+Isolated project: build\mesh-physics-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS default Fast geometry becomes usable without detailed decomposition
+FAST FIXTURE { "quality": 0, "cache_hit": true, "milliseconds": 1, "shapes": 1 }
+PASS prepared geometry persists across separate application processes
+PASS Detailed remains available on the same loaded model
+PASS Detailed retains the opening between the moving model's legs
+PASS switching back reuses prepared Fast geometry
+PASS cached geometry supports rotated and nonuniformly scaled roots
+PASS the real reported truck imports for the timing check
+REAL TRUCK FAST { "quality": 0, "cache_hit": true, "milliseconds": 3, "shapes": 187 } wall_ms=46 mesh_parts=187
+PASS the real truck's Fast collisions prepare within ten seconds
+PASS the real truck reopens using its persistent shape cache
+MOTION PREPARATION CHECKS COMPLETE: 0 failures
+ 
+Process exit: 0

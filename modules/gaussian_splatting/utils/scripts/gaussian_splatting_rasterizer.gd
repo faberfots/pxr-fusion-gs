@@ -560,7 +560,7 @@ func get_stats() -> Dictionary:
 	return snapshot
 
 static func get_render_capabilities() -> Dictionary:
-	return {"opaque_depth":true,"orthographic_projection":true,"independent_model_transform3d":true,"transparent_mesh_interleaving":true,"transparent_mesh_contract":"GSAlphaMesh3D: rigid triangles, unshaded StandardMaterial3D Alpha/Mix, albedo/UV/color/cull","arbitrary_transparent_shaders":false,"gaussian_shadow_casting":true,"gaussian_shadow_receiving":true,"shadow_contract":"one directional light, deep opacity map, explicit GSShadowReceiver3D and opt-in Gaussian receivers","xr_multiview":false,"llvmpipe_scene_msaa_modes":[Viewport.MSAA_DISABLED,Viewport.MSAA_4X]}
+	return {"opaque_depth":true,"gs_occludes_native_meshes":true,"native_meshes_occlude_gs":true,"mixed_occlusion_contract":"Gaussian opacity and resolved opaque depth compose partial foreground/background coverage; visual occlusion does not create physical GS colliders","orthographic_projection":true,"independent_model_transform3d":true,"transparent_mesh_interleaving":true,"transparent_mesh_contract":"GSAlphaMesh3D: rigid triangles, unshaded StandardMaterial3D Alpha/Mix, albedo/UV/color/cull","arbitrary_transparent_shaders":false,"gaussian_shadow_casting":true,"gaussian_shadow_receiving":true,"shadow_contract":"one directional light, deep opacity map, explicit GSShadowReceiver3D and opt-in Gaussian receivers","xr_multiview":false,"llvmpipe_scene_msaa_modes":[Viewport.MSAA_DISABLED,Viewport.MSAA_4X]}
 
 static func scene_msaa_mode(requested:int,device_name:String)->int:
 	# Godot 4.6.2 retains the requested sample count after its Vulkan driver

@@ -10,6 +10,9 @@ var policy := AIAccessPolicy.new()
 var segmentation:CortexSegmentationService
 var connection_probe:CortexConnectionProbe
 var local_runtime:CortexLocalRuntime
+var conversations:=CortexConversations.new()
+var _chat_ticket:Dictionary={}
+var _chat_history:Array=[]
 var _is_analyzing := false
 var _generation := 0
 var _llm_client: LLMClient
@@ -49,6 +52,34 @@ func _experience_changed()->void:
 	var id:String=SIConfig.settings().experience().preset
 	if id==_experience_id:return
 	_experience_id=id;_settings_changed(0)
+func ask_in_chat(prompt:String)->Error:
+	if _is_analyzing:return ERR_BUSY
+	if prompt.strip_edges().is_empty() or prompt.length()>16000:return ERR_INVALID_PARAMETER
+	var profile:=SIConfig.settings().analysis_profile()
+	var key:=CortexConversations.binding(profile,SIConfig.settings().experience().preset)
+	_chat_history=conversations.history(key,2000 if profile.provider=="qwen" else 12000)
+	_chat_ticket=conversations.begin_turn(prompt,key,profile.name)
+	if _chat_ticket.is_empty():_chat_history=[];return ERR_INVALID_DATA
+	if CortexPresets.kind(SIConfig.settings().experience().preset)=="private":analyze_privately(prompt)
+	else:analyze_scene(prompt)
+	return OK
+func new_chat()->String:
+	cancel_analysis("Stopped because you opened a new chat.")
+	return conversations.create_chat()
+func select_chat(id:String)->Error:
+	if id==conversations.active().id:return OK
+	var exists:=false
+	for chat in conversations.snapshot().chats:
+		if chat.id==id:exists=true
+	if not exists:return ERR_DOES_NOT_EXIST
+	cancel_analysis("Stopped because you switched chats.")
+	return conversations.select_chat(id)
+func delete_chat(id:String)->Error:
+	if id==conversations.active().id:cancel_analysis("Stopped because this chat was deleted.")
+	return conversations.delete_chat(id)
+func _finish_chat(text:String,state:String)->void:
+	var ticket:=_chat_ticket;_chat_ticket={};_chat_history=[]
+	if not ticket.is_empty():conversations.finish_turn(ticket,text,state)
 func analyze_privately(prompt:String)->void:
 	# This explicit human action starts only the bundled, fixed loopback assistant.
 	if _is_analyzing:return
@@ -102,11 +133,12 @@ func analyze_scene(prompt: String) -> void:
 		for item in context.visible_objects:
 			if item.model_id in selected:visible.append(item)
 		context.visible_objects=visible
-	_llm_client.send_request(prompt,context,ViewportCapture.encode_image_to_base64(image) if image else "",profile)
-func cancel_analysis() -> void:
+	_llm_client.send_request(prompt,context,ViewportCapture.encode_image_to_base64(image) if image else "",profile,_chat_history)
+func cancel_analysis(reason:String="Cancelled. You can ask again when ready.") -> void:
 	_generation += 1
 	_llm_client.cancel()
 	_is_analyzing = false
+	_finish_chat(reason,"cancelled")
 func _connection_identity()->String:
 	var profile:=SIConfig.settings().analysis_profile();return str(profile.id)+"|"+str(profile.endpoint)
 func _settings_changed(_revision:int)->void:
@@ -172,14 +204,16 @@ func capture_segmentation()->void:
 func scene_signature(viewer:GaussianSplattingViewer)->String:
 	if not is_instance_valid(viewer) or not viewer.get_camera():return ""
 	var camera:=viewer.get_camera()
-	return (str(viewer.get_model_snapshot())+str(camera.global_transform)+str([camera.fov,camera.projection,camera.size,camera.keep_aspect,camera.frustum_offset,viewer.get_viewport().size])+str(viewer.get("_generation"))).sha256_text()
+	return (str(viewer.get_asset_snapshot())+str(camera.global_transform)+str([camera.fov,camera.projection,camera.size,camera.keep_aspect,camera.frustum_offset,viewer.get_viewport().size])+str(viewer.get("_generation"))).sha256_text()
 func get_debug_context() -> String:
 	return SceneContext.get_context_as_text()
 func _complete(response: String) -> void:
 	_is_analyzing = false
+	_finish_chat(response,"complete")
 	analysis_completed.emit(response)
 func _fail(message: String) -> void:
 	_is_analyzing = false
+	_finish_chat(message,"failed")
 	analysis_failed.emit(message)
 func _on_tool_calls(calls: Array) -> void:
 	var feedback: Array[String] = []

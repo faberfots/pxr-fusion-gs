@@ -146,7 +146,7 @@
       ],
       "verification": [
         "lifecycle_checks: authored startup survives initialization",
-        "Real-main startup and studio_checks pass; hierarchy inspected through Godot-rendered 1142×648 and 1908×960 review captures.",
+        "Real-main startup and studio_checks pass; hierarchy inspected through Godot-rendered 1142\u00d7648 and 1908\u00d7960 review captures.",
         "ui_scale_checks: actual pointer clicks, preset popup density, floating-panel and scene-navigator dragging, normalized saved position, load-dialog centering, status-strip anchoring and rig collapse pass; rendered review at 1142x648 and 1908x960.",
         "Rendered Sky & time controls and actual input are checked at 1142x648 and 1908x960; scenes without Sky3D expose an unavailable state."
       ],
@@ -440,7 +440,11 @@
         "2026-11-13: added per-pixel fragment/Gaussian interleaving for explicit rigid unshaded Alpha/Mix participants, linear albedo textures and native fallback; the existing atlas and sort remain authoritative.",
         "Added directional deep-opacity Gaussian shadows from the real atlas, cache invalidation for transforms/visibility, per-model casting, explicit ordinary-material receivers and opt-in Gaussian receiving. Captured radiance is preserved by default.",
         "Renderer capability metadata now names the supported participant and directional-shadow contracts and explicitly excludes arbitrary shaders and XR. See scene-hud-and-hybrid-rendering.md.",
-        "Receiver shadow passes now follow the receiving BaseMaterial3D cull mode. The transparent closed reference grid no longer draws a displaced underside silhouette. Explicit double-sided materials retain that policy; scan colors and baked shadows are untouched."
+        "Receiver shadow passes now follow the receiving BaseMaterial3D cull mode. The transparent closed reference grid no longer draws a displaced underside silhouette. Explicit double-sided materials retain that policy; scan colors and baked shadows are untouched.",
+        "2026-11-16 mixed scenes: Runtime GLB/glTF roots now join GS scene depth, shared manipulation/placement and native collision; soft native sky fill avoids black PBR shadows through the existing Sky3D owner. Arbitrary shaded glass keeps native fallback.",
+        "2026-11-16 collision follow-up: Imported native physics helpers retain collision and picking but no longer cover materials with cyan debug geometry. The global Visible Collision Shapes setting stays unchanged.",
+        "2026-11-16 solid editing follow-up: Mutual GS/native occlusion is recorded as an app feature and in the authoritative renderer capabilities. The reference grid and its Gaussian-shadow adapter preserve opaque native pixels below Y=0.",
+        "2026-11-16 Fast shape follow-up leaves mutual GS/native occlusion, reference-grid rendering, Gaussian shading and GS resource budgets unchanged."
       ],
       "verification": [
         "rendering_checks: opaque green mesh hides Gaussian; perspective and orthographic projection pass",
@@ -452,7 +456,11 @@
         "Official optimized Windows template loads all 7,959,786 Bali/Suzuki Gaussians in 67,561 ms, builds a directional shadow cache with 7,956,764 projected casters in 303 ms, and integrates a transparent participant with the unchanged full population. No export warnings/errors.",
         "Godot 4.6.2 Linux software Vulkan (llvmpipe, MSAA disabled) passes the actual transparent texture/intersection/resize/release tests and cast/receive shadow pixel tests. This is software-renderer evidence, not additional physical GPU or XR qualification.",
         "Combined alpha/shadow quality migration and forced rebuild rollback preserve actual shadow pixels without reopening the source; a surviving ordinary receiver returns to its original appearance after viewer teardown.",
-        "grid_shadow_checks: actual pixels on a transparent 1m-thick colliding CSG box retain the top shadow and remove the underside duplicate; live cull-mode changes and shadow-off recovery pass. Existing shadow/hybrid/depth tests pass at their fixture dimensions."
+        "grid_shadow_checks: actual pixels on a transparent 1m-thick colliding CSG box retain the top shadow and remove the underside duplicate; live cull-mode changes and shadow-off recovery pass. Existing shadow/hybrid/depth tests pass at their fixture dimensions.",
+        "2026-11-16: Real statue/city imports, GS/mesh visible picking in both depth orders, native collision sweeps and the optimized full-population mixed scene pass; before/after shadow images and a UI-free material pixel check are retained.",
+        "Real Jesus drop reproduces 34,272 cyan pixels before and zero after. Native material/picking and GS residency checks pass. See mesh-navigation-qualification.json; broader rendering/XR gaps remain unchanged.",
+        "Perspective/orthographic pixel checks cover GS in front, exposed native portions and native geometry in front. The below-grid regression fails before and passes after. Shadow/hybrid/depth and optimized-template checks pass; broader unsupported shader/XR boundaries remain unchanged.",
+        "Mixed occlusion, grid shadows, GPU loading and optimized-template hybrid/native rendering checks pass; see fast-shapes-qualification.json. Broader rendering/XR boundaries remain unchanged."
       ],
       "remaining": [
         "Arbitrary custom transparent shaders/refraction, skinning/blend shapes/particles and XR multiview remain outside the implemented contract. No headset is available. The supported participant transparency and directional cast/receive shadow features are implemented; the broader P.3.6 finding remains partially implemented.",
@@ -472,7 +480,8 @@
       ],
       "verification": [
         "rendering_checks: pick returns the actual Gaussian world point",
-        "Overlapping-model picking, real left-click input under stretched viewport coordinates, cancellation and subsequent request checks pass."
+        "Overlapping-model picking, real left-click input under stretched viewport coordinates, cancellation and subsequent request checks pass.",
+        "2026-11-16: Actual GLB drop and visible-model picking pass with collision debugging both off and on, preserving the existing GS population."
       ],
       "remaining": []
     },
@@ -606,7 +615,7 @@
       ],
       "verification": [
         "lifecycle_checks: live resize preserves loaded data; visual main-scene review",
-        "hybrid_checks: resize to 96×64 and restore, actual integrated presentation and cleanup pass."
+        "hybrid_checks: resize to 96\u00d764 and restore, actual integrated presentation and cleanup pass."
       ],
       "remaining": []
     },
@@ -699,12 +708,16 @@
         "2026-11-13: Floating panels and dialogs retain camera input ownership; protected flight uses one controller-owned floor and swept sphere against physical colliders, with an explicit unrestricted-flight option.",
         "Scaled panel drags use incoming pointer-event coordinates for one-to-one movement and retain existing camera blockers; clamps and obstacle bounds use rendered UI extents.",
         "Held left drag on the main medallion uses the existing named floating-panel camera blocker and releases on mouse-up/focus loss. Placement claims its left-click/Enter/Escape gestures while retaining camera navigation; GS placement readbacks cannot trigger legacy camera focusing.",
-        "2026-11-14 environment/Sky3D follow-up: Environment import, Home, Enter environment and single-environment framing use the established weighted-centre / 10th-percentile floor + eye-height free-look view, scoped to that environment. Object placement preserves this view. Camera protection and overall Frame all behavior remain."
+        "2026-11-14 environment/Sky3D follow-up: Environment import, Home, Enter environment and single-environment framing use the established weighted-centre / 10th-percentile floor + eye-height free-look view, scoped to that environment. Object placement preserves this view. Camera protection and overall Frame all behavior remain.",
+        "2026-11-16: Native environments provide actual triangle floors/walls instead of an invisible reference-plane blocker. Optional Drive selected GLB shares the controller input blockers, protected follow camera and temporary physical camera volume.",
+        "2026-11-16: Solid model requests run in physics and reuse existing camera/blocker ownership; native placement uses reversible instance transparency to avoid self-occluding GS target picks."
       ],
       "verification": [
         "lifecycle_checks: independent blockers and coordinated camera action; rendered UI review",
         "studio_checks: below-floor recovery, free-flight opt-out, a high-speed physical wall sweep and orbit-floor protection pass.",
-        "Environment entry, Home with an object selected, orbit-to-free switching, stable camera pose and independent existing-object transforms pass environment_import_checks."
+        "Environment entry, Home with an object selected, orbit-to-free switching, stable camera pose and independent existing-object transforms pass environment_import_checks.",
+        "Camera doorway/wall/floor sweeps, floors below the reference grid, model-camera contact, panel blocker pause, focus release, cancellation, and denied/malformed/authorized Cortex camera handoffs pass locally.",
+        "Drive, ordinary/GS/native placement, dialog ownership, responsive controls, cancellation and exact save/reopen continue passing. The migration fixture waits for its actual transaction before reading renderer resources."
       ],
       "remaining": []
     },
@@ -741,7 +754,11 @@
         "Model toolbar and visible gizmo handles follow the shared 0.67 density. The full-viewport overlay stays unscaled so projected pivots and world-transform math remain aligned.",
         "2026-11-14: model toolbar uses the existing floating-panel owner with an authored dotted drag grip. User placement persists; automatic placement stops overriding it; System layout reset restores automatic placement. Scene persistence stores full Transform3D matrices rather than decomposed Euler/scale values.",
         "Viewer-owned GSPlacementSession combines real GS GPU picks, ordinary collision queries and a reference-floor fallback. Base-centre/origin anchors update the existing model transform in rendered-world coordinates, preserving its basis under renderer overrides. Cursor/view snapshots reject stale confirmations; the guide floor cannot override visible scan points below it.",
-        "2026-11-14 environment/Sky3D follow-up: Auto classification resolves once for interactive imports so later object scaling cannot reclassify the object as an environment. Explicit Object and Environment overrides handle heuristic exceptions; changing a pending preview to Environment restores its initial source transform before entry."
+        "2026-11-14 environment/Sky3D follow-up: Auto classification resolves once for interactive imports so later object scaling cannot reclassify the object as an environment. Explicit Object and Environment overrides handle heuristic exceptions; changing a pending preview to Environment restores its initial source transform before entry.",
+        "2026-11-16 mixed scenes: The existing gizmo, numeric controls, stable selection and undo/redo now edit GS and native mesh roots, including mixed groups and transform locks.",
+        "2026-11-16: Optional rigid-model walking uses mesh-derived compound convex pieces; the imported root retains its basis/pose ownership. Free XYZ Edit mode is preserved and isolated during Drive. Exiting creates one existing transform-undo transaction.",
+        "2026-11-16: Solid defaults on for rigid native gizmo/numeric movement, rotation and scale. One prepared geometry cache serves Solid and Drive; Solid off preserves unrestricted authoring. Existing affine matrices, small non-singular GS scales and exact authored scene/undo poses are retained.",
+        "2026-11-16: Ordinary Solid edits default to native per-mesh QuickHull with an authored Fast/Detailed selector and persisted view.editing.shape_quality. The old Detailed settings and Drive clearances remain available. A model-owned persistent content/engine/quality cache is validated and atomically published."
       ],
       "verification": [
         "World-transform bounds and selection lifecycle checks; UI source/render review",
@@ -753,7 +770,11 @@
         "Actual-input color_transform_checks and group/numeric studio_checks pass after scaling; ui_scale_checks verifies the visible pivot remains attached to the selected model.",
         "Actual pointer toolbar dragging, saved position, camera isolation and reset pass at 1142x648 and 1908x960. Composition round trips retain independent world transforms, including nonuniform/reflected scale and repeated sources.",
         "launcher_drag_checks and placement_checks pass at 1142x648 and 1908x960: fresh layout, drag versus click, both rig states, preference reload, focus/edge behavior, GS/native/floor placement, renderer overrides, view-change/sky rejection, cancellation, saved transforms and existing scene-mode preservation. placement_routes_checks covers picker/drop/recent paths, GSRES, .pxrscene bypass, joint main-rig dragging while pending and Clear.",
-        "Environment/Object overrides, retained full matrices, object scaling, picker/drop behavior and existing placement/transform input checks pass."
+        "Environment/Object overrides, retained full matrices, object scaling, picker/drop behavior and existing placement/transform input checks pass.",
+        "2026-11-16: Real pointer GLB move/rotate/scale, mixed world deltas across GS source conversion, exact nonuniform scene round trips and read-only locks pass.",
+        "Single concave-mesh gap/post fixture, limb collision, sliding, rotated nonuniform scale, locked/environment denial, exact undo and mixed-scene save/reopen pass. The supplied Jesus GLB prepares 113 pieces on demand; optimized-template walking also passes.",
+        "Real interactive Jesus/truck contact, native floors below the grid, grouped translation/blocked scale integrity, rotation/scale contacts, locks, source population and exact undo/save/reopen pass. See solid-edit-qualification.json for the precise convex/stepped contract.",
+        "The real 187-mesh truck prepares in 1453 ms cold including cache writing; a fresh process is ready in 46 ms (3 ms cache work). Real truck floor/statue contact, saved policy, corrupt-cache recovery, nonuniform roots and Detailed navigation pass. Fast concavity tradeoffs and uncached Detailed cost are explicit."
       ],
       "remaining": []
     },
@@ -822,11 +843,13 @@
       "status": "fully implemented",
       "changes": [
         "Frame-stamped schema-versioned context from viewer snapshots, stable IDs, effective visibility/frustum and spatial provider snapshots",
-        "2026-11-15: Cortex Ask supports visible/selected context scope; segmentation selection requires the captured camera/scene signature to remain valid."
+        "2026-11-15: Cortex Ask supports visible/selected context scope; segmentation selection requires the captured camera/scene signature to remain valid.",
+        "2026-11-16 mixed scenes: The existing authoritative scene context now identifies native asset type, vertex population and stable root identity; native transforms invalidate Cortex captured selection."
       ],
       "verification": [
         "rendering_checks: visible model uses the same stable identity as registry",
-        "Read-only GPU identity probing, original input/selection workflows and responsive Cortex interaction pass at 1142x648 and 1908x960."
+        "Read-only GPU identity probing, original input/selection workflows and responsive Cortex interaction pass at 1142x648 and 1908x960.",
+        "2026-11-16: Native context and stale capture checks pass; existing analyst denial and authorized operator selection/frame commands pass for native-only scenes."
       ],
       "remaining": []
     },
@@ -1116,7 +1139,11 @@
         "Added composition round-trip/import-route and operation-lifecycle checks to local verification and the existing CI workflow. Scene operations retain independent IO lifetime until cancellation drains; stopping during hashing/checkpointing releases handles and temporary checkpoints.",
         "Added launcher drag, world placement and interactive-route suites to CI definitions. Preserved prior qualified builds while preparing a separate unsigned placement build.",
         "2026-11-14 environment/Sky3D follow-up: Added environment regression and Sky3D controls suites to local checks and CI definitions; previous qualified builds are preserved. Separate environment-sky-final package uses the official optimized Windows template.",
-        "2026-11-15: Separate preserved 0.4.2 optimized Windows main/qualification packages include portable Cortex assets. CI definitions gain Cortex settings, transport, UI and token-reference checks; no new remote CI run is claimed."
+        "2026-11-15: Separate preserved 0.4.2 optimized Windows main/qualification packages include portable Cortex assets. CI definitions gain Cortex settings, transport, UI and token-reference checks; no new remote CI run is claimed.",
+        "2026-11-16 mixed scenes: GLB/glTF mixed-scene delivery uses the existing isolated checks and optimized qualification; the previous Cortex layout release is retained. Qualification can verify/reuse an already built candidate without rebuilding its PCK.",
+        "2026-11-16: Separate mesh-navigation-final and qualification candidates preserve the prior mixed-scene release. CI definitions gain debug-overlay and shape-navigation fixtures.",
+        "2026-11-16: Separate solid-edit packages preserve mesh-navigation-final. Package tooling can use an isolated app-data identity and reuses Cortex files only after source/destination SHA-256 equality; final receipts still hash every packaged file.",
+        "2026-11-16: Separate small optimized-template verification packages qualify the Fast/default shape path and actual main startup; previous full portable releases remain unchanged."
       ],
       "verification": [
         "Local native, source-free GPU/native inference and Windows rendering checks pass; full Bali + Suzuki and 2-million-point SpatialOS performance observations recorded.",
@@ -1135,7 +1162,11 @@
         "Local full-asset placement: Girl_A is placed on a real Suzuki scan point; all 447877 splats remain resident, base contact error is 0.00000011920929 world units, camera pose is preserved, and saving/reopening restores the exact placed transform. Windows Vulkan input/scene regression and optimized-template startup checks pass; see evidence/placement-receipt.json. No new remote CI/platform claim.",
         "See evidence/environment-* for before/after reproduction, full-data Bali review, regression logs, source/package receipts and real-main optimized startup. No new commit, remote CI run, signing or cross-platform/device claim is made.",
         "Loading A-F qualification: local source/core and preservation suites pass, including full 1908x960 Bali/object placement and 1142/1908 input checks. The optimized template loads all 7,959,786 Bali/Suzuki splats in 8,404 ms, preserves independent transforms, composes transparency, builds directional Gaussian shadows and completes real native inference. Real-main startup and all 119 delivery-package hashes pass; the previous 119-file qualified build is unchanged. Details: docs/performance/loading-receipt.json. CI definitions include the new loading suites; no new remote CI run or signing/platform claim is made.",
-        "Final source-free release passes full Bali/Suzuki (7,959,786 splats; 7,584–9,912 ms isolated template samples, with a separately recorded 37,200 ms contended repeat), shadows, transparency, independent XYZ transforms and real local AI. Main startup, responsive UI, 26 affected preservation suites including SpatialOS and app-local dependency probes pass at their stated scopes; prior loading-delivery remains intact."
+        "Final source-free release passes full Bali/Suzuki (7,959,786 splats; 7,584\u20139,912 ms isolated template samples, with a separately recorded 37,200 ms contended repeat), shadows, transparency, independent XYZ transforms and real local AI. Main startup, responsive UI, 26 affected preservation suites including SpatialOS and app-local dependency probes pass at their stated scopes; prior loading-delivery remains intact.",
+        "2026-11-16: See mixed-scenes-qualification.json: real supplied GLBs, full Bali/Suzuki, 38 initial plus 12 post-lighting checks, portable dependencies/rollback, real exported MobileSAM/Qwen and actual main startup pass locally.",
+        "See mesh-navigation-qualification.json for 28 preservation suites, final input-handoff follow-ups, true optimized-template Drive/full Bali-Suzuki/native GLB/real MobileSAM-Qwen checks, actual main startup and matched source/package receipts. No new remote CI, signing or hardware claim.",
+        "26 preservation suites with retained diagnostics and final follow-ups, real model contact, actual optimized-template Solid/Drive/grid/full-data/native inference and main startup are recorded in solid-edit-qualification.json. F: holds the additional portable packages and isolated qualification data; no existing release was replaced. No new remote CI, signing or platform claim.",
+        "12 focused preservation suites plus real-asset Solid and cold/fresh-process cache checks pass. Receipt/source hashes and retained diagnostic are recorded in fast-shapes-qualification.json. No new full-data/native-inference/platform/publication claim."
       ],
       "remaining": [
         "Unsigned Windows Vulkan/CPU qualification does not provide a Windows signing identity or certify additional GPU vendors, operating systems or XR devices. These release qualification boundaries remain open; the reproduced startup crash, export RID leak and software-MSAA depth failure are addressed."

@@ -1,0 +1,228 @@
+{
+	"format": "PXRFusion GS scene",
+	"models": [
+		{
+			"bytes": 1919480116,
+			"cast_shadow": true,
+			"id": "04891f4e8dc2eaf039bbf96be0bf4e5e",
+			"import_kind": 2,
+			"name": "Bali_Ressort",
+			"receive_shadow": false,
+			"relative_source": "../../Downloads/3DModels_n_3DG_SAssets/GS_Samples/Bali_Ressort.ply",
+			"sha256": "e920f2472899237dd78647b54c85226b9aeaaf4c549fa2ae3bcd7959c94cd77d",
+			"source": "C:/Users/User/Downloads/3DModels_n_3DG_SAssets/GS_Samples/Bali_Ressort.ply",
+			"splats": 7739833,
+			"transform": [
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0
+			],
+			"visible": true
+		},
+		{
+			"bytes": 56526684,
+			"cast_shadow": true,
+			"id": "3e3d6942a8994b2b5e2a3c8be16ffa81",
+			"import_kind": 1,
+			"name": "Girl_A",
+			"receive_shadow": false,
+			"relative_source": "../../Downloads/3DModels_n_3DG_SAssets/GS_Samples/Girl_A.ply",
+			"sha256": "4ab4bff1bc8cf18fe51fcbfa700604249705ded642761f155a70f4c42d101007",
+			"source": "C:/Users/User/Downloads/3DModels_n_3DG_SAssets/GS_Samples/Girl_A.ply",
+			"splats": 227924,
+			"transform": [
+				-0.20103800296783447,
+				0.0,
+				-0.26295384764671326,
+				0.0,
+				0.3310000002384186,
+				0.0,
+				0.26295384764671326,
+				0.0,
+				-0.20103800296783447,
+				0.3617604076862335,
+				-1.0520473718643188,
+				1.9026000499725342
+			],
+			"visible": true
+		},
+		{
+			"bytes": 54549876,
+			"cast_shadow": true,
+			"id": "1bcfdd9581b5f87a3d015d98a1e8331b",
+			"import_kind": 1,
+			"name": "suzuki-bike-ply",
+			"receive_shadow": false,
+			"relative_source": "../../Downloads/3DModels_n_3DG_SAssets/GS_Samples/suzuki-bike-ply.ply",
+			"sha256": "c10a46c6a0ef284dc28170496deac037d7831032fc34b478a16990a7eae69612",
+			"source": "C:/Users/User/Downloads/3DModels_n_3DG_SAssets/GS_Samples/suzuki-bike-ply.ply",
+			"splats": 219953,
+			"transform": [
+				0.3310000002384186,
+				0.0,
+				0.0,
+				0.0,
+				0.3310000002384186,
+				0.0,
+				0.0,
+				0.0,
+				0.3310000002384186,
+				0.5444040298461914,
+				-1.2974932193756104,
+				1.2230935096740723
+			],
+			"visible": true
+		}
+	],
+	"selection": [
+		"3e3d6942a8994b2b5e2a3c8be16ffa81"
+	],
+	"version": 1,
+	"view": {
+		"camera": {
+			"far": 4000.0,
+			"fov": 75.0,
+			"frustum_offset": [
+				0.0,
+				0.0
+			],
+			"keep_aspect": 1,
+			"mode": "free",
+			"near": 0.05000000074505806,
+			"orbit_point": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"pose": [
+				-0.27160441875457764,
+				-1.4901161193847656e-08,
+				-0.9624089598655701,
+				-0.31590133905410767,
+				0.9445942640304565,
+				0.08915147930383682,
+				0.9090860486030579,
+				0.3282402455806732,
+				-0.2565560042858124,
+				2.738069534301758,
+				0.7029688358306885,
+				1.1399047374725342
+			],
+			"projection": 0,
+			"protected": true,
+			"size": 1.0
+		},
+		"color": {
+			"post_black_point": 0.0,
+			"post_contrast": 1.04,
+			"post_exposure": 1.0,
+			"post_saturation": 1.05,
+			"post_sharpness": 0.15,
+			"post_temperature": 0.29000000000000004,
+			"post_tint": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"post_white_point": 1.0
+		},
+		"lighting": {
+			"bias": 0.02,
+			"enabled": false,
+			"resolution": 512,
+			"strength": 0.65
+		},
+		"renderer": {
+			"basis": [
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0,
+				1.0,
+				0.0,
+				0.0,
+				0.0
+			],
+			"heatmap": 0.0,
+			"render_scale": 1.0,
+			"scale": 1.0
+		},
+		"sky": {
+			"ambient_energy": 1.0,
+			"ambient_tween_time": 3.0,
+			"auto_exposure": true,
+			"auto_exposure_max": 800.0,
+			"auto_exposure_min": 0.0,
+			"auto_exposure_scale": 0.2,
+			"auto_exposure_speed": 0.5,
+			"calendar": {
+				"day": 1,
+				"latitude": 16.0,
+				"longitude": 108.0,
+				"month": 1,
+				"system_sync": false,
+				"utc": 7.0,
+				"year": 2025
+			},
+			"camera_exposure": 1.0,
+			"cloud_intensity": 0.6,
+			"clouds_enabled": true,
+			"current_time": 9.7,
+			"enable_game_time": false,
+			"fog_enabled": false,
+			"lights_enabled": true,
+			"minutes_per_day": 15.0,
+			"moon_energy": 0.3,
+			"moon_shadow_opacity": 1.0,
+			"night_ambient": true,
+			"night_ambient_min": 0.7,
+			"show_azimuthal_grid": false,
+			"show_equatorial_grid": false,
+			"sky3d_enabled": true,
+			"sky_contribution": 1.0,
+			"sky_enabled": true,
+			"skydome_energy": 1.0,
+			"sun_energy": 1.0,
+			"sun_shadow_opacity": 1.0,
+			"tonemap_exposure": 1.0,
+			"update_interval": 0.1
+		},
+		"sun": {
+			"color": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"energy": 1.0,
+			"pose": [
+				0.0,
+				0.6787670850753784,
+				-0.7343536019325256,
+				-0.8715121150016785,
+				0.3601078987121582,
+				0.33284974098205566,
+				0.49037399888038635,
+				0.6399980783462524,
+				0.5915537476539612,
+				0.49037399888038635,
+				0.6399980783462524,
+				0.5915537476539612
+			]
+		}
+	}
+}

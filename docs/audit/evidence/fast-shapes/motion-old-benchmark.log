@@ -1,0 +1,8 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+INVENTORY parts=187 unique=187 vertices=593900 load_ms=9413
+PART 1 name=Object_6 ms=101 hulls_total=1
+PART 2 name=Object_8 ms=260 hulls_total=2
+PART 3 name=Object_11 ms=120 hulls_total=3
+BENCHMARK old milliseconds=481 hulls=3

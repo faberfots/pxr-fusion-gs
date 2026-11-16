@@ -2,15 +2,21 @@
 
 Godot 4.6 compute renderer for Gaussian PLY and versioned `.gsres` assets, with model transforms, scene management, asynchronous picking, optional cloud analysis and a separate SpatialOS point-cloud pipeline.
 
+**Mixed scenes:** import native GLB/glTF models beside GS, then select and edit either with the existing gizmo and numeric controls. Save exact mixed compositions as `.pxrscene`; **Include asset files** creates an adjacent portable bundle. See [mixed-scene usage and limits](docs/MIXED_SCENES.md).
+
+**Mutual GS/mesh occlusion:** a GLB can hide behind a scanned GS tree, with its exposed parts still visible. Opaque GLBs also hide GS behind them. This is a supported hybrid-scene feature in perspective and orthographic views, using Gaussian opacity and native depth.
+
 Open `project.godot` in Godot 4.6.2 and use Forward+ with Vulkan. The qualified local device is an NVIDIA RTX 4070 Laptop GPU on Windows. Compatibility rendering, XR, other operating systems and other GPU vendors have not been qualified.
 
 The complete finding-by-finding implementation status is in [REMEDIATION_STATUS.md](docs/audit/REMEDIATION_STATUS.md). It is generated from [remediation-status.json](docs/audit/remediation-status.json). Current architecture and validation commands are in [IMPLEMENTATION.md](docs/IMPLEMENTATION.md). Historical upstream descriptions and attribution remain in [the archive](docs/archive/upstream-README.md).
 
 ## Using the viewer
 
-- Load Gaussian PLY or GSRES from the load panel or drop a file. Loading appends by default; explicit Replace clears this viewer's models.
+- Load Gaussian PLY/GSRES or native GLB/glTF from the load panel or drop a file. Loading appends by default; the explicit Clear scene option replaces this viewer's models.
 - Right-drag for free look; use WASD/QE to move. Left-drag orbits the focus point. Clicking a visible Gaussian requests an asynchronous world-space pick.
 - Click a visible model to select it. Use the Select / Move / Rotate / Scale toolbar (keys 1–4), then drag an XYZ handle or the center handle. Escape cancels a drag. Existing camera navigation remains available away from handles. Scene Manager retains numeric transforms, visibility and deletion.
+- **Solid** defaults on for rigid GLB model edits: gizmo and numerical movement/rotation/scale stop at floors and other native meshes. **Fast** uses Godot QuickHull per mesh part; **Detailed** retains concave decomposition for precision-sensitive edits. Prepared shapes are cached across runs. Drive retains Detailed shapes for passable openings. Switch Solid off for intentional overlaps. Imported/saved poses restore exactly; environments remain freely alignable.
+- For solid movement, select an imported rigid GLB/glTF **model**, open **Camera → Drive selected GLB**, then use WASD, Shift for speed, Space to jump and right-drag to look. Escape returns to editing. GLB environments use their triangle floors/walls; moving models use compound shapes derived from their mesh. One undo restores the walk. See [collision behavior and limits](docs/MIXED_SCENES.md#solid-navigation).
 - The Color button opens Natural, Warm daylight, Soft, Vivid and Architectural presets, fine sliders, tint, original comparison and reset. Edited colors save automatically and remain independent of quality. Selection never tints the splat image.
 - Quality settings migrate a populated atlas transactionally, retaining model identity, selection and independent transforms. A progress indicator remains visible; settings that cannot fit all resident splats are rejected without clearing the scene.
 - The memory setting is the complete GS buffer/texture budget. It includes atlas, projected records, sorting scratch, palette and targets, with resize headroom. It excludes engine resources and driver overhead. There is no source-file-size limit. Admission uses the combined splat residency of every loaded and queued model. Each model retains independent XYZ position, XYZ rotation and scale.
@@ -36,3 +42,5 @@ Run `python tools/run_checks.py --godot PATH_TO_GODOT` for isolated CPU checks. 
 Original project copyright and MIT license are preserved in [LICENSE](LICENSE). Third-party evidence and unresolved redistribution questions are tracked in [dependency-inventory.json](docs/dependency-inventory.json). Historical performance figures are not benchmarks for this revision.
 
 The normal main-scene color-panel startup crash and optimized-template startup failure are fixed. The color panel waits for viewer initialization, and the camera add-on no longer leaves orphan visualization nodes during export inspection. The Windows optimized-template package is unsigned. Use tools/qualify_release.py for a separate GPU/native qualification package and tools/check_packaged_startup.py for the actual main entry point. llvmpipe selects its qualified native 4x MSAA when unsupported 2x/8x was requested; hardware GPU settings are retained.
+
+For local exports and test workspaces, see [build cleanup and retention](docs/BUILD_CLEANUP.md). The cleanup helper previews changes by default and archives evidence before removing reviewed obsolete outputs.

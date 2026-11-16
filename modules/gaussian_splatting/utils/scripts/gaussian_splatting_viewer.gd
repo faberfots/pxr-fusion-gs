@@ -93,6 +93,43 @@ var last_error := ""
 var frame_count := 0
 var time_accumulator := 0.0
 var _records: Dictionary = {}
+var _mesh_models:Dictionary={}
+var _mesh_job:GSSceneImportJob
+var _model_navigation:GSModelNavigation
+var mesh_edit_collisions_enabled:=true
+var mesh_edit_shape_quality:GSMeshMotionJob.Quality=GSMeshMotionJob.Quality.FAST
+var _mesh_edit_guard:GSMeshEditGuard
+var _pending_asset_edit:Dictionary={}
+var _completed_asset_edit:Dictionary={}
+var model_navigation_active:bool:
+	get:return _model_navigation!=null and _model_navigation.state!=GSModelNavigation.State.IDLE
+func get_model_navigation_state()->Dictionary:
+	return _model_navigation.snapshot() if _model_navigation else {"active":false,"preparing":false,"walking":false,"model_id":"","speed":3.0,"status":"Choose a GLB model to walk through an environment"}
+func start_model_navigation()->Error:
+	if camera_controller.has_movement_blocker("model_transform") or not _pending_asset_edit.is_empty():return ERR_BUSY
+	if placement_active or composition_busy or is_loading() or _atlas_migration:return ERR_BUSY
+	var model:=get_selected_asset() as GSSceneMesh
+	if not model or resolve_import_kind(model)==GaussianSplat.ImportKind.ENVIRONMENT:
+		composition_progress.emit("Choose an unlocked GLB model, rather than the environment, to drive.");return ERR_UNAVAILABLE
+	if not _model_navigation:_model_navigation=GSModelNavigation.new(self)
+	var result:=_model_navigation.start(model)
+	if result!=OK:composition_progress.emit("This model cannot be driven. It must be visible, unlocked and rigid.")
+	return result
+func stop_model_navigation()->void:
+	if _model_navigation:_model_navigation.stop()
+func set_model_navigation_speed(value:float)->void:
+	if _model_navigation:_model_navigation.speed=clampf(value,0.1,50.0)
+var _asset_picks:Dictionary={}
+var _asset_pick_ignore:=-1
+var _asset_revision:=0
+var managed_assets:Array[Node3D]:
+	get:
+		var nodes:Array[Node3D]=[]
+		for node in managed_splats:nodes.append(node)
+		for ref in _mesh_models.values():
+			var node:Node3D=ref.get_ref()
+			if is_instance_valid(node):nodes.append(node)
+		return nodes
 var _pending: Array[int] = []
 var _free_instance_ids: Array[int] = []
 var _active_job: GSLoadJob
@@ -136,12 +173,15 @@ func request_model_probe(screen_position:Vector2)->int:
 	if is_loading() or composition_busy or placement_active or _atlas_migration or not rasterizer:return -1
 	cancel_model_probe(_model_probe_request)
 	_request_serial+=1;_model_probe_request=_request_serial
-	rasterizer.request_pick(screen_position,_request_serial);_force_redraw=true;_last_activity=0.0
+	if _mesh_models.is_empty():rasterizer.request_pick(screen_position,_request_serial)
+	else:_queue_asset_pick(screen_position,_request_serial)
+	_force_redraw=true;_last_activity=0.0
 	return _request_serial
 func cancel_model_probe(request_id:int)->void:
 	if request_id<0 or request_id!=_model_probe_request:return
 	if rasterizer:rasterizer.cancel_pick()
 	_model_probe_request=-1
+	_asset_picks.erase(request_id)
 signal composition_operation_changed(active:bool)
 signal composition_progress(message:String)
 var _composition:GSComposition
@@ -183,15 +223,23 @@ var _placement_left_press:=Vector2.INF
 var placement_active:bool:
 	get:return _placement!=null
 
-func begin_model_placement(path:String,screen_position:Vector2=Vector2.INF,kind:int=GaussianSplat.ImportKind.AUTO)->Error:
+signal import_requested(replace_scene:bool)
+func request_import(replace_scene:bool=false)->void:
+	import_requested.emit(replace_scene)
+	show_load_zone=true
+func begin_model_placement(path:String,screen_position:Vector2=Vector2.INF,kind:int=GaussianSplat.ImportKind.AUTO,replace_scene:bool=false)->Error:
+	stop_model_navigation()
 	if kind not in GaussianSplat.ImportKind.values():return ERR_INVALID_PARAMETER
 	if placement_active or composition_busy or is_loading() or _atlas_migration or _applying_config:
 		_report_error("Finish or cancel the current operation before placing another model.",ERR_BUSY);return ERR_BUSY
+	if GSSceneImportJob.supports(path):return _begin_mesh_placement(path,screen_position,kind,replace_scene)
 	var session:=GSPlacementSession.new(self)
 	session.previous_initial_framing=_initial_framing;session.was_rendering=is_rendering()
 	_initial_framing=false
-	var model:=_load_new_splat_from_path(path,LoadMode.APPEND)
+	var model:=_load_new_splat_from_path(path,LoadMode.REPLACE if replace_scene else LoadMode.APPEND)
 	if not model:_initial_framing=session.previous_initial_framing;return FAILED
+	# REPLACE resets framing; placement still owns when the new view is applied.
+	if replace_scene:session.previous_initial_framing=true;session.was_rendering=false;_initial_framing=false
 	model.import_kind=kind as GaussianSplat.ImportKind
 	if config.loading_progressive_preview and kind==GaussianSplat.ImportKind.ENVIRONMENT:model.show()
 	else:model.hide()
@@ -203,9 +251,9 @@ func begin_model_placement(path:String,screen_position:Vector2=Vector2.INF,kind:
 	return OK
 func get_placement_state()->Dictionary:
 	return _placement.snapshot() if placement_active else {}
-func resolve_import_kind(model:GaussianSplat)->GaussianSplat.ImportKind:
+func resolve_import_kind(model:Node3D)->GaussianSplat.ImportKind:
 	if model.import_kind!=GaussianSplat.ImportKind.AUTO:return model.import_kind
-	return GaussianSplat.ImportKind.ENVIRONMENT if _auto_scene_mode(get_model_world_bounds(model))==SceneMode.ENVIRONMENT_MODE else GaussianSplat.ImportKind.OBJECT
+	return GaussianSplat.ImportKind.ENVIRONMENT if _auto_scene_mode(get_asset_world_bounds(model))==SceneMode.ENVIRONMENT_MODE else GaussianSplat.ImportKind.OBJECT
 func set_placement_kind(value:int)->void:
 	if placement_active and is_instance_valid(_placement.model) and value in GaussianSplat.ImportKind.values():
 		_placement.model.import_kind=value as GaussianSplat.ImportKind
@@ -214,14 +262,18 @@ func finish_environment_import()->void:
 	if not placement_active or not _placement.ready:return
 	var model:=_placement.model
 	model.global_transform=_placement.initial_node
+	if model is GSSceneMesh:model.preview(false);_initialize_mesh_lighting()
 	model.show();_placement=null;_placement_left_press=Vector2.INF;_placement_pick_id=-1
 	rasterizer.cancel_pick();select_model_id(model.model_id)
 	enter_environment(model)
 	placement_changed.emit(false);model_registry_changed.emit();_force_redraw=true
 	_apply_queued_configuration.call_deferred()
-func enter_environment(model:GaussianSplat)->bool:
+func enter_environment(model:Node3D)->bool:
 	if placement_active or composition_busy or not is_instance_valid(model) or not model.is_loaded or not model.is_visible_in_tree():return false
 	if resolve_import_kind(model)!=GaussianSplat.ImportKind.ENVIRONMENT:return false
+	if model is GSSceneMesh:
+		set_scene_mode(SceneMode.ENVIRONMENT_MODE,false)
+		return _frame_asset_bounds([model.model_id])
 	var record:Dictionary=_records.get(model.get_instance_id(),{})
 	if record.is_empty():return false
 	var free_camera:=camera_controller.get_node_or_null("FreeLookCamera") as CameraInterface
@@ -232,8 +284,10 @@ func enter_environment(model:GaussianSplat)->bool:
 	return true
 func home_view()->void:
 	if placement_active or composition_busy:return
-	var selected:=get_selected_model()
+	var selected:=get_selected_asset()
 	if selected and enter_environment(selected):return
+	for node in managed_assets:
+		if node is GSSceneMesh and enter_environment(node):return
 	# The last visible environment is the current walkthrough, even with an object selected.
 	var records:=_records.values()
 	records.reverse()
@@ -260,10 +314,13 @@ func confirm_model_placement(use_original:bool=false)->bool:
 	var model:=_placement.model
 	var frame_original:=use_original and _placement.previous_initial_framing
 	if use_original:model.global_transform=_placement.initial_node
+	if model is GSSceneMesh:model.preview(false);_initialize_mesh_lighting()
 	model.show();_placement=null;_placement_left_press=Vector2.INF
 	rasterizer.cancel_pick();select_model_id(model.model_id)
 	if frame_original:
-		set_scene_mode(SceneMode.OBJECT_MODE,false);recenter_camera(false)
+		set_scene_mode(SceneMode.OBJECT_MODE,false)
+		if model is GSSceneMesh:_frame_asset_bounds([model.model_id])
+		else:recenter_camera(false)
 	elif current_scene_mode==SceneMode.UNKNOWN:set_scene_mode(SceneMode.OBJECT_MODE,false)
 	placement_changed.emit(false);model_registry_changed.emit();_force_redraw=true
 	_apply_queued_configuration.call_deferred()
@@ -275,23 +332,50 @@ func cancel_model_placement()->void:
 	if rasterizer:rasterizer.cancel_pick()
 	var was_clearing:=_clearing;_clearing=true
 	if is_instance_valid(session.model):
-		unregister_splat(session.model);session.model.queue_free()
+		if session.model is GSSceneMesh:
+			if _mesh_job:_mesh_job.cancel()
+			unregister_mesh(session.model)
+		else:unregister_splat(session.model)
+		session.model.queue_free()
 	_clearing=was_clearing
-	if not _clearing and not _active_job and is_loading():_start_next_job()
+	if not _clearing and not _active_job and current_state==ViewerState.LOADING:_start_next_job()
 	placement_changed.emit(false);_force_redraw=true
 	_apply_queued_configuration.call_deferred()
 
 func _physics_process(_delta:float)->void:
+	if not _pending_asset_edit.is_empty():
+		var request:=_pending_asset_edit;_pending_asset_edit={}
+		if apply_asset_edits(request.poses,request.node_space):_completed_asset_edit=request
+	if _model_navigation:_model_navigation.step(_delta)
 	if placement_active and not _closing:_placement.physics_update()
+	for id in _asset_picks.keys():
+		var pick:Dictionary=_asset_picks[id]
+		if pick.mesh_done:continue
+		var camera:=get_camera()
+		if not camera:continue
+		var point:Vector2=pick.point*get_viewport().get_visible_rect().size/Vector2(get_viewport().size)
+		var origin:=camera.project_ray_origin(point);var direction:=camera.project_ray_normal(point)
+		var query:=PhysicsRayQueryParameters3D.create(origin,origin+direction*camera.far,GSSceneMesh.PICK_LAYER)
+		var hit:=get_world_3d().direct_space_state.intersect_ray(query)
+		pick.mesh_done=true;pick.mesh="";pick.mesh_position=Vector3.INF
+		if not hit.is_empty():
+			var ref:WeakRef=hit.collider.get_meta("scene_asset",null)
+			var mesh:GSSceneMesh=ref.get_ref() if ref else null
+			if is_instance_valid(mesh) and _mesh_models.has(mesh.get_instance_id()) and mesh.is_visible_in_tree() and mesh.is_loaded:pick.mesh=mesh.model_id;pick.mesh_position=hit.position
+		_finish_asset_pick(id)
 
-func save_composition(path:String)->Error:
-	return await _run_composition(path,false)
+func save_composition(path:String,include_assets:bool=false)->Error:
+	return await _run_composition(path,false,false,include_assets)
 func open_composition(path:String)->Error:
 	return await _run_composition(path,true)
+func add_composition(path:String)->Error:
+	return await _run_composition(path,true,true)
 func import_path(path:String)->Error:
 	if path.get_extension().to_lower()=="pxrscene":return await open_composition(path)
+	if GSSceneImportJob.supports(path):return OK if await load_mesh_from_path(path) else FAILED
 	return OK if load_new_splat_from_path(path) else FAILED
-func _run_composition(path:String,opening:bool)->Error:
+func _run_composition(path:String,opening:bool,adding:bool=false,include_assets:bool=false)->Error:
+	stop_model_navigation()
 	if composition_busy or placement_active or is_loading() or _atlas_migration or _applying_config:
 		_report_error("Finish the current load or settings operation first.",ERR_BUSY);return ERR_BUSY
 	if _applied_config and config.gpu_signature()!=_applied_config.gpu_signature():
@@ -299,11 +383,12 @@ func _run_composition(path:String,opening:bool)->Error:
 	if not rasterizer or not rasterizer.gpu_init_complete:
 		_report_error("Renderer is not ready.",ERR_UNAVAILABLE);return ERR_UNAVAILABLE
 	var operation_started:=Time.get_ticks_usec()
+	cancel_asset_edits()
 	var operation:=GSComposition.new()
 	_composition=operation
 	set_camera_blocker("composition",true);composition_operation_changed.emit(true)
 	# The operation runs independently, so freeing the viewer cannot orphan its IO.
-	operation.begin.call_deferred(self,path,opening)
+	operation.begin.call_deferred(self,path,opening,adding,include_assets)
 	var result:Dictionary=await operation.completed
 	if _closing or not is_inside_tree():return ERR_SKIP
 	last_composition_profile=operation.profile.duplicate(true);last_composition_profile["total_us"]=Time.get_ticks_usec()-operation_started
@@ -313,11 +398,15 @@ func _run_composition(path:String,opening:bool)->Error:
 	_apply_queued_configuration.call_deferred()
 	if result.has("error"):
 		_report_error(result.error,result.get("code",ERR_FILE_CORRUPT));return result.get("code",ERR_FILE_CORRUPT)
-	composition_progress.emit(("Scene opened: " if opening else "Scene saved: ")+path.get_file())
+	composition_progress.emit(("Scene added: " if adding else ("Scene opened: " if opening else "Scene saved: "))+path.get_file())
 	return OK
 
 func _input(_event:InputEvent)->void:
+	if _model_navigation and _model_navigation.handle(_event):get_viewport().set_input_as_handled();return
 	if composition_busy:get_viewport().set_input_as_handled()
+
+func _notification(what:int)->void:
+	if what==NOTIFICATION_WM_WINDOW_FOCUS_OUT and _model_navigation:_model_navigation.release_input()
 
 func _enter_tree() -> void:
 	_closing=false
@@ -379,6 +468,7 @@ func _initialize_components() -> void:
 	if not camera_controller:
 		_create_default_camera_system()
 	camera_controller.camera_switched.connect(_on_camera_switched)
+	camera_controller.mesh_floor_provider=weakref(self)
 	camera_controller.camera_movement_changed.connect(func(moving): camera_movement_changed.emit(moving))
 	var viewport := get_viewport()
 	if not viewport.size_changed.is_connected(_on_viewport_resized):
@@ -847,6 +937,8 @@ func unregister_splat(node: GaussianSplat) -> void:
 		call_deferred("_start_next_job")
 
 func _clear_scene_and_reset_atlas() -> void:
+	cancel_asset_edits()
+	stop_model_navigation()
 	if placement_active:
 		_clearing=true;cancel_model_placement();_clearing=false
 	if composition_busy:
@@ -855,6 +947,11 @@ func _clear_scene_and_reset_atlas() -> void:
 		_clear_after_migration = true
 		return
 	_clearing = true
+	if _mesh_job:_mesh_job.cancel()
+	for asset in _mesh_models.values():
+		var mesh:Node=asset.get_ref()
+		if is_instance_valid(mesh):mesh.queue_free()
+	_mesh_models.clear();_asset_picks.clear()
 	_apply_shadow_receivers({})
 	_generation += 1
 	_cancel_job()
@@ -893,6 +990,8 @@ func _ensure_scene_splats_loaded() -> void:
 	_discover_owned_splats(self)
 
 func _process(delta: float) -> void:
+	if _model_navigation:_model_navigation.pump()
+	_pump_mesh_import()
 	if not _ready_complete or _atlas_migration or _composition_restoring or not rasterizer or not rasterizer.gpu_init_complete:
 		return
 	_pump_job()
@@ -913,6 +1012,7 @@ func _process(delta: float) -> void:
 			continue
 		var effective: bool = node.is_visible_in_tree()
 		if basis_changed or not record.transform.is_equal_approx(node.global_transform) or effective != record.visible:
+			if not _mesh_models.is_empty():_asset_revision+=1
 			record.transform = node.global_transform
 			record.visible = effective
 			rasterizer.update_instance_transform(record.instance_id, record.transform, effective)
@@ -960,7 +1060,7 @@ func is_rendering() -> bool:
 	return current_state == ViewerState.RENDERING
 
 func is_loading() -> bool:
-	return current_state == ViewerState.LOADING
+	return current_state == ViewerState.LOADING or _mesh_job!=null
 
 func _on_viewport_resized() -> void:
 	if placement_active:_placement.invalidate_pick()
@@ -1121,10 +1221,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			cancel_model_probe(_model_probe_request)
 			_request_serial += 1
 			_selection_pick_request=_request_serial
-			rasterizer.request_pick(event.position*input_scale, _request_serial)
+			if _mesh_models.is_empty():rasterizer.request_pick(event.position*input_scale,_request_serial)
+			else:_queue_asset_pick(event.position*input_scale,_request_serial)
 			_last_activity = 0.0
 
 func _on_model_pick_completed(request_id:int,instance_id:int,position:Vector3)->void:
+	if _asset_picks.has(request_id):
+		var pick:Dictionary=_asset_picks[request_id];pick.gpu_done=true;pick.instance=instance_id;pick.gs_position=position
+		_finish_asset_pick(request_id);return
 	if request_id==_model_probe_request:
 		_model_probe_request=-1;_model_probe_ignore=request_id
 		var identity:=""
@@ -1147,6 +1251,8 @@ func _on_model_pick_completed(request_id:int,instance_id:int,position:Vector3)->
 	select_model_id("")
 
 func _on_pick_completed(_request_id: int, position: Vector3) -> void:
+	if _request_id==_asset_pick_ignore:_asset_pick_ignore=-1;return
+	if _asset_picks.has(_request_id):return
 	if _request_id==_model_probe_ignore:_model_probe_ignore=-1;return
 	if _request_id==_model_probe_request:
 		_model_probe_request=-1;model_probe_completed.emit(_request_id,"",Vector3.INF);return
@@ -1237,6 +1343,14 @@ func _create_default_camera_system() -> void:
 
 func _exit_tree() -> void:
 	_closing=true
+	if _mesh_edit_guard:_mesh_edit_guard.clear();_mesh_edit_guard=null
+	if _model_navigation:_model_navigation.stop(false);_model_navigation=null
+	if _mesh_job:
+		var job:=_mesh_job;_mesh_job=null;job.drain()
+		# Complete nested awaiters while their Node owner is still valid. Waiting on
+		# process_frame after owner destruction would orphan placement/composition state.
+		job.completed.emit({"error":"Mesh import cancelled.","code":ERR_SKIP})
+	_asset_picks.clear()
 	_placement=null
 	if _composition:_composition.cancel()
 	_apply_shadow_receivers({})
@@ -1267,13 +1381,15 @@ func select_model_ids(model_ids: Array) -> bool:
 	for value in model_ids:
 		var model_id := str(value)
 		if next.has(model_id): continue
-		var valid := false
+		var valid := get_asset_by_id(model_id)!=null
 		for record in _records.values():
 			var node = record.node.get_ref()
 			if is_instance_valid(node) and node.model_id == model_id and record.status == "loaded": valid = true
 		if not valid: return false
 		next.append(model_id)
 	if next == selected_model_ids: return true
+	cancel_asset_edits()
+	stop_model_navigation()
 	selected_model_ids = next
 	selected_model_id = next.back() if not next.is_empty() else ""
 	_force_redraw = true
@@ -1302,15 +1418,14 @@ func commit_transform_edit(before: Dictionary, after: Dictionary) -> void:
 	_transform_redo.clear()
 
 func undo_transform(redo: bool = false) -> bool:
+	stop_model_navigation()
 	if _atlas_migration or is_loading(): return false
 	var source := _transform_redo if redo else _transform_undo
 	if source.is_empty(): return false
 	var edit: Dictionary = source.back()
 	var values: Dictionary = edit.after if redo else edit.before
 	var nodes := {}
-	for record in _records.values():
-		var node = record.node.get_ref()
-		if is_instance_valid(node): nodes[node.model_id] = node
+	for node in managed_assets:nodes[node.model_id]=node
 	for id in values:
 		if not nodes.has(id): return false
 	for id in values: nodes[id].global_transform = values[id]
@@ -1462,20 +1577,223 @@ func set_model_edit_transform(node:GaussianSplat,value:Transform3D)->void:
 	var frame:=get_model_edit_transform(node)*node.global_transform.affine_inverse()
 	node.global_transform=frame.affine_inverse()*value
 
+func get_asset_by_id(id:String)->Node3D:
+	for node in managed_assets:
+		if node.model_id==id and node.is_loaded:return node
+	return null
+func mesh_changed()->void:
+	_asset_revision+=1;_force_redraw=true;_last_activity=0.0
+func get_selected_asset()->Node3D:return get_asset_by_id(selected_model_id)
+func has_native_environment()->bool:
+	for ref in _mesh_models.values():
+		var mesh:GSSceneMesh=ref.get_ref()
+		if is_instance_valid(mesh) and mesh.is_loaded and mesh.is_visible_in_tree() and resolve_import_kind(mesh)==GaussianSplat.ImportKind.ENVIRONMENT:return true
+	return false
+func get_selected_assets()->Array[Node3D]:
+	var result:Array[Node3D]=[]
+	for id in selected_model_ids:
+		var node:=get_asset_by_id(id)
+		if node:result.append(node)
+	return result
+func get_asset_world_bounds(node:Node3D)->AABB:
+	if node is GaussianSplat:return get_model_world_bounds(node)
+	if node is GSSceneMesh:return node.global_transform*node.bounds_local
+	return AABB()
+func get_asset_edit_transform(node:Node3D)->Transform3D:
+	return get_model_edit_transform(node) if node is GaussianSplat else node.global_transform
+func set_asset_edit_transform(node:Node3D,value:Transform3D)->void:
+	if not is_instance_valid(node) or not value.is_finite() or not node.is_loaded or _atlas_migration:return
+	if node is GaussianSplat:set_model_edit_transform(node,value)
+	elif node is GSSceneMesh:node.global_transform=value
+func set_mesh_edit_shape_quality(value:int)->void:
+	if value not in [GSMeshMotionJob.Quality.FAST,GSMeshMotionJob.Quality.DETAILED] or value==mesh_edit_shape_quality:return
+	cancel_asset_edits();mesh_edit_shape_quality=value as GSMeshMotionJob.Quality
+func prepare_asset_edits(ids:Array)->bool:
+	if not mesh_edit_collisions_enabled:return true
+	var native:=false
+	for id in ids:
+		var node:=get_asset_by_id(id)
+		if node is GSSceneMesh and resolve_import_kind(node)!=GaussianSplat.ImportKind.ENVIRONMENT:native=true
+	if not native:return true
+	if not _mesh_edit_guard:_mesh_edit_guard=GSMeshEditGuard.new(self)
+	return _mesh_edit_guard.prepare(ids)
+func apply_asset_edits(poses:Dictionary,node_space:bool=false)->bool:
+	if _closing or _atlas_migration or composition_busy or placement_active or model_navigation_active:return true
+	for id in poses:
+		var node:=get_asset_by_id(id)
+		if not node or node.transform_locked or not poses[id] is Transform3D or not poses[id].is_finite() or absf(poses[id].basis.determinant())<1.0e-18:return true
+	if not prepare_asset_edits(poses.keys()):return false
+	var native:=false
+	for id in poses:
+		var node:=get_asset_by_id(id)
+		if node is GSSceneMesh and resolve_import_kind(node)!=GaussianSplat.ImportKind.ENVIRONMENT:native=true
+	if mesh_edit_collisions_enabled and native and not Engine.is_in_physics_frame():
+		if _completed_asset_edit.get("poses",{})==poses and _completed_asset_edit.get("node_space")==node_space:
+			_completed_asset_edit={};return true
+		_pending_asset_edit={"poses":poses.duplicate(),"node_space":node_space};return false
+	var fraction:=1.0
+	if mesh_edit_collisions_enabled and native and _mesh_edit_guard:
+		camera_controller.set_model_camera_collision(true)
+		fraction=_mesh_edit_guard.fraction(poses)
+		camera_controller.set_model_camera_collision(false)
+		if fraction<1.0 and poses.size()>1:
+			# Keep a group's relative pose intact: accept or reject a colliding
+			# rotation/scale step rather than shrinking member-origin chords.
+			for id in poses:
+				if not get_asset_edit_transform(get_asset_by_id(id)).basis.is_equal_approx(poses[id].basis):fraction=0.0;break
+	for id in poses:
+		var node:=get_asset_by_id(id)
+		var current:Transform3D=node.global_transform if node_space else get_asset_edit_transform(node)
+		var pose:Transform3D=GSMeshEditGuard.blend(current,poses[id],fraction)
+		if node_space:node.global_transform=pose
+		else:set_asset_edit_transform(node,pose)
+	if fraction<0.99999:composition_progress.emit("Solid contact · move along the surface. Turn Solid off for intentional overlaps.")
+	return true
+func cancel_asset_edits()->void:
+	_pending_asset_edit.clear();_completed_asset_edit.clear()
+func get_asset_snapshot()->Array[Dictionary]:
+	var result:=get_model_snapshot()
+	for item in result:item["asset_type"]="splat"
+	for ref in _mesh_models.values():
+		var node:GSSceneMesh=ref.get_ref()
+		if not is_instance_valid(node):continue
+		var pose:Transform3D=node.global_transform
+		result.append({"model_id":node.model_id,"transform":pose,"name":str(node.name),"file":node.file_path.get_file(),"file_path":node.file_path,"status":"loaded" if node.is_loaded else "loading","visible":node.is_visible_in_tree(),"position":[pose.origin.x,pose.origin.y,pose.origin.z],"rotation_degrees":[node.global_rotation_degrees.x,node.global_rotation_degrees.y,node.global_rotation_degrees.z],"scale":[node.scale.x,node.scale.y,node.scale.z],"splat_count":0,"vertex_count":node.vertex_count,"instance_id":0,"buffer_offset_bytes":0,"bounds":node.bounds_local,"asset_type":"mesh","transparent_surfaces":node.transparent_surfaces})
+	return result
+func unregister_mesh(node:GSSceneMesh)->void:
+	if _mesh_edit_guard:_mesh_edit_guard.remove_model(node)
+	if not _mesh_models.has(node.get_instance_id()):return
+	_mesh_models.erase(node.get_instance_id())
+	var remaining:=selected_model_ids.duplicate();remaining.erase(node.model_id);select_model_ids(remaining)
+	_transform_undo.assign(_transform_undo.filter(func(edit):return not edit.before.has(node.model_id)))
+	_transform_redo.assign(_transform_redo.filter(func(edit):return not edit.before.has(node.model_id)))
+	_asset_picks.clear();_force_redraw=true;model_registry_changed.emit()
+func stage_mesh_asset(path:String)->Dictionary:
+	if _mesh_job:return {"error":"Another mesh import is still finishing.","code":ERR_BUSY}
+	var job:=GSSceneImportJob.new();_mesh_job=job
+	var error:=job.start(path)
+	if error!=OK:_mesh_job=null;return {"error":"Cannot start mesh reader.","code":error}
+	var result:Dictionary=await job.completed
+	if result.has("error"):return result
+	var node:=GSSceneMesh.new();node.file_path=path;node.name=path.get_file().get_basename().validate_node_name()
+	error=node.initialize(result.root,result.fingerprints)
+	if error!=OK:node.free();return {"error":"The file contains no usable mesh geometry.","code":error}
+	return {"asset":node}
+func _pump_mesh_import()->void:
+	if not _mesh_job or not _mesh_job.is_done():return
+	var job:=_mesh_job;_mesh_job=null
+	job.completed.emit(job.finish())
+func adopt_mesh(node:GSSceneMesh,pose:Transform3D=Transform3D.IDENTITY)->void:
+	for existing in managed_assets:
+		if existing!=node and existing.model_id==node.model_id:node.model_id=Crypto.new().generate_random_bytes(16).hex_encode()
+	node.assign_viewer(self);node.transform=global_transform.affine_inverse()*pose
+	_mesh_models[node.get_instance_id()]=weakref(node)
+	if node.get_parent()!=self:add_child(node)
+	node._sync_collisions()
+	model_registry_changed.emit();_force_redraw=true
+func load_mesh_from_path(path:String,replace_scene:bool=false,kind:int=GaussianSplat.ImportKind.AUTO)->GSSceneMesh:
+	if placement_active or composition_busy or is_loading() or _atlas_migration or _applying_config:_report_error("Finish the current scene operation first.",ERR_BUSY);return null
+	var empty:=managed_assets.is_empty()
+	var result:=await stage_mesh_asset(path)
+	if result.has("error"):
+		if result.get("code")!=ERR_SKIP:_report_error(result.error,result.get("code",FAILED))
+		return null
+	var node:GSSceneMesh=result.asset;node.import_kind=kind as GaussianSplat.ImportKind
+	if replace_scene:_clear_scene_and_reset_atlas()
+	adopt_mesh(node);node.show();_initial_framing=false;_initialize_mesh_lighting()
+	if empty or replace_scene:
+		if not enter_environment(node):_frame_asset_bounds([node.model_id])
+	start_rendering()
+	var history:=get_node_or_null("/root/HistoryManager")
+	if history:history.add_file(path)
+	return node
+func _initialize_mesh_lighting()->void:
+	if _mesh_models.size()==1 and GSSkySettings.soft_mesh_lighting(GSSkySettings.node(self),true):
+		composition_progress.emit("Mesh ready · soft sky fill applied. Lighting > Sky & time adjusts it.")
+func _begin_mesh_placement(path:String,point:Vector2,kind:int,replace_scene:bool)->Error:
+	var check:=GSSceneImportJob.source_files(path)
+	if check.has("error"):_report_error(check.error,check.get("code",FAILED));return check.get("code",FAILED)
+	var node:=GSSceneMesh.new();node.file_path=path;node.import_kind=kind as GaussianSplat.ImportKind;node.name=path.get_file().get_basename().validate_node_name();node.preview(true);node.hide()
+	var session:=GSPlacementSession.new(self);session.model=node;session.previous_initial_framing=_initial_framing;session.was_rendering=is_rendering()
+	_initial_framing=false
+	_mesh_models[node.get_instance_id()]=weakref(node);node.assign_viewer(self);add_child(node)
+	var rectangle:=get_viewport().get_visible_rect();session.set_cursor(point if point.is_finite() and rectangle.has_point(point) else rectangle.get_center())
+	_placement=session;placement_changed.emit(true);model_registry_changed.emit()
+	_selection_pick_request=-1;_asset_picks.clear();rasterizer.cancel_pick()
+	_finish_mesh_import.call_deferred(path,session,replace_scene)
+	return OK
+func _finish_mesh_import(path:String,session:GSPlacementSession,replace_scene:bool)->void:
+	if _placement!=session:return
+	var result:=await stage_mesh_asset(path)
+	if not is_instance_valid(self) or _closing:
+		if result.has("asset"):result.asset.free()
+		return
+	if _placement!=session or not is_instance_valid(session.model):
+		if result.has("asset"):result.asset.free()
+		return
+	if result.has("error"):
+		cancel_model_placement()
+		if result.get("code")!=ERR_SKIP:_report_error(result.error,result.get("code",FAILED))
+		return
+	var placeholder:GSSceneMesh=session.model
+	var node:GSSceneMesh=result.asset
+	node.import_kind=placeholder.import_kind;node.preview(true);node.hide()
+	_mesh_models.erase(placeholder.get_instance_id());placeholder.queue_free()
+	session.model=node
+	if replace_scene:
+		_placement=null;_clear_scene_and_reset_atlas();_placement=session
+		session.previous_initial_framing=true;session.was_rendering=false;_initial_framing=false
+	adopt_mesh(node)
+	var history:=get_node_or_null("/root/HistoryManager")
+	if history:history.add_file(path)
+
+func _queue_asset_pick(point:Vector2,id:int)->void:
+	_asset_picks.clear()
+	_asset_picks[id]={"point":point,"mesh_done":false,"gpu_done":total_splats_to_load==0,"instance":0,"gs_position":Vector3.INF,"pose":get_camera().global_transform,"lens":_asset_pick_lens(),"viewport":get_viewport().size,"generation":_generation,"revision":_asset_revision}
+	if total_splats_to_load>0:rasterizer.request_pick(point,id)
+func _asset_pick_lens()->Array:
+	var camera:=get_camera()
+	return [camera.projection,camera.fov,camera.size,camera.near,camera.far,camera.frustum_offset,camera.h_offset,camera.v_offset]
+func _finish_asset_pick(id:int)->void:
+	if not _asset_picks.has(id):return
+	var pick:Dictionary=_asset_picks[id]
+	if not pick.mesh_done or not pick.gpu_done:return
+	_asset_picks.erase(id)
+	_asset_pick_ignore=id
+	if pick.generation!=_generation or pick.revision!=_asset_revision or pick.viewport!=get_viewport().size or pick.lens!=_asset_pick_lens() or not get_camera().global_transform.is_equal_approx(pick.pose):
+		if id==_model_probe_request:_model_probe_request=-1;model_probe_completed.emit(id,"",Vector3.INF)
+		return
+	var identity:String=pick.mesh;var point:Vector3=pick.mesh_position
+	var origin:Vector3=get_camera().global_position
+	for record in _records.values():
+		var node:GaussianSplat=record.node.get_ref()
+		if is_instance_valid(node) and record.status=="loaded" and record.instance_id==pick.instance and pick.gs_position.is_finite():
+			if identity.is_empty() or origin.distance_squared_to(pick.gs_position)<origin.distance_squared_to(point):identity=node.model_id;point=pick.gs_position
+	if id==_model_probe_request:
+		_model_probe_request=-1;_model_probe_ignore=id;model_probe_completed.emit(id,identity,point);return
+	if id!=_selection_pick_request:return
+	_selection_pick_request=-1
+	if identity.is_empty():select_model_id("");return
+	if _selection_additive:toggle_model_selection(identity)
+	else:select_model_id(identity)
+	model_clicked.emit(identity,point)
+
 func frame_models(ids:Array)->bool:
 	if ids.size()==1:
-		for candidate in managed_splats:
+		for candidate in managed_assets:
 			if candidate.model_id==ids[0] and enter_environment(candidate):return true
+	return _frame_asset_bounds(ids)
+func _frame_asset_bounds(ids:Array)->bool:
 	var bounds:=AABB()
 	var found:=false
-	for record in _records.values():
-		var model:GaussianSplat=record.node.get_ref()
-		if not is_instance_valid(model) or record.status!="loaded" or not model.is_visible_in_tree():continue
+	for model in managed_assets:
+		if not is_instance_valid(model) or not model.is_loaded or not model.is_visible_in_tree():continue
 		if not ids.is_empty() and not ids.has(model.model_id):continue
-		var box:=get_model_world_bounds(model)
+		var box:=get_asset_world_bounds(model)
 		bounds=bounds.merge(box) if found else box
 		found=true
 	if not found or not get_camera():return false
+	stop_model_navigation()
 	var extent:=maxf(bounds.size.length()*0.5,0.1)
 	var distance:=extent/maxf(0.1,sin(deg_to_rad(get_camera().fov*0.5)))*1.15
 	var center:=bounds.get_center()

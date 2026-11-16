@@ -11,15 +11,17 @@ class DeletionQueue:
 		return rid
 	func free_rid(device: RenderingDevice, rid: RID) -> void:
 		if queue.has(rid):
+			var kind:String=rid_metadata.get(rid,{}).get("type","")
 			queue.erase(rid)
 			rid_metadata.erase(rid)
 			# Dependencies may already have invalidated uniform sets. RD handles dependency teardown.
-			device.free_rid(rid)
+			if kind!="descriptor_set" or device.uniform_set_is_valid(rid):device.free_rid(rid)
 	func flush(device: RenderingDevice) -> void:
 		if not device:
 			return
 		for i in range(queue.size() - 1, -1, -1):
-			device.free_rid(queue[i])
+			var rid:RID=queue[i]
+			if rid_metadata.get(rid,{}).get("type","")!="descriptor_set" or device.uniform_set_is_valid(rid):device.free_rid(rid)
 		queue.clear()
 		rid_metadata.clear()
 	func get_tracked_memory() -> int:

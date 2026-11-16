@@ -1,0 +1,32 @@
+Isolated project: build\mesh-physics-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+PASS motion timing fixture exports as a real GLB
+PASS default Fast geometry becomes usable without detailed decomposition
+FAST FIXTURE { "quality": 0, "cache_hit": false, "milliseconds": 11, "shapes": 1 }
+PASS prepared geometry persists across separate application processes
+PASS Detailed remains available on the same loaded model
+PASS Detailed retains the opening between the moving model's legs
+PASS switching back reuses prepared Fast geometry
+PASS cached geometry supports rotated and nonuniformly scaled roots
+PASS a truncated cache rebuilds from source instead of disabling collisions
+PASS the real reported truck imports for the timing check
+REAL TRUCK FAST { "quality": 0, "cache_hit": false, "milliseconds": 1453, "shapes": 187 } wall_ms=1463 mesh_parts=187
+PASS the real truck's Fast collisions prepare within ten seconds
+MOTION PREPARATION CHECKS COMPLETE: 0 failures
+ WARNING: Setting autoplay after the node has been added to the scene has no effect.
+   at: set_autoplay (scene/animation/animation_player.cpp:772)
+   GDScript backtrace (most recent call first):
+       [0] _scan (res://modules/gaussian_splatting/utils/scripts/scene_mesh_asset.gd:71)
+       [1] _scan (res://modules/gaussian_splatting/utils/scripts/scene_mesh_asset.gd:90)
+       [2] initialize (res://modules/gaussian_splatting/utils/scripts/scene_mesh_asset.gd:61)
+       [3] load_model (res://tests/motion_preparation_checks.gd:13)
+
+Process exit: 0

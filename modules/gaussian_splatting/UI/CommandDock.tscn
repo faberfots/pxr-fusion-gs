@@ -51,7 +51,7 @@ offset_left = 146.0
 offset_top = 15.0
 offset_right = 234.0
 offset_bottom = 103.0
-tooltip_text = "Load or append Gaussian models · Ctrl+O"
+tooltip_text = "Import scans, GLB/glTF models or composed scenes · Ctrl+O"
 
 [node name="Glyph" parent="Body/Actions/LoadFileButton" index="0" unique_id=970978505]
 texture = ExtResource("icon_load")

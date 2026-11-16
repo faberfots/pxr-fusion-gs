@@ -58,9 +58,9 @@ func run()->void:
 	check(await viewer.save_composition(document)==OK,"confirmed imports can save a combined scene")
 	ui.file_dialog.file_selected.emit(document)
 	while viewer.composition_busy:await process_frame
-	check(not viewer.placement_active and viewer.total_splats_to_load==6,"Import opens .pxrscene in its saved layout without entering model placement")
+	check(not viewer.placement_active and viewer.total_splats_to_load==12,"unchecked Import adds .pxrscene in its saved layout without entering model placement")
 	await ui._on_files_dropped(PackedStringArray([document]))
-	check(not viewer.placement_active and viewer.total_splats_to_load==6,"dropped .pxrscene files retain exact composition-open semantics")
+	check(not viewer.placement_active and viewer.total_splats_to_load==18,"dropped .pxrscene files use the same additive Import choice")
 	viewer.begin_model_placement(path)
 	check(await ready(viewer),"clear fixture is fully pending")
 	ui._on_clear_scene_pressed();await settle()

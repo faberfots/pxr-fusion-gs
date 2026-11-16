@@ -19,6 +19,8 @@ var _probe_request:=-1
 var _viewer:GaussianSplattingViewer
 var _segmentation_cancel_pending:=false
 var _displayed_preset:=""
+var _dialog_chat_id:=""
+var _displayed_chat:=""
 const SOURCES=["session","environment","vault","none"]
 func _ready()->void:
 	chat_feed.text=""
@@ -35,9 +37,32 @@ func _ready()->void:
 	)
 	%ExampleQuestion.pressed.connect(func():
 		input_field.text=CortexPresets.definition(SIConfig.settings().experience().preset).get("example","")
+		_remember_draft()
 		input_field.grab_focus()
 	)
 	%GuidedSetup.pressed.connect(_open_advanced)
+	%WorkspaceTabs.tab_changed.connect(func(_tab):_sync_composer_visibility())
+	%SharingToggle.toggled.connect(func(open):%SharingDetails.visible=open;_sync_sharing_summary())
+	%OpenChats.pressed.connect(_open_chats)
+	%ChatSelector.item_selected.connect(func(index):
+		_remember_draft()
+		brain.select_chat(str(%ChatSelector.get_item_metadata(index)));_set_analysis_busy(brain._is_analyzing)
+	)
+	%NewChat.pressed.connect(func():_remember_draft();brain.new_chat();_set_analysis_busy(false);input_field.grab_focus();_status("New chat. Ask about something new; other chats are kept."))
+	%RenameChat.pressed.connect(func():
+		var chat:Dictionary=brain.conversations.active();_dialog_chat_id=chat.id
+		%ChatName.text=chat.title;%RenameChatDialog.popup_centered();%ChatName.grab_focus();%ChatName.select_all()
+	)
+	%RenameChatDialog.confirmed.connect(_rename_chat)
+	%ChatName.text_submitted.connect(func(_text):_rename_chat();%RenameChatDialog.hide())
+	%DeleteChat.pressed.connect(func():
+		var chat:Dictionary=brain.conversations.active();_dialog_chat_id=chat.id
+		%DeleteChatDialog.dialog_text="Delete ‘"+chat.title+"’ and its saved questions and answers from this computer? This cannot be undone."
+		%DeleteChatDialog.popup_centered()
+	)
+	%DeleteChatDialog.confirmed.connect(func():brain.delete_chat(_dialog_chat_id);_set_analysis_busy(brain._is_analyzing))
+	input_field.text_changed.connect(func(text):brain.conversations.set_draft(text))
+	brain.conversations.changed.connect(_render_chats)
 	SIConfig.settings().experience_changed.connect(_sync_guidance)
 	for item in ["Session only","Environment variable","Windows credential store","No credential · loopback only"]:%CredentialSource.add_item(item)
 	for item in ["Visible models","Selected models only"]:%ContextScope.add_item(item)
@@ -82,13 +107,16 @@ func _ready()->void:
 	%CloudConsent.toggled.connect(func(enabled):
 		brain.policy.cloud_enabled=enabled
 		if not enabled:brain.cancel_analysis();_set_analysis_busy(false)
+		_sync_sharing_summary()
 	)
 	%LocalConsent.toggled.connect(func(enabled):
 		brain.policy.local_enabled=enabled
 		if not enabled:brain.cancel_analysis();_set_analysis_busy(false)
+		_sync_sharing_summary()
 	)
 	%ActionConsent.toggled.connect(func(enabled):
 		brain.set_action_consent(enabled);%ActionConsent.set_pressed_no_signal(brain.policy.allows_action())
+		_sync_sharing_summary()
 	)
 	analyze_button.pressed.connect(_submit_request);input_field.text_submitted.connect(func(_text):_submit_request())
 	close_button.pressed.connect(hide_panel)
@@ -124,7 +152,10 @@ func _ready()->void:
 	brain.analysis_started.connect(func():_set_analysis_busy(true))
 	brain.analysis_completed.connect(_on_brain_responded)
 	brain.analysis_failed.connect(_on_brain_failed)
-	brain.capture_ready.connect(func(image):vision_preview.texture=ImageTexture.create_from_image(image))
+	brain.capture_ready.connect(func(image):
+		vision_preview.texture=ImageTexture.create_from_image(image)
+		vision_preview.visible=CortexPresets.kind(SIConfig.settings().experience().preset)!="private"
+	)
 	brain.segmentation_capture_ready.connect(_captured)
 	brain.segmentation.completed.connect(_segmented)
 	brain.segmentation.activity_changed.connect(_segmentation_activity)
@@ -138,7 +169,47 @@ func _ready()->void:
 		var viewer:=_active_viewer()
 		if viewer:viewer.set_camera_blocker("cortex_drag",false)
 	)
-	_sync_settings();_segmentation_activity(false)
+	_sync_settings();_segmentation_activity(false);_render_chats()
+func _sync_composer_visibility()->void:
+	%AskComposer.visible=%WorkspaceTabs.current_tab==0
+func _sync_sharing_summary()->void:
+	var profile:=SIConfig.settings().analysis_profile()
+	var private:=CortexPresets.kind(SIConfig.settings().experience().preset)=="private"
+	var summary:String="Private · read-only" if private else str(profile.name)+" · "+("sharing allowed" if brain.policy.allows_connection(profile) else "sharing off")
+	%SharingToggle.text=("▾ " if %SharingToggle.button_pressed else "▸ ")+"Assistant & sharing · "+summary
+	%SharingToggle.tooltip_text="Choose the assistant, review picture sharing and manage permissions. "+summary
+func _open_chats()->void:
+	var kind:=CortexPresets.kind(SIConfig.settings().experience().preset)
+	if kind=="segment" and brain.policy.configuration_enabled:choose_preset("scene")
+	%WorkspaceTabs.current_tab=0
+	input_field.grab_focus()
+	_status("One topic per chat. Choose + New to keep another conversation separate.")
+func _rename_chat()->void:
+	var result:int=brain.conversations.rename_chat(_dialog_chat_id,%ChatName.text)
+	if result!=OK:_status("Enter a chat name between 1 and 100 characters.")
+func _remember_draft()->void:brain.conversations.set_draft(input_field.text)
+func _render_chats()->void:
+	var chats:Dictionary=brain.conversations.snapshot();var chat:Dictionary=brain.conversations.active()
+	if chat.id!=_displayed_chat:vision_preview.texture=null;vision_preview.hide();_displayed_chat=chat.id
+	%ChatSelector.clear()
+	for item in chats.chats:
+		%ChatSelector.add_item(item.title);var index:int=%ChatSelector.item_count-1
+		%ChatSelector.set_item_metadata(index,item.id);%ChatSelector.get_popup().set_item_tooltip(index,item.title)
+		if item.id==chat.id:%ChatSelector.select(index)
+	input_field.text=chat.draft
+	chat_feed.scroll_following=not chat.turns.is_empty()
+	chat_feed.clear()
+	if chat.turns.is_empty():
+		chat_feed.append_text("[color=#a7d7e5][b]A fresh conversation[/b][/color]\n\nAsk your first question below, or try the example. Use + New for another topic.\n\n[color=#b0bcc8]Your chats are saved on this computer. Only recent answers from this chat and the same assistant are used for follow-up questions.[/color]")
+	for turn in chat.turns:
+		_print_user_message(turn.question)
+		if turn.state=="complete":_print_ai_message(turn.answer)
+		elif turn.state=="pending":_print_system_message("Preparing your answer…")
+		else:_print_system_message(turn.notice)
+	%ChatContext.text="%d chat%s · saved on this computer" % [chats.chats.size(),"" if chats.chats.size()==1 else "s"]
+	if not brain.conversations.last_error.is_empty():%ChatContext.text=brain.conversations.last_error
+	%ChatContext.tooltip_text="Questions, answers and drafts are stored locally as text. Pictures, keys and scene files are not stored in chats. Deleting a chat removes its local history; it cannot delete messages already sent to an external provider. Recent text is shared only with the same assistant, goal and scene scope."
+	if chat_feed.get_line_count()>0:chat_feed.scroll_to_line(chat_feed.get_line_count()-1 if not chat.turns.is_empty() else 0)
 func _active_viewer()->GaussianSplattingViewer:
 	for viewer in get_tree().get_nodes_in_group("gaussian_splat_viewers"):
 		if viewer.get_camera()==get_viewport().get_camera_3d():return viewer
@@ -148,9 +219,11 @@ func show_panel()->void:
 	if SIConfig.settings().experience().preset!="custom":_displayed_preset=""
 	_sync_settings()
 func hide_panel()->void:
+	_remember_draft()
 	input_field.release_focus();%SecretInput.clear();%SecretInput.secret=true
 	%RevealSecret.set_pressed_no_signal(false);%FullViewToggle.set_pressed_no_signal(false);_full_view(false)
 	brain.cancel_analysis();brain.segmentation.cancel();brain.connection_probe.cancel()
+	brain.conversations.save()
 	_set_analysis_busy(false);visible=false;_is_visible=false
 func _sync_settings()->void:
 	if brain.segmentation.is_processing():_segmentation_cancel_pending=true
@@ -217,7 +290,7 @@ func _sync_guidance()->void:
 	%GoalSummary.tooltip_text=CortexPresets.help_text(prefs.preset)
 	%GoalHelp.text=CortexPresets.help_text(prefs.preset)
 	%GoalHelpScroll.visible=prefs.help_open;%GoalHelpButton.set_pressed_no_signal(prefs.help_open)
-	%GoalHelpButton.text="Hide help" if prefs.help_open else "How it works"
+	%GoalHelpButton.text="▾ Guide" if prefs.help_open else "▸ Guide"
 	%WorkspaceTabs.tabs_visible=item.kind=="custom"
 	if changed:%WorkspaceTabs.current_tab=1 if item.kind=="segment" else (2 if item.kind=="custom" else 0)
 	var private:bool=item.kind=="private";var guided:bool=item.kind!="custom"
@@ -230,7 +303,7 @@ func _sync_guidance()->void:
 	%ClearPrompts.text="Clear my marks" if guided else "Clear prompts"
 	%FullViewToggle.text="Enlarge picture" if guided else "Pick in view"
 	%ReleaseEngine.text="Free memory" if guided else "Release memory"
-	%VisionPreview.visible=not private
+	%VisionPreview.visible=not private and vision_preview.texture!=null
 	%VisionLabel.text="Scene names and layout stay on this computer. The picture is not sent." if private else "Your connection settings decide whether a picture is shared."
 	%LocalConsent.text="Allow this private assistant to read scene information" if private else "Allow local endpoint analysis"
 	input_field.placeholder_text=item.get("placeholder","Ask Cortex about the scene…")
@@ -246,6 +319,7 @@ func _sync_guidance()->void:
 	%AcceptSelection.text="3 · Select model" if guided else "Select model at mask point"
 	%ConceptPrompt.placeholder_text="What should I find? For example: person, motorcycle, tree"
 	_set_analysis_busy(brain._is_analyzing)
+	_sync_composer_visibility();_sync_sharing_summary()
 func _request_vision_settings()->Dictionary:return SIConfig.settings().vision_request_settings()
 func _picture_ready_status()->String:
 	return "Picture ready. Click the object, then Find object." if _request_vision_settings().engine=="mobile_sam" else "Picture ready. Describe what you want to find; a box is optional."
@@ -397,26 +471,31 @@ func _diagnostics(result:Dictionary)->void:
 func _submit_request()->void:
 	var prompt:=input_field.text.strip_edges()
 	if prompt.is_empty():return
-	_print_user_message(prompt);input_field.clear()
-	if CortexPresets.kind(SIConfig.settings().experience().preset)=="private":brain.analyze_privately(prompt)
-	else:brain.analyze_scene(prompt)
+	var result:int=brain.ask_in_chat(prompt)
+	if result!=OK:_status("Finish the current answer first." if result==ERR_BUSY else "Enter a question of at most 16,000 characters.")
 func _set_analysis_busy(busy:bool)->void:
 	analyze_button.disabled=busy;input_field.editable=not busy
 	analyze_button.text="Thinking…" if busy else ("Start & ask privately" if CortexPresets.kind(SIConfig.settings().experience().preset)=="private" else "Ask assistant")
 	analyze_button.tooltip_text="Start the included assistant and share scene names and layout on this computer. No picture, cloud upload or model edits." if CortexPresets.kind(SIConfig.settings().experience().preset)=="private" else "Send the configured input to the chosen connection after granting transmission permission."
 	%LocalConsent.set_pressed_no_signal(brain.policy.local_enabled)
+	%CancelAnalysis.visible=busy
+	_sync_sharing_summary()
 	status_light.color=Color(1,0.65,0.25) if busy else Color(0.5,0.65,0.7)
-func _on_brain_responded(message:String)->void:_set_analysis_busy(false);status_light.color=Color(0.35,0.9,0.7);_print_ai_message(message);_status("Answer ready. You can ask another question.")
-func _on_brain_failed(message:String)->void:_set_analysis_busy(false);status_light.color=Color(1,0.3,0.3);_print_system_message(message)
-func _status(message:String)->void:%WorkspaceStatus.text=message
-func _print_user_message(message:String)->void:chat_feed.append_text("\n[color=#a7d7e5][b]YOU[/b][/color]  "+message.replace("[","[lb]"))
-func _print_ai_message(message:String)->void:chat_feed.append_text("\n[color=#f07979][b]CORTEX[/b][/color]  "+message.replace("[","[lb]"))
-func _print_system_message(message:String)->void:chat_feed.append_text("\n[color=#b0bcc8]"+message.replace("[","[lb]")+"[/color]")
+func _on_brain_responded(_message:String)->void:_set_analysis_busy(false);status_light.color=Color(0.35,0.9,0.7);_status("Answer ready. Follow up here, or choose + New for another topic.")
+func _on_brain_failed(message:String)->void:
+	_set_analysis_busy(false);status_light.color=Color(1,0.3,0.3);_status(message)
+	if not brain.policy.allows_connection(SIConfig.settings().analysis_profile()):%SharingToggle.button_pressed=true
+func _status(message:String)->void:%WorkspaceStatus.text=message;%WorkspaceStatus.tooltip_text=message
+func _print_user_message(message:String)->void:chat_feed.append_text("\n\n[color=#a7d7e5][b]YOU[/b][/color]\n"+message.replace("[","[lb]"))
+func _print_ai_message(message:String)->void:chat_feed.append_text("\n\n[color=#f07979][b]CORTEX[/b][/color]\n"+message.replace("[","[lb]"))
+func _print_system_message(message:String)->void:chat_feed.append_text("\n\n[color=#b0bcc8]"+message.replace("[","[lb]")+"[/color]")
 func _open_provider_portal()->void:
 	var urls:={"openai":"https://platform.openai.com/api-keys","anthropic":"https://platform.claude.com/settings/keys","google":"https://aistudio.google.com/apikey"}
 	var provider:=SIConfig.get_provider()
 	if urls.has(provider):OS.shell_open(urls[provider])
 	else:_status("This connection is managed by its local runtime or organisation.")
 func _exit_tree()->void:
+	_remember_draft()
 	brain.cancel_analysis();brain.segmentation.cancel()
+	brain.conversations.save()
 	if is_instance_valid(_viewer):_viewer.cancel_model_probe(_probe_request);_viewer.set_camera_blocker("cortex_fullview",false);_viewer.set_camera_blocker("cortex_drag",false)

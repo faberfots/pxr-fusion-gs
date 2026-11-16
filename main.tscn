@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/Skydome.gd" id="10_xuqvo"]
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="11_qsp4k"]
 [ext_resource type="Texture2D" uid="uid://xnj7w7sh3s56" path="res://assets/materials/textures/prototype-texture-with-size.png" id="12_kq58d"]
+[ext_resource type="Shader" path="res://modules/gaussian_splatting/shaders/spatial/reference_grid.gdshader" id="reference_grid"]
 [ext_resource type="Script" uid="uid://dqus7rcnh3aex" path="res://modules/gaussian_splatting/cameras/camera_controller.gd" id="13_seu75"]
 [ext_resource type="Script" uid="uid://c51vs1onog0h1" path="res://modules/gaussian_splatting/cameras/freelook_camera.gd" id="14_htxhm"]
 [ext_resource type="Script" uid="uid://caju1sfwuoodb" path="res://modules/gaussian_splatting/cameras/cursor.gd" id="15_jq2sk"]
@@ -117,13 +118,10 @@ tonemap_white = 6.0
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_e7frv"]
 auto_exposure_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mycd"]
+[sub_resource type="ShaderMaterial" id="StandardMaterial3D_7mycd"]
 render_priority = -128
-transparency = 1
-depth_draw_mode = 2
-albedo_texture = ExtResource("12_kq58d")
-uv1_triplanar = true
-uv2_triplanar = true
+shader = ExtResource("reference_grid")
+shader_parameter/grid_texture = ExtResource("12_kq58d")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2jiy4"]
 radius = 0.025

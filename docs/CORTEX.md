@@ -4,7 +4,7 @@ The existing `CognitivePanel.tscn` is the single Cortex entry point. It retains 
 
 ## Start with your goal
 
-Open Cortex and choose **What would you like to do?** The default is **Select with a click**, which needs no account. **How it works** and the preset tooltips explain the steps, privacy and limitations in plain language.
+Open Cortex and choose **What would you like to do?** The default is **Select with a click**, which needs no account. Expand **Guide** for the steps, privacy and limitations in plain language; collapse it to make more room for your scene and conversation.
 
 | Preset | What you can do |
 |---|---|
@@ -20,6 +20,24 @@ Guided presets never grant scene-editing commands. Choosing a preset or opening 
 Goal and help preferences live in `user://cortex/experience.json`, owned by `CortexSettings`. The existing `settings.json` document, credentials and advanced settings are preserved. Guided request settings are derived from the preset catalog; choosing Advanced restores the saved configuration. Older qualified applications can still read the unchanged settings schema.
 
 Selection presets select whole imported 3D GS models. A highlighted person inside a single environment scan does not become a separately editable Gaussian model. Private Qwen presets read structured scene information and do not see the rendered picture. These limits are shown in Help.
+
+## Separate conversations
+
+Choose **Chats** in the Cortex header to open the private assistant directly. **+ New** starts another topic; the chat selector returns to an earlier conversation with its questions, answers and unsent draft. The pencil renames a chat. The small × beside it deletes that chat after confirmation; the header × closes Cortex. Follow-up questions use recent completed answers from the same chat. Changing chats stops the pending question; a late answer cannot appear in the new topic.
+
+`CortexConversations`, owned by `SpatialIntelligence`, stores text at `user://cortex/conversations.json`. There is no startup inference or automatic replay. It stores questions, answers and drafts, with no credentials, captured pictures or scene payloads. These local text files belong to the current OS account and are not encrypted. Delete removes local history; it cannot revoke data already sent to an external provider. Provider keys and permissions remain with their existing owners.
+
+Only the latest complete pairs for the same connection, endpoint, model, goal, scene scope and image/tool settings are eligible for request history. A change starts a new context boundary. The request includes at most six pairs within a text budget (2,000 characters for bundled Qwen; 12,000 for other connections), keeping inference context bounded while the full transcript remains available locally. Interrupted, failed and cancelled turns are never sent as completed answers. Current scene context is captured afresh for each question; older pictures are never resent from chat history.
+
+The history scrolls separately, keeping the question field and Ask button visible. All chat controls and confirmation dialogs are authored in the existing `.tscn`; the panel binds them to the conversation owner. Local chat management is available to the OS user; assistant transmission and scene actions retain `AIAccessPolicy` checks.
+
+**Assistant & sharing** is a collapsible section inside Chat. Its closed header shows the current assistant and sharing state. Expand it to choose the connection, inspect a captured picture or change existing sharing/command permissions. Collapsing it never changes permission. A request denied by transmission consent opens the section to show the controls you need. Empty image previews consume no blank picture space. The header and question controls remain fixed while the middle content scrolls, and the panel fits the logical viewport when resizing or restoring a saved position. The shared 33% HUD size reduction and transparency remain unchanged.
+
+## Add models or start fresh
+
+The Import panel offers **Clear scene before importing**, initially unchecked. Leave it off to add PLY/GSRES models or a saved `.pxrscene` to the current composition. Check it to replace the current models when import begins. The checkbox returns to off after an accepted import. Cancelling the file picker does not clear anything; an invalid model header or a model that exceeds the atlas budget is rejected before replacement.
+
+Object placement and environment entry keep their existing behavior. Replacement clears the old models before new object placement; cancelling that placement does not restore the replaced scene, so save it first if needed. Saved-scene replacement retains its existing verified checkpoint/rollback behavior. Adding a saved scene preserves the current models, camera, sky and image settings, with exact imported transforms and unique model identities; a failed added load removes only its new models. An empty viewer restores the saved scene's view. Scenes authored with a different global render orientation/scale require explicit replacement rather than an inaccurate merge. **Open scene** in Scene navigator and the established programmatic `import_path` behavior remain available.
 
 ## Use the next application run
 
@@ -54,8 +72,10 @@ See [the resource tree instructions](../resources/cortex/README.md). Copy the wh
 
 `CortexAssets` resolves the catalog relative to the project or executable. Native sessions use verified absolute paths internally. SAM3 external weights remain beside their graphs. Signed Microsoft C++ redistributable dependencies travel with ONNX Runtime and llama.cpp; the native bridge uses safe local dependency loading without mutating PATH. Windows x86_64 is the qualified contract. No second physical computer, macOS, Linux, ARM, XR device or authenticated cloud-provider account was qualified by these local checks.
 
-Opening Cortex starts no segmentation sessions or model runner. Its service nodes stop processing while idle, and the worker sleeps. GS loading, caching, conversion, sorting, quality, colors, shadows and transform math retain their existing owners. Only a read-only GPU picking adapter and owned panel teardown were added to the GS viewer/UI. Active CPU inference still competes for system CPU/RAM; release it when maximum loading throughput is needed.
+Opening Cortex starts no segmentation sessions or model runner. Its service nodes stop processing while idle, and the worker sleeps. GS loading, caching, conversion, sorting, quality, colors, shadows and transform math retain their existing owners. The viewer/UI additions are the read-only GPU picking adapter, owned panel teardown and explicit import-mode/composition-add workflow. Active CPU inference still competes for system CPU/RAM; release it when maximum loading throughput is needed.
 
 ## Qualification and remaining audit boundaries
 
-The machine-readable evidence is [cortex-qualification.json](audit/cortex-qualification.json). Every original P.X.Y status remains in [the generated audit report](audit/REMEDIATION_STATUS.md), owned by its JSON source. Local inference and setup do not close external key revocation, authenticated vendor qualification, XR/custom rendering, signing/hardware or historical provenance gaps.
+The original machine-readable evidence is [cortex-qualification.json](audit/cortex-qualification.json). The import-mode and separate-chat release is qualified in [cortex-chats-qualification.json](audit/cortex-chats-qualification.json), including rendered UI, conversation isolation, real Qwen follow-ups and the full Bali/Suzuki population. Every original P.X.Y status remains in [the generated audit report](audit/REMEDIATION_STATUS.md), owned by its JSON source. Local inference and setup do not close external key revocation, authenticated vendor qualification, XR/custom rendering, signing/hardware or historical provenance gaps.
+
+The subsequent overflow correction and collapsible sections are qualified in [cortex-layout-qualification.json](audit/cortex-layout-qualification.json). It records the failing connected-Help reproduction, corrected logical-viewport checks, all preset/tab states, resize/reopen and pointer interaction, preserved chat/permission behavior, GPU cleanup checks and the source-free optimized app. The qualified app is `build/cortex-layout-final/GSViewer.exe`; older qualified builds remain intact. Restart the running Godot game to instantiate the updated authored scene.

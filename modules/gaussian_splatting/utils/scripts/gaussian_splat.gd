@@ -6,6 +6,7 @@ signal loaded
 enum ImportKind { AUTO, OBJECT, ENVIRONMENT }
 @export var import_kind:ImportKind=ImportKind.AUTO
 @export var model_id := ""
+@export var transform_locked:=false
 @export var cast_gaussian_shadows := true
 @export var receive_gaussian_shadows := false
 @export_file("*.ply", "*.gsres") var file_path := "":

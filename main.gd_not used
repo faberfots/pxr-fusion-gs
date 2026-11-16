@@ -1,0 +1,145 @@
+@tool
+extends Node
+## Demo scene for GaussianSplattingViewer
+## This is now a SIMPLE wrapper that demonstrates how to use the modular viewer
+##
+## The heavy lifting is done by:
+## - GaussianSplattingViewer (rendering)
+## - CameraController (camera management)
+## - DemoUIController (optional UI)
+##
+## This file is now ~150 lines instead of ~380 lines
+
+const DEFAULT_SPLAT_PLY_FILE := 'res://resources/demo.ply'
+const DEFAULT_CONFIG_PATH := 'res://resources/default_config.tres'
+
+#region Child Nodes (Auto-detected or created)
+## The viewer component (does all the heavy lifting)
+@onready var viewer : GaussianSplattingViewer = $GaussianSplattingViewer if has_node("GaussianSplattingViewer") else null
+
+## Optional UI controller (ImGui-based debug UI)
+@onready var ui_controller : DemoUIController = $DemoUIController if has_node("DemoUIController") else null
+#endregion
+
+#region Initialization
+func _init() -> void:
+	# Setup window
+	DisplayServer.window_set_size(DisplayServer.screen_get_size() * 0.75)
+	DisplayServer.window_set_position(DisplayServer.screen_get_size() * 0.25 / 2.0)
+
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
+	var config := _load_or_create_config()
+	
+	if not viewer:
+		push_error("[Main] No GaussianSplattingViewer found in scene!")
+		return
+	
+	# ========================================================================
+	# DEFINITIVE FIX FOR STARTUP RACE CONDITION
+	# ========================================================================
+	# To ensure `main.gd` has exclusive control over loading, we first
+	# assign the configuration, and then we EXPLICITLY disable the viewer's
+	# own auto-load mechanism by clearing the `auto_load_file` property.
+	#
+	# This guarantees that only the `viewer.load_file()` call further down
+	# in this function will be executed, completely eliminating the race condition.
+	# ========================================================================
+	viewer.config = config
+	if not viewer.auto_load_file.is_empty():
+		push_warning("[Main] Disabling viewer's auto_load_file property to allow Main to control loading.")
+		viewer.auto_load_file = ""
+
+	_connect_viewer_signals()
+	
+	if ui_controller:
+		ui_controller.viewer = viewer
+	else:
+		push_warning("[Main] No DemoUIController found - UI will not be available")
+	
+	# Now that we are sure we have exclusive control, load the default file.
+	if FileAccess.file_exists(DEFAULT_SPLAT_PLY_FILE):
+		viewer.load_file(DEFAULT_SPLAT_PLY_FILE)
+	else:
+		push_warning("[Main] Default splat file not found: %s" % DEFAULT_SPLAT_PLY_FILE)
+	
+	print("[Main] Demo scene initialized successfully")
+
+func _load_or_create_config() -> GaussianSplattingConfig:
+	# Try to load existing config
+	if FileAccess.file_exists(DEFAULT_CONFIG_PATH):
+		var loaded_config := GaussianSplattingConfig.load_from_file(DEFAULT_CONFIG_PATH)
+		if loaded_config:
+			print("[Main] Loaded configuration from: %s" % DEFAULT_CONFIG_PATH)
+			return loaded_config
+	
+	# Create default if not found
+	var config := GaussianSplattingConfig.create_default()
+	print("[Main] Created default configuration (Medium preset)")
+	return config
+
+func _connect_viewer_signals() -> void:
+	if not viewer:
+		return
+	
+	# Log important events
+	if not viewer.loading_started.is_connected(_on_viewer_loading_started):
+		viewer.loading_started.connect(_on_viewer_loading_started)
+	
+	if not viewer.loading_completed.is_connected(_on_viewer_loading_completed):
+		viewer.loading_completed.connect(_on_viewer_loading_completed)
+	
+	if not viewer.error_occurred.is_connected(_on_viewer_error):
+		viewer.error_occurred.connect(_on_viewer_error)
+	
+	if not viewer.camera_movement_changed.is_connected(_on_camera_movement_changed):
+		viewer.camera_movement_changed.connect(_on_camera_movement_changed)
+	
+	if not viewer.splat_clicked.is_connected(_on_splat_clicked):
+		viewer.splat_clicked.connect(_on_splat_clicked)
+#endregion
+
+#region Signal Handlers
+func _on_viewer_loading_started(file_path: String) -> void:
+	print("[Main] Loading started: %s" % file_path)
+
+func _on_viewer_loading_completed(file_path: String, splat_count: int) -> void:
+	print("[Main] Loading completed: %s (%s splats)" % [
+		file_path.get_file(),
+		_format_number(splat_count)
+	])
+
+func _on_viewer_error(error_message: String, error_code: int) -> void:
+	push_error("[Main] Viewer error: %s (code: %d)" % [error_message, error_code])
+
+func _on_camera_movement_changed(is_moving: bool) -> void:
+	# Could pause rendering here if desired
+	pass
+
+func _on_splat_clicked(world_position: Vector3) -> void:
+	print("[Main] Splat clicked at: %v" % world_position)
+#endregion
+
+#region Cleanup
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		print("[Main] Application shutting down...")
+		# Viewer handles its own cleanup
+#endregion
+
+#region Utility Functions
+static func _format_number(number: int) -> String:
+	var in_str := str(number)
+	var out_chars := PackedStringArray()
+	var length := in_str.length()
+	
+	for i in range(1, length + 1):
+		out_chars.append(in_str[length - i])
+		if i < length and i % 3 == 0:
+			out_chars.append(',')
+	
+	out_chars.reverse()
+	return ''.join(out_chars)
+#endregion

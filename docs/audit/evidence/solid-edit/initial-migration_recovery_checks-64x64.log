@@ -1,0 +1,68 @@
+Isolated project: build\mesh-physics-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (-19993.92, 1.7, 0.0)
+[CameraController] Camera transform set to: (-19993.92, 1.7, 0.0)
+PASS configuration requested during loading applies after the full batch
+FAIL failed GPU rebuild restores the previous working layout
+FAIL failed rebuild preserves both Gaussian populations and stable selection
+PASS valid configuration with insufficient instance capacity is rejected before modifying residency
+PASS deletion during migration preserves the remaining model
+PASS compacted instance IDs do not change remaining Gaussian geometry or radiance
+MIGRATION RECOVERY COMPLETE: 2 failures
+ WARNING: [GSViewer] GPU configuration preserved: Unavailable
+   at: push_warning (core/variant/variant_utility.cpp:1034)
+   GDScript backtrace (most recent call first):
+       [0] _report_error (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1305)
+       [1] _apply_config (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:547)
+       [2] _migrate_atlas (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_viewer.gd:1545)
+       [3] restore (res://modules/gaussian_splatting/utils/scripts/gs_atlas_migration.gd:141)
+SCRIPT ERROR: Invalid access to property or key 'splats' on a base object of type 'Dictionary'.
+   at: <anonymous lambda> (res://tests/migration_recovery_checks.gd:25)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://tests/migration_recovery_checks.gd:25)
+       [1] <anonymous lambda> (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_rasterizer.gd:96)
+       [2] _sync (res://modules/gaussian_splatting/utils/scripts/gaussian_splatting_rasterizer.gd:95)
+       [3] bytes_for (res://tests/migration_recovery_checks.gd:25)
+       [4] run (res://tests/migration_recovery_checks.gd:46)
+       [5] settle (res://tests/migration_recovery_checks.gd:23)
+SCRIPT ERROR: Trying to return value of type "Nil" from a function whose return type is "PackedByteArray".
+   at: bytes_for (res://tests/migration_recovery_checks.gd:25)
+   GDScript backtrace (most recent call first):
+       [0] bytes_for (res://tests/migration_recovery_checks.gd:25)
+       [1] run (res://tests/migration_recovery_checks.gd:46)
+       [2] settle (res://tests/migration_recovery_checks.gd:23)
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 1

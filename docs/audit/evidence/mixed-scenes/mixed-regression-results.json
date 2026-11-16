@@ -1,0 +1,230 @@
+[
+  {
+    "test": "cortex_settings_checks",
+    "passed": true,
+    "exit": 0,
+    "seconds": 1.05
+  },
+  {
+    "test": "cortex_presets_checks",
+    "passed": true,
+    "exit": 0,
+    "seconds": 0.97
+  },
+  {
+    "test": "cortex_transport_checks",
+    "passed": true,
+    "exit": 0,
+    "seconds": 1.06
+  },
+  {
+    "test": "cortex_conversation_checks",
+    "passed": true,
+    "exit": 0,
+    "seconds": 1.14
+  },
+  {
+    "test": "startup_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 2.95
+  },
+  {
+    "test": "camera_lifecycle_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 2.44
+  },
+  {
+    "test": "gpu_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 5.08
+  },
+  {
+    "test": "lifecycle_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 2.25
+  },
+  {
+    "test": "rendering_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 4.25
+  },
+  {
+    "test": "migration_recovery_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 3.56
+  },
+  {
+    "test": "spatial_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 2.3
+  },
+  {
+    "test": "selection_color_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 4.03
+  },
+  {
+    "test": "hybrid_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 19.09
+  },
+  {
+    "test": "shadow_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 26.42
+  },
+  {
+    "test": "loading_gpu_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 2.36
+  },
+  {
+    "test": "loading_checkpoint_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 3.73
+  },
+  {
+    "test": "loading_parallel_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 3.39
+  },
+  {
+    "test": "loading_scheduler_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 3.98
+  },
+  {
+    "test": "loading_cache_checks-64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 2.89
+  },
+  {
+    "test": "color_transform_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 8.23
+  },
+  {
+    "test": "studio_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 5.91
+  },
+  {
+    "test": "composition_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 6.81
+  },
+  {
+    "test": "composition_lifecycle_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 4.78
+  },
+  {
+    "test": "placement_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 7.66
+  },
+  {
+    "test": "placement_routes_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 3.81
+  },
+  {
+    "test": "environment_import_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 5.47
+  },
+  {
+    "test": "sky_controls_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 6.08
+  },
+  {
+    "test": "cortex_ui_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 3.84
+  },
+  {
+    "test": "cortex_presets_ui_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 4.69
+  },
+  {
+    "test": "cortex_chat_ui_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 3.0
+  },
+  {
+    "test": "import_mode_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 3.5
+  },
+  {
+    "test": "ui_scale_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 8.09
+  },
+  {
+    "test": "mixed_scene_checks-1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 7.91
+  },
+  {
+    "test": "cortex_layout_checks-1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 5.06
+  },
+  {
+    "test": "ui_scale_checks-1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 8.45
+  },
+  {
+    "test": "placement_checks-1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 7.98
+  },
+  {
+    "test": "launcher_drag_checks-1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 5.66
+  },
+  {
+    "test": "mixed_scene_checks-1142x648-real",
+    "passed": true,
+    "exit": 0,
+    "seconds": 43.0
+  }
+]

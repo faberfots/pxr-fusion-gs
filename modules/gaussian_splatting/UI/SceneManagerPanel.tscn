@@ -113,6 +113,12 @@ popup/item_1/id = 1
 popup/item_2/text = "Environment · Keep source pose"
 popup/item_2/id = 2
 
+[node name="LockTransform" type="CheckButton" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lock position, rotation and scale"
+tooltip_text = "Prevent accidental transforms. Unlock to use the shared gizmo or numeric controls."
+
 [node name="EnterEnvironment" type="Button" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -265,6 +271,7 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Atlas offset: —"
 theme_override_font_sizes/font_size = 12
+autowrap_mode = 2
 
 [node name="ScaleValues" type="HBoxContainer" parent="DraggableContainer/Panel/MainLayout/Scroll/Content/TransformSection"]
 layout_mode = 2

@@ -1,0 +1,73 @@
+Isolated project: build\mesh-physics-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS solid edit fixture exports as native GLB
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (0.740416, 0.99361, 0.987221)
+[CameraController] Camera transform set to: (0.740416, 0.99361, 0.987221)
+PASS solid edit fixture exports as native GLB
+[FreeLookCamera] Movement state reset. Position: (0.0, 2.0, 5.0)
+[CameraController] Camera transform set to: (0.0, 2.0, 5.0)
+NATIVE BELOW GRID (0.9216, 0.0, 0.0706, 1.0) versus (0.9216, 0.0, 0.0706, 1.0)
+PASS reference grid cannot paint over a native model below the grid plane
+[FreeLookCamera] Movement state reset. Position: (-1.0, 3.0, 6.0)
+[CameraController] Camera transform set to: (-1.0, 3.0, 6.0)
+PASS normal numeric editing stops the GLB geometry at the reference floor
+PASS normal gizmo movement starts without entering Drive mode
+SOLID GIZMO WALL STOP (0.550177, 0.05, 0.0)
+PASS normal gizmo movement cannot tunnel through another GLB
+PASS collision-clamped gizmo editing remains one exact undo and redo
+PASS mixed multi-selection stops together at a native collision without changing relative translation
+PASS a blocked group scale preserves every member's relative pose
+PASS unrestricted GS authoring preserves the requested affine matrix exactly
+PASS shared editing preserves existing small but non-singular GS scales
+PASS the authored Solid toggle permits an intentional overlap and below-floor pose
+[FreeLookCamera] Movement state reset. Position: (-1.0, 3.0, 6.0)
+[CameraController] Camera transform set to: (-1.0, 3.0, 6.0)
+[FreeLookCamera] Movement state reset. Position: (-1.0, 3.0, 6.0)
+[CameraController] Camera transform set to: (-1.0, 3.0, 6.0)
+PASS solid editing uses the existing exact mixed-scene transaction
+PASS saved Solid policy and intentional below-floor pose reopen exactly without automatic correction
+PASS the authored collision quality selection saves and reopens through the existing view settings
+PASS solid edit fixture exports as native GLB
+SHAPE READINESS true parts 1 shapes 1 error 0 processing false
+PASS numeric solid edits land on native floors below the grid without an invisible Y=0 blocker
+PASS numeric XYZ scale expansion stops at another GLB using prepared geometry
+PASS solid edit fixture exports as native GLB
+SHAPE READINESS true parts 1 shapes 1 error 0 processing false
+PASS numeric rotation stops before its true elongated shape crosses a native wall
+PASS the native environment remains loaded after shared editing
+PASS solid native edits preserve the GS atlas population and independent pose
+PASS the actual reported statue and truck import as native GLBs
+[FreeLookCamera] Movement state reset. Position: (5.164216, 2.344573, 6.034995)
+[CameraController] Camera transform set to: (5.164216, 2.344573, 6.034995)
+SHAPE READINESS true parts 8 shapes 8 error 0 processing false
+REAL SOLID CONTACT from (2.384901, -1.970459, 0.0) to (1.555767, -1.970459, 0.0) truck [P: (-1.308545, -2.0, -3.152464), S: (2.624608, 2.832118, 6.660859)] pieces 8
+PASS the reported statue stops against actual truck triangles during ordinary gizmo movement
+PASS the reported GLB remains above its native floor
+[FreeLookCamera] Movement state reset. Position: (4.054965, 3.116863, 5.579573)
+[CameraController] Camera transform set to: (4.054965, 3.116863, 5.579573)
+SHAPE READINESS true parts 187 shapes 187 error 0 processing false
+INTERACTIVE TRUCK FAST { "quality": 0, "cache_hit": true, "milliseconds": 4, "shapes": 187 } ready_wall_ms=36
+PASS selecting the actual truck for normal solid editing is ready within ten seconds
+FAST TRUCK FLOOR bottom=-2.13613891601563 root=(0.0, -1.333132, 0.0) pending={  }
+FAIL the actual Fast truck geometry stops on the native floor during ordinary numeric editing
+PASS the authored compact toolbar displays the active Fast policy
+SOLID EDIT CHECKS COMPLETE: 1 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 1

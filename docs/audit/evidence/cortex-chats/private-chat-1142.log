@@ -1,0 +1,42 @@
+Isolated project: build\cortex-chats-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.2.stable.official, safeguards balanced)
+Godot Engine v4.6.2.stable.official.71f334935 - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (0.557086, 0.371391, 0.742781)
+[CameraController] Camera transform set to: (0.557086, 0.371391, 0.742781)
+[ProductionUI] Cognitive Panel instantiated.
+PASS Chats shortcut opens a useful private conversation without launching inference
+PASS actual New click creates a separate empty topic
+PASS switching back restores the unsent draft
+PASS Rename opens the authored dialog
+PASS chat names are editable without changing the questions
+PASS chat transcript shows separate speakers and displays user markup as plain text
+PASS composer stays visible and history keeps its own scroll area at this resolution
+PASS other topics do not appear in a separate chat
+PASS Delete asks before removing saved local history
+PASS cancelling Delete preserves all chats
+PASS confirmed Delete removes only the chosen chat
+PASS closing and reopening keeps chat history and unsent text
+[LLMClient] Sending request to qwen...
+PASS actual chat Ask completes bundled private Qwen inference
+[LLMClient] Sending request to qwen...
+PASS real private follow-up remembers its chat's earlier answer
+PASS chat controls preserve GS transforms, camera and read-only permission defaults
+CORTEX CHAT UI COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0
