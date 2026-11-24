@@ -6,3 +6,13 @@ docs/audit/evidence/** -text -whitespace
 
 # Keep the user's unused legacy script verbatim as reference material.
 "main.gd_not used" -text -whitespace
+
+# Vendor/origin receipt hashes refer to the exact retained bytes.
+addons/Gizmo3DScript/** -text -whitespace
+docs/provenance/distribution-licenses/** -text -whitespace
+docs/provenance/GodotGaussianSplatting-LICENSE.txt -text -whitespace
+docs/provenance/vulkan_radix_sort-LICENSE.txt -text -whitespace
+
+# Generated notice projections retain the original legal text's whitespace.
+THIRD_PARTY_NOTICES.txt -whitespace
+assets/legal/notices.txt -whitespace

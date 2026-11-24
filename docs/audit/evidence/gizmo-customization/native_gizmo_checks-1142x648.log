@@ -1,0 +1,54 @@
+Isolated project: build\gizmo-custom-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (-2.910987, 1.726009, 1.452017)
+[CameraController] Camera transform set to: (-2.910987, 1.726009, 1.452017)
+PASS native gizmo fixture exports as a real GLB
+[FreeLookCamera] Movement state reset. Position: (4.0, 3.0, 7.0)
+[CameraController] Camera transform set to: (4.0, 3.0, 7.0)
+PASS selecting a model shows the combined Godot move/rotate/scale gizmo by default
+PASS viewing the default gizmo starts no collision preparation
+PASS gizmo geometry lives outside the GS/native depth and physics world
+PASS the runtime renders actual colored 3D arrows, planes and rings
+IDLE GIZMO render requests 2 -> 2 viewport_mode 0
+PASS an unchanged gizmo caches its frame instead of continuously rendering another viewport
+PASS the actual Godot arrow hit test starts the existing transform transaction
+PASS dragging the real X arrow moves the existing GLB root along world X
+PASS Godot gizmo input cannot orbit or move the scene camera
+PASS a native arrow drag remains one exact undo and redo
+PASS the actual Z rotation ring is independently selectable
+PASS dragging the native ring rotates the existing model through a quarter turn
+PASS the actual XY plane handle is independently selectable
+PASS the native plane drag stays in XY without moving Z
+PASS the authored center cube retains uniform scaling
+PASS center-cube dragging scales all three axes uniformly
+PASS focus loss cancels the exact edit and releases its camera blocker
+PASS Local moves along the model's orientation using the same native handles
+PASS Ctrl snapping uses Godot's native translation interval
+PASS orthographic overlay projection remains aligned with the scene
+PASS the same native arrow works with an orthographic scene camera
+PASS transform locks disable both native geometry and direct edit requests
+[FreeLookCamera] Movement state reset. Position: (-2.947619, 1.701587, 1.403175)
+[CameraController] Camera transform set to: (-2.947619, 1.701587, 1.403175)
+PASS the same Godot gizmo attaches to a GS visual pivot
+PASS Select only remains available without visible gizmo handles
+PASS native-only edits preserve the full GS population and its independent pose
+NATIVE GIZMO CHECKS COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

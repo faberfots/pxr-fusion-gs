@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "process_exit": 0,
+  "engine_sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562",
+  "entry_point": "res://tests/release_checks.tscn",
+  "datasets": [
+    "C:\\Users\\User\\Downloads\\3DModels_n_3DG_SAssets\\GS_Samples\\Bali_Ressort.ply",
+    "C:\\Users\\User\\Downloads\\3DModels_n_3DG_SAssets\\GS_Samples\\suzuki-bike-ply.ply"
+  ],
+  "meshes": [
+    "C:\\Users\\User\\AppData\\Roaming\\Godot\\app_userdata\\AssetBrowerLibrary\\models\\jesus_christ.glb",
+    "C:\\Users\\User\\AppData\\Roaming\\Godot\\app_userdata\\AssetBrowerLibrary\\models\\city_rtx.glb"
+  ],
+  "scope": "Windows x86_64, local Vulkan GPU, unsigned optimized-template package"
+}

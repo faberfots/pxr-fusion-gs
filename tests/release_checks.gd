@@ -30,6 +30,19 @@ func run() -> void:
 	check(is_equal_approx(ui.color_panel.sliders.post_temperature.value, 0.3), "packaged color sliders synchronize with the authoritative configuration")
 	ui.color_panel.apply_profile("Natural")
 	ui.color_panel.hide_panel()
+	# Credits/settings are exercised through the authored production scenes in a
+	# real template, including non-resource text files loaded from the PCK.
+	var workspace:Control=ui.get_node("%SettingsPanel")
+	ui._toggle_panel(workspace);workspace.get_node("%GizmoSection").button_pressed=true
+	workspace.get_node("%GizmoSettings").get_node("%Preset").item_selected.emit(2);await settle()
+	check(ui.transform_controls.gizmo_preferences.preset_name()=="High Visibility","optimized authored customization controls share the native gizmo preference owner")
+	ui.transform_controls.gizmo_preferences.apply_preset("Godot Classic")
+	workspace.get_node("%AboutSection").button_pressed=true;await settle()
+	var about:Control=workspace.get_node("%AboutLicenses")
+	check(about.get_node("%Credits").text.contains("Ethan Truong") and about.get_node("%Credits").text.contains("Christopher Charbonneau"),"optimized package visibly credits the GS and gizmo foundation authors")
+	about.current_tab=1;await settle()
+	check(about.get_node("%Notices").text.contains("ACTUAL RUNNING GODOT ENGINE") and about.get_node("%Notices").text.contains("Copyright (c) 2024 Ethan Truong"),"optimized PCK contains the full retained licences and exposes actual engine notices")
+	workspace.hide()
 	# Qualify the new RD pipelines in the actual optimized template, before large data.
 	var fixture:=viewer.load_new_splat_from_path(Checks.fixture("user://release-hybrid.ply",1))
 	fixture.position.y=1
@@ -160,8 +173,15 @@ func navigation_checks()->void:
 	panel._numeric_edit("position",1,-2);await settle(0.5)
 	check(actor.global_position.y>-0.05,"optimized ordinary numeric editing uses solid native-floor contact without Drive")
 	actor.global_transform=before;await settle()
-	var controls:GSModelTransformControls=ui.transform_controls;controls.set_mode(GSModelTransformControls.Mode.MOVE);await settle()
-	controls.begin_drag(2,controls._center);controls.update_drag(controls._center-(controls._ends[2]-controls._center).normalized()*2000);controls.finish_drag(false)
+	# Native 3D handles require a visible axis and a valid projected world target.
+	viewer.camera_controller.position_camera_at(Vector3(4,3,7),Vector3(0,0.8,2))
+	var controls:GSModelTransformControls=ui.transform_controls;controls.set_mode(GSModelTransformControls.Mode.ALL);await settle()
+	check(controls.runtime.visible and controls.runtime.native.get_world_3d()!=actor.get_world_3d() and not controls.runtime.get_node("%GizmoViewport").get_texture().get_image().is_empty(),"optimized template renders the combined Godot gizmo in its isolated overlay")
+	var renders:=controls.runtime.render_requests;await settle()
+	check(controls.runtime.render_requests==renders and controls.runtime.get_node("%GizmoViewport").render_target_update_mode==SubViewport.UPDATE_DISABLED,"optimized idle gizmo caches its frame without another continuous 3D pass")
+	controls.set_mode(GSModelTransformControls.Mode.MOVE);await settle()
+	var target:=viewer.get_camera().unproject_position(controls.runtime.proxy.global_position-Vector3(0,0,8))
+	controls.begin_drag(2,controls._center);controls.update_drag(target);controls.finish_drag(false)
 	await settle(0.5)
 	print("RELEASE SOLID GIZMO STOP ",actor.global_position)
 	check(actor.global_position.z>-2.9 and actor.global_position.z<-1.9 and not controls.dragging,"optimized ordinary gizmo movement passes the doorway and stops at its back wall")

@@ -1,6 +1,6 @@
 """Build an unsigned Windows development package, including external native libraries."""
 from pathlib import Path
-import argparse, hashlib, json, re, shutil, subprocess, tempfile
+import argparse, hashlib, json, re, shutil, subprocess, sys, tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
@@ -12,6 +12,7 @@ parser.add_argument('--qualification', action='store_true', help='Export the ded
 parser.add_argument('--include-cortex', action='store_true', help='Verify and copy the external portable Cortex models and CPU runtimes beside the executable.')
 parser.add_argument('--user-data-name', default='GS Packaged Qualification', help='Separate app-data identity for an isolated qualification package.')
 args = parser.parse_args()
+subprocess.run([sys.executable,str(ROOT / 'tools/generate_credits.py'),'--check'],check=True)
 if not re.fullmatch(r'[A-Za-z0-9 _-]{1,80}', args.user_data_name):
     parser.error('--user-data-name must be a simple app-data directory name.')
 def sha256(path):
@@ -30,7 +31,11 @@ work = Path(tempfile.mkdtemp(prefix='gs-package-source-'))
 for directory in ('modules', 'addons', 'assets', 'tests', 'rust/spatial_ml/models', 'rust/spatial_ml/bin'):
     source = ROOT / directory
     if source.exists():
-        shutil.copytree(source, work / directory, ignore=shutil.ignore_patterns('~*', '*.TMP', '__pycache__'))
+        # The app does not reference this legacy editor add-on. Its global
+        # VirtualJoystick class collides with Godot 4.7's native class even
+        # when an export filter excludes its files (the class cache retains it).
+        omitted = ['virtual_joystick'] if directory == 'addons' else []
+        shutil.copytree(source, work / directory, ignore=shutil.ignore_patterns('~*', '*.TMP', '__pycache__', *omitted))
 for name in ('main.tscn', 'icon.svg', 'export_presets.cfg', 'rust/spatial_ml/spatial_ml.gdextension'):
     source = ROOT / name
     if source.exists():
@@ -70,12 +75,14 @@ for descriptor in work.rglob('*.gdextension'):
         shutil.copy2(source, destination)
 for folder in ('addons', 'assets', 'rust/spatial_ml/models', 'rust/spatial_ml/bin/windows/runtime', 'modules/spatial_intelligence/models'):
     for source in (ROOT / folder).rglob('*'):
-        if source.is_file() and any(word in source.name.lower() for word in ('license', 'notices', 'attribution', 'ofl.')):
+        if source.is_file() and any(word in source.name.lower() for word in ('license', 'licence', 'notices', 'copyright', 'attribution', 'ofl.')):
             destination = output / 'licenses' / source.relative_to(ROOT)
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
 if (ROOT / 'LICENSE').exists():
     shutil.copy2(ROOT / 'LICENSE', output / 'LICENSE')
+for name in ('CREDITS.md','THIRD_PARTY_NOTICES.txt'):
+    shutil.copy2(ROOT / name,output / name)
 if (ROOT / 'docs/provenance/rust-licenses').exists():
     shutil.copytree(ROOT / 'docs/provenance/rust-licenses', output / 'licenses/rust', dirs_exist_ok=True)
 if (ROOT / 'docs/provenance/Godot-LICENSE.txt').exists():

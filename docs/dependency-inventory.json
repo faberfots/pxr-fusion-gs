@@ -9,12 +9,23 @@
         "LICENSE",
         "docs/archive/upstream-README.md"
       ],
-      "status": "upstream attribution retained; history unavailable",
+      "status": "Original MIT notice retained; project origin identified by user and upstream licence matched. Exact originally imported Git revision is unknown.",
       "snapshot": {
         "files": 83,
         "sha256": "d71b510ec971e9e43e657c21a2c8d54f8434e3153603db380a0530ee0476bb0e",
         "scope": "Historical audit snapshot; current qualified source/artifacts are hashed in docs/audit/cortex-qualification.json and docs/provenance/native-build.json"
-      }
+      },
+      "authors": [
+        "Ethan Truong (2Retr0)"
+      ],
+      "upstream": "https://github.com/2Retr0/GodotGaussianSplatting",
+      "license": "MIT",
+      "license_evidence": [
+        "docs/provenance/GodotGaussianSplatting-LICENSE.txt"
+      ],
+      "role": "Original Gaussian splatting implementation",
+      "origin_evidence": "User identified the original project in this chat on 2026-11-24; original root copyright matches upstream LICENSE. No imported commit is inferred.",
+      "imported_revision": null
     },
     {
       "component": "advanced_control_camera3d",
@@ -92,11 +103,11 @@
     },
     {
       "component": "virtual_joystick",
-      "path": "addons/virtual_joystick",
+      "path": "addons/.virtual_joystick",
       "license_evidence": [
-        "addons/virtual_joystick/LICENSE-upstream.md"
+        "addons/.virtual_joystick/LICENSE-upstream.md"
       ],
-      "status": "author MIT license recovered; local 1.0.6 snapshot predates current upstream and exact history remains unverified",
+      "status": "author MIT license recovered; local 1.0.6 snapshot predates current upstream and exact history remains unverified; user moved the unused legacy source to a hidden directory before this attribution follow-up",
       "upstream": "https://github.com/Saulo-de-Souza/VirtualJoystick",
       "snapshot": {
         "files": 32,
@@ -304,7 +315,10 @@
         "files": 6,
         "sha256": "f2bbfabc116909d50624321ba994b98489c129bd8b298cb0e752eaa85d4f9e5f",
         "scope": "Historical audit snapshot; current qualified source/artifacts are hashed in docs/audit/cortex-qualification.json and docs/provenance/native-build.json"
-      }
+      },
+      "license_evidence": [
+        "rust/spatial_ml/models/LICENSE-MobileSAM.txt"
+      ]
     },
     {
       "component": "local sample datasets",
@@ -348,6 +362,9 @@
         "modules/spatial_intelligence/models/sam3-pack-manifest.json",
         "modules/spatial_intelligence/models/LICENSE-SAM3.txt",
         "docs/provenance/cortex-assets.json"
+      ],
+      "license_evidence": [
+        "modules/spatial_intelligence/models/LICENSE-SAM3.txt"
       ]
     },
     {
@@ -358,6 +375,9 @@
         "modules/spatial_intelligence/models/LICENSE-CLIP.txt",
         "tests/fixtures/clip-reference.json",
         "docs/provenance/cortex-assets.json"
+      ],
+      "license_evidence": [
+        "modules/spatial_intelligence/models/LICENSE-CLIP.txt"
       ]
     },
     {
@@ -380,6 +400,210 @@
         "docs/audit/evidence/cortex/crt-ort-probe.log",
         "docs/audit/evidence/cortex/crt-llama-probe.log"
       ]
+    },
+    {
+      "component": "Gizmo3D runtime editor-gizmo port",
+      "path": "addons/Gizmo3DScript",
+      "upstream": "https://github.com/chrisizeful/Gizmo3D",
+      "commit": "f364d87912482a0ce81a9467c0f3c5e3c82dd385",
+      "license_evidence": [
+        "addons/Gizmo3DScript/LICENSE",
+        "addons/Gizmo3DScript/GODOT-LICENSE.txt"
+      ],
+      "evidence": [
+        "addons/Gizmo3DScript/UPSTREAM.json",
+        "docs/NATIVE_GIZMO.md",
+        "docs/audit/native-gizmo-qualification.json"
+      ],
+      "status": "Pinned MIT source; attribution retained; local integration changes recorded. Existing unrelated provenance gaps remain open.",
+      "authors": [
+        "Christopher Charbonneau (chrisizeful)"
+      ],
+      "role": "Runtime transform tools derived from Godot editor code",
+      "license": "MIT"
+    },
+    {
+      "component": "Godot Engine",
+      "role": "Engine and original editor gizmo code",
+      "authors": [
+        "Godot Engine contributors",
+        "Juan Linietsky",
+        "Ariel Manzur"
+      ],
+      "path": "docs/provenance/Godot-LICENSE.txt",
+      "upstream": "https://godotengine.org/license/",
+      "license": "MIT",
+      "license_evidence": [
+        "docs/provenance/Godot-LICENSE.txt"
+      ],
+      "status": "Retained Godot notice; running engine third-party notices are available through Engine license APIs."
+    },
+    {
+      "component": "Vulkan Radix Sort (historical upstream credit)",
+      "authors": [
+        "jaesung-cs"
+      ],
+      "path": "modules/gaussian_splatting/shaders/compute",
+      "upstream": "https://github.com/jaesung-cs/vulkan_radix_sort",
+      "license": "MIT",
+      "license_evidence": [
+        "docs/provenance/vulkan_radix_sort-LICENSE.txt"
+      ],
+      "status": "Credit inherited from the original GS README. Renderer sorting has subsequently been reworked. Recovered current upstream MIT notice retained; original imported revision is unknown."
+    },
+    {
+      "component": "Virtual Joystick DX",
+      "authors": [
+        "Repechul (Bugrhak)"
+      ],
+      "path": "addons/virtual_joystick_DX",
+      "license": "MIT",
+      "license_evidence": [
+        "addons/virtual_joystick_DX/LICENCE"
+      ],
+      "declared_version": "1.1c",
+      "status": "User-supplied local add-on; supplied MIT notice retained. Exact upstream URL/revision has not been independently established."
     }
+  ],
+  "product": {
+    "name": "PXRFusion",
+    "developer": "POLYGONICS SAS",
+    "copyright_scope": "Original additions and modifications owned by POLYGONICS SAS; upstream copyrights remain with their respective owners.",
+    "license": "MIT",
+    "root_license": "LICENSE",
+    "foundation_statement": "PXRFusion is developed by POLYGONICS SAS, building on GodotGaussianSplatting by Ethan Truong (2Retr0). The original Gaussian splatting implementation is retained and extended under MIT. Runtime transformation tools use Gizmo3D by Christopher Charbonneau (chrisizeful), derived from Godot Engine editor code."
+  },
+  "notice_files": [
+    "addons/.virtual_joystick/LICENSE-upstream.md",
+    "addons/AdvancedFreeFlyCamera/LICENSE.txt",
+    "addons/Gizmo3DScript/GODOT-LICENSE.txt",
+    "addons/Gizmo3DScript/LICENSE",
+    "addons/advanced_control_camera3d/LICENSE.txt",
+    "addons/imgui-godot/LICENSE.txt",
+    "addons/sky_3d/LICENSE.txt",
+    "addons/sky_3d/assets/thirdparty/textures/milkyway/LICENSE.md",
+    "addons/sky_3d/assets/thirdparty/textures/moon/LICENSE.md",
+    "addons/sky_3d/shaders/LICENSE",
+    "addons/smart_camera_switcher/LICENSE.txt",
+    "addons/virtual_joystick_DX/LICENCE",
+    "assets/fonts/Oswald/OFL.txt",
+    "assets/fonts/Poppins/OFL.txt",
+    "assets/fonts/architect-s-daughter/Architects Daughter SIL OFL Font License.txt",
+    "assets/fonts/cmu-typewriter/OFL.txt",
+    "assets/fonts/connection/SIL Open Font License.txt",
+    "assets/fonts/connection_ii/SIL Open Font License.txt",
+    "assets/fonts/droid-sans/Apache License.txt",
+    "assets/fonts/kirifont/OFL.txt",
+    "assets/fonts/linux-libertine/LICENCE.txt",
+    "assets/fonts/montreal/OFL.txt",
+    "assets/fonts/poco/ATTRIBUTION.txt",
+    "assets/fonts/source-code-pro/LICENSE.md",
+    "assets/fonts/xolonium/LICENSE.txt",
+    "docs/provenance/Godot-LICENSE.txt",
+    "docs/provenance/GodotGaussianSplatting-LICENSE.txt",
+    "docs/provenance/distribution-licenses/resources/cortex/models/language/qwen3/1.7b-q8_0/LICENSE.txt",
+    "docs/provenance/distribution-licenses/resources/cortex/models/segmentation/mobilesam/vit_t/LICENSE-MobileSAM.txt",
+    "docs/provenance/distribution-licenses/resources/cortex/models/segmentation/sam3/vit_h_20260220/LICENSE.txt",
+    "docs/provenance/distribution-licenses/resources/cortex/runtimes/llama.cpp/b12387/windows-x86_64/LICENSE-LLVM-OpenMP",
+    "docs/provenance/distribution-licenses/resources/cortex/runtimes/llama.cpp/b12387/windows-x86_64/LICENSE-llama.cpp.txt",
+    "docs/provenance/distribution-licenses/resources/cortex/runtimes/llama.cpp/b12387/windows-x86_64/Microsoft-ThirdPartyNotices.txt",
+    "docs/provenance/distribution-licenses/resources/cortex/runtimes/onnxruntime/1.23.2/windows-x86_64/LICENSE-ONNXRuntime.txt",
+    "docs/provenance/distribution-licenses/resources/cortex/runtimes/onnxruntime/1.23.2/windows-x86_64/Microsoft-ThirdPartyNotices.txt",
+    "docs/provenance/distribution-licenses/resources/cortex/runtimes/onnxruntime/1.23.2/windows-x86_64/ThirdPartyNotices.txt",
+    "docs/provenance/distribution-licenses/rust/spatial_ml/bin/windows/runtime/LICENSE-ONNXRuntime.txt",
+    "docs/provenance/distribution-licenses/rust/spatial_ml/bin/windows/runtime/ThirdPartyNotices.txt",
+    "docs/provenance/rust-licenses/aho-corasick-1.1.4/LICENSE-MIT",
+    "docs/provenance/rust-licenses/autocfg-1.5.0/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/autocfg-1.5.0/LICENSE-MIT",
+    "docs/provenance/rust-licenses/bytemuck-1.24.0/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/bytemuck-1.24.0/LICENSE-MIT",
+    "docs/provenance/rust-licenses/bytemuck-1.24.0/LICENSE-ZLIB",
+    "docs/provenance/rust-licenses/byteorder-lite-0.1.0/LICENSE-MIT",
+    "docs/provenance/rust-licenses/cfg-if-1.0.4/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/cfg-if-1.0.4/LICENSE-MIT",
+    "docs/provenance/rust-licenses/glam-0.30.10/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/glam-0.30.10/LICENSE-MIT",
+    "docs/provenance/rust-licenses/godot-0.4.4/License.txt",
+    "docs/provenance/rust-licenses/godot-bindings-0.4.4/License.txt",
+    "docs/provenance/rust-licenses/godot-cell-0.4.4/License.txt",
+    "docs/provenance/rust-licenses/godot-codegen-0.4.4/License.txt",
+    "docs/provenance/rust-licenses/godot-core-0.4.4/License.txt",
+    "docs/provenance/rust-licenses/godot-ffi-0.4.4/License.txt",
+    "docs/provenance/rust-licenses/godot-macros-0.4.4/License.txt",
+    "docs/provenance/rust-licenses/heck-0.5.0/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/heck-0.5.0/LICENSE-MIT",
+    "docs/provenance/rust-licenses/html-escape-0.2.13/LICENSE",
+    "docs/provenance/rust-licenses/image-0.25.9/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/image-0.25.9/LICENSE-MIT",
+    "docs/provenance/rust-licenses/libc-0.2.180/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/libc-0.2.180/LICENSE-MIT",
+    "docs/provenance/rust-licenses/libloading-0.9.0/LICENSE",
+    "docs/provenance/rust-licenses/matrixmultiply-0.3.10/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/matrixmultiply-0.3.10/LICENSE-MIT",
+    "docs/provenance/rust-licenses/memchr-2.7.6/LICENSE-MIT",
+    "docs/provenance/rust-licenses/moxcms-0.7.11/LICENSE-APACHE.md",
+    "docs/provenance/rust-licenses/moxcms-0.7.11/LICENSE.md",
+    "docs/provenance/rust-licenses/nanoserde-0.2.1/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/nanoserde-0.2.1/LICENSE-MIT",
+    "docs/provenance/rust-licenses/nanoserde-derive-0.2.1/LICENSE-MIT",
+    "docs/provenance/rust-licenses/ndarray-0.17.2/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/ndarray-0.17.2/LICENSE-MIT",
+    "docs/provenance/rust-licenses/num-complex-0.4.6/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/num-complex-0.4.6/LICENSE-MIT",
+    "docs/provenance/rust-licenses/num-integer-0.1.46/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/num-integer-0.1.46/LICENSE-MIT",
+    "docs/provenance/rust-licenses/num-traits-0.2.19/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/num-traits-0.2.19/LICENSE-MIT",
+    "docs/provenance/rust-licenses/once_cell-1.21.3/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/once_cell-1.21.3/LICENSE-MIT",
+    "docs/provenance/rust-licenses/ort-2.0.0-rc.11/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/ort-2.0.0-rc.11/LICENSE-MIT",
+    "docs/provenance/rust-licenses/ort-sys-2.0.0-rc.11/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/ort-sys-2.0.0-rc.11/LICENSE-MIT",
+    "docs/provenance/rust-licenses/pin-project-lite-0.2.16/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/pin-project-lite-0.2.16/LICENSE-MIT",
+    "docs/provenance/rust-licenses/portable-atomic-1.13.0/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/portable-atomic-1.13.0/LICENSE-MIT",
+    "docs/provenance/rust-licenses/portable-atomic-util-0.2.4/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/portable-atomic-util-0.2.4/LICENSE-MIT",
+    "docs/provenance/rust-licenses/proc-macro2-1.0.106/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/proc-macro2-1.0.106/LICENSE-MIT",
+    "docs/provenance/rust-licenses/pxfm-0.1.27/LICENSE-APACHE.md",
+    "docs/provenance/rust-licenses/pxfm-0.1.27/LICENSE.md",
+    "docs/provenance/rust-licenses/quote-1.0.44/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/quote-1.0.44/LICENSE-MIT",
+    "docs/provenance/rust-licenses/rawpointer-0.2.1/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/rawpointer-0.2.1/LICENSE-MIT",
+    "docs/provenance/rust-licenses/regex-1.12.2/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/regex-1.12.2/LICENSE-MIT",
+    "docs/provenance/rust-licenses/regex-automata-0.4.13/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/regex-automata-0.4.13/LICENSE-MIT",
+    "docs/provenance/rust-licenses/regex-syntax-0.8.8/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/regex-syntax-0.8.8/LICENSE-MIT",
+    "docs/provenance/rust-licenses/smallvec-1.15.1/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/smallvec-1.15.1/LICENSE-MIT",
+    "docs/provenance/rust-licenses/syn-2.0.114/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/syn-2.0.114/LICENSE-MIT",
+    "docs/provenance/rust-licenses/thiserror-2.0.18/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/thiserror-2.0.18/LICENSE-MIT",
+    "docs/provenance/rust-licenses/thiserror-impl-2.0.18/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/thiserror-impl-2.0.18/LICENSE-MIT",
+    "docs/provenance/rust-licenses/tinyvec-1.13.3/LICENSE-APACHE.md",
+    "docs/provenance/rust-licenses/tinyvec-1.13.3/LICENSE-MIT.md",
+    "docs/provenance/rust-licenses/tinyvec-1.13.3/LICENSE-ZLIB.md",
+    "docs/provenance/rust-licenses/tracing-0.1.44/LICENSE",
+    "docs/provenance/rust-licenses/tracing-core-0.1.36/LICENSE",
+    "docs/provenance/rust-licenses/unicode-ident-1.0.22/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/unicode-ident-1.0.22/LICENSE-MIT",
+    "docs/provenance/rust-licenses/unicode-ident-1.0.22/LICENSE-UNICODE",
+    "docs/provenance/rust-licenses/unicode-normalization-0.1.24/LICENSE-APACHE",
+    "docs/provenance/rust-licenses/unicode-normalization-0.1.24/LICENSE-MIT",
+    "docs/provenance/rust-licenses/utf8-width-0.1.9/LICENSE",
+    "docs/provenance/rust-licenses/venial-0.6.1/LICENSE",
+    "docs/provenance/rust-licenses/windows-link-0.2.1/license-mit",
+    "docs/provenance/vulkan_radix_sort-LICENSE.txt",
+    "modules/spatial_intelligence/models/LICENSE-CLIP.txt",
+    "modules/spatial_intelligence/models/LICENSE-SAM3.txt",
+    "rust/spatial_ml/models/LICENSE-MobileSAM.txt"
   ]
 }

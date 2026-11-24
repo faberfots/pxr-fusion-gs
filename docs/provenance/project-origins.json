@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-24",
+  "root_notice": "POLYGONICS SAS added for its owned original additions/modifications; Ethan Truong retained. User authorized this change in this chat.",
+  "foundation": {
+    "url": "https://github.com/2Retr0/GodotGaussianSplatting",
+    "imported_revision": null,
+    "evidence": "User statement and matching original licence; exact historical source import cannot be inferred from the latest upstream state.",
+    "retained_license_sha256": "b201c376a2da0cd55c29a18db507744eee447723fe1d495f50af2d180b24384a"
+  },
+  "historical_radix_notice": {
+    "url": "https://raw.githubusercontent.com/jaesung-cs/vulkan_radix_sort/master/LICENSE",
+    "sha256": "32f91cf10528c086854c5b7235ae1915304bb7fdc1379c6b61f4f243a4ca89c8",
+    "scope": "Licence retrieval, not proof of imported source revision."
+  }
+}

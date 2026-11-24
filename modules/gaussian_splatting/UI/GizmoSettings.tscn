@@ -1,0 +1,324 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://modules/gaussian_splatting/UI/GizmoSettings.gd" id="1"]
+
+[node name="GizmoSettings" type="VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+script = ExtResource("1")
+
+[node name="Presets" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Preset" type="OptionButton" parent="Presets"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Choose a look, then adjust any option below."
+
+[node name="Reset" type="Button" parent="Presets"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset"
+tooltip_text = "Restore Godot Classic, including all snapping and axis settings."
+
+[node name="Tabs" type="TabContainer" parent="."]
+layout_mode = 2
+custom_minimum_size = Vector2(350, 400)
+
+[node name="Appearance" type="ScrollContainer" parent="Tabs"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Body" type="VBoxContainer" parent="Tabs/Appearance"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Snapping" type="ScrollContainer" parent="Tabs"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Body" type="VBoxContainer" parent="Tabs/Snapping"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Advanced" type="ScrollContainer" parent="Tabs"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Body" type="VBoxContainer" parent="Tabs/Advanced"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Help" type="Label" parent="Tabs/Appearance/Body"]
+layout_mode = 2
+text = "Shape the handles, keep your scene unchanged."
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="Numbers" type="GridContainer" parent="Tabs/Appearance/Body"]
+layout_mode = 2
+columns = 2
+
+[node name="SizeLabel" type="Label" parent="Tabs/Appearance/Body/Numbers"]
+layout_mode = 2
+text = "Handle size"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="Size" type="SpinBox" parent="Tabs/Appearance/Body/Numbers"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 30
+max_value = 200
+step = 5
+size_flags_horizontal = 3
+
+[node name="OpacityLabel" type="Label" parent="Tabs/Appearance/Body/Numbers"]
+layout_mode = 2
+text = "Opacity"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="Opacity" type="SpinBox" parent="Tabs/Appearance/Body/Numbers"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+max_value = 1
+step = 0.05
+size_flags_horizontal = 3
+
+[node name="Colors" type="GridContainer" parent="Tabs/Appearance/Body"]
+layout_mode = 2
+columns = 2
+
+[node name="ColorXLabel" type="Label" parent="Tabs/Appearance/Body/Colors"]
+layout_mode = 2
+text = "X axis"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorX" type="ColorPickerButton" parent="Tabs/Appearance/Body/Colors"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(100, 28)
+edit_alpha = false
+size_flags_horizontal = 3
+
+[node name="ColorYLabel" type="Label" parent="Tabs/Appearance/Body/Colors"]
+layout_mode = 2
+text = "Y axis"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorY" type="ColorPickerButton" parent="Tabs/Appearance/Body/Colors"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(100, 28)
+edit_alpha = false
+size_flags_horizontal = 3
+
+[node name="ColorZLabel" type="Label" parent="Tabs/Appearance/Body/Colors"]
+layout_mode = 2
+text = "Z axis"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorZ" type="ColorPickerButton" parent="Tabs/Appearance/Body/Colors"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(100, 28)
+edit_alpha = false
+size_flags_horizontal = 3
+
+[node name="BoundsColorLabel" type="Label" parent="Tabs/Appearance/Body/Colors"]
+layout_mode = 2
+text = "Selection outline"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="BoundsColor" type="ColorPickerButton" parent="Tabs/Appearance/Body/Colors"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(100, 28)
+edit_alpha = false
+size_flags_horizontal = 3
+
+[node name="Bounds" type="CheckButton" parent="Tabs/Appearance/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Selection outline"
+tooltip_text = "Show the real combined bounds of selected GS and GLB assets."
+
+[node name="Guides" type="CheckButton" parent="Tabs/Appearance/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Extended axis guides"
+tooltip_text = "Extend the active axes while dragging."
+
+[node name="Planes" type="CheckButton" parent="Tabs/Appearance/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Plane handles"
+tooltip_text = "Move or scale along two allowed axes together."
+
+[node name="RotationLine" type="CheckButton" parent="Tabs/Appearance/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rotation guide line"
+tooltip_text = "Connect the rotation center to your pointer."
+
+[node name="RotationArc" type="CheckButton" parent="Tabs/Appearance/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rotation angle arc"
+tooltip_text = "Show how far you have rotated."
+
+[node name="Help" type="Label" parent="Tabs/Snapping/Body"]
+layout_mode = 2
+text = "Hold Ctrl to snap. Add Shift for finer steps. Values use your scene units."
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="Numbers" type="GridContainer" parent="Tabs/Snapping/Body"]
+layout_mode = 2
+columns = 2
+
+[node name="MoveSnapLabel" type="Label" parent="Tabs/Snapping/Body/Numbers"]
+layout_mode = 2
+text = "Move"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="MoveSnap" type="SpinBox" parent="Tabs/Snapping/Body/Numbers"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.001
+max_value = 10
+step = 0.001
+suffix = "units"
+size_flags_horizontal = 3
+
+[node name="RotateSnapLabel" type="Label" parent="Tabs/Snapping/Body/Numbers"]
+layout_mode = 2
+text = "Rotate"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="RotateSnap" type="SpinBox" parent="Tabs/Snapping/Body/Numbers"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+max_value = 180
+step = 0.1
+suffix = "°"
+size_flags_horizontal = 3
+
+[node name="ScaleSnapLabel" type="Label" parent="Tabs/Snapping/Body/Numbers"]
+layout_mode = 2
+text = "Scale increment"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScaleSnap" type="SpinBox" parent="Tabs/Snapping/Body/Numbers"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.001
+max_value = 1
+step = 0.001
+suffix = ""
+size_flags_horizontal = 3
+
+[node name="ScaleHelp" type="Label" parent="Tabs/Snapping/Body"]
+layout_mode = 2
+text = "A scale increment of 0.25 means 25%. Shift refines Move by 10, Rotate by 3 and Scale by 2."
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="Help" type="Label" parent="Tabs/Advanced/Body"]
+layout_mode = 2
+text = "Choose the handles available for each tool. These preferences do not change model locks or action permissions. Plane handles require both of their axes."
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="Axes" type="GridContainer" parent="Tabs/Advanced/Body"]
+layout_mode = 2
+columns = 4
+
+[node name="MoveLabel" type="Label" parent="Tabs/Advanced/Body/Axes"]
+layout_mode = 2
+text = "Move"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="MoveX" type="CheckButton" parent="Tabs/Advanced/Body/Axes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+
+[node name="MoveY" type="CheckButton" parent="Tabs/Advanced/Body/Axes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Y"
+
+[node name="MoveZ" type="CheckButton" parent="Tabs/Advanced/Body/Axes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Z"
+
+[node name="RotationLabel" type="Label" parent="Tabs/Advanced/Body/Axes"]
+layout_mode = 2
+text = "Rotate"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="RotationX" type="CheckButton" parent="Tabs/Advanced/Body/Axes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+
+[node name="RotationY" type="CheckButton" parent="Tabs/Advanced/Body/Axes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Y"
+
+[node name="RotationZ" type="CheckButton" parent="Tabs/Advanced/Body/Axes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Z"
+
+[node name="ScaleLabel" type="Label" parent="Tabs/Advanced/Body/Axes"]
+layout_mode = 2
+text = "Scale"
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScaleX" type="CheckButton" parent="Tabs/Advanced/Body/Axes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+
+[node name="ScaleY" type="CheckButton" parent="Tabs/Advanced/Body/Axes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Y"
+
+[node name="ScaleZ" type="CheckButton" parent="Tabs/Advanced/Body/Axes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Z"
+
+[node name="CenterHelp" type="Label" parent="Tabs/Advanced/Body"]
+layout_mode = 2
+text = "Free movement and uniform scaling require all three axes. Settings changes cancel an active drag safely."
+autowrap_mode = 2
+size_flags_horizontal = 3
+
+[node name="Saved" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Saved on this computer · Ctrl snaps; Shift refines."
+autowrap_mode = 2
+size_flags_horizontal = 3

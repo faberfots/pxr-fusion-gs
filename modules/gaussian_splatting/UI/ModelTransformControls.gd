@@ -1,39 +1,46 @@
 class_name GSModelTransformControls
 extends Control
-## Shared screen handles edit selected GS/native scene roots. Transforms stay on Node3D.
-enum Mode { SELECT,MOVE,ROTATE,SCALE }
-const AXES:=[Vector3.RIGHT,Vector3.UP,Vector3.BACK]
-const COLORS:=[Color("ff6b78"),Color("74dda4"),Color("6aaeff")]
+## Godot runtime gizmo submits edits to the existing GS/native pose and undo owners.
+enum Mode { SELECT,MOVE,ROTATE,SCALE,ALL }
 var viewer:GaussianSplattingViewer
 var layout_host:Node
-var mode:Mode=Mode.SELECT
+var mode:Mode=Mode.ALL
+var local_space:=false
+var runtime:GSRuntimeTransformGizmo
+var gizmo_preferences:=GSGizmoPreferences.new()
 var toolbar:GSFloatingPanel
 var selection_label:Label
 var buttons:Array[Button]=[]
 var dragging:=false
 var _drag_model:WeakRef
 var _initial:=Transform3D.IDENTITY
-var _initial_node:=Transform3D.IDENTITY
 var _pivot:=Vector3.ZERO
-var _start:=Vector2.ZERO
 var _center:=Vector2.ZERO
 var _ends:Array[Vector2]=[]
-var _axis:=-1
-var _units:=0.01
 var _anchor_model:=""
 var _anchor_local:=Vector3.ZERO
 var _can_draw:=false
 var _group_edit:Dictionary={}
 var _group_node:Dictionary={}
+var _group_refs:Dictionary={}
 var _pending_edit:Dictionary={}
 var _finish_when_ready:=false
 func _ready()->void:
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
-	toolbar=%Toolbar;selection_label=%SelectionLabel
+	toolbar=%Toolbar;selection_label=%SelectionLabel;runtime=%RuntimeTransformGizmo;runtime.controller=self
+	gizmo_preferences.load_preferences()
+	gizmo_preferences.changed.connect(func():
+		if dragging:finish_drag(true)
+		runtime.invalidate_preferences()
+	)
 	toolbar.drag_changed.connect(func(active):viewer.set_camera_blocker("model_toolbar",active))
-	buttons.assign([%Select,%Move,%Rotate,%Scale])
-	for i in range(4):buttons[i].pressed.connect(set_mode.bind(i))
-	buttons[0].button_pressed=true
+	buttons.assign([%Select,%Move,%Rotate,%Scale,%Universal])
+	for i in range(buttons.size()):buttons[i].pressed.connect(set_mode.bind(i))
+	buttons[mode].button_pressed=true
+	%LocalSpace.toggled.connect(func(value):
+		if dragging:finish_drag(true)
+		local_space=value
+	)
 	%Frame.pressed.connect(func():
 		var model:=viewer.get_selected_asset()
 		if model:viewer.frame_models(viewer.selected_model_ids)
@@ -45,6 +52,7 @@ func _ready()->void:
 	viewer.model_clicked.connect(_on_model_clicked)
 	viewer.selection_changed.connect(func(_id):
 		if dragging:finish_drag(true)
+		runtime.native.active=false;runtime.hide();_can_draw=false
 		_refresh_models()
 	)
 	get_viewport().size_changed.connect(_place_toolbar)
@@ -63,7 +71,7 @@ func _refresh_models()->void:
 	list.tooltip_text="%d selected · choose active model" % viewer.selected_model_ids.size()
 func _place_toolbar()->void:
 	if not is_instance_valid(toolbar):return
-	%Row.columns=8 if get_viewport_rect().size.x>=850 else 4
+	%Row.columns=10 if get_viewport_rect().size.x>=850 else 4
 	toolbar.reset_size()
 	GSUiScale.apply(toolbar)
 	if toolbar._placed or toolbar._dragging:
@@ -104,10 +112,11 @@ func _on_model_clicked(id:String,point:Vector3)->void:
 		_anchor_model=id
 		_anchor_local=viewer.get_asset_edit_transform(model).affine_inverse()*point
 func _process(_delta:float)->void:
+	var model:=viewer.get_selected_asset() if is_instance_valid(viewer) else null
+	if dragging and (not is_visible_in_tree() or not model or _drag_model.get_ref()!=model or not model.is_visible_in_tree() or viewer._atlas_migration or viewer.composition_busy or model.transform_locked):finish_drag(true)
 	if is_instance_valid(viewer) and (viewer.placement_active or viewer.model_navigation_active):
 		if dragging:finish_drag(true)
-		toolbar.hide();_can_draw=false;queue_redraw();return
-	var model:=viewer.get_selected_asset() if is_instance_valid(viewer) else null
+		toolbar.hide();runtime.hide();runtime.native.active=false;_can_draw=false;return
 	var solid:CheckButton=get_node_or_null("%SolidEdits")
 	if solid:solid.set_pressed_no_signal(viewer.mesh_edit_collisions_enabled);solid.visible=model is GSSceneMesh
 	var quality:OptionButton=get_node_or_null("%ShapeQuality")
@@ -115,80 +124,51 @@ func _process(_delta:float)->void:
 		quality.visible=model is GSSceneMesh and viewer.mesh_edit_collisions_enabled
 		quality.select(viewer.mesh_edit_shape_quality)
 		quality.disabled=dragging or viewer.camera_controller.has_movement_blocker("model_transform")
+	%LocalSpace.set_pressed_no_signal(local_space);%LocalSpace.disabled=dragging
 	if dragging and not _pending_edit.is_empty() and viewer.apply_asset_edits(_pending_edit):
 		_pending_edit.clear()
 		if _finish_when_ready:finish_drag(false)
-	if dragging and (not is_visible_in_tree() or not model or not model.is_visible_in_tree() or viewer._atlas_migration):finish_drag(true)
 	selection_label.text=(("Locked · " if model.transform_locked else "")+model.file_path.get_file()) if model else "Click a model"
 	%Models.modulate=Color(1,0.75,0.74) if viewer.selected_model_ids.size()>1 else Color.WHITE
-	selection_label.tooltip_text=selection_label.text
-	toolbar.visible=model!=null
-	_place_toolbar()
-	_can_draw=false
-	queue_redraw()
-	if not model or not model.is_visible_in_tree() or mode==Mode.SELECT or viewer._atlas_migration or viewer.composition_busy or model.transform_locked:return
-	if not dragging:viewer.prepare_asset_edits(viewer.selected_model_ids)
+	selection_label.tooltip_text=selection_label.text;toolbar.visible=model!=null;_place_toolbar()
+	_can_draw=is_visible_in_tree() and model!=null and model.is_visible_in_tree() and mode!=Mode.SELECT and not viewer._atlas_migration and not viewer.composition_busy and not model.transform_locked
+	for selected in viewer.get_selected_assets():
+		if selected.transform_locked:_can_draw=false
 	var camera:=viewer.get_camera()
-	if not camera:return
-	if not dragging:
-		_pivot=viewer.get_asset_edit_transform(model)*_anchor_local if _anchor_model==model.model_id else viewer.get_asset_world_bounds(model).get_center()
-	if not dragging and viewer.selected_model_ids.size()>1:
-		_pivot=Vector3.ZERO
-		for selected in viewer.get_selected_assets():_pivot+=viewer.get_asset_world_bounds(selected).get_center()
-		_pivot/=viewer.selected_model_ids.size()
-	if camera.is_position_behind(_pivot):queue_redraw();return
-	var visible_pivot:Vector3=viewer.get_asset_edit_transform(model)*(_initial.affine_inverse()*_pivot) if dragging and mode==Mode.MOVE else _pivot
-	_center=camera.unproject_position(visible_pivot)
-	var distance:=maxf(0.1,-(camera.global_transform.affine_inverse()*_pivot).z)
-	_units=camera.project_position(_center+Vector2.RIGHT,distance).distance_to(camera.project_position(_center,distance))
-	_ends.clear()
-	for axis in range(3):
-		var direction:Vector3=viewer.get_asset_edit_transform(model).basis[axis].normalized() if mode==Mode.SCALE else AXES[axis]
-		var projected:=camera.unproject_position(visible_pivot+direction*maxf(0.1,_units*80*GSUiScale.FACTOR))-_center
-		var fallback:Vector2=[Vector2.RIGHT,Vector2.UP,Vector2(-0.7,0.7)][axis]
-		_ends.append(_center+(projected.normalized() if projected.length()>5 else fallback.normalized())*80*GSUiScale.FACTOR)
-	_can_draw=true
-	queue_redraw()
-func _draw()->void:
-	if not _can_draw:return
-	if mode==Mode.ROTATE:
-		for axis in range(3):
-			var radius:=(38.0+axis*12)*GSUiScale.FACTOR
-			draw_arc(_center,radius,0,TAU,72,COLORS[axis],2*GSUiScale.FACTOR,true)
-			draw_string(ThemeDB.fallback_font,_center+Vector2(radius+4*GSUiScale.FACTOR,0),["X","Y","Z"][axis],HORIZONTAL_ALIGNMENT_LEFT,-1,roundi(13*GSUiScale.FACTOR),COLORS[axis])
-	else:
-		for axis in range(3):
-			draw_line(_center,_ends[axis],Color(0,0,0,0.65),5*GSUiScale.FACTOR,true)
-			draw_line(_center,_ends[axis],COLORS[axis],2.5*GSUiScale.FACTOR,true)
-			draw_circle(_ends[axis],5*GSUiScale.FACTOR,COLORS[axis],true,-1,true)
-			draw_string(ThemeDB.fallback_font,_ends[axis]+Vector2(8,-5)*GSUiScale.FACTOR,["X","Y","Z"][axis],HORIZONTAL_ALIGNMENT_LEFT,-1,roundi(14*GSUiScale.FACTOR),COLORS[axis])
-	draw_circle(_center,8*GSUiScale.FACTOR,Color("18222f"),true,-1,true)
-	draw_arc(_center,8*GSUiScale.FACTOR,0,TAU,24,Color.WHITE,1.5*GSUiScale.FACTOR,true)
-func handle_at(point:Vector2)->int:
-	if not _can_draw:return -2
-	if point.distance_to(_center)<12*GSUiScale.FACTOR:return -1
-	if mode==Mode.ROTATE:
-		for axis in range(3):
-			if absf(point.distance_to(_center)-(38+axis*12)*GSUiScale.FACTOR)<6*GSUiScale.FACTOR:return axis
-	else:
-		for axis in range(3):
-			if point.distance_to(Geometry2D.get_closest_point_to_segment(point,_center.lerp(_ends[axis],0.2),_ends[axis]))<8*GSUiScale.FACTOR:return axis
-	return -2
+	if not camera:_can_draw=false
+	if _can_draw:
+		if not dragging:
+			_pivot=viewer.get_asset_edit_transform(model)*_anchor_local if _anchor_model==model.model_id else viewer.get_asset_world_bounds(model).get_center()
+			if viewer.selected_model_ids.size()>1:
+				_pivot=Vector3.ZERO
+				for selected in viewer.get_selected_assets():_pivot+=viewer.get_asset_world_bounds(selected).get_center()
+				_pivot/=viewer.selected_model_ids.size()
+		_can_draw=not camera.is_position_behind(_pivot)
+	var basis:Basis=viewer.get_asset_edit_transform(model).basis.orthonormalized() if model else Basis.IDENTITY
+	runtime.synchronize(camera,_pivot,basis,_can_draw,_port_mode(),local_space)
+	if _can_draw:
+		_center=camera.unproject_position(runtime.proxy.global_position)
+		_ends.clear()
+		for axis in range(3):_ends.append(runtime.axis_screen(axis))
+func _port_mode()->int:
+	return [0,Gizmo3D.ToolMode.MOVE,Gizmo3D.ToolMode.ROTATE,Gizmo3D.ToolMode.SCALE,Gizmo3D.ToolMode.ALL][mode]
+func handle_at(point:Vector2)->int:return -1 if _can_draw and runtime.hit_test(point) else -2
 func _input(event:InputEvent)->void:
-	if not is_instance_valid(viewer) or not is_visible_in_tree():return
-	if viewer.placement_active:return
+	if not is_instance_valid(viewer) or not is_visible_in_tree() or viewer.placement_active:return
+	if event is InputEventKey and event.keycode in [KEY_CTRL,KEY_SHIFT]:runtime.feed(event)
 	if dragging:
 		if event is InputEventMouseMotion:
-			if not _finish_when_ready:update_drag(event.position)
+			if not _finish_when_ready:runtime.feed(event)
 			get_viewport().set_input_as_handled()
-		elif event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT and not event.pressed:finish_drag(false);get_viewport().set_input_as_handled()
+		elif event is InputEventMouseButton:
+			if event.button_index==MOUSE_BUTTON_LEFT and not event.pressed:finish_drag(false);get_viewport().set_input_as_handled()
+			elif event.button_index==MOUSE_BUTTON_RIGHT and event.pressed:finish_drag(true);get_viewport().set_input_as_handled()
 		elif event is InputEventKey and event.pressed and event.keycode==KEY_ESCAPE:finish_drag(true);get_viewport().set_input_as_handled()
 		return
-	if get_viewport().gui_get_hovered_control()!=null:return
-	if Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:return
-	if event is InputEventMouseButton and event.pressed and event.button_index==MOUSE_BUTTON_LEFT:
-		var hit:=handle_at(event.position)
-		if hit!=-2 and begin_drag(hit,event.position):get_viewport().set_input_as_handled()
+	if not _can_draw or get_viewport().gui_get_hovered_control()!=null or Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:return
+	if event is InputEventMouseMotion or (event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT):
+		runtime.feed(event)
+		if dragging:get_viewport().set_input_as_handled()
 func _unhandled_key_input(event:InputEvent)->void:
 	if is_instance_valid(viewer) and viewer.placement_active:return
 	if event is InputEventKey and event.pressed and not event.echo and (event.ctrl_pressed or event.meta_pressed) and event.keycode==KEY_Z:
@@ -196,54 +176,35 @@ func _unhandled_key_input(event:InputEvent)->void:
 		if focus is LineEdit or focus is TextEdit:return
 		viewer.undo_transform(event.shift_pressed);get_viewport().set_input_as_handled();return
 	if not event is InputEventKey or not event.pressed or event.echo:return
-	if event.keycode>=KEY_1 and event.keycode<=KEY_4 and Input.mouse_mode!=Input.MOUSE_MODE_CAPTURED:
+	if event.keycode>=KEY_1 and event.keycode<=KEY_5 and Input.mouse_mode!=Input.MOUSE_MODE_CAPTURED:
 		set_mode(event.keycode-KEY_1);get_viewport().set_input_as_handled()
-func begin_drag(axis:int,point:Vector2)->bool:
+func begin_native_drag()->bool:
 	if viewer.model_navigation_active:return false
 	var model:=viewer.get_selected_asset()
 	if not model or not model.is_loaded or viewer._atlas_migration or viewer.composition_busy or mode==Mode.SELECT:return false
-	if model.transform_locked:return false
 	for asset in viewer.get_selected_assets():
 		if asset.transform_locked:return false
-	if absf(model.global_basis.determinant())<0.000001:return false
-	_axis=axis;_start=point;_initial=viewer.get_asset_edit_transform(model);_initial_node=model.global_transform;_drag_model=weakref(model);dragging=true
+	if absf(model.global_basis.determinant())<1.0e-18:return false
+	_initial=viewer.get_asset_edit_transform(model);_drag_model=weakref(model);dragging=true
 	_pending_edit.clear();_finish_when_ready=false;viewer.prepare_asset_edits(viewer.selected_model_ids)
-	_group_edit.clear();_group_node.clear()
+	_group_edit.clear();_group_node.clear();_group_refs.clear()
 	for selected in viewer.get_selected_assets():
-		_group_edit[selected.model_id]=viewer.get_asset_edit_transform(selected)
-		_group_node[selected.model_id]=selected.global_transform
+		_group_edit[selected.model_id]=viewer.get_asset_edit_transform(selected);_group_node[selected.model_id]=selected.global_transform
+		_group_refs[selected.model_id]=weakref(selected)
 	viewer.set_camera_blocker("model_transform",true)
 	return true
+func begin_drag(axis:int,point:Vector2)->bool:
+	if mode==Mode.SELECT or not _can_draw:return false
+	var kind:int=[0,Gizmo3D.TransformMode.TRANSLATE,Gizmo3D.TransformMode.ROTATE,Gizmo3D.TransformMode.SCALE,Gizmo3D.TransformMode.TRANSLATE][mode]
+	runtime.native.begin_handle(axis,point,kind)
+	return dragging
 func update_drag(point:Vector2)->void:
-	var model:Node3D=_drag_model.get_ref() if _drag_model else null
-	if not model:return
-	var delta:=point-_start
-	var result:=_initial
-	if mode==Mode.MOVE:
-		if _axis<0:
-			var camera:=viewer.get_camera()
-			result.origin+=camera.global_basis.x*delta.x*_units-camera.global_basis.y*delta.y*_units
-		else:result.origin+=AXES[_axis]*delta.dot((_ends[_axis]-_center).normalized())*_units
-	elif mode==Mode.ROTATE:
-		var angle:=(_start-_center).angle_to(point-_center)
-		var axis:Vector3=AXES[_axis] if _axis>=0 else viewer.get_camera().global_basis.z
-		var rotation:=Basis(axis,angle)
-		if _axis<0:
-			var camera:=viewer.get_camera()
-			rotation=Basis(camera.global_basis.y,-delta.x*0.01)*Basis(camera.global_basis.x,-delta.y*0.01)
-		result.basis=rotation*_initial.basis;result.origin=_pivot+rotation*(_initial.origin-_pivot)
-	elif mode==Mode.SCALE:
-		var amount:float=delta.x-delta.y if _axis<0 else delta.dot((_ends[_axis]-_center).normalized())
-		var factor:=exp(clampf(amount*0.006,-4,4))
-		var factors:=Vector3.ONE
-		if _axis<0:factors=Vector3.ONE*factor
-		else:factors[_axis]=factor
-		result.basis=_initial.basis*Basis.from_scale(factors)
-		result.origin=_pivot+(result.basis*_initial.basis.inverse())*(_initial.origin-_pivot)
-	var delta_transform:=result*_initial.affine_inverse()
+	if dragging:runtime.native.update_handle(point)
+func apply_native_delta(delta:Transform3D)->void:
+	if not dragging:return
 	var poses:Dictionary={}
 	for selected in viewer.get_selected_assets():
-		if _group_edit.has(selected.model_id):poses[selected.model_id]=delta_transform*_group_edit[selected.model_id]
+		if _group_edit.has(selected.model_id):poses[selected.model_id]=delta*_group_edit[selected.model_id]
 	_pending_edit=poses if not viewer.apply_asset_edits(poses) else {}
 func finish_drag(cancelled:bool)->void:
 	if not cancelled and not _pending_edit.is_empty():_finish_when_ready=true;return
@@ -252,13 +213,15 @@ func finish_drag(cancelled:bool)->void:
 	var model:Node3D=_drag_model.get_ref() if _drag_model else null
 	if dragging:
 		var after:Dictionary={}
-		for selected in viewer.managed_assets:
-			if not is_instance_valid(selected) or not _group_node.has(selected.model_id):continue
+		for id in _group_node:
+			var selected:Node3D=_group_refs[id].get_ref()
+			if not is_instance_valid(selected):continue
 			if cancelled:selected.global_transform=_group_node[selected.model_id]
 			after[selected.model_id]=selected.global_transform
 		if not cancelled:viewer.commit_transform_edit(_group_node,after)
-	_group_edit.clear();_group_node.clear()
+	_group_edit.clear();_group_node.clear();_group_refs.clear()
 	dragging=false;_drag_model=null
+	if is_instance_valid(runtime):runtime.native.stop();runtime.request_draw()
 	if is_instance_valid(viewer):viewer.set_camera_blocker("model_transform",false)
 func _notification(what:int)->void:
 	if what==NOTIFICATION_WM_WINDOW_FOCUS_OUT and dragging:finish_drag(true)

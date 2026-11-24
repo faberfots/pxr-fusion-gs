@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dsqyn3j7m563r" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b32hafhaxd5yv" path="res://modules/gaussian_splatting/UI/ViewerTheme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://modules/gaussian_splatting/UI/GizmoSettings.tscn" id="gizmo"]
+[ext_resource type="PackedScene" path="res://modules/gaussian_splatting/UI/AboutLicenses.tscn" id="about"]
 
 [node name="SettingsPanel" type="PanelContainer" unique_id=1088886314 node_paths=PackedStringArray("drag_handle")]
 visible = false
@@ -70,3 +72,26 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Progressive import preview"
 tooltip_text = "Show resident data while loading; complete means every original splat has been verified. Object placement keeps its normal workflow."
+
+[node name="GizmoSection" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Gizmo · appearance and snapping ▸"
+tooltip_text = "Expand the Godot gizmo's appearance, snapping and advanced handle options."
+
+[node name="GizmoSettings" parent="Body" instance=ExtResource("gizmo")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="AboutSection" type="Button" parent="Body"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "About & licences ▸"
+
+[node name="AboutLicenses" parent="Body" instance=ExtResource("about")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2

@@ -8,8 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://cu2io8uoftl0f" path="res://modules/gaussian_splatting/UI/icons/scale.svg" id="6"]
 [ext_resource type="Texture2D" uid="uid://biwy116kajf3k" path="res://modules/gaussian_splatting/UI/icons/focus.svg" id="7"]
 [ext_resource type="Script" path="res://modules/gaussian_splatting/UI/FloatingPanel.gd" id="floating"]
+[ext_resource type="PackedScene" path="res://modules/gaussian_splatting/UI/RuntimeTransformGizmo.tscn" id="gizmo"]
 
 [node name="ModelTransformControls" type="Control" unique_id=1537914318]
+process_priority = 40
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +21,10 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2")
 script = ExtResource("1")
+
+[node name="RuntimeTransformGizmo" parent="." instance=ExtResource("gizmo")]
+unique_name_in_owner = true
+layout_mode = 1
 
 [node name="Toolbar" type="PanelContainer" parent="." unique_id=609341874 node_paths=PackedStringArray("drag_handle")]
 unique_name_in_owner = true
@@ -46,7 +52,7 @@ vertical_alignment = 1
 [node name="Row" type="GridContainer" parent="Toolbar/Content" unique_id=1884489527]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 8
+columns = 10
 
 [node name="Models" type="OptionButton" parent="Toolbar/Content/Row" unique_id=1908915832]
 unique_name_in_owner = true
@@ -85,10 +91,24 @@ popup/item_1/id = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(39, 33)
 layout_mode = 2
-tooltip_text = "1 · Select"
+tooltip_text = "1 · Select only · hide transform handles"
 toggle_mode = true
 icon = ExtResource("3")
 expand_icon = true
+
+[node name="Universal" type="Button" parent="Toolbar/Content/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(39, 33)
+layout_mode = 2
+tooltip_text = "5 · Godot transform gizmo · arrows move, rings rotate, cubes scale. The center cube scales uniformly. Ctrl snaps; Shift uses finer snapping. Esc or right-click cancels."
+toggle_mode = true
+text = "XYZ"
+
+[node name="LocalSpace" type="CheckButton" parent="Toolbar/Content/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Local"
+tooltip_text = "Off: axes follow the world. On: axes follow the selected model's orientation. Applies to the whole selection."
 
 [node name="Move" type="Button" parent="Toolbar/Content/Row" unique_id=1043372509]
 unique_name_in_owner = true

@@ -1,0 +1,25 @@
+Isolated project: build\gizmo-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+PASS worker-local GLSL decoder initializes with bounded buffers
+PASS GLSL converts all finite degree-three Gaussians
+GLSL NUMERIC MAX ABS ERROR 0.00000005960464
+PASS all 60 fields match the GDScript reference within declared float32 tolerance
+PASS GLSL SHA-256 leaves match Godot HashingContext byte for byte
+PASS GLSL reduction preserves full bounds including padded workgroups
+PASS GPU rejects zero quaternions before a model can commit
+PASS GPU validates every source property, including SH values
+PASS prepared-data validation shares the bounded GLSL backend
+PASS prepared data preserves every stored bit except the required runtime identity/time fields
+PASS prepared opacity outside zero-to-one is rejected
+LOADING GPU COMPLETE: 0 failures
+ 
+Process exit: 0

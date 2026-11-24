@@ -1,0 +1,62 @@
+Isolated project: build\gizmo-custom-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (0.557086, 1.371391, 0.992781)
+[CameraController] Camera transform set to: (0.557086, 1.371391, 0.992781)
+PASS both full models are loaded into the shared atlas
+[FreeLookCamera] Movement state reset. Position: (0.0, 1.0, 2.0)
+[CameraController] Camera transform set to: (0.0, 1.0, 2.0)
+PASS color preset applies through the visible panel
+PASS color edits preserve the user's current camera field of view
+PASS color edits preserve existing live renderer controls
+PASS color adjustments preserve atlas residency and model transforms
+PASS original comparison leaves the authoritative grade unchanged
+PASS ending comparison restores the chosen grade
+PASS color preferences save without project settings mutation
+PASS reopened preferences restore all color values
+PASS quality changes preserve the independently chosen color grade
+PASS configuration snapshots retain quality and color ownership
+PASS invalid color input cannot corrupt the live configuration
+PASS pixel picking selects the visible foreground model despite overlapping bounds
+PASS left-click selection works with stretched viewport input coordinates
+PASS cancelled pick cannot select or focus a stale model over the next request
+PASS direct picking synchronizes existing Scene Manager controls
+[FreeLookCamera] Movement state reset. Position: (4.0, 3.0, 6.0)
+[CameraController] Camera transform set to: (4.0, 3.0, 6.0)
+PASS axis 0 movement updates the existing Node3D
+PASS axis 1 movement updates the existing Node3D
+PASS axis 2 movement updates the existing Node3D
+PASS axis 0 rotation updates the existing Node3D
+PASS axis 1 rotation updates the existing Node3D
+PASS axis 2 rotation updates the existing Node3D
+PASS scale handle -1 supports uniform or individual XYZ scaling
+PASS scale handle 0 supports uniform or individual XYZ scaling
+PASS scale handle 1 supports uniform or individual XYZ scaling
+PASS scale handle 2 supports uniform or individual XYZ scaling
+PASS cancel restores the exact transform and releases only the manipulation blocker
+PASS all edits preserve the other model's independent transform
+PASS left mouse press on a handle starts direct manipulation
+PASS mouse drag and release commit the model transform
+PASS direct model manipulation cannot orbit or move the camera
+PASS manipulation and cancellation respect the renderer basis override
+UI COORDINATES window (1142, 648) visible [P: (0.0, 0.0), S: (1142.0, 648.0)] panel [P: (887.52, 128.0), S: (230.48, 409.37)] gizmo (571.0, 324.0) canvas [X: (1.0, 0.0), Y: (0.0, 1.0), O: (0.0, 0.0)] raster (1142, 648)
+PASS color panel stays within the viewport
+COLOR TRANSFORM COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

@@ -92,7 +92,9 @@ func convert(values:PackedFloat32Array,count:int,instance:int,created:float,hash
 		device.compute_list_add_barrier(list)
 		device.compute_list_bind_compute_pipeline(list,_hash_pipeline)
 		device.compute_list_bind_uniform_set(list,_hash_input_set if hash_mode==1 else _hash_output_set,0)
-		device.compute_list_set_push_constant(list,PackedInt32Array([count*240,GSPreparedCache.LEAF_BYTES,0,0]).to_byte_array(),16)
+		# The SHA shader declares exactly two uints. Godot 4.7 validates the
+		# block's 8-byte size; extra padding prevents hashing from dispatching.
+		device.compute_list_set_push_constant(list,PackedInt32Array([count*240,GSPreparedCache.LEAF_BYTES]).to_byte_array(),8)
 		device.compute_list_dispatch(list,int(ceil(ceil(count*240.0/GSPreparedCache.LEAF_BYTES)/64.0)),1,1)
 	device.compute_list_end()
 	device.submit();device.sync()

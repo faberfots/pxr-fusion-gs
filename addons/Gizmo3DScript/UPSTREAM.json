@@ -1,0 +1,43 @@
+{
+  "repository": "https://github.com/chrisizeful/Gizmo3D",
+  "commit": "f364d87912482a0ce81a9467c0f3c5e3c82dd385",
+  "license": "MIT",
+  "files": {
+    "LICENSE": "d844cc6f72bc0ac96709cda22fa7a86cdb5d0ec365e09418b2d69ca35eb32799",
+    "edit_data.gd": "40c32ba12d4c9582fadeea7699f6c7011133464e1af47efe83f5ec80da58accf",
+    "edit_data.gd.uid": "513d7a06158596e738b039adbaa372af297e0e0c5b5c714ea046ca14418f020a",
+    "gizmo3D.gd": "dbcf91af33ffe9ac4dbf8a426835da91fe095112ee6691d20ef70ad5612cf26f",
+    "gizmo3D.gd.uid": "d2ec5749ca2006d2dac1e5c1ad16742a4040899bc7473d4bd297ec06ae70ee0b",
+    "gizmo_helper.gd": "4567e6a6496911cedd85d0b290f24ae5d45f58fd134204c66fc71fda0f022925",
+    "gizmo_helper.gd.uid": "0746cc85da3b997c97576691cbc60fcc7e472d3dc71985433e1d668ffb01b695",
+    "gizmo_loader.gd": "562b87d74d5a8d59d4bc1efd4a461a36a6685ad633aee5801ca03d6bf56a904b",
+    "gizmo_loader.gd.uid": "4454b8db9c45b585312d12b2e5de91c38fed1cf2e400e11e44ccc3d063a13ea0",
+    "plugin.cfg": "9a03ea0c53e4a890311a095360427b46ed9d637fa7e68fbba28e56589cc4f6d6",
+    "selected_item.gd": "726ddb9e3c01602208610388de47f12a0994ecb1890b67314fcb5e04e19f0e22",
+    "selected_item.gd.uid": "43e58eb3d1689bb95b53302f55b478d59fae59c374307cbb8c3faa8e3544f5fe"
+  },
+  "local_changes": [
+    {
+      "path": "gizmo3D.gd",
+      "original_sha256": "dbcf91af33ffe9ac4dbf8a426835da91fe095112ee6691d20ef70ad5612cf26f",
+      "local_sha256": "d8962a1a0bd9b359f404e2023d1775c18f842a1b3ea044a5c6de8c96ad43a4b8",
+      "reason": "Authored draw surface and original Godot arrow proportions; live colour/opacity setter ordering; selection opacity refresh; hidden planes cannot be picked; plane visibility/picking requires both in-plane allowed axes."
+    },
+    {
+      "path": "edit_data.gd",
+      "original_sha256": "40c32ba12d4c9582fadeea7699f6c7011133464e1af47efe83f5ec80da58accf",
+      "local_sha256": "4405101eb7d6d412713faba02aa6a83ba6514dadeee26b1fe20ac702333f8c40",
+      "reason": "Reference-count temporary edit data so runtime teardown does not leak Objects."
+    },
+    {
+      "path": "selected_item.gd",
+      "original_sha256": "726ddb9e3c01602208610388de47f12a0994ecb1890b67314fcb5e04e19f0e22",
+      "local_sha256": "541b37df6361d73be8d73dd82bb5d5cf19cd0f9ee33606305b2035b0aea47876",
+      "reason": "Reference-count temporary selection data so runtime teardown does not leak Objects."
+    }
+  ],
+  "additional_notice": {
+    "path": "GODOT-LICENSE.txt",
+    "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+  }
+}

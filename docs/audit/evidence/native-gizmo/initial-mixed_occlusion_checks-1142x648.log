@@ -1,0 +1,35 @@
+Isolated project: build\gizmo-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (1.351808, 1.901205, 1.80241)
+[CameraController] Camera transform set to: (1.351808, 1.901205, 1.80241)
+[FreeLookCamera] Movement state reset. Position: (0.0, 1.0, 4.0)
+[CameraController] Camera transform set to: (0.0, 1.0, 4.0)
+MIXED OCCLUSION 0 native (0.6118, 0.9137, 0.3765, 1.0) GS front (0.1608, 0.549, 0.9608, 1.0) exposed side (0.6196, 0.9059, 0.3882, 1.0) GS behind (0.1608, 0.549, 0.9608, 1.0)
+FAIL foreground GS occludes an imported GLB in projection 0
+PASS partial GS coverage leaves the exposed GLB visible in projection 0
+FAIL foreground native GLB occludes GS behind it in projection 0
+MIXED OCCLUSION 1 native (0.6118, 0.9137, 0.3765, 1.0) GS front (0.1882, 0.549, 0.9569, 1.0) exposed side (0.6157, 0.9098, 0.3804, 1.0) GS behind (0.1882, 0.549, 0.9569, 1.0)
+FAIL foreground GS occludes an imported GLB in projection 1
+PASS partial GS coverage leaves the exposed GLB visible in projection 1
+FAIL foreground native GLB occludes GS behind it in projection 1
+PASS bidirectional mixed occlusion preserves native geometry and full GS residency
+MIXED OCCLUSION COMPLETE: 4 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 1

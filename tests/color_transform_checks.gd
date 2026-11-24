@@ -80,6 +80,9 @@ func run()->void:
 	var panel:SceneManagerPanel=scene.get_node("SceneManagerPanel")
 	check(panel.selected_node==front and panel.pos_x.editable,"direct picking synchronizes existing Scene Manager controls")
 	var gizmo:GSModelTransformControls=ui.transform_controls
+	# A real 3D Z handle projects to the center when looking straight down Z.
+	# Exercise all axes from an oblique view rather than a fabricated 2D fallback.
+	viewer.camera_controller.position_camera_at(Vector3(4,3,6),viewer.get_model_world_bounds(front).get_center());await settle()
 	gizmo.set_mode(GSModelTransformControls.Mode.MOVE)
 	await settle()
 	var original:=front.global_transform

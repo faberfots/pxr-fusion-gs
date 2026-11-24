@@ -1,0 +1,60 @@
+Isolated project: build\gizmo-checks
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT CHECKS COMPLETE: 0 invalid scripts
+ 
+Process exit: 0
+Initialize godot-rust (API v4.5.stable.official, runtime v4.7.2.stable.official, safeguards balanced)
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 4070 Laptop GPU
+
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+PASS empty scene opens at the elevated authored home view
+[FreeLookCamera] Movement state reset. Position: (0.0, 0.225, 5.0)
+[CameraController] Camera transform set to: (0.0, 0.225, 5.0)
+PASS external camera positioning obeys floor protection
+[FreeLookCamera] Movement state reset. Position: (0.0, -2.0, 5.0)
+[CameraController] Camera transform set to: (0.0, -2.0, 5.0)
+PASS explicit unrestricted flight remains available
+[FreeLookCamera] Movement state reset. Position: (0.0, 0.225, 5.0)
+[CameraController] Camera transform set to: (0.0, 0.225, 5.0)
+PASS reenabling protection immediately recovers above the floor
+SWEEP WALL (0.0, 1.0, 3.485938)
+PASS camera volume sweep prevents high-speed travel through physical geometry
+[CameraController] Camera transform set to: (0.0, 0.225, 5.0)
+PASS orbit camera uses the same floor protection owner
+[FreeLookCamera] Movement state reset. Position: (0.0, 0.225, 1.546649)
+[CameraController] Camera transform set to: (0.0, 0.225, 1.546649)
+[FreeLookCamera] Movement state reset. Position: (6.0, 3.5, 8.0)
+[CameraController] Camera transform set to: (6.0, 3.5, 8.0)
+[FreeLookCamera] Movement state reset. Position: (1.56676, 1.544507, 1.089013)
+[CameraController] Camera transform set to: (1.56676, 1.544507, 1.089013)
+PASS multi-selection and active model share one viewer-owned registry
+[FreeLookCamera] Movement state reset. Position: (1.539286, 1.526191, 1.052381)
+[CameraController] Camera transform set to: (1.539286, 1.526191, 1.052381)
+PASS one group drag edits both selected Node3D transforms
+PASS one undo transaction restores the complete selected group
+PASS group transform redo restores the committed edit
+PASS selection changes cancel the entire original drag group atomically
+PASS numeric model editing participates in the same transform undo owner
+PASS authored inspector preserves independent XYZ model scaling
+PASS switching selection commits numeric undo to the originally edited model
+PASS scene navigator remains accessible from the command dock
+[ProductionUI] Cognitive Panel instantiated.
+PASS opening assistant preserves default-denied cloud and action capabilities
+PASS command dock collapses to its compact launcher
+PASS floating dock remains recoverable inside logical viewport bounds
+PASS deleting the active model preserves the surviving selected model
+PASS deleted-model history cannot block undo for surviving models
+PASS clearing the scene releases transform history
+STUDIO CHECKS COMPLETE: 0 failures
+ OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+OpSpecConstantComposite is not supported yet.
+
+Process exit: 0

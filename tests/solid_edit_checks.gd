@@ -128,7 +128,10 @@ func run()->void:
 			viewer.select_model_id(statue.model_id);viewer.frame_models([truck.model_id,statue.model_id]);await settle()
 			if await ready(viewer,statue):
 				var from:=statue.global_transform
-				controls.begin_drag(0,controls._center);controls.update_drag(controls._center-(controls._ends[0]-controls._center).normalized()*4000);controls.finish_drag(false)
+				# Native ray/plane dragging must target a point in front of the camera;
+				# the old arbitrary 4000px offset crossed its perspective horizon.
+				var target:=viewer.get_camera().unproject_position(controls.runtime.proxy.global_position-Vector3.RIGHT*6.0)
+				controls.begin_drag(0,controls._center);controls.update_drag(target);controls.finish_drag(false)
 				var deadline:=Time.get_ticks_msec()+60000
 				while controls.dragging and Time.get_ticks_msec()<deadline:await process_frame
 				await settle()

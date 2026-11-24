@@ -1,0 +1,119 @@
+[
+  {
+    "suite": "gizmo_preferences_checks",
+    "resolution": "1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 13.218,
+    "arguments": [
+      "--reopen"
+    ]
+  },
+  {
+    "suite": "native_gizmo_checks",
+    "resolution": "1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 18.672,
+    "arguments": []
+  },
+  {
+    "suite": "native_gizmo_checks",
+    "resolution": "1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 20.516,
+    "arguments": []
+  },
+  {
+    "suite": "color_transform_checks",
+    "resolution": "1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 20.609,
+    "arguments": []
+  },
+  {
+    "suite": "solid_edit_checks",
+    "resolution": "1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 42.766,
+    "arguments": [
+      "C:/Users/User/AppData/Roaming/Godot/app_userdata/AssetBrowerLibrary/models/jesus_christ.glb",
+      "C:/Users/User/Downloads/3DModels_n_3DG_SAssets/glb_files/original/police_ford_raptor.glb"
+    ]
+  },
+  {
+    "suite": "ui_scale_checks",
+    "resolution": "1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 18.828,
+    "arguments": []
+  },
+  {
+    "suite": "ui_scale_checks",
+    "resolution": "1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 20.312,
+    "arguments": []
+  },
+  {
+    "suite": "studio_checks",
+    "resolution": "1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 27.875,
+    "arguments": []
+  },
+  {
+    "suite": "mixed_occlusion_checks",
+    "resolution": "1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 27.969,
+    "arguments": []
+  },
+  {
+    "suite": "mixed_scene_checks",
+    "resolution": "1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 27.156,
+    "arguments": []
+  },
+  {
+    "suite": "model_navigation_checks",
+    "resolution": "1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 26.469,
+    "arguments": []
+  },
+  {
+    "suite": "composition_lifecycle_checks",
+    "resolution": "1142x648",
+    "passed": true,
+    "exit": 0,
+    "seconds": 16.844,
+    "arguments": []
+  },
+  {
+    "suite": "loading_gpu_checks",
+    "resolution": "64x64",
+    "passed": true,
+    "exit": 0,
+    "seconds": 12.344,
+    "arguments": []
+  },
+  {
+    "suite": "cortex_layout_checks",
+    "resolution": "1908x960",
+    "passed": true,
+    "exit": 0,
+    "seconds": 16.109,
+    "arguments": []
+  }
+]

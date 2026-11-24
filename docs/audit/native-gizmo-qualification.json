@@ -1,0 +1,432 @@
+{
+  "schema_version": 1,
+  "qualified_local_date": "2026-11-24",
+  "scope": "Windows x86_64; Godot 4.7.2.stable.official.ed1daf0bf; NVIDIA RTX 4070 Laptop Vulkan; source checks at 1142x648 and 1908x960; actual optimized release template and main entry point.",
+  "status": {
+    "godot_runtime_transform_gizmo": "fully implemented",
+    "local_qualification": "fully implemented"
+  },
+  "implementation": {
+    "port": {
+      "repository": "https://github.com/chrisizeful/Gizmo3D",
+      "commit": "f364d87912482a0ce81a9467c0f3c5e3c82dd385",
+      "license": "MIT",
+      "files": {
+        "LICENSE": "d844cc6f72bc0ac96709cda22fa7a86cdb5d0ec365e09418b2d69ca35eb32799",
+        "edit_data.gd": "40c32ba12d4c9582fadeea7699f6c7011133464e1af47efe83f5ec80da58accf",
+        "edit_data.gd.uid": "513d7a06158596e738b039adbaa372af297e0e0c5b5c714ea046ca14418f020a",
+        "gizmo3D.gd": "dbcf91af33ffe9ac4dbf8a426835da91fe095112ee6691d20ef70ad5612cf26f",
+        "gizmo3D.gd.uid": "d2ec5749ca2006d2dac1e5c1ad16742a4040899bc7473d4bd297ec06ae70ee0b",
+        "gizmo_helper.gd": "4567e6a6496911cedd85d0b290f24ae5d45f58fd134204c66fc71fda0f022925",
+        "gizmo_helper.gd.uid": "0746cc85da3b997c97576691cbc60fcc7e472d3dc71985433e1d668ffb01b695",
+        "gizmo_loader.gd": "562b87d74d5a8d59d4bc1efd4a461a36a6685ad633aee5801ca03d6bf56a904b",
+        "gizmo_loader.gd.uid": "4454b8db9c45b585312d12b2e5de91c38fed1cf2e400e11e44ccc3d063a13ea0",
+        "plugin.cfg": "9a03ea0c53e4a890311a095360427b46ed9d637fa7e68fbba28e56589cc4f6d6",
+        "selected_item.gd": "726ddb9e3c01602208610388de47f12a0994ecb1890b67314fcb5e04e19f0e22",
+        "selected_item.gd.uid": "43e58eb3d1689bb95b53302f55b478d59fae59c374307cbb8c3faa8e3544f5fe"
+      },
+      "local_changes": [
+        {
+          "path": "gizmo3D.gd",
+          "original_sha256": "dbcf91af33ffe9ac4dbf8a426835da91fe095112ee6691d20ef70ad5612cf26f",
+          "local_sha256": "b987022331e3d9952404cc2de84dd14b3ff244e68363bc08b21bac0ab5fc048f",
+          "reason": "Use the authored draw surface and match the original Godot arrow width/offset."
+        },
+        {
+          "path": "edit_data.gd",
+          "original_sha256": "40c32ba12d4c9582fadeea7699f6c7011133464e1af47efe83f5ec80da58accf",
+          "local_sha256": "4405101eb7d6d412713faba02aa6a83ba6514dadeee26b1fe20ac702333f8c40",
+          "reason": "Reference-count temporary edit data so runtime teardown does not leak Objects."
+        },
+        {
+          "path": "selected_item.gd",
+          "original_sha256": "726ddb9e3c01602208610388de47f12a0994ecb1890b67314fcb5e04e19f0e22",
+          "local_sha256": "541b37df6361d73be8d73dd82bb5d5cf19cd0f9ee33606305b2035b0aea47876",
+          "reason": "Reference-count temporary selection data so runtime teardown does not leak Objects."
+        }
+      ],
+      "additional_notice": {
+        "path": "GODOT-LICENSE.txt",
+        "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+      }
+    },
+    "editor_boundary": "The editor C++ gizmo is editor-only. The application uses its pinned GDScript runtime port, not EditorNode3DGizmo in an export.",
+    "authored_ui": "RuntimeTransformGizmo.tscn and ModelTools.tscn",
+    "ssot": "Existing viewer owns authoritative Node3D poses, locks, Solid/group acceptance and undo. Add-on edits only a temporary proxy.",
+    "rendering": "Dedicated transparent World3D. Cached until camera, selection, pose, tool or hover changes. No unchanged idle second 3D pass. Viewing starts no collision preparation.",
+    "rbac": "No new provider/action permission or authentication path. Existing local locks and AI action policy remain authoritative."
+  },
+  "verified_controls": [
+    "Combined arrows/rings/scale cubes default",
+    "Individual Move/Rotate/Scale and Select only",
+    "Real arrow and plane hit tests",
+    "Rotation ring quarter turn",
+    "Center uniform scale",
+    "Local axes",
+    "Ctrl snapping",
+    "Orthographic projection",
+    "Exact undo/redo",
+    "Escape/right-click/focus cancellation and camera ownership",
+    "Locked selections",
+    "GS visual pivots",
+    "Shared collision-clamped GLB/GS group edits"
+  ],
+  "compatibility_fixes": {
+    "gpu_hash": "Standalone unchanged GPU decoder reproduced 16-byte binding against an 8-byte shader block under 4.7; binding now matches the declared two uints. SHA-256 and prepared-cache identity tests pass. No cache layout/decoder mathematics/budget change.",
+    "export": "Godot 4.7 ClassDB reports a native VirtualJoystick. The unused legacy add-on with that global name is excluded from export staging and the preset; source remains in the repo. The user-added virtual_joystick_DX directory was not modified. No legacy add-on references exist in main/modules."
+  },
+  "diagnostic_followups": {
+    "solid_fixture": "Old synthetic 4000-pixel movement crossed the native perspective horizon. Fixture now projects a valid world target six metres through the truck; the actual native contact and undo assertions pass.",
+    "occlusion_fixture": "The default blue native Z handle painted the exact sampled pixel. Select-only isolates the existing scene-occlusion measurement; actual bidirectional GS/native pixels pass in both projections.",
+    "idle_fixture": "1908x960 initial layout/hover event required settling after readback. Unchanged idle frame count and disabled update policy then pass.",
+    "export": "Filter alone retained the conflicting legacy class in the generated class cache; omitting that unused directory from the isolated export source resolves it.",
+    "release_argument": "Initial host command pointed Suzuki to an absent resources path. Diagnostic exit/access violation retained. A fresh run using both existing Downloads source assets is required above and passed; no claim that the malformed test argument is a supported app import flow."
+  },
+  "preservation_suites": [
+    {
+      "suite": "native_gizmo_checks",
+      "resolution": "1908x960",
+      "passed": true,
+      "exit": 0,
+      "seconds": 19.703,
+      "final_log": "gizmo-native-1908-qualified.log",
+      "verification": "Passing follow-up; initial diagnostic retained. Initial duration is not the follow-up duration."
+    },
+    {
+      "suite": "color_transform_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 26.109
+    },
+    {
+      "suite": "solid_edit_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 45.625,
+      "final_log": "gizmo-solid-final.log",
+      "verification": "Passing follow-up; initial diagnostic retained. Initial duration is not the follow-up duration."
+    },
+    {
+      "suite": "mixed_scene_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 18.735
+    },
+    {
+      "suite": "model_navigation_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 24.312
+    },
+    {
+      "suite": "composition_lifecycle_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 20.61,
+      "final_log": "gizmo-composition_lifecycle_checks-final.log",
+      "verification": "Passing follow-up; initial diagnostic retained. Initial duration is not the follow-up duration."
+    },
+    {
+      "suite": "studio_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 34.64
+    },
+    {
+      "suite": "ui_scale_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 29.078
+    },
+    {
+      "suite": "ui_scale_checks",
+      "resolution": "1908x960",
+      "passed": true,
+      "exit": 0,
+      "seconds": 19.187
+    },
+    {
+      "suite": "mixed_occlusion_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 16.516,
+      "final_log": "gizmo-occlusion-final.log",
+      "verification": "Passing follow-up; initial diagnostic retained. Initial duration is not the follow-up duration."
+    },
+    {
+      "suite": "grid_shadow_checks",
+      "resolution": "960x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 19.313
+    },
+    {
+      "suite": "loading_gpu_checks",
+      "resolution": "64x64",
+      "passed": true,
+      "exit": 0,
+      "seconds": 12.406,
+      "final_log": "gizmo-loading-47-after.log",
+      "verification": "Passing follow-up; initial diagnostic retained. Initial duration is not the follow-up duration."
+    },
+    {
+      "suite": "cortex_layout_checks",
+      "resolution": "1908x960",
+      "passed": true,
+      "exit": 0,
+      "seconds": 26.672
+    },
+    {
+      "suite": "native_gizmo_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "final_log": "gizmo-native-1142-final.log"
+    },
+    {
+      "suite": "loading_cache_checks",
+      "resolution": "64x64",
+      "passed": true,
+      "exit": 0,
+      "final_log": "gizmo-loading-cache-final.log"
+    },
+    {
+      "suite": "loading_parallel_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "final_log": "gizmo-loading_parallel_checks-final.log"
+    }
+  ],
+  "optimized_release": {
+    "passed": true,
+    "process_exit": 0,
+    "engine_sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562",
+    "entry_point": "res://tests/release_checks.tscn",
+    "datasets": [
+      "C:\\Users\\User\\Downloads\\3DModels_n_3DG_SAssets\\GS_Samples\\Bali_Ressort.ply",
+      "C:\\Users\\User\\Downloads\\3DModels_n_3DG_SAssets\\GS_Samples\\suzuki-bike-ply.ply"
+    ],
+    "meshes": [
+      "C:\\Users\\User\\AppData\\Roaming\\Godot\\app_userdata\\AssetBrowerLibrary\\models\\jesus_christ.glb",
+      "C:\\Users\\User\\AppData\\Roaming\\Godot\\app_userdata\\AssetBrowerLibrary\\models\\city_rtx.glb"
+    ],
+    "scope": "Windows x86_64, local Vulkan GPU, unsigned optimized-template package"
+  },
+  "release_log_population": "RELEASE POPULATION 7959786 load_ms 7281",
+  "preserved_user_files": {
+    "main.tscn": {
+      "before_sha256": "ba68a6e7ca340beac1100cbd14883039f0bb6a534a16c0c337c1d6dee5b29415",
+      "after_sha256": "ba68a6e7ca340beac1100cbd14883039f0bb6a534a16c0c337c1d6dee5b29415",
+      "unchanged_from_user_baseline": true
+    },
+    "project.godot": {
+      "before_sha256": "6b9c822f30566096ec8ae43ce497b57ab5cd1a27f5ef139d63bc808572694cba",
+      "after_sha256": "6b9c822f30566096ec8ae43ce497b57ab5cd1a27f5ef139d63bc808572694cba",
+      "unchanged_from_user_baseline": true
+    }
+  },
+  "export_snapshots": {
+    "gizmo-release-export.log": {
+      "path": "C:\\Users\\User\\AppData\\Local\\Temp\\gs-package-source-u6wpnrjt",
+      "product_sources_match": true
+    },
+    "gizmo-startup-export.log": {
+      "path": "C:\\Users\\User\\AppData\\Local\\Temp\\gs-package-source-_hpcs7h1",
+      "product_sources_match": true
+    }
+  },
+  "source_sha256": {
+    "modules/gaussian_splatting/UI/ModelTransformControls.gd": "d6be0ccb0ef0a09edce039be576f9a6e539465b480280df388dc39a30c89b830",
+    "modules/gaussian_splatting/UI/ModelTools.tscn": "3f6a125fcf76dd744eab96100cc1395d1655d4494f66782bacc5e239bdc09890",
+    "modules/gaussian_splatting/UI/RuntimeTransformGizmo.gd": "68fe80d0a5eba3fe71f9f65aeb3f01528f28eb4e61dca8723879e454050a31e4",
+    "modules/gaussian_splatting/UI/RuntimeTransformGizmo.tscn": "6a2ac60bc5745a7b07ac17665f862dd577ee3d5d3c5bf3f0e32b94cff76febe2",
+    "modules/gaussian_splatting/UI/RuntimeGizmoBridge.gd": "fdf2f334ec7dad0e95cb9d8d26f11a4ba45ea7b94a0d4005c0dab4d050e2a075",
+    "modules/gaussian_splatting/loaders/gs_gpu_decoder.gd": "dbaaaa703d34a0360a20dd3c3b9d4c10f98485929393f47291251d004eed1753",
+    "export_presets.cfg": "952649d54a0e8d8ea1c857320c3872dc5e184609fbef933973077f09ce5f1b5f",
+    "tests/native_gizmo_checks.gd": "cb9f047ed1c49c2010c73fd7d0e0b829fbe0aab35c1e0c996f7d459e8e2c4046",
+    "tests/release_checks.gd": "98e380e5eaf6215d425f50bf9dc258bf03a7835be14d236547baebe63c47de91",
+    "tools/package_candidate.py": "b55b36bfe670cca8fc341a682f1a4c6558e5d619ed219b8c3cba01abf22b5005"
+  },
+  "boundaries": [
+    "Earlier qualified releases and portable Cortex resources were retained; new packages have separate app-data identities.",
+    "This follow-up does not requalify authenticated providers, the full portable Qwen bundle, XR, mobile or other operating systems.",
+    "No guarantee of FPS equivalence; idle redraw suppression and full unchanged GS residency are measured.",
+    "Existing GLB UV-map warnings come from Godot importer limitations; materials were not changed by the gizmo.",
+    "Broader audit statuses remain unchanged; this does not close all P.3.6 or P.7.2 boundaries."
+  ],
+  "evidence": {
+    "diagnostic-gizmo-loading-47-before.log": {
+      "sha256": "0f53e3fa87a4cf916819c3cdd9c354aae7b7928d003d8bdf030ea9441bdb541d",
+      "bytes": 2057
+    },
+    "diagnostic-gizmo-native-1908-final.log": {
+      "sha256": "b513cf07a0ce3da3600a25ac77c0e3246d2239dac0153b143a291739649aa308",
+      "bytes": 3222
+    },
+    "diagnostic-qa-before-legacy-exclusion.log": {
+      "sha256": "7046fce88e1ed72dfcd520711ad4964fcd1dd54fc7cf8fcbc6058e9cf96a6e1f",
+      "bytes": 175712
+    },
+    "diagnostic-qa-filter-only.log": {
+      "sha256": "e89cd2383c818196cb3c25c0d3f5509cf18e1f3a3e78ab0af89c240c26337d70",
+      "bytes": 171743
+    },
+    "diagnostic-release-invalid-dataset-argument.json": {
+      "sha256": "d470d30a059293d8129d4eea1b75f2b2821dd9a0680c68a0d1f4129dd8984359",
+      "bytes": 758
+    },
+    "diagnostic-release-invalid-dataset-argument.log": {
+      "sha256": "5a2ccf1a8f5f213639380882c36b5365de282258f3391eddd5c270de8df50d93",
+      "bytes": 3096
+    },
+    "diagnostic-startup-before-legacy-exclusion.log": {
+      "sha256": "7046fce88e1ed72dfcd520711ad4964fcd1dd54fc7cf8fcbc6058e9cf96a6e1f",
+      "bytes": 175712
+    },
+    "diagnostic-startup-filter-only.log": {
+      "sha256": "e89cd2383c818196cb3c25c0d3f5509cf18e1f3a3e78ab0af89c240c26337d70",
+      "bytes": 171743
+    },
+    "gizmo-composition_lifecycle_checks-final.log": {
+      "sha256": "aab6bbb597847d9fff4179dcbcb1eea15b7f5479c65a8b6c9f3346ed6d4ff7ab",
+      "bytes": 1995
+    },
+    "gizmo-loading-47-after.log": {
+      "sha256": "85a9ae023e61a504c6ddad619d637398bf43bf7039d57eebc30e84e332646050",
+      "bytes": 1324
+    },
+    "gizmo-loading-cache-final.log": {
+      "sha256": "6e11c781805054208e9564a486a8a699854dcea4558144b53c0f71d1fb4eaafc",
+      "bytes": 2213
+    },
+    "gizmo-loading_parallel_checks-final.log": {
+      "sha256": "c8e64e7575c1a368694be5df47a4c704ebc6d9024c33963ac672613dbba52e56",
+      "bytes": 1480
+    },
+    "gizmo-native-1142-final.log": {
+      "sha256": "7257bf2ba50ec73fe98f5592c84943a2736add3ae83e22b46c3f6a56c19d27f7",
+      "bytes": 3437
+    },
+    "gizmo-native-1908-qualified.log": {
+      "sha256": "a8142da3f7b09b6a07b32e814b186daafd368d8462701dab30aad134e9fd0e74",
+      "bytes": 3222
+    },
+    "gizmo-occlusion-final.log": {
+      "sha256": "0b29244b6562dbba1d74bfedc54d974c05408939cf31725a68f4b8dd059b5499",
+      "bytes": 2130
+    },
+    "gizmo-solid-final.log": {
+      "sha256": "878a237c2b56d92b29f52cb9939b5599a993b3d3e668e900f4e158b2ab7f288f",
+      "bytes": 6019
+    },
+    "initial-color_transform_checks-1142x648.log": {
+      "sha256": "564de115f21e9f5d94bdbcf1fbdd9df0cedc78496ff30fbb61499b3644026eae",
+      "bytes": 3689
+    },
+    "initial-composition_lifecycle_checks-1142x648.log": {
+      "sha256": "ac680645556e90fff9db5877c8fa1e0607a91e13ea33c94a49543499d662971f",
+      "bytes": 4902
+    },
+    "initial-cortex_layout_checks-1908x960.log": {
+      "sha256": "9f5dd9418657f2c3aeb54c8a6d0b66e53b2615f63774bf2e4cc4303681e88adc",
+      "bytes": 4205
+    },
+    "initial-grid_shadow_checks-960x648.log": {
+      "sha256": "db89a2e4c29f76e9ec8a6de151f8297401d02437f5085c02c1b5343dc653ce41",
+      "bytes": 1954
+    },
+    "initial-loading_gpu_checks-64x64.log": {
+      "sha256": "0f53e3fa87a4cf916819c3cdd9c354aae7b7928d003d8bdf030ea9441bdb541d",
+      "bytes": 2057
+    },
+    "initial-mixed_occlusion_checks-1142x648.log": {
+      "sha256": "877e9a03799bc5a5be25f1153b08927d74aef23ffb8ea212f3c67bc79fbe8e3b",
+      "bytes": 2132
+    },
+    "initial-mixed_scene_checks-1142x648.log": {
+      "sha256": "53b6abdc4f2a46f3c0df46b89db96fde0911ba84ba12f2ed9d062c28a37216b7",
+      "bytes": 10337
+    },
+    "initial-model_navigation_checks-1142x648.log": {
+      "sha256": "f1f4ba06f2ea2270bbc891ad4f76b81398992b628b693a8069edfbf9008829c5",
+      "bytes": 5373
+    },
+    "initial-native_gizmo_checks-1908x960.log": {
+      "sha256": "ad10bea7184d4c2c434abd6fa1824be2fa1c24d45e5268e12d4ade0f7782898e",
+      "bytes": 2943
+    },
+    "initial-results.json": {
+      "sha256": "676bc8ba2ba9d8dc671e67273d7d6988a10b79113f56ea63e47376774187f102",
+      "bytes": 1811
+    },
+    "initial-solid_edit_checks-1142x648.log": {
+      "sha256": "d84ffc3f4b78cf0647b22ba8fa6cb3a4ffbd8cb1efb14cd6cf372460d5c2b377",
+      "bytes": 6023
+    },
+    "initial-studio_checks-1142x648.log": {
+      "sha256": "5078bbd8c9d367800dbdabca20ea8febc4b81ecd3f70ce30ad779a9a560280f8",
+      "bytes": 3489
+    },
+    "initial-ui_scale_checks-1142x648.log": {
+      "sha256": "69aae3687c1e7f4492f49ba41d2e996d3b8227203301abf62d81997819df6292",
+      "bytes": 2583
+    },
+    "initial-ui_scale_checks-1908x960.log": {
+      "sha256": "750c5ca673083772164f6a1c2fae1e73ea89856ee664ebc3a076e807e7cc7e0f",
+      "bytes": 2583
+    },
+    "native-gizmo-real-model.png": {
+      "sha256": "5a12108294398d0e1325eec16164b5ddf2675c90f0cee1fb5d2214dbfcf86a3a",
+      "bytes": 871807
+    },
+    "optimized-release.json": {
+      "sha256": "5607b32bc015405c969e1471220ffa19714deb9b072e23e442de041362751ed4",
+      "bytes": 709
+    },
+    "optimized-release.log": {
+      "sha256": "fcadda8435bc89bceedc25996adfb4df57eb325a7b2a48482c15466dd536cd8c",
+      "bytes": 4899
+    },
+    "packaged-main-startup-host.log": {
+      "sha256": "6fccdb64738736919eac1727d5dc6b42a6701e198ad6d9d025ad1fee24cfbad4",
+      "bytes": 649
+    },
+    "packaged-main-startup.log": {
+      "sha256": "265a9c9739058f5308c3a62acf62104a99e22600b6b95fd62eda2e55ae0eb54a",
+      "bytes": 611
+    },
+    "qa-export.log": {
+      "sha256": "b78584d02c3f8d7cebeee63d9a3d52ea06758469e3d7c80756668731ef5c5f39",
+      "bytes": 168464
+    },
+    "qa-package-receipt.json": {
+      "sha256": "ed62cd4c48aafaf210fc94bdfceb4b0bfe8299844eb5dc76003a5e4ef2a0c9ba",
+      "bytes": 16169
+    },
+    "requested-godot-gizmo.png": {
+      "sha256": "e37d8795ea1a82157ce08544a5bf695a9cdcbde3e29064c3dae87ad4d66030ca",
+      "bytes": 618711
+    },
+    "startup-export.log": {
+      "sha256": "b78584d02c3f8d7cebeee63d9a3d52ea06758469e3d7c80756668731ef5c5f39",
+      "bytes": 168464
+    },
+    "startup-package-receipt.json": {
+      "sha256": "c4943a13bb7a1fd1032205fb680528bac0436a81e05eb641e9eedd951cfbb5ba",
+      "bytes": 16158
+    },
+    "template-source-receipt.json": {
+      "sha256": "0de2095f187ade03a5a042ca6893d5fa62d0a8399a6c6e6ac7da8d719c8d5eae",
+      "bytes": 516
+    }
+  }
+}

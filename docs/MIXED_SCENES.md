@@ -29,6 +29,8 @@ Portable glTF needs relative dependency URIs or embedded data. Absolute dependen
 
 ## Ownership and preserved behavior
 
+The transform handles now use the Godot editor-gizmo runtime port for both GS and meshes. Combined, separate, planar, local/world and snapped interaction all submit to the same existing viewer pose/collision/undo owners. See [controls and integration](NATIVE_GIZMO.md).
+
 | Responsibility | Existing authoritative owner / extension |
 |---|---|
 | Import routes | ProductionUI and viewer; GLB/glTF adapter joins the current dispatcher |

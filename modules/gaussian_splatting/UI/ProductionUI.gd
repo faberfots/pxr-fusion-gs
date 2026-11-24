@@ -50,6 +50,20 @@ func _ready() -> void:
 	_scale_auxiliary_layout.call_deferred()
 	color_panel=%ColorAdjustmentPanel
 	transform_controls=%ModelTransformControls
+	%SettingsPanel.get_node("%GizmoSettings").bind(transform_controls.gizmo_preferences)
+	for section in [["GizmoSection","GizmoSettings","Gizmo · appearance and snapping"],["AboutSection","AboutLicenses","About & licences"]]:
+		var toggle:Button=%SettingsPanel.get_node("%"+section[0])
+		var content:Control=%SettingsPanel.get_node("%"+section[1])
+		var title:String=section[2]
+		toggle.toggled.connect(func(expanded):
+			# One expanded section keeps the floating workspace compact.
+			if expanded:
+				for other in [["GizmoSection","GizmoSettings"],["AboutSection","AboutLicenses"]]:
+					if other[1]!=content.name:
+						%SettingsPanel.get_node("%"+other[0]).button_pressed=false
+			content.visible=expanded;toggle.text=title+(" ▾" if expanded else " ▸")
+			%SettingsPanel.reset_size();%SettingsPanel._reflow()
+		)
 	status_label.visibility_changed.connect(func():status_label.get_parent().visible=status_label.visible)
 	_connect_signals();_initialize_ui_state()
 	%ClearBeforeImport.toggled.connect(func(enabled):

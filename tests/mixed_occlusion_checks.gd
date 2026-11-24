@@ -21,6 +21,9 @@ func run()->void:
 	var mesh:=await viewer.load_mesh_from_path("user://occlusion-native.glb",false,GaussianSplat.ImportKind.OBJECT)
 	var gs:=viewer.load_new_splat_from_path(Checks.fixture("user://occlusion-tree.ply",1))
 	while viewer.is_loading():await process_frame
+	# Measure scene composition, without the newly defaulted transform overlay
+	# painting its blue Z handle over the exact center pixel under test.
+	scene.get_node("ProductionUI").transform_controls.set_mode(GSModelTransformControls.Mode.SELECT)
 	gs.scale=Vector3.ONE*4;gs.position=Vector3(0,1,1)
 	viewer.camera_controller.position_camera_at(Vector3(0,1,4),Vector3(0,1,0));await settle()
 	for projection in [Camera3D.PROJECTION_PERSPECTIVE,Camera3D.PROJECTION_ORTHOGONAL]:

@@ -1,0 +1,379 @@
+{
+  "schema_version": 1,
+  "qualified_local_date": "2026-11-24",
+  "scope": "Windows x86_64 Godot 4.7.2.stable.official.ed1daf0bf; NVIDIA RTX 4070 Laptop Vulkan; 1142x648 and 1908x960; actual optimized release template and main entry point.",
+  "status": {
+    "combined_transform_tools": "fully implemented",
+    "user_customization_and_persistence": "fully implemented",
+    "project_attribution_and_notice_delivery": "fully implemented",
+    "local_release_qualification": "fully implemented"
+  },
+  "contract": {
+    "ssot": "One GSGizmoPreferences owner; authored settings and native renderer consume it. Existing viewer owns transforms, locks, group/collision acceptance and undo.",
+    "ui": "Collapsible Workspace settings sections; authored Appearance/Snapping/Advanced scenes, presets/reset and lazy About/Notices.",
+    "coverage": "Size and opacity including center handles; axis/outline colours; true GS/GLB bounds; guides/planes/rotation indicators; custom snap intervals; per-tool axis masks; safe cancel on settings change; independent process restart.",
+    "permissions": "No new AI tool, remote transmission or authentication role. Local editing preferences do not replace existing transform locks or capabilities.",
+    "performance": "Appearance refresh invalidates the cached overlay once. Existing idle cache tests pass. Credit/notice files are loaded only on explicit opening. GS algorithms/budgets unchanged by this follow-up."
+  },
+  "attribution": {
+    "company": "POLYGONICS SAS",
+    "root_license": "MIT",
+    "retained_original_author": "Copyright (c) 2024 Ethan Truong",
+    "added_notice": "Copyright (c) 2026 POLYGONICS SAS",
+    "original_project": "https://github.com/2Retr0/GodotGaussianSplatting",
+    "imported_revision": null,
+    "gizmo": {
+      "repository": "https://github.com/chrisizeful/Gizmo3D",
+      "commit": "f364d87912482a0ce81a9467c0f3c5e3c82dd385",
+      "license": "MIT",
+      "files": {
+        "LICENSE": "d844cc6f72bc0ac96709cda22fa7a86cdb5d0ec365e09418b2d69ca35eb32799",
+        "edit_data.gd": "40c32ba12d4c9582fadeea7699f6c7011133464e1af47efe83f5ec80da58accf",
+        "edit_data.gd.uid": "513d7a06158596e738b039adbaa372af297e0e0c5b5c714ea046ca14418f020a",
+        "gizmo3D.gd": "dbcf91af33ffe9ac4dbf8a426835da91fe095112ee6691d20ef70ad5612cf26f",
+        "gizmo3D.gd.uid": "d2ec5749ca2006d2dac1e5c1ad16742a4040899bc7473d4bd297ec06ae70ee0b",
+        "gizmo_helper.gd": "4567e6a6496911cedd85d0b290f24ae5d45f58fd134204c66fc71fda0f022925",
+        "gizmo_helper.gd.uid": "0746cc85da3b997c97576691cbc60fcc7e472d3dc71985433e1d668ffb01b695",
+        "gizmo_loader.gd": "562b87d74d5a8d59d4bc1efd4a461a36a6685ad633aee5801ca03d6bf56a904b",
+        "gizmo_loader.gd.uid": "4454b8db9c45b585312d12b2e5de91c38fed1cf2e400e11e44ccc3d063a13ea0",
+        "plugin.cfg": "9a03ea0c53e4a890311a095360427b46ed9d637fa7e68fbba28e56589cc4f6d6",
+        "selected_item.gd": "726ddb9e3c01602208610388de47f12a0994ecb1890b67314fcb5e04e19f0e22",
+        "selected_item.gd.uid": "43e58eb3d1689bb95b53302f55b478d59fae59c374307cbb8c3faa8e3544f5fe"
+      },
+      "local_changes": [
+        {
+          "path": "gizmo3D.gd",
+          "original_sha256": "dbcf91af33ffe9ac4dbf8a426835da91fe095112ee6691d20ef70ad5612cf26f",
+          "local_sha256": "d8962a1a0bd9b359f404e2023d1775c18f842a1b3ea044a5c6de8c96ad43a4b8",
+          "reason": "Authored draw surface and original Godot arrow proportions; live colour/opacity setter ordering; selection opacity refresh; hidden planes cannot be picked; plane visibility/picking requires both in-plane allowed axes."
+        },
+        {
+          "path": "edit_data.gd",
+          "original_sha256": "40c32ba12d4c9582fadeea7699f6c7011133464e1af47efe83f5ec80da58accf",
+          "local_sha256": "4405101eb7d6d412713faba02aa6a83ba6514dadeee26b1fe20ac702333f8c40",
+          "reason": "Reference-count temporary edit data so runtime teardown does not leak Objects."
+        },
+        {
+          "path": "selected_item.gd",
+          "original_sha256": "726ddb9e3c01602208610388de47f12a0994ecb1890b67314fcb5e04e19f0e22",
+          "local_sha256": "541b37df6361d73be8d73dd82bb5d5cf19cd0f9ee33606305b2035b0aea47876",
+          "reason": "Reference-count temporary selection data so runtime teardown does not leak Objects."
+        }
+      ],
+      "additional_notice": {
+        "path": "GODOT-LICENSE.txt",
+        "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+      }
+    },
+    "inventory": "docs/dependency-inventory.json",
+    "components": 33,
+    "retained_notice_files": 131,
+    "generator": "tools/generate_credits.py --check",
+    "scope": "Company notice covers its owned additions/modifications; third-party model/font/software terms remain independent. Original imported GS revision and wider asset provenance gaps remain unresolved."
+  },
+  "preservation_suites": [
+    {
+      "suite": "gizmo_preferences_checks",
+      "resolution": "1908x960",
+      "passed": true,
+      "exit": 0,
+      "seconds": 13.218,
+      "arguments": [
+        "--reopen"
+      ]
+    },
+    {
+      "suite": "native_gizmo_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 18.672,
+      "arguments": []
+    },
+    {
+      "suite": "native_gizmo_checks",
+      "resolution": "1908x960",
+      "passed": true,
+      "exit": 0,
+      "seconds": 20.516,
+      "arguments": []
+    },
+    {
+      "suite": "color_transform_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 20.609,
+      "arguments": []
+    },
+    {
+      "suite": "solid_edit_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 42.766,
+      "arguments": [
+        "C:/Users/User/AppData/Roaming/Godot/app_userdata/AssetBrowerLibrary/models/jesus_christ.glb",
+        "C:/Users/User/Downloads/3DModels_n_3DG_SAssets/glb_files/original/police_ford_raptor.glb"
+      ]
+    },
+    {
+      "suite": "ui_scale_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 18.828,
+      "arguments": []
+    },
+    {
+      "suite": "ui_scale_checks",
+      "resolution": "1908x960",
+      "passed": true,
+      "exit": 0,
+      "seconds": 20.312,
+      "arguments": []
+    },
+    {
+      "suite": "studio_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 27.875,
+      "arguments": []
+    },
+    {
+      "suite": "mixed_occlusion_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 27.969,
+      "arguments": []
+    },
+    {
+      "suite": "mixed_scene_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 27.156,
+      "arguments": []
+    },
+    {
+      "suite": "model_navigation_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 26.469,
+      "arguments": []
+    },
+    {
+      "suite": "composition_lifecycle_checks",
+      "resolution": "1142x648",
+      "passed": true,
+      "exit": 0,
+      "seconds": 16.844,
+      "arguments": []
+    },
+    {
+      "suite": "loading_gpu_checks",
+      "resolution": "64x64",
+      "passed": true,
+      "exit": 0,
+      "seconds": 12.344,
+      "arguments": []
+    },
+    {
+      "suite": "cortex_layout_checks",
+      "resolution": "1908x960",
+      "passed": true,
+      "exit": 0,
+      "seconds": 16.109,
+      "arguments": []
+    }
+  ],
+  "optimized_release": {
+    "passed": true,
+    "process_exit": 0,
+    "engine_sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562",
+    "entry_point": "res://tests/release_checks.tscn",
+    "datasets": [
+      "C:\\Users\\User\\Downloads\\3DModels_n_3DG_SAssets\\GS_Samples\\Bali_Ressort.ply",
+      "C:\\Users\\User\\Downloads\\3DModels_n_3DG_SAssets\\GS_Samples\\suzuki-bike-ply.ply"
+    ],
+    "meshes": [
+      "C:\\Users\\User\\AppData\\Roaming\\Godot\\app_userdata\\AssetBrowerLibrary\\models\\jesus_christ.glb",
+      "C:\\Users\\User\\AppData\\Roaming\\Godot\\app_userdata\\AssetBrowerLibrary\\models\\city_rtx.glb"
+    ],
+    "scope": "Windows x86_64, local Vulkan GPU, unsigned optimized-template package"
+  },
+  "full_population": 7959786,
+  "release_population_observation": "RELEASE POPULATION 7959786 load_ms 16255",
+  "source_sha256": {
+    "modules/gaussian_splatting/UI/ModelTransformControls.gd": "40c9fba7d6fa32a2f21550766647f9062c647934235de83dbbe358faf66aa307",
+    "modules/gaussian_splatting/UI/ModelTools.tscn": "3f6a125fcf76dd744eab96100cc1395d1655d4494f66782bacc5e239bdc09890",
+    "modules/gaussian_splatting/UI/RuntimeTransformGizmo.gd": "4eb3b5c7e0adf94105e355babbd623b9f48bf8b91ae3c0fc30439c7596dcbad8",
+    "modules/gaussian_splatting/UI/RuntimeTransformGizmo.tscn": "9a7affea4fbab62567dcbee81382ef2db6291508b864ba3dac1a0ef85e8d093b",
+    "modules/gaussian_splatting/UI/RuntimeGizmoBridge.gd": "21aa58ee98e624991724594b2e4bb4be683495a921d44f0d9834a5bf3488581e",
+    "modules/gaussian_splatting/UI/GizmoPreferences.gd": "a706fe18284f11fb85caf71cdcc3e7a8b4aec4c5cbec383ee6cc6a3b6ded4315",
+    "modules/gaussian_splatting/UI/GizmoSettings.gd": "2db6b6e14caca8228709972cfc6515ce56f20f0658b96b56784e0cc0e29cffbf",
+    "modules/gaussian_splatting/UI/GizmoSettings.tscn": "616c12029d60834929f679f6377305e93f9c2dbf60042e354daf2952b01f3c6f",
+    "modules/gaussian_splatting/UI/AboutLicenses.gd": "52c180fb8a39a8fc5694e047c10cab782661ebd553b48e87478039b93df2dc55",
+    "modules/gaussian_splatting/UI/AboutLicenses.tscn": "a46c7e6753b27cb0426509c71712c63b2c8df310409ee7130ea3a4af3c1a2cf4",
+    "modules/gaussian_splatting/UI/SettingsPanel.tscn": "a129614f27b697ca99e441750c99e771d6e8eed8da38772a6ef15dec36987e5b",
+    "modules/gaussian_splatting/UI/ProductionUI.gd": "e437e91cf6e76ebb83c87ded2672c50ce9173ae122126d453395fd2e7a0fe2b9",
+    "addons/Gizmo3DScript/gizmo3D.gd": "d8962a1a0bd9b359f404e2023d1775c18f842a1b3ea044a5c6de8c96ad43a4b8",
+    "assets/legal/credits.json": "ecabf9f839aa16eb774759d2e4148adabff616802563f283a004e4e2f728ee77",
+    "assets/legal/notices.txt": "a01bfe1d6fe0cab07e88c1a636eb66d141341b8c56628a56ce73cb27c96e62e7",
+    "tests/release_checks.gd": "ad497de14201a9a441808a3e883de27b11b3b201bc4bdfec7e22aaaf8c035522",
+    "export_presets.cfg": "a8dd688d8b44c49acc69c644c94c63863b531f94434994415e7d802b53643318"
+  },
+  "packages": {
+    "qa": {
+      "snapshot": "C:\\Users\\User\\AppData\\Local\\Temp\\gs-package-source-mhviama7",
+      "product_sources_match": true,
+      "path": "C:\\Users\\User\\Documents\\pxr-fusion-gs-enhanced-ssot-fsm-vbs-godot-integration-new-plus\\build\\gizmo-custom-release-qa"
+    },
+    "main": {
+      "snapshot": "C:\\Users\\User\\AppData\\Local\\Temp\\gs-package-source-rkgm1b1k",
+      "product_sources_match": true,
+      "path": "C:\\Users\\User\\Documents\\pxr-fusion-gs-enhanced-ssot-fsm-vbs-godot-integration-new-plus\\build\\gizmo-custom-startup"
+    }
+  },
+  "diagnostics": {
+    "initial_customization": "Fixed native engine copyright key access and authored SpinBox steps offsetting requested snap values. Both real pointer snapping and actual template notice reads pass.",
+    "validation_fixture": "Safe clamps use float32 Vector2 limits; assertion now uses approximate comparison for the 0.1 bound while retaining invalid-type/NaN/mask recovery assertions.",
+    "legal_whitespace": "Original notice whitespace and pinned vendor bytes are retained. Git whitespace checks exclude only vendor/original legal text; application source remains checked. Generated legal text hashes use UTF-8/LF for reproducible cross-platform checkouts."
+  },
+  "boundaries": [
+    "No authenticated vendor, XR, mobile or other GPU/vendor qualification is claimed.",
+    "Portable Cortex binaries/large ignored model packs were retained, not newly published or relabelled MIT.",
+    "No FPS-equivalence guarantee; full population, existing rendering/editing behavior and idle redraw suppression are verified.",
+    "Earlier qualified packages remain separate and unchanged.",
+    "CI is aligned to Godot 4.7.2; its publication run is reported separately. Broader audit statuses remain 61 fully / 5 partially implemented."
+  ],
+  "evidence": {
+    "color_transform_checks-1142x648.log": {
+      "sha256": "004f42c69be7a402e6f0004812c985d4a33b2032def4a8683b703ab0033a3114",
+      "bytes": 3696
+    },
+    "composition_lifecycle_checks-1142x648.log": {
+      "sha256": "805ea102316e70bf1ab7a94251b18b7cd9d4f0d93741c59158ea7efc4de2fbb5",
+      "bytes": 2002
+    },
+    "cortex_layout_checks-1908x960.log": {
+      "sha256": "e79bb57938ad7304afad12952717bf15c9cb9f79a4a776f1047a8039f77b720b",
+      "bytes": 4212
+    },
+    "gizmo-credits.png": {
+      "sha256": "0a5776001b24cf28c171c40bdcb257fe21214fb078c5b923fb6eaded454b0c43",
+      "bytes": 825818
+    },
+    "gizmo-custom-preferences-1908.log": {
+      "sha256": "a6ca34ef668af9ab228ddaf6525d1fce938843e09eaae9b03fd1a28cbb4f09fa",
+      "bytes": 2682
+    },
+    "gizmo-custom-preferences-current.log": {
+      "sha256": "93ea712cff9995541a8f25c70e79821f4503450c5db50ac2509987442ec76233",
+      "bytes": 2748
+    },
+    "gizmo-custom-preferences-qualified.log": {
+      "sha256": "30f5a3738ede4d4e3d49487cb041ce3cd48e32d185964c3129ae89728bfce2ea",
+      "bytes": 2583
+    },
+    "gizmo-custom-restart-final.log": {
+      "sha256": "8444a3b138ca2f92c0058b3046fe375891a92a87b42494d0ac3b331f6adced5d",
+      "bytes": 1065
+    },
+    "gizmo-settings-appearance.png": {
+      "sha256": "1075a39fe5c58976e7587b16de2bce6d35cb35475e5922d02d5c0228bbbcb4a8",
+      "bytes": 815153
+    },
+    "gizmo_preferences_checks-1908x960.log": {
+      "sha256": "8444a3b138ca2f92c0058b3046fe375891a92a87b42494d0ac3b331f6adced5d",
+      "bytes": 1065
+    },
+    "initial-diagnostic-gizmo-custom-preferences-final.log": {
+      "sha256": "ea06dacfb9d00827fe11b6ee7aa7735843c4ca66db6ceb6084ea99a17801909e",
+      "bytes": 2583
+    },
+    "initial-diagnostic-gizmo-custom-preferences.log": {
+      "sha256": "a2611a9b38416983945a867e9f9fdefdea58d45d81b4ae753824620495648510",
+      "bytes": 3030
+    },
+    "loading_gpu_checks-64x64.log": {
+      "sha256": "2c8182567451563922fa6b89fe86d4a77a412a044bc3f403f530ce8c073efe59",
+      "bytes": 1331
+    },
+    "main-export.log": {
+      "sha256": "6da585f9af6827d9d11b10e3ca3cecfdc4d8a2b69a55d29870cdfb7c180a1c2b",
+      "bytes": 170342
+    },
+    "main-package-receipt.json": {
+      "sha256": "d49c8883a914e2874a06db5f381808cdbf882337526cc2fa43d255a6ff9674e8",
+      "bytes": 16709
+    },
+    "mixed_occlusion_checks-1142x648.log": {
+      "sha256": "2a6deaa4ac93df509c201d46a05567c7a2075f64e94f45b9fd9ae6328e242f19",
+      "bytes": 2137
+    },
+    "mixed_scene_checks-1142x648.log": {
+      "sha256": "950adba0f2d4e3a5814839790535be956c2ef2432c63d3a8a7bc6f07133fe116",
+      "bytes": 10344
+    },
+    "model_navigation_checks-1142x648.log": {
+      "sha256": "a529f7051e545ab4a3fbf9571e0a007252c4a7963e409a797f4e89c545cc2a9c",
+      "bytes": 5380
+    },
+    "native_gizmo_checks-1142x648.log": {
+      "sha256": "3c6220761fb1bd749e5026e82158ad404fb76cf553866d3c37101cb8749ff973",
+      "bytes": 3229
+    },
+    "native_gizmo_checks-1908x960.log": {
+      "sha256": "3c6220761fb1bd749e5026e82158ad404fb76cf553866d3c37101cb8749ff973",
+      "bytes": 3229
+    },
+    "optimized-release.json": {
+      "sha256": "5607b32bc015405c969e1471220ffa19714deb9b072e23e442de041362751ed4",
+      "bytes": 709
+    },
+    "optimized-release.log": {
+      "sha256": "12e4bc4deee00f096189ec66673a769a978f4a693f5d707b34423255a4c4d721",
+      "bytes": 5155
+    },
+    "packaged-main-startup-host.log": {
+      "sha256": "6fccdb64738736919eac1727d5dc6b42a6701e198ad6d9d025ad1fee24cfbad4",
+      "bytes": 649
+    },
+    "packaged-main-startup.log": {
+      "sha256": "265a9c9739058f5308c3a62acf62104a99e22600b6b95fd62eda2e55ae0eb54a",
+      "bytes": 611
+    },
+    "qa-export.log": {
+      "sha256": "6da585f9af6827d9d11b10e3ca3cecfdc4d8a2b69a55d29870cdfb7c180a1c2b",
+      "bytes": 170342
+    },
+    "qa-package-receipt.json": {
+      "sha256": "c98eee86e1334c46bd0f144d563c26602ad53df0f81482e057c797148362faaf",
+      "bytes": 16720
+    },
+    "results.json": {
+      "sha256": "09f7c2838431c7a93aaf4294e75f9619fa68ef021ee99d6d638045382307a8e6",
+      "bytes": 2493
+    },
+    "solid_edit_checks-1142x648.log": {
+      "sha256": "5a956efed257c67490138b589db5ee2970635a3f3aae44b21d495f9af8efbf52",
+      "bytes": 6030
+    },
+    "studio_checks-1142x648.log": {
+      "sha256": "ec38d7100570f1bf4562e3903eba7b8496feece08d32ded9e32ea66742950e57",
+      "bytes": 3496
+    },
+    "ui_scale_checks-1142x648.log": {
+      "sha256": "74515b0cbfce801a69d9b3b6221d1f90d171fb900dd64ef2f37337040c64ea3d",
+      "bytes": 2590
+    },
+    "ui_scale_checks-1908x960.log": {
+      "sha256": "bb405a5beae161b6d034b2911757d5a0272947d26e4f175b7cc1e621ce734ab7",
+      "bytes": 2590
+    }
+  }
+}

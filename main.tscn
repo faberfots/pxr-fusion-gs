@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/Skydome.gd" id="10_xuqvo"]
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="11_qsp4k"]
 [ext_resource type="Texture2D" uid="uid://xnj7w7sh3s56" path="res://assets/materials/textures/prototype-texture-with-size.png" id="12_kq58d"]
-[ext_resource type="Shader" path="res://modules/gaussian_splatting/shaders/spatial/reference_grid.gdshader" id="reference_grid"]
 [ext_resource type="Script" uid="uid://dqus7rcnh3aex" path="res://modules/gaussian_splatting/cameras/camera_controller.gd" id="13_seu75"]
 [ext_resource type="Script" uid="uid://c51vs1onog0h1" path="res://modules/gaussian_splatting/cameras/freelook_camera.gd" id="14_htxhm"]
 [ext_resource type="Script" uid="uid://caju1sfwuoodb" path="res://modules/gaussian_splatting/cameras/cursor.gd" id="15_jq2sk"]
@@ -24,6 +23,7 @@
 [ext_resource type="Script" uid="uid://clw7h5rga4cpb" path="res://modules/gaussian_splatting/core/gs_memory_monitor.gd" id="21_d13ii"]
 [ext_resource type="PackedScene" uid="uid://bkyfbfxl18n7g" path="res://modules/gaussian_splatting/UI/SceneManagerPanel.tscn" id="23_d13ii"]
 [ext_resource type="PackedScene" path="res://modules/gaussian_splatting/scenes/gs_shadow_receiver.tscn" id="gs_shadow_receiver"]
+[ext_resource type="Shader" uid="uid://cewry2x8iyo6j" path="res://modules/gaussian_splatting/shaders/spatial/reference_grid.gdshader" id="reference_grid"]
 [ext_resource type="PackedScene" path="res://modules/gaussian_splatting/UI/DiagnosticsPanel.tscn" id="studio_diagnostics"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e7ec3"]
